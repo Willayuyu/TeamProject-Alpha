@@ -6,6 +6,9 @@ package com.example.fidledemo.BO;
  */
 public enum ResultCode
 {
+  /**
+   * 状态码枚举
+   */
   SUCCESS(1,"请求成功"),
   UN_AUTHORIZED(1001,"无访问权限"),
   SESSION_EXPIRED(1002,"会话过期"),
