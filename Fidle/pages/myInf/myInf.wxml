@@ -1,0 +1,36 @@
+<!--pages/myInf/myInf.wxml-->
+<view class="container">
+  <view class="photobg" bindtap="changeInf">
+    <view>
+      <view><image class="photo" src="{{imgsrc}}"></image></view>
+      <van-icon name="share-o" color="#7DB5EE" class="top"/>
+      <view class="username words">{{username}}</view>
+      <view class="userid words">id: {{userid}}</view>
+    </view>
+  </view>
+  <view class="itembg">
+    <view class="itemname words">信用分
+      <text class="itemcontent words" decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{credit}}</text>
+    </view>
+  </view>
+  <view class="itembg">
+    <view class="itemname words" decode="{{true}}">曾获评价 
+      <text decode="{{true}}">&nbsp;&nbsp;</text>
+      <text class="itemcontent words iconfont icon-cc-thumbs-up" decode="{{true}}">&nbsp;&nbsp;×{{goodcmt}}</text>
+      <text decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;</text>
+      <text class="itemcontent words iconfont icon-cc-thumbs-down" decode="{{true}}">&nbsp;&nbsp;×{{badcmt}}</text>
+      <van-icon name="arrow" color="#7DB5EE" class="right"/>
+    </view>
+  </view>
+  <view class="itemlist">
+    <van-grid>
+      <van-grid-item icon="cart-circle-o" text="二手" url=""/>
+      <van-grid-item icon="label-o" text="任务" url=""/>
+      <van-grid-item icon="bullhorn-o" text="活动" url=""/>
+      <van-grid-item icon="star-o" text="收藏" url=""/>
+    </van-grid>
+  </view>
+  <view class="itembg" bindtap="aboutus">
+    <view class="itemname words iconfont">关于我们<van-icon name="arrow" color="#7DB5EE" class="right"/></view>
+  </view>
+</view>

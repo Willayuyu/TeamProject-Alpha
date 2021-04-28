@@ -1,0 +1,21 @@
+<!--pages/aboutus/aboutus.wxml-->
+<view class="container">
+  <view class="envelop">
+    <view>
+      <image class="img" src="/img/logo.png"></image>
+    </view>
+    <view class="group">
+      <view class="title"><text class="iconfont icon-flag"></text><text> 项目初衷\n</text></view>
+      <view class="content"><text>主要是为了方便校内闲置物品的出售、委托及时被接受、各类活动有个专门的推广平台。</text></view>
+    </view>
+    <view class="group">
+      <view class="title"><text class="iconfont icon-plane"></text><text>未来愿景\n</text></view>
+      <view class="content"><text>未来希望能够把校园互助平台的功能完善，让这个平台能够真正受益于福大校内学生，生生不息。</text></view>
+    </view>
+    <view class="group">
+      <view class="title"><text class="iconfont icon-mail"></text><text> 联系我们\n</text></view>
+      <view class="content"><text>邮箱：1394361375</text></view>
+    </view>
+  </view>
+</view>
+

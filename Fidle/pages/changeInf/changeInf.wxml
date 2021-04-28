@@ -1,0 +1,24 @@
+<!--pages/changeInf/changeInf.wxml-->
+<view class="container">
+  <view class="photobg" bindtap="changeInf">
+    <view><image class="photo" src="{{imgsrc}}"></image></view>
+  </view>
+  <view class="itembg">
+    <view class="itemname words">
+      <text class="iconfont icon-person left"></text>
+      {{username}}
+    </view>
+  </view>
+  <view class="itembg">
+    <view class="itemname words">
+      <text class="iconfont icon-phone left"></text>
+      {{phonenum}}
+    </view>
+  </view>
+  <view class="itembg">
+    <view class="itemname words">
+      <text class="iconfont icon-qq left"></text>
+      {{qqnum}}
+    </view>
+  </view>
+</view>

@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "van-grid": "/components/dist/grid/index",
+    "van-grid-item": "/components/dist/grid-item/index",
+    "van-icon": "/components/dist/icon/index"
+  }
+}

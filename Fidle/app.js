@@ -14,6 +14,13 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+    imgsrc:"/images/photo.jpg",
+    username:"Fidle",
+    userid:"a12345",
+    credit:"104",
+    goodcmt:5,
+    badcmt:1,
+    phonenum:"15728051975",
+    qqnum:"3113937807",
   }
 })
