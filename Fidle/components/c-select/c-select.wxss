@@ -1,0 +1,86 @@
+/* pages/components/c-select/c-select.wxss */
+.ms-content-box {
+  width: 160rpx;
+}
+
+.ms-content {
+  border: 1rpx solid #e2e2e2;
+  background: white;
+  font-size: 32rpx;
+  position: relative;
+  height: 60rpx;
+  line-height: 60rpx;
+}
+
+.ms-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0 80rpx 0 12rpx;
+  font-size: 20rpx;
+}
+
+.ms-options {
+  background: white;
+  width: inherit;
+  position: absolute;
+  border: 1rpx solid #e2e2e2;
+  border-top: none;
+  box-sizing: border-box;
+  z-index: 3;
+  max-height: 240rpx;
+  overflow: auto;
+}
+
+.ms-option {
+  height: 60rpx;
+  line-height: 60rpx;
+  border-top: 1rpx solid #e2e2e2;
+  padding: 0 12rpx;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 20rpx;
+}
+
+.ms-item:first-child {
+  border-top: none;
+}
+
+.icon-right, .icon-down, .icon-up {
+  display: inline-block;
+  padding-right: 7rpx;
+  position: absolute;
+  right: 10rpx;
+  top: 10rpx;
+}
+
+.icon-right::after, .icon-down::after, .icon-up::after {
+  content: "";
+  display: inline-block;
+  position: relative;
+  bottom: 2rpx;
+  margin-left: 10rpx;
+  height: 15rpx;
+  width: 15rpx;
+  border: solid #bbb;
+  border-width: 4rpx 4rpx 0 0;
+}
+
+.icon-right::after {
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.icon-down::after {
+  bottom: 14rpx;
+  -webkit-transform: rotate(135deg);
+  transform: rotate(135deg);
+}
+
+.icon-up::after {
+  bottom: 6rpx;
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
