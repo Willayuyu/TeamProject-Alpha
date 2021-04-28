@@ -114,7 +114,6 @@ public class TaskDO
     
   private Integer size;  
     
-
   private Boolean distinct;
 
 
