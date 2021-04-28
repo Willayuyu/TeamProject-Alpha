@@ -16,7 +16,7 @@
       <view class="secondhand-title">软件工程 第八版 全新未拆封 好价速来！</view>
       <!-- 标签 -->  
       <view class="secondhand-tag">
-        <image src="../../images/label.png" mode="widthFix"></image>
+        <image src="../../icons/label.png" mode="widthFix" class="lable"></image>
         <text class="tag">全新</text>
         <text class="tag">教材</text>
         <text class="tag">大三</text>

@@ -3,8 +3,12 @@
   width: 100vw;
   height: 100vh;
 }
+/* .lable{
+  display: block;
+  margin-top: 10px;
+} */
 .secondhand-list{
-  margin-top: 10rpx;
+  margin:20rpx;
 }
 
 .secondhand-item{
@@ -67,7 +71,7 @@
 
 .tag{
   background-color: #F3F4F4;
-  margin-left: 15rpx;
+  margin-left: 20rpx;
   border-radius: 5rpx;
   font-size: 30rpx;
 }
