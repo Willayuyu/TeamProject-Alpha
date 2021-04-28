@@ -1,6 +1,4 @@
 // pages/detailsPage/detailsPage.js
-import Toast from '@vant/weapp/toast/toast';
-
 Page({
 
   /**
@@ -44,13 +42,6 @@ Page({
     that.setData({
       isStar: !state
     })
-    if(!state)
-    {
-      Toast({
-        position: 'bottom',
-        message: '收藏成功！'
-      });
-    }
   },
   
   /**
