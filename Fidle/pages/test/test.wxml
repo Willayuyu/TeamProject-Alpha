@@ -1,0 +1,53 @@
+<!--pages/test/test.wxml-->
+<view>
+  <view class="nav_head">
+    <input class="input_box" placeholder="请输入关键词"/>
+    <view class="search_btn">搜索</view>
+  </view>
+  <van-tabs bind:click="tab_Click" swipeable="{{true}}" color="#7DB5EE">
+    <van-tab title="二手">
+      <view class="tab">
+        <view class="screen_btn">
+          价格
+          <image src="/images/shangxia.png" mode="widthFix" class="img"></image>
+        </view>
+        <view class="screen_btn">
+          新旧
+          <image src="/images/shangxia.png" mode="widthFix" class="img"></image>
+        </view>
+        <c-select initSelect="{{secTime}}" prop-array='{{secTimeArray}}'  bind:select='select'/>
+        <c-select initSelect="{{secSort}}" prop-array='{{secSortArray}}'  bind:select='select'/>
+        <c-select initSelect="{{secDegree}}" prop-array='{{secDegreeArray}}'  bind:select='select'/>
+      </view>
+    </van-tab>
+    <van-tab title="任务">
+      <view class="tab">
+        <view class="screen_btn">
+        酬劳
+        <image src="/images/shangxia.png" mode="widthFix" class="img"></image>
+        </view>
+        <view class="screen_btn screen_btn_large">
+          截止时间
+          <image src="/images/shangxia.png" mode="widthFix" class="img"></image>
+        </view>
+        <c-select initSelect="{{taskTime}}" prop-array='{{taskTimeArray}}'  bind:select='select'/>
+        <c-select initSelect="{{taskSort}}" prop-array='{{taskSortArray}}'  bind:select='select'/>
+      </view>
+    </van-tab>
+    <van-tab title="活动">
+      <view class="tab">
+        <view class="screen_btn screen_btn_large">
+          活动时间
+          <image src="/images/shangxia.png" mode="widthFix" class="img"></image>
+        </view>
+        <c-select initSelect="{{activityTime}}" prop-array='{{activityTimeArray}}'  bind:select='select'/>
+        <c-select initSelect="{{activitySort}}" prop-array='{{activitySortArray}}'  bind:select='select'/>
+      </view>
+    </van-tab>
+  </van-tabs> 
+  <view>
+  </view>
+</view>
+
+
+
