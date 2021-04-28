@@ -1,19 +1,81 @@
-/**index.wxss**/
-.userinfo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: #aaa;
+.main{
+  background-color: #F0F2F7;
+  width: 100vw;
+  height: 100vh;
+}
+.secondhand-list{
+  margin-top: 10rpx;
 }
 
-.userinfo-avatar {
-  overflow: hidden;
-  width: 128rpx;
-  height: 128rpx;
+.secondhand-item{
   margin: 20rpx;
-  border-radius: 50%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  background-color: #fff;
+  border-radius: 15rpx;
 }
 
-.usermotto {
-  margin-top: 200px;
+.secondhand-img-wrap{
+  width: 35%;
+  display: flex;
+  /* justify-content: center; */
+  /* align-items: center; */
+}
+
+.secondhand-img-wrap image{
+  width: 90%;
+  border-radius: 15rpx;
+}
+
+.other-info{
+  width: 60%;
+  margin: 35rpx 0;
+}
+
+.btns{
+  margin: 25rpx 0;
+}
+
+.btn-contact-seller,.btn-collect{
+  /* width: 230rpx; */
+  font-size: 30rpx;
+  display: inline;
+  justify-content:center;
+  align-items: center;
+  background-color: #7DB5EE;
+  color: #fff;
+  border-radius: 10rpx;
+  padding:16rpx;
+  /* margin: 10rpx; */
+  margin-top: 50rpx;
+  margin-right:30rpx;
+  /* flex: 1; */
+
+} 
+
+.price{
+  color: #F14836;
+}
+
+.price-origin{
+  font-size: 30rpx;
+  color: #bbb;
+  text-decoration: line-through;
+  margin-left: 18rpx;
+}
+
+.tag{
+  background-color: #F3F4F4;
+  margin-left: 15rpx;
+  border-radius: 5rpx;
+  font-size: 30rpx;
+}
+
+.pic{
+  margin: 30rpx;
+}
+
+.secondhand-tag image{
+  width: 40rpx;
 }
