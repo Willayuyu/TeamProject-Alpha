@@ -2,7 +2,7 @@
 <view class="container">
   <view class="envelop">
     <view>
-      <image class="img" src="/img/logo.png"></image>
+      <image class="img" src="/images/logo.png"></image>
     </view>
     <view class="group">
       <view class="title"><text class="iconfont icon-flag"></text><text> 项目初衷\n</text></view>
