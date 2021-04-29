@@ -1,0 +1,52 @@
+<view class="containers">
+  <view class="slides">
+    <swiper autoplay indicator-dots circular>
+      <view wx:for="{{swiperList}}">
+        <swiper-item bindtap="preview" data-index="{{index}}">
+          <image mode="widthFix" src="{{item}}"></image>
+        </swiper-item>
+      </view>
+    </swiper>
+  </view>
+  <view class="detalsCard">
+    <view class="title">
+      <text decode="true">{{title}}</text>
+    </view>
+    <view class="place">
+      <text>活动地点：</text>
+      <text>{{place}}</text>
+    </view>
+    <view class="time">
+      <text>活动开始：</text>
+      <text>{{beginTime}}</text>
+    </view>
+    <view class="time">
+      <text>活动截止：</text>
+      <text>{{endTime}}</text>
+    </view>
+    <view class="tags">
+      <view class="tag">
+        <text>类别:</text>
+        <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
+        <van-tag wx:for="{{tagsList}}" wx:key="{{index}}" color="#f3f4f4" text-color="#323232">{{item}}</van-tag>
+      </view>
+      <view class="tag">
+        <text decode="true">标签:</text>
+        <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
+        <van-tag wx:for="{{tagsList}}" wx:key="{{index}}" color="#f3f4f4" text-color="#323232">{{item}}</van-tag>
+      </view>
+    </view>
+    <view class="content">
+      <text>活动形式：</text>
+      <text>{{activityForm}}</text>
+    </view>
+  </view>
+  <view class='placeholder-view'></view>
+  <view class="bottomCard" style="position:fixed; bottom:0rpx; width: 100%;">
+    <van-icon name="wap-home-o" size="50rpx"/>
+    <van-icon name="star" size="50rpx" bind:click="onClickStar" wx:if="{{isStar}}"/>
+    <van-icon name="star-o" size="50rpx" bind:click="onClickStar" wx:else="{{isStar}}"/>
+    <image class="tagsIcon" mode="widthFix" src="../../icons/jubao.png"></image>
+  </view>
+  <van-toast id="van-toast"/>
+</view>

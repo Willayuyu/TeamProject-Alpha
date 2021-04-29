@@ -5,7 +5,7 @@
 
 <!-- 二手物品列表 -->
 <view class="secondhand-list">
-  <navigator class="secondhand-item">
+  <navigator class="secondhand-item" url="/pages/detailsPage/detailsPage?title=detailsPage">
     <!-- 图片 -->  
     <view class="secondhand-img-wrap">  
       <image class="pic" src="../../images/book.png" mode="widthFix"></image>

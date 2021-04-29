@@ -6,6 +6,8 @@
     "pages/changeInf/changeInf",
     "pages/aboutus/aboutus",
     "pages/detailsPage/detailsPage",
+    "pages/activityDetailsPage/activityDetailsPage",
+    "pages/taskDetailsPage/taskDetailsPage",
     "pages/publish/publish",
     "pages/myInf/myInf",
     "pages/login/login",
