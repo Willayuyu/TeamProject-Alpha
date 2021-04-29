@@ -5,35 +5,39 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 图片BO类
+ * 类别
  * @author 11313
  */
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class ImageBO
+@AllArgsConstructor
+public class CategoryBO
 {
+  //分类
+
   public static final Integer GOODS=1;
 
   public static final Integer TASK=2;
 
   public static final Integer ACTIVITY=3;
 
+
   private Long id;
 
   /**
-   * 图片链接
+   * 类别编号
    */
-  private String imageLink;
+  private Integer categoryId;
 
   /**
-   * 图片类别
+   *  类别名称
+   */
+  private String categoryDesignation;
+
+  /**
+   * 类别分类
    */
   private Integer type;
 
-  /**
-   * 操作时间信息
-   */
-  private GmtInfo gmtInfo;
 
 }

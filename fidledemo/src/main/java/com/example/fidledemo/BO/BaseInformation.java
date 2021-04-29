@@ -35,12 +35,12 @@ public abstract class BaseInformation
   /**
    * 标签列表
    */
-  protected List<TagBO> tagBOList;
+  protected List<TagBO> tagList;
 
   /**
    * 分类
    */
-  protected Integer category;
+  protected CategoryBO category;
 
   /**
    * 操作时间信息
