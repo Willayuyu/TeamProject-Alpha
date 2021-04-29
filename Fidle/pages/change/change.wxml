@@ -1,0 +1,29 @@
+<!--pages/changeInf/changeInf.wxml-->
+<view class="container">
+  <view class="photobg" bindtap="changeInf">
+    <view><image class="photo" src="{{imgsrc}}"></image></view>
+  </view>
+  <form bindsubmit="change">
+    <view class="itembg">
+      <view class="itemname words">
+        <text class="iconfont icon-person left"></text>
+        <input class="weui-input" name="username" placeholder="请输入昵称"/>
+      </view>
+    </view>
+    <view class="itembg">
+      <view class="itemname words">
+        <text class="iconfont icon-phone left"></text>
+        <input class="weui-input" name="phonenum" maxlength="11" type="number" placeholder="请输入电话号码" />
+      </view>
+    </view>
+    <view class="itembg">
+      <view class="itemname words">
+        <text class="iconfont icon-qq left"></text>
+        <input class="weui-input" name="qqnum" type="number" placeholder="请输入QQ号码" />
+      </view>
+    </view>
+    <view class="buttongroup">
+      <button class="button" style="width:400rpx" form-type="submit">确认修改</button>
+    </view>
+  </form>
+</view>

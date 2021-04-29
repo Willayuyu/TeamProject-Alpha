@@ -21,4 +21,8 @@
       {{qqnum}}
     </view>
   </view>
+  <view class="buttongroup">
+    <button class="button" style="width:400rpx" bindtap="change">修改信息</button>
+    <button class="button" style="width:400rpx" bindtap="logout">退出登录</button>
+  </view>
 </view>

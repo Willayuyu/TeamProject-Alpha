@@ -34,18 +34,23 @@
   margin-top: 40rpx;
   border-radius: 20rpx;
   position: relative;
+  height: 80rpx;
+  justify-items: center;
 }
 
 .left {
   position: absolute;
   left: 0;
   margin-left: 40rpx;
-  margin-top: 4rpx;
+  margin-top: 25rpx;
 }
 
 .itemname {
-  margin: 20rpx 50rpx;
-  text-align: center;
+  margin-left: 110rpx;
+}
+
+.weui-input {
+  padding-top: 18rpx;
 }
 
 .buttongroup {
