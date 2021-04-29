@@ -1,0 +1,11 @@
+<van-tabs active="collect">
+  <van-tab title="二手物品" name="goods">
+    二手物品
+  </van-tab>
+  <van-tab title="任务委托" name="task">
+    任务委托
+  </van-tab>
+  <van-tab title="活动信息" name="activity">
+    活动信息
+  </van-tab>
+</van-tabs>

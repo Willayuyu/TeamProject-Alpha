@@ -24,10 +24,10 @@
   </view>
   <view class="itemlist">
     <van-grid>
-      <van-grid-item icon="cart-circle-o" text="二手" url=""/>
-      <van-grid-item icon="label-o" text="任务" url=""/>
-      <van-grid-item icon="bullhorn-o" text="活动" url=""/>
-      <van-grid-item icon="star-o" text="收藏" url=""/>
+      <van-grid-item icon="cart-circle-o" text="二手" url="../goods/goods"/>
+      <van-grid-item icon="label-o" text="任务" url="../task/task"/>
+      <van-grid-item icon="bullhorn-o" text="活动" url="../activity/activity"/>
+      <van-grid-item icon="star-o" text="收藏" url="../collect/collect"/>
     </van-grid>
   </view>
   <view class="itembg" bindtap="aboutus">

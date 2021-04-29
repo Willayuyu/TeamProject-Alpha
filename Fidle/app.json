@@ -11,6 +11,10 @@
     "pages/publish/publish",
     "pages/myInf/myInf",
     "pages/login/login",
+    "pages/goods/goods",
+    "pages/task/task",
+    "pages/activity/activity",
+    "pages/collect/collect",
     "pages/logs/logs"
   ],
   "window": {

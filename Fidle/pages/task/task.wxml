@@ -1,0 +1,8 @@
+<van-tabs active="task">
+  <van-tab title="已发布" name="publish">
+    已发布
+  </van-tab>
+  <van-tab title="已接受" name="recept">
+    已接受
+  </van-tab>
+</van-tabs>

@@ -1,0 +1,5 @@
+<van-tabs active="activity">
+  <van-tab title="已发布" name="publish">
+    已发布
+  </van-tab>
+</van-tabs>

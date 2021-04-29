@@ -1,0 +1,12 @@
+<van-tabs active="goods">
+  <van-tab title="在售" name="sell">
+    在售
+  </van-tab>
+
+  <van-tab title="售出" name="sold">
+    售出
+  </van-tab>
+  <van-tab title="活动信息" name="buy">
+    买入
+  </van-tab>
+</van-tabs>
