@@ -9,14 +9,42 @@
     </swiper>
   </view>
   <view class="detalsCard">
-    
+    <view class="title">
+      <text decode="true">{{title}}</text>
+    </view>
+    <view class="price">
+      <text class="current">￥{{currentPrice}}</text>
+      <text class="original">￥{{originalPrice}}</text>
+    </view>
+    <view class="tags">
+      <view class="tag">
+        <text>类别:</text>
+        <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
+        <van-tag wx:for="{{tagsList}}" wx:key="{{index}}" color="#f3f4f4" text-color="#323232">{{item}}</van-tag>
+      </view>
+      <view class="tag">
+        <text decode="true">标签:</text>
+        <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
+        <van-tag wx:for="{{tagsList}}" wx:key="{{index}}" color="#f3f4f4" text-color="#323232">{{item}}</van-tag>
+      </view>
+      <view class="tag">
+        <text decode="true">新旧程度:</text>
+        <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
+        <van-tag wx:for="{{tagsList}}" wx:key="{{index}}" color="#f3f4f4" text-color="#323232">{{item}}</van-tag>
+      </view>
+    </view>
+    <view class="content">
+      <text>详细描述：</text>
+      <text>{{detailsText}}</text>
+    </view>
   </view>
+  <view class='placeholder-view'></view>
   <view class="bottomCard" style="position:fixed; bottom:0rpx; width: 100%;">
     <van-icon name="wap-home-o" size="50rpx"/>
     <van-icon name="star" size="50rpx" bind:click="onClickStar" wx:if="{{isStar}}"/>
     <van-icon name="star-o" size="50rpx" bind:click="onClickStar" wx:else="{{isStar}}"/>
     <image class="tagsIcon" mode="widthFix" src="../../icons/jubao.png"></image>
-    <button class="contact" type="primary"  style="width: 330rpx; background-color: #7db5ee;">联系卖家</button>
+    <button class="contact" type="primary" style="width: 330rpx; background-color: #7db5ee;">联系卖家</button>
   </view>
   <van-toast id="van-toast"/>
 </view>

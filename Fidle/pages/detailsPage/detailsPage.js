@@ -1,4 +1,5 @@
 // pages/detailsPage/detailsPage.js
+import Toast from '../../components/lib/toast/toast';
 Page({
 
   /**
@@ -42,6 +43,20 @@ Page({
     that.setData({
       isStar: !state
     })
+    if(!state)
+    {
+      Toast({
+        position: 'bottom',
+        message: '收藏成功！'
+      });
+    }
+    if(state)
+    {
+      Toast({
+        position: 'bottom',
+        message: '取消收藏成功！'
+      });
+    }
   },
   
   /**
