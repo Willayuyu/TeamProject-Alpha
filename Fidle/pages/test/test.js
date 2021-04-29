@@ -37,9 +37,9 @@ Page({
     ]
   },
 
-  select: function(e) {
-    console.log(e.detail)
-    
+  //获取搜索框内容
+  getInputValue: function(e) { 
+    this.data.searchInput = e.detail.value;
   },
 
   //二手-时间筛选事件
