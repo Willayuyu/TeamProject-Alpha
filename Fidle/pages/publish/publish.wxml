@@ -1,17 +1,98 @@
-<van-tabs active="goods">
-  <van-tab title="二手交易" name="goods">
-    <van-cell-group>
-      <van-field value="{{ username }}" clearable label="标题" placeholder="请输入标题"></van-field>
-      <van-field value="{{ price }}" clearable label="价格" placeholder="请输入价格" type="digit"></van-field>
-      <van-field value="{{ originalPrice }}" clearable label="原价" placeholder="请输入原价" type="digit"></van-field>
-      <van-field value="{{ message }}" label="详细描述" type="textarea" placeholder="请输入商品的详细描述" autosize border="{{ false }}"></van-field>
-</van-cell-group>
-  </van-tab>
+<view class="container">
+  <van-tabs active="goods">
+    <view>
+      <van-tab title="二手交易" name="goods">
+        <van-cell-group>
+          <van-field value="{{ username }}" clearable label="标题" placeholder="请输入标题"></van-field>
+          <van-field value="{{ price }}" clearable label="价格" placeholder="请输入价格" type="digit"></van-field>
+          <van-field value="{{ originalPrice }}" clearable label="原价" placeholder="请输入原价" type="digit"></van-field>  
+          <view class="border">
+            <van-field value="{{ message }}" label="详细描述" input-class="message" type="textarea" placeholder="请输入商品的详细描述" autosize border="{{ false }}"></van-field>
+          </view>
+          <view>
+           <van-cell>
+            <text class="label">图片上传</text> 
+            <van-uploader class="input" file-list="{{ fileList }}" bind:after-read="afterRead" max-count="3"></van-uploader>
+           </van-cell>      
+          </view>          
+          <view>
+            <view class="display">
+              <view>
+                <text class="label">新旧程度(点击选择)</text> 
+              </view> 
+              <van-row>
+                <van-col span="2">
+                  <image src="../../icons/label.png" mode="widthFix" class="img"></image>
+                </van-col>
+                <van-col span="22" >
+                  <view>                                
+                    <text class="tag">全新</text>
+                    <text class="tag">教材</text>
+                    <text class="tag">大三</text>
+                  </view>        
+                </van-col>
+              </van-row>             
+            </view>                      
+          </view>      
+          <view>
+            <view class="display">
+              <view>
+                <text class="label">类别(点击选择)</text> 
+              </view>               
+              <van-row>
+                <van-col span="2">
+                  <image src="../../icons/label.png" mode="widthFix" class="img"></image>
+                </van-col>
+                <van-col span="22" >
+                  <view>                                
+                    <text class="tag">服饰</text>
+                    <text class="tag">鞋子</text>
+                    <text class="tag">电子产品</text>
+                    <text class="tag">生活用品</text>
+                    <text class="tag">电动车</text>
+                    <text class="tag">书籍</text>                
+                    <text class="tag">其他</text>
+                  </view>        
+                </van-col>
+              </van-row>                                                          
+            </view>                      
+          </view>   
+          <view>
+            <view class="display">
+              <view>
+                <text class="label">标签</text> 
+              </view>   
+              <van-row>
+                <van-col span="2">
+                  <image src="../../icons/label.png" mode="widthFix" class="img"></image>
+                </van-col>
+                <van-col span="22" >
+                  <view>                                
+                    <text class="tag">李宁</text>
+                    <van-icon name="add-o" class="icon" size="35rpx"></van-icon>
+                  </view>
+                    
+                </van-col>
+                
+              </van-row>
+              <van-button class="release" type="info" color="#7DB5EE" size="normal">发布</van-button>                                                       
+            </view>                                 
+          </view>                 
+        </van-cell-group>
+      </van-tab>
+    </view>
+    
+    <view>
+      <van-tab title="任务委托" name="task">
+        任务委托
+      </van-tab>
+    </view>
 
-  <van-tab title="任务委托" name="task">
-    任务委托
-  </van-tab>
-  <van-tab title="活动信息" name="activity">
-    活动信息
-  </van-tab>
-</van-tabs>
+    <view>
+      <van-tab title="活动信息" name="activity">
+        活动信息
+      </van-tab>
+    </view>  
+    
+  </van-tabs>
+</view>
