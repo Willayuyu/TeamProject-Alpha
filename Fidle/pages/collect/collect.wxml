@@ -1,6 +1,15 @@
 <van-tabs active="collect">
   <van-tab title="二手物品" name="goods">
-    二手物品
+    <van-card  price="{{price}}" origin-price="{{originPrice}}"  title="{{title}}" thumb="{{ imageURL }}">
+      <view slot="tags" class="tagList">
+        <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
+        <van-tag wx:for="{{tagsList}}" wx:key="{{index}}" color="#cdcdcd" class="tagItem">{{item}}</van-tag>
+      </view>
+      <view slot="footer" class="btns">
+        <van-button  class="btn">联系卖家</van-button>
+        <van-button  class="btn">取消收藏</van-button>
+      </view>
+    </van-card>
   </van-tab>
   <van-tab title="任务委托" name="task">
     任务委托

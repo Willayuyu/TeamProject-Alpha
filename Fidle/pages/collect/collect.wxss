@@ -1,1 +1,20 @@
-/* pages/collect/collect.wxss */
+.tagsIcon{
+  width: 35rpx;
+  height: auto;
+  vertical-align: middle;
+}
+.tagItem{
+  margin-left: 15rpx;
+  vertical-align: middle;
+}
+.tagList{
+  margin: 10rpx 0;
+}
+.btns{
+ 
+}
+.btn{
+  width: 50rpx;
+  height: 20rpx; 
+  background-color: #7db5ee;
+}

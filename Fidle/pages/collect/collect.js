@@ -5,7 +5,15 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    price: "30",
+    originPrice: "75",
+    title: "软件工程 第八版 全新未拆封 好价速来！",
+    imageURL: "/images/book.png",
+    tagsList: [
+      "全新",
+      "教材",
+      "大三",
+    ]
   },
 
   /**
