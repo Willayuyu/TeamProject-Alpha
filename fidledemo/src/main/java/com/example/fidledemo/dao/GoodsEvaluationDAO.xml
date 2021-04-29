@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.fidledemo.dao.SystemMessageDAO">
+
+    <resultMap id="evaluationBO" type="evaluationBO">
+        <result property="id" column="id"/>
+        <result property="infoId" column="goods_id"/>
+        <result property="evaluatorId" column="valuator_id"/>
+        <result property="reason" column="reason"/>
+        <result property="evaluation" column="evaluation"/>
+        <association property="gmtInfo" javaType="gmtInfo">
+            <result property="gmtCreate" column="gmt_create"/>
+            <result property="gmtModified" column="gmt_modified"/>
+        </association>
+    </resultMap>
+
+    <insert id="insertGoodsEvaluation" parameterType="goodsEvaluationDO">
+        INSERT INTO goods_evaluation(id,goods_id,valuator_id,evaluation,reason,gmt_create,gmt_modified)
+        VALUES (#{id},#{goods_id},#{valuator_id},#{evaluation},#{reason},#{gmt_create},#{gmt_modified})
+    </insert>
+
+    <delete id="deleteGoodsEvaluation" parameterType="long">
+        DELETE FROM goods_evaluation
+        WHERE id=#{id}
+    </delete>
+
+    <select id="getGoodsEvaluation" parameterType="long" resultMap="evaluationBO">
+        SELECT * FROM goods_evaluation
+        WHERE id=#{id}
+    </select>
+
+    <select id="listGoodsEvaluation" parameterType="goodsEvaluationDO" resultMap="evaluationBO">
+        SELECT
+        <if test="distinct !=NULL AND distinct!=''">DISTINCT</if>
+        * FROM goods_evaluation
+        <where>
+            <if test="id !=NULL AND id!=''">
+                AND id=#{id}
+            </if>
+            <if test="goods_id !=NULL AND goods_id!=''">
+                AND goods_id=#{goods_id}
+            </if>
+            <if test="valuator_id !=NULL AND valuator_id!=''">
+                AND valuator_id=#{valuator_id}
+            </if>
+            <if test="evaluation !=NULL AND evaluation!=''">
+                AND evaluation=#{evaluation}
+            </if>
+            <if test="reason !=NULL AND reason !=''">
+                <if test="reasonLike !=NULL AND reasonLike !=''">
+                    AND reason LIKE #{reason}
+                </if>
+                <if test="reasonLike ==NULL OR reasonLike ==''">
+                    AND reason =#{reason}
+                </if>
+            </if>
+            <if test="gmt_create !=NULL AND gmt_create!=''">
+                AND gmt_create=#{gmt_create}
+            </if>
+            <if test="gmt_modified !=NULL AND gmt_modified!=''">
+                AND gmt_modified=#{gmt_modified}
+            </if>
+        </where>
+        <if test="limit !=NULL AND limit!=''">
+            limit #{bigin},#{size}
+        </if>
+    </select>
+
+    <update id="updateGoodsEvaluation" parameterType="goodsEvaluationDO">
+        UPDATE goods_evaluation
+        <set>
+            <if test="goods_id !=NULL AND goods_id !=''">goods_id=#{goods_id},</if>
+            <if test="valuator_id !=NULL AND valuator_id !=''">valuator_id=#{valuator_id},</if>
+            <if test="evaluation !=NULL AND evaluation !=''">evaluation=#{evaluation},</if>
+            <if test="reason !=NULL AND reason !=''">reason=#{reason},</if>
+            gmt_modified=now()
+        </set>
+        where id=#{id}
+    </update>
+
+
+
+</mapper>
