@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.fidledemo.dao.SystemMessageDAO">
+
+    <resultMap id="systemMessageBO" type="systemMessageBO">
+        <result property="id" column="id"/>
+        <result property="accId"  column="acc_id"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="link"  column="link"/>
+        <result property="state" column="link"/>
+        <association property="gmtInfo" javaType="gmtInfo">
+            <result property="gmtCreate" column="gmt_create"/>
+            <result property="gmtModified" column="gmt_modified"/>
+        </association>
+    </resultMap>
+
+    <insert id="insertSystemMessage" parameterType="systemMessageDO">
+        INSERT INTO  system_message(id,acc_id,title,content,link,state,gmt_create,gmt_modified)
+        VALUES (#{id},#{acc_id},#{title},#{content},#{link},#{state},#{gmt_create},#{gmt_modified});
+    </insert>
+
+    <delete id="deleteSystemMessageById" parameterType="long">
+        DELETE FROM system_message
+        WHERE id=#{id}
+    </delete>
+
+    <select id="getSystemMessageById" parameterType="long" resultMap="SystemMessageBO">
+        SELECT * FROM system_message
+        WHERE id=#{id}
+    </select>
+
+    <select id="listSystemMessage" parameterType="systemMessageDO" resultMap="SystemMessageBO">
+        SELECT
+        <if test="distinct !=NULL AND distinct!=''">DISTINCT</if>
+        * FROM system_message
+        <where>
+            <if test="id !=NULL AND id!=''">
+                AND id=#{id}
+            </if>
+            <if test="acc_id !=NULL AND acc_id!=''">
+                AND acc_id=#{acc_id}
+            </if>
+            <if test="title !=NULL AND title !=''">
+                <if test="titleLike !=NULL AND titleLike !=''">
+                    AND title LIKE #{title}
+                </if>
+                <if test="titleLike ==NULL OR titleLike ==''">
+                    AND title =#{title}
+                </if>
+            </if>
+            <if test="content !=NULL AND content !=''">
+                <if test="contentLike !=NULL AND contentLike !=''">
+                    AND content LIKE #{content}
+                </if>
+                <if test="contentLike ==NULL OR contentLike ==''">
+                    AND content =#{content}
+                </if>
+            </if>
+            <if test="link !=NULL AND link!=''">
+                AND link=#{link}
+            </if>
+            <if test="state !=NULL AND state!=''">
+                AND state=#{state}
+            </if>
+            <if test="gmt_create !=NULL AND gmt_create!=''">
+                AND gmt_create=#{gmt_create}
+            </if>
+            <if test="gmt_modified !=NULL AND gmt_modified!=''">
+                AND gmt_modified=#{gmt_modified}
+            </if>
+        </where>
+        <if test="limit !=NULL AND limit!=''">
+            limit #{bigin},#{size}
+        </if>
+    </select>
+
+    <update id="updateSystemMessage" parameterType="systemMessageDO">
+        UPDATE system_message
+        <set>
+            <if test="acc_id !=NULL AND acc_id !=''">acc_id=#{acc_id},</if>
+            <if test="title !=NULL AND title !=''">title=#{title},</if>
+            <if test="content !=NULL AND content !=''">content=#{content},</if>
+            <if test="link !=NULL AND link !=''">link=#{link},</if>
+            <if test="state !=NULL AND state !=''">state=#{state},</if>
+            gmt_modified=now()
+        </set>
+        where id=#{id}
+    </update>
+
+</mapper>

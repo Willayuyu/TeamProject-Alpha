@@ -1,8 +1,14 @@
 {
-  "usingComponents": {
-    "van-tab": "../../components/dist/tab/index",
-    "van-tabs": "../../components/dist/tabs/index",
-    "van-cell-group": "../../components/dist/cell-group/index",
-    "van-field": "../../components/dist/field/index"
-  }
+    "usingComponents": {
+        "van-tab": "../../components/dist/tab/index",
+        "van-tabs": "../../components/dist/tabs/index",
+        "van-cell-group": "../../components/dist/cell-group/index",
+        "van-field": "../../components/dist/field/index",
+        "van-uploader": "../../components/dist/uploader/index",
+        "van-cell": "../../components/dist/cell/index",
+        "van-row": "../../components/dist/row/index",
+        "van-col": "../../components/dist/col/index",
+        "van-button": "../../components/dist/button/index",
+        "van-icon": "../../components/dist/icon/index"
+    }
 }
