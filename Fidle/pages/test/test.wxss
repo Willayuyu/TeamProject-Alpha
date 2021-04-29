@@ -62,6 +62,14 @@ c-select {
   height: 40rpx;
 }
 
+.screen_btn_left1 {
+  margin-left: 50rpx;
+}
+
+.screen_btn-left2 {
+  margin-left: 100rpx;
+}
+
 /*加宽筛选按钮*/
 .screen_btn_large {
   width: 150rpx;

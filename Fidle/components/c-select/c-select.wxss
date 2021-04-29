@@ -13,7 +13,7 @@
 }
 
 .ms-text {
-  overflow: hidden;
+  /* overflow: hidden; */
   text-overflow: ellipsis;
   white-space: nowrap;
   padding: 0 80rpx 0 12rpx;

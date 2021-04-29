@@ -4,13 +4,15 @@ Page({
    * 页面的初始数据
    */
   data: {
-    secTime: "近三天",
-    secSort: "类别",
-    secDegree: "新旧程度",
-    taskTime: "近三天",
-    taskSort: "类别",
-    activityTime: "近七天",
-    activitySort: "类别",
+    searchInput: "",//搜索框内容
+    tabIndex: 0,//标签页下标
+    secTime: "近三天",//二手-时间筛选
+    secSort: "类别",//二手-类别筛选
+    secDegree: "新旧程度",//二手-新旧筛选
+    taskTime: "近三天",//任务-时间筛选
+    taskSort: "类别",//任务-类别筛选
+    activityTime: "近七天",//活动-时间筛选
+    activitySort: "类别",//活动-类别筛选
     secTimeArray: [
       "近三天","近一天","近七天","近一个月","近三个月"
     ],
@@ -37,10 +39,75 @@ Page({
 
   select: function(e) {
     console.log(e.detail)
+    
   },
 
+  //二手-时间筛选事件
+  select_Sec_Time: function(e) {
+    this.data.secTime = e.detail;
+    this.search();
+  },
+
+  //二手-类别筛选事件
+  select_Sec_Sort: function(e) {
+    this.data.secSort = e.detail;
+    this.search();
+  },
+
+  //二手-新旧筛选事件
+  select_Sec_Degree: function(e) {
+    this.data.secDegree = e.detail;
+    this.search();
+  },
+
+  //任务-时间筛选事件
+  select_Task_Time: function(e) {
+    this.data.taskTime = e.detail;
+    this.search();
+  },
+
+  //任务-类别筛选事件
+  select_Task_Sort: function(e) {
+    this.data.taskSort = e.detail;
+    this.search();
+  },
+
+  //活动-时间筛选事件
+  select_Act_Time: function(e) {
+    this.data.activityTime = e.detail;
+    this.search();
+  },
+
+  //活动-类别筛选事件
+  select_Act_Sort: function(e) {
+    this.data.activitySort = e.detail;
+    this.search();
+  },
+
+  //标签点击/切换事件
   tab_Click: function(e) {
-    console.log(e.detail)
+    this.data.tabIndex = e.detail.index;
+  },
+
+  //搜索
+  search: function() {
+    console.log(this.data.searchInput);
+    console.log(this.data.tabIndex);
+    switch(this.data.tabIndex) {
+      case 0:
+        console.log(this.data.secTime);
+        console.log(this.data.secSort);
+        console.log(this.data.secDegree);
+        break;
+      case 1:
+        console.log(this.data.taskTime);
+        console.log(this.data.taskSort);
+        break;
+      case 2:
+        console.log(this.data.activityTime);
+        console.log(this.data.activitySort);
+        break;
+    }
   },
 
   /**
