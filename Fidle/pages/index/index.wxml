@@ -5,7 +5,7 @@
 
 <!-- 二手物品列表 -->
 <view class="secondhand-list">
-  <navigator class="secondhand-item" url="/pages/detailsPage/detailsPage?title=detailsPage">
+  <navigator class="secondhand-item">
     <!-- 图片 -->  
     <view class="secondhand-img-wrap">  
       <image class="pic" src="../../images/book.png" mode="widthFix"></image>
@@ -16,7 +16,7 @@
       <view class="secondhand-title">软件工程 第八版 全新未拆封 好价速来！</view>
       <!-- 标签 -->  
       <view class="secondhand-tag">
-        <image src="../../icons/label.png" mode="widthFix" class="lable"></image>
+        <image src="../../images/label.png" mode="widthFix"></image>
         <text class="tag">全新</text>
         <text class="tag">教材</text>
         <text class="tag">大三</text>
@@ -41,41 +41,38 @@
       </view> 
     </view> 
   </navigator>
-      
+  
+</view>
 
+<!-- 任务委托列表 -->
+<view class="task-list">
+任务委托列表
+  <navigator class="task-item">
+  
+    <view class="task-info">
+      <!-- 标题 -->   
+      <view class="task-title">找人拿快递 四小件 送到41号楼
+      <!-- 价格 -->
+      <view class="task-price">
+        ￥20    
+      </view>
+      <!-- 详细信息 -->
+      <view class="task-detail">快递快递快递</view>
+           
+      <!-- 标签 -->  
+      <view class="secondhand-tag">   
+        <image src="../../images/label.png" mode="widthFix"></image>
+        <text class="tag">拿快递</text>
+        <view class="task-btns">
+          <text class="btn-contact-seller">联系委托人</text>
+          <text class="btn-collect">收藏</text>
+        </view>
+      </view>
 
-  <navigator class="secondhand-item">
-    <!-- 图片 -->  
-    <view class="secondhand-img-wrap">  
-      <image class="pic" src="../../images/book.png" mode="widthFix"></image>
     </view>
 
-    <view class="other-info">
-      <!-- 标题 -->   
-      <view class="secondhand-title">编译原理</view>
-      <!-- 标签 -->  
-      <view class="secondhand-tag">
-        标签们
-      </view>
-      <view>
-        <!-- 现价格 -->   
-        <text class="price">30</text> 
-        <!-- 原价 --> 
-        <text class="price-origin">75</text>    
-      </view>
-      <view class="btns">
-        <!-- 联系卖家按钮 -->    
-        <view class="btn-contact-seller">
-          联系卖家
-        </view>
-        <!-- 收藏按钮 -->    
-        <view decode class="btn-contact-seller">
-          收藏
-        </view>  
-      </view>  
+
     </view> 
   </navigator>
-
-  
 </view>
 </view>

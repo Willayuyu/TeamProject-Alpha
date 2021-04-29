@@ -3,15 +3,11 @@
   width: 100vw;
   height: 100vh;
 }
-/* .lable{
-  display: block;
-  margin-top: 10px;
-} */
-.secondhand-list{
-  margin:20rpx;
+.secondhand-list,.task-list{
+  margin-top: 10rpx;
 }
 
-.secondhand-item{
+.secondhand-item,.task-item{
   margin: 20rpx;
   display: flex;
   justify-content: space-between;
@@ -71,7 +67,7 @@
 
 .tag{
   background-color: #F3F4F4;
-  margin-left: 20rpx;
+  margin-left: 15rpx;
   border-radius: 5rpx;
   font-size: 30rpx;
 }
@@ -82,4 +78,31 @@
 
 .secondhand-tag image{
   width: 40rpx;
+}
+
+.task-title{
+  padding: 20rpx;
+  /* display: flex; */
+  /* justify-content: space-between; */
+}
+
+.task-price{
+  display: inline-flex;
+  color: #F14836;
+  margin-left: 10rpx;
+  justify-content: space-between;
+}
+
+.task-detail{
+  color:#999;
+  font-size: 30rpx;
+}
+
+.task-btns{
+  display: inline;
+  margin-left: 200rpx;
+}
+
+.task-info{
+  padding-bottom: 20rpx;
 }
