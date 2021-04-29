@@ -1,7 +1,10 @@
 {
   "pages": [
-    "pages/index/index","pages/test/test",
-    
+    "pages/index/index",
+    "pages/test/test",
+    "pages/change/change",
+    "pages/changeInf/changeInf",
+    "pages/aboutus/aboutus",
     "pages/detailsPage/detailsPage",
     "pages/publish/publish",
     "pages/myInf/myInf",
