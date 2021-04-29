@@ -114,6 +114,7 @@ public class TaskDO
     
   private Integer size;  
     
+
   private Boolean distinct;
 
 
@@ -133,7 +134,7 @@ public class TaskDO
   private Boolean titleLike;
 
   private Boolean contentLike;
-
+    
 }
 ```
 
@@ -178,12 +179,36 @@ public class TaskDO
 
 
 
-## Mapper
+## DAO
+
+```java
+@Mapper
+public interface ActivityInfoDAO
+{
+  void insertActivityInfo(ActivityInfoDO activity);
+
+  ActivityInfoBO getActivityInfoById(Long id);
+
+    //多个不同类型参数使用@Param注解
+  List<ActivityInfoBO> listActivityInfo(@Param("activity") ActivityInfoDO activity, @Param("tag") ActivityTagDO tag);
+
+  void updateActivityInfo(ActivityInfoDO activity);
+}
+
+```
+
+- 对于表示实体类的表，需要有增删改查接口
+- 对于表示关系的表（如收藏、标签——信息映射表），只需要增删改，不需要查（即无返回封装实体类）
+
+
+
+## Mapper	
 
 - 查询
 
   ```xml
-  <select id="XXX" parameterType=" " resultMap="">
+  <!--返回结果封装成BO-->
+  <select id="XXX" resultMap="">
       SELECT
       <if test="distinct !=NULL AND distinct!=''">DISTINCT</if>
       * FROM `table`
@@ -206,11 +231,13 @@ public class TaskDO
 - 更新
 
   ```xml
-  <update id="XXX" parameterType=" ">
+  <update id="XXX">
       UPDATE `table`
       <set>
           <if test="title !=NULL AND title !=''">title=#{title},</if>
           <if test="content !=NULL AND content !='' ">content=#{content},</if>
+          <!--进行更新操作时需要修改更新时间,同理，插入时要使用now（）函数插入时间-->
+          gmt_modified=now()
       </set>
       WHERE id=#{id}
   </select>
