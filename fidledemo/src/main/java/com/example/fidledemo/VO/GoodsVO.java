@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigInteger;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,26 +13,25 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Task {
+public class GoodsVO {
 
     private BigInteger id;
 
     private BigInteger pubId;
 
-    private Double reward;
-
     private String title;
+
+    private Double price;
+
+    private Double originalPrice;
 
     private String description;
 
     private String category;
 
-    private List<TaskTag> tagList;
+    private List<TaskTagVO> tagList;
+
+    private List<String> picturesLink;
 
     private Integer collectState;
-
-    private Date startTime;
-
-    private Date endTime;
-
 }

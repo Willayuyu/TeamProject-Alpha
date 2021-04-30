@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigInteger;
-import java.util.Date;
 
 /**
  * @author zyf
@@ -13,19 +12,17 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TaskEvaluation {
+public class PersonVO {
 
-    private BigInteger goodsId;
-
-    private BigInteger valuatorId;
-
-    private String portrait;
+    private BigInteger id;
 
     private String username;
 
-    private Integer evaluation;
+    private String portrait;
 
-    private String reason;
+    private String qq;
 
-    private Date createTime;
+    private String tel;
+
+    private CreditVO credit;
 }

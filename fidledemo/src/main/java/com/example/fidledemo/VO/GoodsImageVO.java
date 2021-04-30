@@ -12,17 +12,9 @@ import java.math.BigInteger;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Person {
+public class GoodsImageVO {
 
     private BigInteger id;
 
-    private String username;
-
-    private String portrait;
-
-    private String qq;
-
-    private String tel;
-
-    private Credit credit;
+    private String imageLink;
 }

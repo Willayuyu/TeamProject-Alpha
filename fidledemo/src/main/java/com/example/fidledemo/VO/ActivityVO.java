@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -13,23 +14,26 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TaskItem {
+public class ActivityVO {
 
     private BigInteger id;
 
-    private BigInteger pulisherId;
-
-    private BigInteger accepterId;
+    private BigInteger pubId;
 
     private String title;
 
-    private Double reward;
+    private String description;
 
     private String category;
 
-    private List<TaskTag> categoryList;
+    private List<ActivityTagVO> tagList;
+
+    private Date startTime;
+
+    private Date endTime;
 
     private Integer collectState;
 
-    private String taskState;
+    private List<String> picturesLink;
+
 }

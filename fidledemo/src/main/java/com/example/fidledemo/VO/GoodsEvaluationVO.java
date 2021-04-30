@@ -13,7 +13,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GoodsEvaluation {
+public class GoodsEvaluationVO {
 
     private BigInteger goodsId;
 

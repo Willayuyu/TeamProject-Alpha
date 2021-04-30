@@ -12,9 +12,10 @@ import java.math.BigInteger;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GoodsImage {
+public class TaskImageVO {
 
     private BigInteger id;
 
     private String imageLink;
 }
+

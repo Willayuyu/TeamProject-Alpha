@@ -6,31 +6,30 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigInteger;
 import java.util.List;
+
 /**
  * @author zyf
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MyGoods {
+public class TaskItemVO {
 
     private BigInteger id;
 
-    private BigInteger sellerId;
+    private BigInteger pulisherId;
 
-    private BigInteger buyerId;
+    private BigInteger accepterId;
 
     private String title;
 
-    private Double price;
-
-    private Double originalPrice;
-
-    private String imageLink;
-
-    private Integer condition;
+    private Double reward;
 
     private String category;
 
-    private List<GoodsTag> tagList;
+    private List<TaskTagVO> categoryList;
+
+    private Integer collectState;
+
+    private String taskState;
 }

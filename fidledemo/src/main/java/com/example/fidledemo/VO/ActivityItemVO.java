@@ -13,28 +13,15 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GoodsItem {
+public class ActivityItemVO {
 
     private BigInteger id;
 
-    private BigInteger sellerId;
-
-    private BigInteger buyerId;
-
     private String title;
-
-    private Double price;
-
-    private Double originalPrice;
-
-    private String imageLink;
-
-    private Integer condition;
 
     private String category;
 
     private Integer collectState;
 
-    private List<GoodsTag> tagList;
-
+    private List<ActivityTagVO> tagList;
 }

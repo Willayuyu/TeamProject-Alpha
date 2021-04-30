@@ -6,16 +6,16 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigInteger;
 
+
 /**
  * @author zyf
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TaskImage {
+public class TaskTagVO {
 
     private BigInteger id;
 
-    private String imageLink;
+    private String content;
 }
-

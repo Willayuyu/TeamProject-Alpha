@@ -4,17 +4,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigInteger;
-
 /**
  * @author zyf
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GoodsTag {
+public class CreditVO {
 
-    private BigInteger id;
+    private Integer creditScore;
 
-    private String content;
+    private Integer likeNum;
+
+    private Integer dislikeNum;
+
 }

@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MyTask {
+public class MyTaskVO {
 
     private BigInteger id;
 
@@ -26,7 +26,7 @@ public class MyTask {
 
     private String category;
 
-    private List<TaskTag> categoryList;
+    private List<TaskTagVO> categoryList;
 
     private String taskState;
 }

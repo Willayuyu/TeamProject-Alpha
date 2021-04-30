@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigInteger;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,11 +13,13 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Goods {
+public class GoodsItemVO {
 
     private BigInteger id;
 
-    private BigInteger pubId;
+    private BigInteger sellerId;
+
+    private BigInteger buyerId;
 
     private String title;
 
@@ -26,13 +27,14 @@ public class Goods {
 
     private Double originalPrice;
 
-    private String description;
+    private String imageLink;
+
+    private Integer condition;
 
     private String category;
 
-    private List<TaskTag> tagList;
-
-    private List<String> picturesLink;
-
     private Integer collectState;
+
+    private List<GoodsTagVO> tagList;
+
 }
