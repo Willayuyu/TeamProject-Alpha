@@ -5,6 +5,7 @@
     "pages/change/change",
     "pages/changeInf/changeInf",
     "pages/aboutus/aboutus",
+    "pages/comments/comments",
     "pages/goodsDetailsPage/goodsDetailsPage",
     "pages/activityDetailsPage/activityDetailsPage",
     "pages/taskDetailsPage/taskDetailsPage",
