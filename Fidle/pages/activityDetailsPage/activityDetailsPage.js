@@ -16,7 +16,6 @@ Page({
       "标签"
     ],
     title: "百米画卷",
-    organizer: "2018级软件工程3班",
     place: "青春广场",
     beginTime: "2021.4.4 12:00",
     endTime: "2021.4.4 20:00",

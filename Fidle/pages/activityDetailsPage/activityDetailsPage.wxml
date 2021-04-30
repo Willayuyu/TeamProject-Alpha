@@ -12,10 +12,6 @@
     <view class="title">
       <text decode="true">{{title}}</text>
     </view>
-    <view class="organizer">
-      <text>主办方：</text>
-      <text>{{organizer}}</text>
-    </view>
     <view class="place">
       <text>活动地点：</text>
       <text>{{place}}</text>

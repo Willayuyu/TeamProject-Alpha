@@ -18,7 +18,7 @@
 
     <insert id="insertGoodsEvaluation" parameterType="goodsEvaluationDO">
         INSERT INTO goods_evaluation(id,goods_id,valuator_id,evaluation,reason,gmt_create,gmt_modified)
-        VALUES (#{id},#{goods_id},#{valuator_id},#{evaluation},#{reason},now(),now())
+        VALUES (#{id},#{goods_id},#{valuator_id},#{evaluation},#{reason},#{gmt_create},#{gmt_modified})
     </insert>
 
     <delete id="deleteGoodsEvaluation" parameterType="long">
@@ -64,7 +64,7 @@
             </if>
         </where>
         <if test="limit !=NULL AND limit!=''">
-            limit #{begin},#{size}
+            limit #{bigin},#{size}
         </if>
     </select>
 

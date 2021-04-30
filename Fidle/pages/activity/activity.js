@@ -5,15 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    activityImageURL: "http://5b0988e595225.cdn.sohucs.com/images/20190311/ab66040c529445778cf31ced4ba24657.jpeg",
-    activityTitle: "百米画卷",
-    address: "青春广场",
-    date: "2021年4月23日",
-    oganizer: "2018级软件工程3班",
-    activityTagsList: [
-      "团立项",
-      "五四活动"
-    ]
+
   },
 
   /**

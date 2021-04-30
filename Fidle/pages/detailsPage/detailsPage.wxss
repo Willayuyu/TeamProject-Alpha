@@ -15,7 +15,7 @@ page{
   border-radius: 1%;
 }
 .detalsCard{
-  padding: 50rpx;
+  padding: 40rpx;
   width: 100%;
   min-height: 700rpx;
   box-sizing:border-box;

@@ -5,30 +5,14 @@ Page({
    * 页面的初始数据
    */
   data: {
-    goodsPrice: "30",
-    goodsOriginPrice: "75",
-    goodsTitle: "软件工程 第八版 全新未拆封 好价速来！",
-    goodsImageURL: "/images/book.png",
-    goodsTagsList: [
+    price: "30",
+    originPrice: "75",
+    title: "软件工程 第八版 全新未拆封 好价速来！",
+    imageURL: "/images/book.png",
+    tagsList: [
       "全新",
       "教材",
       "大三",
-      "软件工程"
-    ],
-    taskPrice: "30",
-    taskTitle: "找人拿快递 3小件 送到41号楼",
-    taskTagsList: [
-      "拿快递",
-      "顺丰"
-    ],
-    activityImageURL: "http://5b0988e595225.cdn.sohucs.com/images/20190311/ab66040c529445778cf31ced4ba24657.jpeg",
-    activityTitle: "百米画卷",
-    address: "青春广场",
-    date: "2021年4月23日",
-    oganizer: "2018级软件工程3班",
-    activityTagsList: [
-      "团立项",
-      "五四活动"
     ]
   },
 
