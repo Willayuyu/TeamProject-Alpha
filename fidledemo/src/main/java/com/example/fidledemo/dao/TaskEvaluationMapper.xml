@@ -6,7 +6,7 @@
 
     <resultMap id="evaluationBO" type="evaluationBO">
         <result property="id" column="id"/>
-        <result property="infoId" column="goods_id"/>
+        <result property="infoId" column="task_delegate_id"/>
         <result property="evaluatorId" column="valuator_id"/>
         <result property="reason" column="reason"/>
         <result property="evaluation" column="evaluation"/>
@@ -16,31 +16,31 @@
         </association>
     </resultMap>
 
-    <insert id="insertGoodsEvaluation" parameterType="goodsEvaluationDO">
-        INSERT INTO goods_evaluation(id,goods_id,valuator_id,evaluation,reason,gmt_create,gmt_modified)
-        VALUES (#{id},#{goods_id},#{valuator_id},#{evaluation},#{reason},#{gmt_create},#{gmt_modified})
+    <insert id="insertTaskEvaluation" parameterType="taskEvaluationDO">
+        INSERT INTO task_evaluation(id,task_delegate_id,valuator_id,evaluation,reason,gmt_create,gmt_modified)
+        VALUES (#{id},#{task_id},#{valuator_id},#{evaluation},#{reason},#{gmt_create},#{gmt_modified})
     </insert>
 
-    <delete id="deleteGoodsEvaluation" parameterType="long">
-        DELETE FROM goods_evaluation
+    <delete id="deleteTaskEvaluation" parameterType="long">
+        DELETE FROM task_evaluation
         WHERE id=#{id}
     </delete>
 
-    <select id="getGoodsEvaluation" parameterType="long" resultMap="evaluationBO">
-        SELECT * FROM goods_evaluation
+    <select id="getTaskEvaluation" parameterType="long" resultMap="evaluationBO">
+        SELECT * FROM task_evaluation
         WHERE id=#{id}
     </select>
 
-    <select id="listGoodsEvaluation" parameterType="goodsEvaluationDO" resultMap="evaluationBO">
+    <select id="listTaskEvaluation" parameterType="taskEvaluationDO" resultMap="evaluationBO">
         SELECT
         <if test="distinct !=NULL AND distinct!=''">DISTINCT</if>
-        * FROM goods_evaluation
+        * FROM task_evaluation
         <where>
             <if test="id !=NULL AND id!=''">
                 AND id=#{id}
             </if>
             <if test="goods_id !=NULL AND goods_id!=''">
-                AND goods_id=#{goods_id}
+                AND task_delegate_id=#{task_id}
             </if>
             <if test="valuator_id !=NULL AND valuator_id!=''">
                 AND valuator_id=#{valuator_id}
@@ -64,14 +64,14 @@
             </if>
         </where>
         <if test="limit !=NULL AND limit!=''">
-            limit #{bigin},#{size}
+            limit #{begin},#{size}
         </if>
     </select>
 
-    <update id="updateGoodsEvaluation" parameterType="goodsEvaluationDO">
-        UPDATE goods_evaluation
+    <update id="updateTaskEvaluation" parameterType="taskEvaluationDO">
+        UPDATE task_evaluation
         <set>
-            <if test="goods_id !=NULL AND goods_id !=''">goods_id=#{goods_id},</if>
+            <if test="task_id !=NULL AND task_id !=''">task_id=#{goods_id},</if>
             <if test="valuator_id !=NULL AND valuator_id !=''">valuator_id=#{valuator_id},</if>
             <if test="evaluation !=NULL AND evaluation !=''">evaluation=#{evaluation},</if>
             <if test="reason !=NULL AND reason !=''">reason=#{reason},</if>

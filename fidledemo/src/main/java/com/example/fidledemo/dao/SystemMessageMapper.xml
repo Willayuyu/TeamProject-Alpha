@@ -19,7 +19,7 @@
 
     <insert id="insertSystemMessage" parameterType="systemMessageDO">
         INSERT INTO  system_message(id,acc_id,title,content,link,state,gmt_create,gmt_modified)
-        VALUES (#{id},#{acc_id},#{title},#{content},#{link},#{state},#{gmt_create},#{gmt_modified});
+        VALUES (#{id},#{acc_id},#{title},#{content},#{link},#{state},now(),now());
     </insert>
 
     <delete id="deleteSystemMessageById" parameterType="long">
@@ -73,7 +73,7 @@
             </if>
         </where>
         <if test="limit !=NULL AND limit!=''">
-            limit #{bigin},#{size}
+            limit #{begin},#{size}
         </if>
     </select>
 
