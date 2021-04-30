@@ -5,7 +5,7 @@
     "pages/change/change",
     "pages/changeInf/changeInf",
     "pages/aboutus/aboutus",
-    "pages/detailsPage/detailsPage",
+    "pages/goodsDetailsPage/goodsDetailsPage",
     "pages/activityDetailsPage/activityDetailsPage",
     "pages/taskDetailsPage/taskDetailsPage",
     "pages/publish/publish",
