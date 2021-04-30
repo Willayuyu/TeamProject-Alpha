@@ -1,9 +1,25 @@
 <van-tabs active="collect">
   <van-tab title="二手物品" name="goods">
-    <van-card  price="{{price}}" origin-price="{{originPrice}}"  title="{{title}}" thumb="{{ imageURL }}">
+    <van-card  price="{{goodsPrice}}" origin-price="{{goodsOriginPrice}}" thumb="{{goodsImageURL}}" class="card">
+      <view slot="title" class="title">
+        <text>{{goodsTitle}}</text>
+      </view>
       <view slot="tags" class="tagList">
         <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
-        <van-tag wx:for="{{tagsList}}" wx:key="{{index}}" color="#cdcdcd" class="tagItem">{{item}}</van-tag>
+        <van-tag wx:for="{{goodsTagsList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">{{item}}</van-tag>
+      </view>
+      <view slot="footer" class="btns">
+        <van-button  class="btn">联系卖家</van-button>
+        <van-button  class="btn">取消收藏</van-button>
+      </view>
+    </van-card>
+    <van-card  price="{{goodsPrice}}" origin-price="{{goodsOriginPrice}}" thumb="{{ goodsImageURL }}">
+      <view slot="title" class="title">
+        <text>{{goodsTitle}}</text>
+      </view>
+      <view slot="tags" class="tagList">
+        <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
+        <van-tag wx:for="{{goodsTagsList}}" wx:key="{{index}}" class="tagItem"  color="#dbdbdb" text-color="#394044">{{item}}</van-tag>
       </view>
       <view slot="footer" class="btns">
         <van-button  class="btn">联系卖家</van-button>
@@ -12,9 +28,75 @@
     </van-card>
   </van-tab>
   <van-tab title="任务委托" name="task">
-    任务委托
+    <van-card class="card">
+      <view slot="price" class="price">
+        <text class="sign">￥</text>
+        <text class="priceText">{{taskPrice}}</text>
+      </view>
+      <view slot="title" class="title">
+        <text>{{taskTitle}}</text>
+      </view>
+      <view slot="tags" class="tagTask">
+        <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
+        <van-tag wx:for="{{taskTagsList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">{{item}}</van-tag>
+      </view>
+      <view slot="footer" class="taskBtns">
+        <van-button  class="btn">联系委托人</van-button>
+        <van-button  class="btn">取消收藏</van-button>
+      </view>
+    </van-card>
+    <van-card class="card">
+      <view slot="price" class="price">
+        <text class="sign">￥</text>
+        <text class="priceText">{{taskPrice}}</text>
+      </view>
+      <view slot="title" class="title">
+        <text>{{taskTitle}}</text>
+      </view>
+      <view slot="tags" class="tagTask">
+        <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
+        <van-tag wx:for="{{taskTagsList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">{{item}}</van-tag>
+      </view>
+      <view slot="footer" class="taskBtns">
+        <van-button  class="btn">联系委托人</van-button>
+        <van-button  class="btn">取消收藏</van-button>
+      </view>
+    </van-card>
   </van-tab>
   <van-tab title="活动信息" name="activity">
-    活动信息
+    <van-card  thumb="{{activityImageURL}}" class="card" >
+      <view slot="title" class="title">
+        <text>{{activityTitle}}</text>
+      </view>
+      <view slot="desc">
+        <text>{{date + address}}</text>
+        <text>{{'\n'}}</text>
+        <text>{{'主办方：'+ oganizer}}</text>
+      </view>
+      <view slot="tags" class="tagTask">
+        <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
+        <van-tag wx:for="{{activityTagsList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">{{item}}</van-tag>
+      </view>
+      <view slot="footer" class="activityBtns">
+        <van-button  class="btn">取消收藏</van-button>
+      </view>
+    </van-card>
+    <van-card  thumb="{{activityImageURL}}" class="card" >
+      <view slot="title" class="title">
+        <text>{{activityTitle}}</text>
+      </view>
+      <view slot="desc">
+        <text>{{date + address}}</text>
+        <text>{{'\n'}}</text>
+        <text>{{'主办方：'+ oganizer}}</text>
+      </view>
+      <view slot="tags" class="tagTask">
+        <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
+        <van-tag wx:for="{{activityTagsList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">{{item}}</van-tag>
+      </view>
+      <view slot="footer" class="activityBtns">
+        <van-button  class="btn">取消收藏</van-button>
+      </view>
+    </van-card>
   </van-tab>
 </van-tabs>
