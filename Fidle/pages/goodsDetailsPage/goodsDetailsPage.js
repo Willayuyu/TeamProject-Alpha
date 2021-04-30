@@ -1,4 +1,4 @@
-// pages/detailsPage/detailsPage.js
+// pages/goodsDetailsPage/goodsDetailsPage.js
 import Toast from '../../components/lib/toast/toast';
 Page({
 
@@ -49,9 +49,7 @@ Page({
         position: 'bottom',
         message: '收藏成功！'
       });
-    }
-    if(state)
-    {
+    } else {
       Toast({
         position: 'bottom',
         message: '取消收藏成功！'

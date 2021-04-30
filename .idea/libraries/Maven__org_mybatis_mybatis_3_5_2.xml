@@ -1,6 +1,7 @@
 <component name="libraryTable">
   <library name="Maven: org.mybatis:mybatis:3.5.2">
     <CLASSES>
+<<<<<<< HEAD
       <root url="jar://$PROJECT_DIR$/../../repository/org/mybatis/mybatis/3.5.2/mybatis-3.5.2.jar!/" />
     </CLASSES>
     <JAVADOC>
@@ -8,6 +9,15 @@
     </JAVADOC>
     <SOURCES>
       <root url="jar://$PROJECT_DIR$/../../repository/org/mybatis/mybatis/3.5.2/mybatis-3.5.2-sources.jar!/" />
+=======
+      <root url="jar://$MAVEN_REPOSITORY$/org/mybatis/mybatis/3.5.2/mybatis-3.5.2.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/mybatis/mybatis/3.5.2/mybatis-3.5.2-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/mybatis/mybatis/3.5.2/mybatis-3.5.2-sources.jar!/" />
+>>>>>>> parent of 46bd74a (Revert "Merge branch 'main' of https://github.com/Willayuyu/TeamProject-Alpha into main")
     </SOURCES>
   </library>
 </component>

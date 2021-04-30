@@ -15,7 +15,7 @@ page{
   border-radius: 1%;
 }
 .detalsCard{
-  padding: 40rpx;
+  padding: 50rpx;
   width: 100%;
   box-sizing:border-box;
   background-color: #ffffff; 
@@ -68,6 +68,10 @@ page{
 .tags van-tag{
   margin-left: 15rpx;
   vertical-align: middle;
+}
+.organizer{
+  margin-top: 20rpx;
+  font-size: 25rpx;
 }
 .place{
   margin-top: 20rpx;

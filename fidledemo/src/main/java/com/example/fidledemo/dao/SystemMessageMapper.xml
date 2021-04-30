@@ -6,10 +6,10 @@
 
     <resultMap id="systemMessageBO" type="systemMessageBO">
         <result property="id" column="id"/>
-        <result property="accId"  column="acc_id"/>
+        <result property="accId" column="acc_id"/>
         <result property="title" column="title"/>
         <result property="content" column="content"/>
-        <result property="link"  column="link"/>
+        <result property="link" column="link"/>
         <result property="state" column="link"/>
         <association property="gmtInfo" javaType="gmtInfo">
             <result property="gmtCreate" column="gmt_create"/>
@@ -18,7 +18,11 @@
     </resultMap>
 
     <insert id="insertSystemMessage" parameterType="systemMessageDO">
+<<<<<<< HEAD:fidledemo/src/main/java/com/example/fidledemo/dao/SystemMessageMapper.xml
         INSERT INTO  system_message(id,acc_id,title,content,link,state,gmt_create,gmt_modified)
+=======
+        INSERT INTO  system_message(id,acc_id,title,content,link,'state',gmt_create,gmt_modified)
+>>>>>>> parent of 46bd74a (Revert "Merge branch 'main' of https://github.com/Willayuyu/TeamProject-Alpha into main"):fidledemo/src/main/java/com/example/fidledemo/dao/SystemMessageDAO.xml
         VALUES (#{id},#{acc_id},#{title},#{content},#{link},#{state},now(),now());
     </insert>
 
@@ -84,7 +88,7 @@
             <if test="title !=NULL AND title !=''">title=#{title},</if>
             <if test="content !=NULL AND content !=''">content=#{content},</if>
             <if test="link !=NULL AND link !=''">link=#{link},</if>
-            <if test="state !=NULL AND state !=''">state=#{state},</if>
+            <if test="state !=NULL AND state !=''">'state'=#{state},</if>
             gmt_modified=now()
         </set>
         where id=#{id}
