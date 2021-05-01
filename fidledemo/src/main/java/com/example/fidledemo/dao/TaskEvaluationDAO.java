@@ -2,6 +2,7 @@ package com.example.fidledemo.dao;
 
 import com.example.fidledemo.BO.EvaluationBO;
 import com.example.fidledemo.DO.TaskEvaluationDO;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
@@ -9,6 +10,7 @@ import java.util.List;
  * @Description:
  * @Author: ZSP
  */
+@Mapper
 public interface TaskEvaluationDAO {
 
     /**

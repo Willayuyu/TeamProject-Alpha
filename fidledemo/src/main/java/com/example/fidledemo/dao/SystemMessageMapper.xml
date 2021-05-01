@@ -18,11 +18,7 @@
     </resultMap>
 
     <insert id="insertSystemMessage" parameterType="systemMessageDO">
-<<<<<<< HEAD:fidledemo/src/main/java/com/example/fidledemo/dao/SystemMessageMapper.xml
         INSERT INTO  system_message(id,acc_id,title,content,link,state,gmt_create,gmt_modified)
-=======
-        INSERT INTO  system_message(id,acc_id,title,content,link,'state',gmt_create,gmt_modified)
->>>>>>> parent of 46bd74a (Revert "Merge branch 'main' of https://github.com/Willayuyu/TeamProject-Alpha into main"):fidledemo/src/main/java/com/example/fidledemo/dao/SystemMessageDAO.xml
         VALUES (#{id},#{acc_id},#{title},#{content},#{link},#{state},now(),now());
     </insert>
 
