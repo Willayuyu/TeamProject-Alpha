@@ -1,78 +1,109 @@
-<view class="main">
-<!-- 公共的头部 -->
-
-<!-- 搜索框等等 -->
-
-<!-- 二手物品列表 -->
-<view class="secondhand-list">
-  <navigator class="secondhand-item">
-    <!-- 图片 -->  
-    <view class="secondhand-img-wrap">  
-      <image class="pic" src="../../images/book.png" mode="widthFix"></image>
-    </view>
-
-    <view class="other-info">
-      <!-- 标题 -->   
-      <view class="secondhand-title">软件工程 第八版 全新未拆封 好价速来！</view>
-      <!-- 标签 -->  
-      <view class="secondhand-tag">
-        <image src="../../images/label.png" mode="widthFix"></image>
-        <text class="tag">全新</text>
-        <text class="tag">教材</text>
-        <text class="tag">大三</text>
+<van-tabs swipeable="{{true}}">
+  <van-tab title="二手物品" name="goods">
+    <van-card  price="{{goodsPrice}}" origin-price="{{goodsOriginPrice}}" thumb="{{goodsImageURL}}" class="card">
+      <view slot="title" class="title">
+        <text>{{goodsTitle}}</text>
       </view>
-      <view>
-        <!-- 现价格 -->   
-        <text class="price">￥30</text> 
-        <!-- 原价 --> 
-        <text class="price-origin">￥75</text>    
+      <view slot="tags" class="tagList">
+        <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
+        <van-tag wx:for="{{goodsTagsList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">{{item}}</van-tag>
       </view>
-      <!-- 联系卖家按钮 -->   
-      <view class="btns">
-
-        <view class="btn-contact-seller">
-        联系卖家
-        </view>
-        <!-- 收藏按钮 -->    
-        <view class="btn-contact-seller">
-          收藏
-        </view>  
-
-      </view> 
-    </view> 
-  </navigator>
-  
-</view>
-
-<!-- 任务委托列表 -->
-<view class="task-list">
-任务委托列表
-  <navigator class="task-item">
-  
-    <view class="task-info">
-      <!-- 标题 -->   
-      <view class="task-title">找人拿快递 四小件 送到41号楼
-      <!-- 价格 -->
-      <view class="task-price">
-        ￥20    
+      <view slot="footer" class="btns">
+        <van-button class="btn">联系卖家</van-button>
+        <van-button class="btn">
+        <text decode>&nbsp;收&nbsp;&nbsp;藏&nbsp;</text>
+          
+        </van-button>
       </view>
-      <!-- 详细信息 -->
-      <view class="task-detail">快递快递快递</view>
-           
-      <!-- 标签 -->  
-      <view class="secondhand-tag">   
-        <image src="../../images/label.png" mode="widthFix"></image>
-        <text class="tag">拿快递</text>
-        <view class="task-btns">
-          <text class="btn-contact-seller">联系委托人</text>
-          <text class="btn-collect">收藏</text>
-        </view>
+    </van-card>
+    <van-card  price="{{goodsPrice}}" origin-price="{{goodsOriginPrice}}" thumb="{{ goodsImageURL }}">
+      <view slot="title" class="title">
+        <text>{{goodsTitle}}</text>
       </view>
-
-    </view>
-
-
-    </view> 
-  </navigator>
-</view>
-</view>
+      <view slot="tags" class="tagList">
+        <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
+        <van-tag wx:for="{{goodsTagsList}}" wx:key="{{index}}" class="tagItem"  color="#dbdbdb" text-color="#394044">{{item}}</van-tag>
+      </view>
+      <view slot="footer" class="btns">
+        <van-button class="btn">联系卖家</van-button>
+        <van-button class="btn">已收藏</van-button>
+      </view>
+    </van-card>
+  </van-tab>
+  <van-tab title="任务委托" name="task">
+    <van-card class="card">
+      <view slot="price" class="price">
+        <text class="sign">￥</text>
+        <text class="priceText">{{taskPrice}}</text>
+      </view>
+      <view slot="title" class="title">
+        <text>{{taskTitle}}</text>
+      </view>
+      <view slot="tags" class="tagTask">
+        <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
+        <van-tag wx:for="{{taskTagsList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">{{item}}</van-tag>
+      </view>
+      <view slot="footer" class="taskBtns">
+        <van-button class="btn">联系委托人</van-button>
+        <van-button class="btn">
+          <text decode>&nbsp;收&nbsp;&nbsp;藏&nbsp;</text>
+        </van-button>
+      </view>
+    </van-card>
+    <van-card class="card">
+      <view slot="price" class="price">
+        <text class="sign">￥</text>
+        <text class="priceText">{{taskPrice}}</text>
+      </view>
+      <view slot="title" class="title">
+        <text>{{taskTitle}}</text>
+      </view>
+      <view slot="tags" class="tagTask">
+        <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
+        <van-tag wx:for="{{taskTagsList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">{{item}}</van-tag>
+      </view>
+      <view slot="footer" class="taskBtns">
+        <van-button  class="btn">联系委托人</van-button>
+        <van-button  class="btn">已收藏</van-button>
+      </view>
+    </van-card>
+  </van-tab>
+  <van-tab title="活动信息" name="activity">
+    <van-card  thumb="{{activityImageURL}}" class="card" >
+      <view slot="title" class="title">
+        <text>{{activityTitle}}</text>
+      </view>
+      <view slot="desc">
+        <text>{{date + address}}</text>
+        <text>{{'\n'}}</text>
+        <text>{{'主办方：'+ oganizer}}</text>
+      </view>
+      <view slot="tags" class="tagTask">
+        <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
+        <van-tag wx:for="{{activityTagsList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">{{item}}</van-tag>
+      </view>
+      <view slot="footer" class="activityBtns">
+        <van-button class="btn">
+          <text decode>&nbsp;收&nbsp;&nbsp;藏&nbsp;</text>
+        </van-button>
+      </view>
+    </van-card>
+    <van-card  thumb="{{activityImageURL}}" class="card" >
+      <view slot="title" class="title">
+        <text>{{activityTitle}}</text>
+      </view>
+      <view slot="desc">
+        <text>{{date + address}}</text>
+        <text>{{'\n'}}</text>
+        <text>{{'主办方：'+ oganizer}}</text>
+      </view>
+      <view slot="tags" class="tagTask">
+        <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
+        <van-tag wx:for="{{activityTagsList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">{{item}}</van-tag>
+      </view>
+      <view slot="footer" class="activityBtns">
+        <van-button  class="btn">已收藏</van-button>
+      </view>
+    </van-card>
+  </van-tab>
+</van-tabs>

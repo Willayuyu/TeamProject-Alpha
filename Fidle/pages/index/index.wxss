@@ -1,108 +1,75 @@
-.main{
-  background-color: #F0F2F7;
-  width: 100vw;
-  height: 100vh;
-}
-.secondhand-list,.task-list{
-  margin-top: 10rpx;
+.card{
+  display: block;
+  margin-bottom: 15rpx;
 }
 
-.secondhand-item,.task-item{
-  margin: 20rpx;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  background-color: #fff;
-  border-radius: 15rpx;
+.tagsIcon{
+  width: 35rpx;
+  height: auto;
+  vertical-align: middle;
 }
 
-.secondhand-img-wrap{
-  width: 35%;
-  display: flex;
-  /* justify-content: center; */
-  /* align-items: center; */
+.tagItem{
+  margin-left: 15rpx;
+  vertical-align: middle;
 }
 
-.secondhand-img-wrap image{
-  width: 90%;
-  border-radius: 15rpx;
+.tagList{
+  margin: 10rpx 0;
 }
 
-.other-info{
-  width: 60%;
-  margin: 35rpx 0;
+.tagTask{
+  margin-top: 15rpx;
+}
+
+.title{
+  font-size: 28rpx;
+  font-weight: bold;
 }
 
 .btns{
-  margin: 25rpx 0;
+  margin-top: -10rpx;
+  margin-bottom: 10rpx;
 }
 
-.btn-contact-seller,.btn-collect{
-  /* width: 230rpx; */
-  font-size: 30rpx;
-  display: inline;
-  justify-content:center;
-  align-items: center;
-  background-color: #7DB5EE;
-  color: #fff;
-  border-radius: 10rpx;
-  padding:16rpx;
-  /* margin: 10rpx; */
-  margin-top: 50rpx;
-  margin-right:30rpx;
-  /* flex: 1; */
-
-} 
+.btn{
+  width: 50rpx;
+  height: 20rpx; 
+  margin: 0 20rpx 40rpx;
+  padding: 10rpx 20rpx;
+  background-color: #7db5ee;
+  color: #F3F4F4;
+  font-size: 22rpx;
+  border-radius: 5rpx;
+}
 
 .price{
+  display: flex;
+  align-items: center;
+}
+
+.sign{
+  flex: 1;
+  margin-top: -310rpx;
+  text-align: right;
+  font-size: 25rpx;
   color: #F14836;
 }
 
-.price-origin{
+.priceText{
+  margin-right: 25rpx;
+  margin-top: -310rpx;
   font-size: 30rpx;
-  color: #bbb;
-  text-decoration: line-through;
-  margin-left: 18rpx;
-}
-
-.tag{
-  background-color: #F3F4F4;
-  margin-left: 15rpx;
-  border-radius: 5rpx;
-  font-size: 30rpx;
-}
-
-.pic{
-  margin: 30rpx;
-}
-
-.secondhand-tag image{
-  width: 40rpx;
-}
-
-.task-title{
-  padding: 20rpx;
-  /* display: flex; */
-  /* justify-content: space-between; */
-}
-
-.task-price{
-  display: inline-flex;
+  font-weight: bold;
   color: #F14836;
-  margin-left: 10rpx;
-  justify-content: space-between;
 }
 
-.task-detail{
-  color:#999;
-  font-size: 30rpx;
+.taskBtns{
+  margin-top: -70rpx;
+  margin-bottom: 10rpx;
 }
 
-.task-btns{
-  display: inline;
-  margin-left: 200rpx;
-}
-
-.task-info{
-  padding-bottom: 20rpx;
+.activityBtns{
+  margin-top: -10rpx;
+  margin-bottom: 10rpx;
 }

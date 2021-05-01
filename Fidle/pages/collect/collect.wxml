@@ -1,4 +1,4 @@
-<van-tabs active="collect">
+<van-tabs>
   <van-tab title="二手物品" name="goods">
     <van-card  price="{{goodsPrice}}" origin-price="{{goodsOriginPrice}}" thumb="{{goodsImageURL}}" class="card">
       <view slot="title" class="title">
