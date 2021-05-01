@@ -204,6 +204,17 @@ public interface ActivityInfoDAO
 
 ## Mapper	
 
+- 插入
+
+  ```xml
+  <!--keyProperty填需要在插入后获取的主键，该主键将会被赋给用于插入的DO-->
+  <insert id="XXX" useGeneratedKeys="true" keyProperty="id">
+     INSERT INTO `table`(id,title,content) VALUES(#{id},#{title},#{content})
+  </insert>
+  ```
+
+
+
 - 查询
 
   ```xml
