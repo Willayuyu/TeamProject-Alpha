@@ -31,10 +31,6 @@ public class AdminDO {
 
     private String salt;
 
-    private Date gmt_create;
-
-    private Date gmt_modified;
-
     //模糊字段(字符串)
     private Boolean accountLike;
 }

@@ -24,32 +24,35 @@ public class ActivityInfoDO {
     //数据库字段
     private Long id;
 
-    private Long pub_id;
+    private Long pubId;
 
     private String title;
 
     private String address;
 
-    private Date start_time;
+    private Date startTime;
 
-    private Date end_time;
+    private Date endTime;
 
     private Integer category;
 
     private String description;
 
-    private Date gmt_create;
-
-    private Date gmt_modified;
-
     //模糊字段(字符串)
+
     private Boolean titleLike;
 
     private Boolean addressLike;
 
-    private Boolean start_timeLike;
+    /**
+     * 起始时间（用于发布时间的模糊查询）
+     */
+    private Date createTimeBegin;
 
-    private Boolean end_timeLike;
+    /**
+     * 结束时间（用于发布时间的模糊查询）
+     */
+    private Date createTimeEnd;
 
-    private Boolean description_timeLike;
+    private Boolean descriptionLike;
 }

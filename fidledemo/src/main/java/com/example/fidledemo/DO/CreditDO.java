@@ -25,17 +25,13 @@ public class CreditDO {
     //数据库字段
     private Long id;
 
-    private Long user_id;
+    private Long userId;
 
-    private Integer credit_score;
+    private Integer creditScore;
 
-    private Integer like_num;
+    private Integer likeNum;
 
-    private Integer dislike_num;
-
-    private Date gmt_create;
-
-    private Date gmt_modified;
+    private Integer dislikeNum;
 
     //模糊字段(字符串)
 }

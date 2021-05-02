@@ -25,7 +25,7 @@ public class SystemMessageDO {
     //数据库字段
     private Long id;
 
-    private Long acc_id;
+    private Long accId;
 
     private String title;
 
@@ -34,10 +34,6 @@ public class SystemMessageDO {
     private String link;
 
     private Integer state;
-
-    private Date gmt_create;
-
-    private Date gmt_modified;
 
     //模糊字段(字符串)
     private Boolean titleLike;

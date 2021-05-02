@@ -25,13 +25,9 @@ public class GoodsTagDO {
     //数据库字段
     private Long id;
 
-    private Long goods_id;
+    private Long goodsId;
 
-    private Long tag_id;
-
-    private Date gmt_create;
-
-    private Date gmt_modified;
+    private Long tagId;
 
     //模糊字段(字符串)
 }

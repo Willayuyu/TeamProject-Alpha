@@ -25,13 +25,9 @@ public class GoodsImageDO {
     //数据库字段
     private Long id;
 
-    private Long goods_id;
+    private Long goodsId;
 
-    private String image_link;
-
-    private Date gmt_create;
-
-    private Date gmt_modified;
+    private String imageLink;
 
     //模糊字段(字符串)
 }

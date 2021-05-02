@@ -25,19 +25,15 @@ public class GoodsReportMessageDO {
     //数据库字段
     private Long id;
 
-    private Long whistleblower_id;
+    private Long whistleblowerId;
 
-    private Long reported_goods_id;
+    private Long reportedGoodsId;
 
     private String title;
 
     private String reason;
 
     private Integer state;
-
-    private Date gmt_create;
-
-    private Date gmt_modified;
 
     //模糊字段(字符串)
     private Boolean titleLike;

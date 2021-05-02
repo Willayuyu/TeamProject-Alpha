@@ -25,18 +25,16 @@ public class GoodsEvaluationDO {
     //数据库字段
     private Long id;
 
-    private Long goods_id;
+    private Long goodsId;
 
-    private Long valuator_id;
+    private Long evaluatorId;
 
     private Integer evaluation;
 
     private String reason;
 
-    private Date gmt_create;
-
-    private Date gmt_modified;
 
     //模糊字段(字符串)
+
     private Boolean reasonLike;
 }

@@ -26,13 +26,13 @@ public class GoodsInfoDO {
     //数据库字段
     private Long id;
 
-    private Long seller_id;
+    private Long sellerId;
 
     private String title;
 
     private BigDecimal price;
 
-    private BigDecimal original_price;
+    private BigDecimal originalPrice;
 
     private String description;
 
@@ -40,16 +40,23 @@ public class GoodsInfoDO {
 
     private Integer condition;
 
-    private Integer is_sold;
-
-    private Date gmt_create;
-
-    private Date gmt_modified;
+    private Integer sold;
 
     //模糊字段(字符串)
+
     private Boolean titleLike;
 
     private Boolean priceLike;
+
+    /**
+     * 起始时间（用于发布时间的模糊查询）
+     */
+    private Date createTimeBegin;
+
+    /**
+     * 结束时间（用于发布时间的模糊查询）
+     */
+    private Date createTimeEnd;
 
     private Boolean descriptionLike;
 }

@@ -25,13 +25,10 @@ public class GoodsEnshrineDO {
     //数据库字段
     private Long id;
 
-    private Long user_id;
+    private Long userId;
 
-    private Long goods_id;
-
-    private Date gmt_create;
-
-    private Date gmt_modified;
+    private Long goodsId;
 
     //模糊字段(字符串)
+
 }

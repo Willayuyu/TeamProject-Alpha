@@ -25,13 +25,10 @@ public class ActivityTagDO {
     //数据库字段
     private Long id;
 
-    private Long goods_id;
+    private Long tagId;
 
-    private Long activity_id;
+    private Long activityId;
 
-    private Date gmt_create;
-
-    private Date gmt_modified;
 
     //模糊字段(字符串)
 }

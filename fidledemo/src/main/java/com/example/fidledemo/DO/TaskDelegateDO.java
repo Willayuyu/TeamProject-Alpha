@@ -25,23 +25,19 @@ public class TaskDelegateDO {
     //数据库字段
     private Long id;
 
-    private Long task_info_id;
+    private Long taskInfoId;
 
-    private Long pub_id;
+    private Long pubId;
 
-    private Long acc_id;
+    private Long accId;
 
-    private Long acc_evaluate_id;
+    private Long accEvaluateId;
 
-    private Long pub_evaluate_id;
+    private Long pubEvaluateId;
 
-    private Integer is_pub_evaluated;
+    private Integer pubEvaluated;
 
-    private Integer is_acc_evaluated;
-
-    private Date gmt_create;
-
-    private Date gmt_modified;
+    private Integer accEvaluated;
 
     //模糊字段(字符串)
 }

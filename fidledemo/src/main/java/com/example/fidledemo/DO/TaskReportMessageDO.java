@@ -25,9 +25,9 @@ public class TaskReportMessageDO {
     //数据库字段
     private Long id;
 
-    private Long whistleblower_id;
+    private Long whistleblowerId;
 
-    private Long reported_task_id;
+    private Long reportedTaskId;
 
     private String title;
 
@@ -35,12 +35,20 @@ public class TaskReportMessageDO {
 
     private Integer state;
 
-    private Date gmt_create;
-
-    private Date gmt_modified;
-
     //模糊字段(字符串)
+
     private Boolean titleLike;
 
     private Boolean reasonLike;
+
+    /**
+     * 起始时间（用于发布时间的模糊查询）
+     */
+    private Date createTimeBegin;
+
+    /**
+     * 结束时间（用于发布时间的模糊查询）
+     */
+    private Date createTimeEnd;
+
 }

@@ -31,15 +31,15 @@ public class UserDO {
 
     private String qq;
 
-    private String wechat_account;
+    private Integer openId;
+
+    private String wechatAccount;
 
     private String portrait;
 
-    private Date gmt_create;
-
-    private Date gmt_modified;
 
     //模糊字段(字符串)
+
     private Boolean usernameLike;
 
     private Boolean qqLike;
