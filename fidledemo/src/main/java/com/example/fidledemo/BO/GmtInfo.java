@@ -24,21 +24,4 @@ public class GmtInfo
    */
   private Date gmtModified;
 
-  /**
-   * 无参构造方法
-   */
-  public GmtInfo()
-  {
-    gmtCreate=new Date();
-    gmtModified=new Date();
-  }
-
-  /**
-   * 更新修改时间
-   */
-  public void refreshGmtModified()
-  {
-    this.gmtModified=new Date();
-  }
-
 }

@@ -1,5 +1,6 @@
 package com.example.fidledemo.BO;
 
+import com.example.fidledemo.DO.SystemMessageDO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -47,6 +48,33 @@ public class SystemMessageBO extends BaseMessage
    */
   private Integer state;
 
+  /**
+   * 构造方法
+   * @param title
+   * @param content
+   * @param accId
+   * @param link
+   */
+  public SystemMessageBO(String title, String content, Long accId, String link)
+  {
+    super(title, content);
+    this.accId = accId;
+    this.link = link;
+    this.state = UNSENT;
+  }
 
-
+  /**
+   * 获得SystemMessageDO
+   * @return
+   */
+  public SystemMessageDO getSystemMessageDO()
+  {
+    SystemMessageDO messageDO=new SystemMessageDO();
+    messageDO.setAccId(this.accId);
+    messageDO.setTitle(this.title);
+    messageDO.setContent(this.content);
+    messageDO.setLink(this.link);
+    messageDO.setState(this.state);
+    return messageDO;
+  }
 }

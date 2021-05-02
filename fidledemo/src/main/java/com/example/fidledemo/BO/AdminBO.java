@@ -35,21 +35,23 @@ public class AdminBO
   /**
    * 二手举报信息列表
    */
-  private MessageList<ReportMessage> goodsReportMessageList;
+  private MessageList<ReportMessageBO> goodsReportMessageList;
 
   /**
    * 任务举报信息列表
    */
-  private MessageList<ReportMessage> taskReportMessageList;
+  private MessageList<ReportMessageBO> taskReportMessageList;
 
   /**
    * 活动举报信息列表
    */
-  private MessageList<ReportMessage> activityReportMessageList;
+  private MessageList<ReportMessageBO> activityReportMessageList;
 
   /**
    * 操作时间信息
    */
   private GmtInfo gmtInfo;
+
+
 }
 

@@ -13,6 +13,22 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public abstract class BaseOrder
 {
+
+
+  //评价状态
+
+  /**
+   * 未评价
+   */
+  public static final Integer UNEVALUATED=-1;
+
+  /**
+   * 已评价
+   */
+  public static final Integer EVALUATED=1;
+
+
+
   /**
    * 订单项id
    */
@@ -41,16 +57,29 @@ public abstract class BaseOrder
   /**
    * 甲方是否评价
    */
-  protected Boolean pubEvaluated;
+  protected Integer pubEvaluated;
 
   /**
    * 乙方是否评价
    */
-  protected Boolean accEvaluated;
+  protected Integer accEvaluated;
 
   /**
    * 操作时间信息
    */
   protected GmtInfo gmtInfo;
 
+
+  /**
+   * 构造方法
+   * @param pubId
+   * @param accId
+   */
+  public BaseOrder(Long pubId, Long accId)
+  {
+    this.pubId = pubId;
+    this.accId = accId;
+    this.pubEvaluated=UNEVALUATED;
+    this.accEvaluated=UNEVALUATED;
+  }
 }

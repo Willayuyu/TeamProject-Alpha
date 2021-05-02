@@ -42,4 +42,17 @@ public class TagBO
    * 操作时间信息
    */
   private GmtInfo gmtInfo;
+
+  /**
+   * 构造方法
+   * @param infoId
+   * @param content
+   * @param type
+   */
+  public TagBO(Long infoId, String content, Integer type)
+  {
+    this.infoId = infoId;
+    this.content = content;
+    this.type = type;
+  }
 }

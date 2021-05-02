@@ -1,5 +1,6 @@
 package com.example.fidledemo.BO;
 
+import com.example.fidledemo.DO.CreditDO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -39,4 +40,33 @@ public class CreditBO
    * 操作时间信息
    */
   private GmtInfo gmtInfo;
+
+  /**
+   * 构造方法
+   * @param userId
+   * @param creditScore
+   * @param likeNum
+   * @param dislikeNum
+   */
+  public CreditBO(Long userId, Integer creditScore, Integer likeNum, Integer dislikeNum)
+  {
+    this.userId = userId;
+    this.creditScore = creditScore;
+    this.likeNum = likeNum;
+    this.dislikeNum = dislikeNum;
+  }
+
+  /**
+   * 获得CreditDO
+   * @return
+   */
+  public CreditDO getCreditDO()
+  {
+    CreditDO creditDO=new CreditDO();
+    creditDO.setUserId(this.userId);
+    creditDO.setCreditScore(this.creditScore);
+    creditDO.setLikeNum(this.likeNum);
+    creditDO.setDislikeNum(this.dislikeNum);
+    return creditDO;
+  }
 }

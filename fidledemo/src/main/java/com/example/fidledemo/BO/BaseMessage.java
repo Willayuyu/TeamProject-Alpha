@@ -30,4 +30,15 @@ public abstract class BaseMessage
    * 操作时间信息
    */
   protected GmtInfo gmtInfo;
+
+  /**
+   * 构造方法
+   * @param title
+   * @param content
+   */
+  public BaseMessage(String title, String content)
+  {
+    this.title = title;
+    this.content = content;
+  }
 }

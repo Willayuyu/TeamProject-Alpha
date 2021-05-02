@@ -46,4 +46,24 @@ public abstract class BaseInformation
    * 操作时间信息
    */
   protected GmtInfo gmtInfo;
+
+  /**
+   * 构造方法
+   * @param pubId
+   * @param title
+   * @param description
+   * @param tagList
+   * @param categoryId
+   * @param categoryDesignation
+   * @param type
+   */
+  public BaseInformation(Long pubId, String title, String description, List<TagBO> tagList,
+                         Integer categoryId, String categoryDesignation, Integer type)
+  {
+    this.pubId = pubId;
+    this.title = title;
+    this.description = description;
+    this.tagList = tagList;
+    this.category = new CategoryBO(categoryId,categoryDesignation,type);
+  }
 }

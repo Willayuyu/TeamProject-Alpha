@@ -1,5 +1,7 @@
 package com.example.fidledemo.BO;
 
+import com.example.fidledemo.DO.GoodsEvaluationDO;
+import com.example.fidledemo.DO.TaskEvaluationDO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -35,6 +37,9 @@ public class EvaluationBO
    */
   public static final Integer GOOD=1;
 
+
+  //数据字段
+
   private Long id;
 
   /**
@@ -45,7 +50,7 @@ public class EvaluationBO
   /**
    * 评价者id
    */
-  private Integer evaluatorId;
+  private Long evaluatorId;
 
   /**
    * 评价理由
@@ -67,4 +72,63 @@ public class EvaluationBO
    */
   private GmtInfo gmtInfo;
 
+  /**
+   * 构造方法
+   * @param infoId
+   * @param evaluatorId
+   * @param reason
+   * @param evaluation
+   * @param type
+   */
+  public EvaluationBO(Long infoId, Long evaluatorId,
+                      String reason, Integer evaluation, Integer type)
+  {
+    this.infoId = infoId;
+    this.evaluatorId = evaluatorId;
+    this.reason = reason;
+    this.evaluation = evaluation;
+    this.type = type;
+  }
+
+  /**
+   * 获得GoodsEvaluationDO
+   * @return
+   */
+  public GoodsEvaluationDO getGoodsEvaluationDO()
+  {
+    if (type.equals(GOODS))
+    {
+      GoodsEvaluationDO goodsEvaluationDO=new GoodsEvaluationDO();
+      goodsEvaluationDO.setGoodsId(this.infoId);
+      goodsEvaluationDO.setEvaluatorId(this.evaluatorId);
+      goodsEvaluationDO.setEvaluation(this.evaluation);
+      goodsEvaluationDO.setReason(this.reason);
+      return goodsEvaluationDO;
+    }
+    else
+    {
+      return null;
+    }
+  }
+
+  /**
+   * 获得GoodsEvaluationDO
+   * @return
+   */
+  public TaskEvaluationDO getTaskEvaluationDO()
+  {
+    if (type.equals(TASK))
+    {
+      TaskEvaluationDO evaluationDO=new TaskEvaluationDO();
+      evaluationDO.setTaskId(this.infoId);
+      evaluationDO.setEvaluatorId(this.evaluatorId);
+      evaluationDO.setEvaluation(this.evaluation);
+      evaluationDO.setReason(this.reason);
+      return evaluationDO;
+    }
+    else
+    {
+      return null;
+    }
+  }
 }

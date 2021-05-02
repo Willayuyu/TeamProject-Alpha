@@ -39,5 +39,17 @@ public class CategoryBO
    */
   private Integer type;
 
+  /**
+   * 构造方法
+   * @param categoryId
+   * @param categoryDesignation
+   * @param type
+   */
+  public CategoryBO(Integer categoryId, String categoryDesignation, Integer type)
+  {
+    this.categoryId = categoryId;
+    this.categoryDesignation = categoryDesignation;
+    this.type = type;
+  }
 
 }

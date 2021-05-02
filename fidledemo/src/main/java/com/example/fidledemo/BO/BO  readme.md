@@ -51,3 +51,5 @@ public class CategoryBO
 ```
 
 - **type**和**category**的区别：**type**指的是活动、二手、任务三种类型的信息；**category**指的是信息的分类（如二手分为服饰、鞋子等等）
+
+- 每个BO里都有转换为DO的方法;包含其他BO集合的BO也写了将集合转换为DO集合的方法
