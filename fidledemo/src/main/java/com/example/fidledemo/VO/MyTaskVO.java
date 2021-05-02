@@ -14,11 +14,11 @@ import java.util.List;
 @NoArgsConstructor
 public class MyTaskVO {
 
-    private BigInteger id;
+    private Long id;
 
-    private BigInteger pulisherId;
+    private Long pulisherId;
 
-    private BigInteger accepterId;
+    private Long accepterId;
 
     private String title;
 

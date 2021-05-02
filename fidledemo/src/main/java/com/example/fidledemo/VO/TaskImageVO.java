@@ -14,7 +14,7 @@ import java.math.BigInteger;
 @NoArgsConstructor
 public class TaskImageVO {
 
-    private BigInteger id;
+    private Long id;
 
     private String imageLink;
 }

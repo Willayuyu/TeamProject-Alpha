@@ -16,9 +16,9 @@ import java.util.List;
 @NoArgsConstructor
 public class TaskVO {
 
-    private BigInteger id;
+    private Long id;
 
-    private BigInteger pubId;
+    private Long pubId;
 
     private Double reward;
 

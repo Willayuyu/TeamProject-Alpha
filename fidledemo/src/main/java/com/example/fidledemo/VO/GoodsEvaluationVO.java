@@ -15,9 +15,9 @@ import java.util.Date;
 @NoArgsConstructor
 public class GoodsEvaluationVO {
 
-    private BigInteger goodsId;
+    private Long goodsId;
 
-    private BigInteger valuatorId;
+    private Long valuatorId;
 
     private String portrait;
 

@@ -14,11 +14,11 @@ import java.util.List;
 @NoArgsConstructor
 public class MyGoodsVO {
 
-    private BigInteger id;
+    private Long id;
 
-    private BigInteger sellerId;
+    private Long sellerId;
 
-    private BigInteger buyerId;
+    private Long buyerId;
 
     private String title;
 

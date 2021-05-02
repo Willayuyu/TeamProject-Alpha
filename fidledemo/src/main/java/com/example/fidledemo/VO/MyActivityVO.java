@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 public class MyActivityVO {
 
-    private BigInteger id;
+    private Long id;
 
     private String title;
 

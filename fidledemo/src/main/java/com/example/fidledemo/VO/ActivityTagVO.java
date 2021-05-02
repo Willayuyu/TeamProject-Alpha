@@ -14,7 +14,7 @@ import java.math.BigInteger;
 @NoArgsConstructor
 public class ActivityTagVO {
 
-    private BigInteger id;
+    private Long id;
 
     private String content;
 }

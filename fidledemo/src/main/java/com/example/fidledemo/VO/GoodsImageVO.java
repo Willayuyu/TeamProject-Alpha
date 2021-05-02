@@ -14,7 +14,7 @@ import java.math.BigInteger;
 @NoArgsConstructor
 public class GoodsImageVO {
 
-    private BigInteger id;
+    private Long id;
 
     private String imageLink;
 }

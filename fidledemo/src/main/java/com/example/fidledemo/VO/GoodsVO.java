@@ -15,9 +15,9 @@ import java.util.List;
 @NoArgsConstructor
 public class GoodsVO {
 
-    private BigInteger id;
+    private Long id;
 
-    private BigInteger pubId;
+    private Long pubId;
 
     private String title;
 

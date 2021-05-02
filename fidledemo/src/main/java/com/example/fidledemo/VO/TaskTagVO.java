@@ -15,7 +15,7 @@ import java.math.BigInteger;
 @NoArgsConstructor
 public class TaskTagVO {
 
-    private BigInteger id;
+    private Long id;
 
     private String content;
 }
