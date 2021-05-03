@@ -18,7 +18,7 @@
 
     <insert id="insertGoodsEvaluation" parameterType="goodsEvaluationDO">
         INSERT INTO goods_evaluation(id,goods_id,valuator_id,evaluation,reason,gmt_create,gmt_modified)
-        VALUES (#{id},#{goods_id},#{valuator_id},#{evaluation},#{reason},now(),now())
+        VALUES (#{id},#{goodsId},#{valuatorId},#{evaluation},#{reason},now(),now())
     </insert>
 
     <delete id="deleteGoodsEvaluation" parameterType="long">
@@ -39,11 +39,11 @@
             <if test="id !=NULL AND id!=''">
                 AND id=#{id}
             </if>
-            <if test="goods_id !=NULL AND goods_id!=''">
-                AND goods_id=#{goods_id}
+            <if test="goodsId !=NULL AND goodsId!=''">
+                AND goods_id=#{goodsId}
             </if>
-            <if test="valuator_id !=NULL AND valuator_id!=''">
-                AND valuator_id=#{valuator_id}
+            <if test="valuatorId !=NULL AND valuatorId!=''">
+                AND valuator_id=#{valuatorId}
             </if>
             <if test="evaluation !=NULL AND evaluation!=''">
                 AND evaluation=#{evaluation}
@@ -56,12 +56,6 @@
                     AND reason =#{reason}
                 </if>
             </if>
-            <if test="gmt_create !=NULL AND gmt_create!=''">
-                AND gmt_create=#{gmt_create}
-            </if>
-            <if test="gmt_modified !=NULL AND gmt_modified!=''">
-                AND gmt_modified=#{gmt_modified}
-            </if>
         </where>
         <if test="limit !=NULL AND limit!=''">
             limit #{begin},#{size}
@@ -71,8 +65,8 @@
     <update id="updateGoodsEvaluation" parameterType="goodsEvaluationDO">
         UPDATE goods_evaluation
         <set>
-            <if test="goods_id !=NULL AND goods_id !=''">goods_id=#{goods_id},</if>
-            <if test="valuator_id !=NULL AND valuator_id !=''">valuator_id=#{valuator_id},</if>
+            <if test="goodsId !=NULL AND goodsId !=''">goods_id=#{goodsId},</if>
+            <if test="valuatorId !=NULL AND valuatorId !=''">valuator_id=#{valuatorId},</if>
             <if test="evaluation !=NULL AND evaluation !=''">evaluation=#{evaluation},</if>
             <if test="reason !=NULL AND reason !=''">reason=#{reason},</if>
             gmt_modified=now()

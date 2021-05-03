@@ -19,7 +19,7 @@
 
     <insert id="insertSystemMessage" parameterType="systemMessageDO">
         INSERT INTO  system_message(id,acc_id,title,content,link,state,gmt_create,gmt_modified)
-        VALUES (#{id},#{acc_id},#{title},#{content},#{link},#{state},now(),now());
+        VALUES (#{id},#{accId},#{title},#{content},#{link},#{state},now(),now());
     </insert>
 
     <delete id="deleteSystemMessageById" parameterType="long">
@@ -40,8 +40,8 @@
             <if test="id !=NULL AND id!=''">
                 AND id=#{id}
             </if>
-            <if test="acc_id !=NULL AND acc_id!=''">
-                AND acc_id=#{acc_id}
+            <if test="accId !=NULL AND accId!=''">
+                AND acc_id=#{accId}
             </if>
             <if test="title !=NULL AND title !=''">
                 <if test="titleLike !=NULL AND titleLike !=''">
@@ -65,12 +65,6 @@
             <if test="state !=NULL AND state!=''">
                 AND state=#{state}
             </if>
-            <if test="gmt_create !=NULL AND gmt_create!=''">
-                AND gmt_create=#{gmt_create}
-            </if>
-            <if test="gmt_modified !=NULL AND gmt_modified!=''">
-                AND gmt_modified=#{gmt_modified}
-            </if>
         </where>
         <if test="limit !=NULL AND limit!=''">
             limit #{begin},#{size}
@@ -80,7 +74,7 @@
     <update id="updateSystemMessage" parameterType="systemMessageDO">
         UPDATE system_message
         <set>
-            <if test="acc_id !=NULL AND acc_id !=''">acc_id=#{acc_id},</if>
+            <if test="accId !=NULL AND accId !=''">acc_id=#{accId},</if>
             <if test="title !=NULL AND title !=''">title=#{title},</if>
             <if test="content !=NULL AND content !=''">content=#{content},</if>
             <if test="link !=NULL AND link !=''">link=#{link},</if>
