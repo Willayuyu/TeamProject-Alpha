@@ -23,10 +23,6 @@ public class TagBO
 
   private Long id;
 
-  /**
-   * 对应的信息id
-   */
-  private Long infoId;
 
   /**
    * 标签内容
@@ -45,13 +41,11 @@ public class TagBO
 
   /**
    * 构造方法
-   * @param infoId
    * @param content
    * @param type
    */
-  public TagBO(Long infoId, String content, Integer type)
+  public TagBO( String content, Integer type)
   {
-    this.infoId = infoId;
     this.content = content;
     this.type = type;
   }
