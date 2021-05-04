@@ -147,4 +147,19 @@ public class ReportMessageBO extends BaseMessage
       return null;
     }
   }
+
+
+  @Override
+  public String toString() {
+    return "ReportMessageBO{" +
+        "whistleblowerId=" + whistleblowerId +
+        ", reportedInfoId=" + reportedInfoId +
+        ", state=" + state +
+        ", type=" + type +
+        ", id=" + id +
+        ", title='" + title + '\'' +
+        ", content='" + content + '\'' +
+        ", gmtInfo=" + gmtInfo +
+        '}';
+  }
 }

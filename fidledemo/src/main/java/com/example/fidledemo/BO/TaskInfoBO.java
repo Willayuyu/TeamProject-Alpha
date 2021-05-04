@@ -134,4 +134,22 @@ public class TaskInfoBO extends BaseInformation
     }
     return list;
   }
+
+
+  @Override
+  public String toString() {
+    return "TaskInfoBO{" +
+        "reward=" + reward +
+        ", startTime=" + startTime +
+        ", endTime=" + endTime +
+        ", state=" + state +
+        ", id=" + id +
+        ", pubId=" + pubId +
+        ", title='" + title + '\'' +
+        ", description='" + description + '\'' +
+        ", tagList=" + tagList +
+        ", category=" + category +
+        ", gmtInfo=" + gmtInfo +
+        '}';
+  }
 }

@@ -77,4 +77,18 @@ public class SystemMessageBO extends BaseMessage
     messageDO.setState(this.state);
     return messageDO;
   }
+
+
+  @Override
+  public String toString() {
+    return "SystemMessageBO{" +
+        "accId=" + accId +
+        ", link='" + link + '\'' +
+        ", state=" + state +
+        ", id=" + id +
+        ", title='" + title + '\'' +
+        ", content='" + content + '\'' +
+        ", gmtInfo=" + gmtInfo +
+        '}';
+  }
 }

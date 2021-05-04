@@ -48,4 +48,18 @@ public class TaskDelegateBO extends BaseOrder
   }
 
 
+  @Override
+  public String toString() {
+    return "TaskDelegateBO{" +
+        "taskInfo=" + taskInfo +
+        ", id=" + id +
+        ", pubId=" + pubId +
+        ", accId=" + accId +
+        ", pubEvaluationBO=" + pubEvaluationBO +
+        ", accEvaluationBO=" + accEvaluationBO +
+        ", pubEvaluated=" + pubEvaluated +
+        ", accEvaluated=" + accEvaluated +
+        ", gmtInfo=" + gmtInfo +
+        '}';
+  }
 }

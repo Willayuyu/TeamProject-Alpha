@@ -40,6 +40,11 @@ public class CategoryBO
   private Integer type;
 
   /**
+   * 操作时间信息
+   */
+  protected GmtInfo gmtInfo;
+
+  /**
    * 构造方法
    * @param categoryId
    * @param categoryDesignation

@@ -48,4 +48,18 @@ public class GoodsIndentBO extends BaseOrder
   }
 
 
+  @Override
+  public String toString() {
+    return "GoodsIndentBO{" +
+        "goodsInfo=" + goodsInfo +
+        ", id=" + id +
+        ", pubId=" + pubId +
+        ", accId=" + accId +
+        ", pubEvaluationBO=" + pubEvaluationBO +
+        ", accEvaluationBO=" + accEvaluationBO +
+        ", pubEvaluated=" + pubEvaluated +
+        ", accEvaluated=" + accEvaluated +
+        ", gmtInfo=" + gmtInfo +
+        '}';
+  }
 }

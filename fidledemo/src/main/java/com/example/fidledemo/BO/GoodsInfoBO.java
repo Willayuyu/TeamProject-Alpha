@@ -4,7 +4,6 @@ import com.example.fidledemo.DO.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -145,5 +144,24 @@ public class GoodsInfoBO extends BaseInformation
       list.add(imageDO);
     }
     return list;
+  }
+
+
+  @Override
+  public String toString() {
+    return "GoodsInfoBO{" +
+        "price=" + price +
+        ", originalPrice=" + originalPrice +
+        ", imageList=" + imageList +
+        ", condition=" + condition +
+        ", sold=" + sold +
+        ", id=" + id +
+        ", pubId=" + pubId +
+        ", title='" + title + '\'' +
+        ", description='" + description + '\'' +
+        ", tagList=" + tagList +
+        ", category=" + category +
+        ", gmtInfo=" + gmtInfo +
+        '}';
   }
 }

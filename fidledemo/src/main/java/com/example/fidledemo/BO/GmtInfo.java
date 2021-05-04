@@ -11,6 +11,7 @@ import java.util.Date;
  * @author 11313
  */
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class GmtInfo
 {

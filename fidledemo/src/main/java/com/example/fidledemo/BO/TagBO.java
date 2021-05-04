@@ -21,6 +21,7 @@ public class TagBO
 
   public static final Integer ACTIVITY=3;
 
+
   private Long id;
 
 

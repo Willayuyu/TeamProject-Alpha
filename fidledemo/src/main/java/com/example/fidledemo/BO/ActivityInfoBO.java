@@ -132,4 +132,20 @@ public class ActivityInfoBO extends BaseInformation
     return list;
   }
 
+  @Override
+  public String toString() {
+    return "ActivityInfoBO{" +
+        "address='" + address + '\'' +
+        ", imageList=" + imageList +
+        ", startTime=" + startTime +
+        ", endTime=" + endTime +
+        ", id=" + id +
+        ", pubId=" + pubId +
+        ", title='" + title + '\'' +
+        ", description='" + description + '\'' +
+        ", tagList=" + tagList +
+        ", category=" + category +
+        ", gmtInfo=" + gmtInfo +
+        '}';
+  }
 }
