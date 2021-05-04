@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.fidledemo.DAO.GoodsIndentDAO">
+
+    <!--插入-->
+    <insert id="insertGoodsIndent" parameterType="com.example.fidledemo.DO.GoodsIndentDO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO goods_indent(goods_id,buyer_id,seller_id,buyer_evaluate_id,
+        seller_evaluate_id,is_seller_evaluated,is_buyer_evaluated,gmt_create,gmt_modified)
+        VALUES(#{goodsId},#{buyerId},#{sellerId},#{buyerEvaluateId},#{sellerEvaluateId},
+        #{sellerEvaluated},#{buyerEvaluated},now(),now())
+    </insert>
+
+    <!--根据id删除GoodsIndent-->
+    <delete id="deleteGoodsIndentById" parameterType="Long">
+        DELETE FROM goods_indent WHERE id=#{id}
+    </delete>
+
+    <!--更新-->
+    <update id="updateGoodsIndent" parameterType="com.example.fidledemo.DO.GoodsIndentDO" >
+        UPDATE goods_indent
+        <set>
+            <if test="goodsId !=null and goodsId !=''">goods_id=#{goodsId},</if>
+            <if test="buyerId !=null and buyerId !=''">buyer_id=#{buyerId},</if>
+            <if test="sellerId !=null and sellerId !=''">seller_id=#{sellerId},</if>
+            <if test="buyerEvaluateId !=null and buyerEvaluateId !=''">buyer_evaluate_id=#{buyerEvaluateId},</if>
+            <if test="sellerEvaluateId !=null and sellerEvaluateId !=''">seller_evaluate_id=#{sellerEvaluateId},</if>
+            <if test="sellerEvaluated !=null and sellerEvaluated !=''">is_seller_evaluated=#{sellerEvaluated},</if>
+            <if test="buyerEvaluated !=null and buyerEvaluated !=''">`is_buyer_evaluated`=#{buyerEvaluated},</if>
+            gmt_modified=now()
+        </set>
+        WHERE id=#{id}
+    </update>
+
+    <!--根据id获得GoodsIndent-->
+    <select id="getGoodsIndentById" parameterType="long" resultMap="GoodsIndent">
+        SELECT * FROM goods_indent
+        WHERE id=#{id}
+    </select>
+
+    <!--查询GoodsIndent列表-->
+    <select id="listGoodsIndentByDO" resultMap="GoodsIndent">
+        SELECT * FROM goods_indent
+        <where>
+            <if test="goodsId !=null and goodsId !=''">AND goods_id=#{goodsId}</if>
+            <if test="buyerId !=null and buyerId !=''">AND buyer_id=#{buyerId}</if>
+            <if test="sellerId !=null and sellerId !=''">AND seller_id=#{sellerId}</if>
+            <if test="buyerEvaluateId !=null and buyerEvaluateId !=''">AND buyer_evaluate_id=#{buyerEvaluateId}</if>
+            <if test="sellerEvaluateId !=null and sellerEvaluateId !=''">AND seller_evaluate_id=#{sellerEvaluateId}</if>
+            <if test="sellerEvaluated !=null and sellerEvaluated !=''">AND is_seller_evaluated=#{sellerEvaluated}</if>
+            <if test="buyerEvaluated !=null and buyerEvaluated !=''">AND `is_buyer_evaluated`=#{buyerEvaluated}</if>
+        </where>
+        <if test="limit !=null and limit !='' ">limit #{begin},#{size}</if>
+    </select>
+
+    <!--GoodsIndent-->
+    <resultMap id="GoodsIndent" type="com.example.fidledemo.BO.GoodsIndentBO">
+        <result property="id" column="id"/>
+        <result property="accId" column="buyer_id"/>
+        <result property="pubId" column="seller_id"/>
+        <result property="pubEvaluated" column="is_seller_evaluated"/>
+        <result property="accEvaluated" column="is_buyer_evaluated"/>
+
+        <!--时间信息-->
+        <association property="gmtInfo" javaType="com.example.fidledemo.BO.GmtInfo">
+            <result property="gmtCreate" column="gmt_create"/>
+            <result property="gmtModified" column="gmt_modified"/>
+        </association>
+    </resultMap>
+</mapper>

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.fidledemo.DAO.GoodsInfoDAO">
+
+    <!--插入-->
+    <insert id="insertGoodsInfo" parameterType="com.example.fidledemo.DO.GoodsInfoDO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO goods_info(seller_id,title,price,original_price,description,
+        category,`condition`,is_sold,gmt_create,gmt_modified)
+        VALUES(#{sellerId},#{title},#{price},#{originalPrice},#{description},#{category},
+        #{condition},#{sold},now(),now())
+    </insert>
+
+    <!--根据id删除GoodsInfo-->
+    <delete id="deleteGoodsInfoById" parameterType="Long">
+        DELETE FROM goods_info WHERE id=#{id}
+    </delete>
+
+    <!--更新-->
+    <update id="updateGoodsInfo" parameterType="com.example.fidledemo.DO.GoodsInfoDO" >
+        UPDATE goods_info
+        <set>
+            <if test="sellerId !=null and sellerId !=''">seller_id=#{sellerId},</if>
+            <if test="title !=null and title !=''">title=#{title},</if>
+            <if test="price !=null and price !=''">price=#{price},</if>
+            <if test="originalPrice !=null and originalPrice !=''">original_price=#{originalPrice},</if>
+            <if test="description !=null and description !=''">description=#{description},</if>
+            <if test="category !=null and category !=''">category=#{category},</if>
+            <if test="condition !=null and condition !=''">`condition`=#{condition},</if>
+            <if test="sold !=null and sold !=''">is_sold=#{sold},</if>
+            gmt_modified=now()
+        </set>
+        WHERE id=#{id}
+    </update>
+
+    <!--根据id获得GoodsInfo-->
+    <select id="getGoodsInfoById" parameterType="long" resultMap="GoodsInfo">
+        SELECT gi.id AS gi_id,seller_id,title,price,original_price,description,`condition`,is_sold,
+        gi.gmt_create AS gi_gmt_create,gi.gmt_modified AS gi_gmt_modified,
+        `c`.id AS c_id,category_id,category_designation,
+        `c`.gmt_create AS c_gmt_create,`c`.gmt_modified AS c_gmt_modified,
+        i.id AS i_id,i.goods_id,image_link,
+        i.gmt_create AS i_gmt_create,i.gmt_modified AS i_gmt_modified,
+        t.id AS t_id,content,
+        t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified
+        FROM goods_info AS gi
+        LEFT JOIN goods_category AS c ON gi.category=c.id
+        LEFT JOIN goods_image AS i ON i.goods_id=gi.id
+        LEFT JOIN goods_tag AS `gt` ON `gt`.goods_id=gi.id
+        LEFT JOIN tag_of_goods AS t ON t.id=`gt`.tag_id
+        WHERE gi.id=#{id}
+    </select>
+
+    <!--查询GoodsInfo列表-->
+    <select id="listGoodsInfoByDO" resultMap="GoodsInfo">
+        SELECT gi.id AS gi_id,seller_id,title,price,original_price,description,`condition`,is_sold,
+        gi.gmt_create AS gi_gmt_create,gi.gmt_modified AS gi_gmt_modified,
+        `c`.id AS c_id,category_id,category_designation,
+        `c`.gmt_create AS c_gmt_create,`c`.gmt_modified AS c_gmt_modified,
+        i.id AS i_id,i.goods_id,image_link,
+        i.gmt_create AS i_gmt_create,i.gmt_modified AS i_gmt_modified,
+        t.id AS t_id,content,
+        t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified
+        FROM goods_info AS gi
+        LEFT JOIN goods_category AS c ON gi.category=c.id
+        LEFT JOIN goods_image AS i ON i.goods_id=gi.id
+        LEFT JOIN goods_tag AS `gt` ON `gt`.goods_id=gi.id
+        LEFT JOIN tag_of_goods AS t ON t.id=`gt`.tag_id
+        <where>
+            <if test="info.sellerId !=null and info.sellerId !=''">AND seller_id=#{info.sellerId}</if>
+            <if test="info.price !=null and info.price !=''">AND price=#{price}</if>
+            <if test="info.title !=null and info.title !=''">
+                <if test="info.titleLike !=null and info.titleLike !='' ">
+                    AND title LIKE "%"#{info.title}"%"
+                </if>
+                <if test="info.titleLike ==null or info.titleLike ==''">
+                    AND title=#{info.title}
+                </if>
+            </if>
+            <if test="tag.content !=null and tag.content !=''">
+                <if test="tag.contentLike !=null and tag.contentLike !='' ">
+                    AND content LIKE "%"#{tag.content}"%"
+                </if>
+                <if test="tag.contentLike ==null or tag.contentLike ==''">
+                    AND content=#{tag.content}
+                </if>
+            </if>
+            <if test="info.originalPrice !=null and info.originalPrice !=''">AND original_price=#{info.originalPrice}</if>
+            <if test="info.description !=null and info.description !=''">
+                <if test="info.descriptionLike !=null and info.descriptionLike !='' ">
+                    AND description LIKE "%"#{info.description}"%"
+                </if>
+                <if test="info.descriptionLike ==null or info.descriptionLike ==''">
+                    AND description=#{info.description}
+                </if>
+            </if>
+            <if test="info.category !=null and info.category !='' ">AND category=#{info.category}</if>
+            <if test="info.sold !=null and info.sold !='' ">AND is_sold=#{info.sold}</if>
+            <if test="info.condition !=null and info.condition !='' ">AND `condition`=#{info.condition}</if>
+            <if test="info.createTimeBegin !=null and info.createTimeBegin !='' and info.createTimeEnd !=null and info.createTimeEnd !='' ">
+                AND gmt_create BETWEEN #{info.createTimeBegin} AND #{info.createTimeEnd}
+            </if>
+        </where>
+        <if test="info.limit !=null and info.limit !='' ">limit #{info.begin},#{info.size}</if>
+    </select>
+
+    <!--搜索GoodsInfo列表-->
+    <select id="listGoodsInfoBySearch" resultMap="GoodsInfo">
+        SELECT gi.id AS gi_id,seller_id,title,price,original_price,description,`condition`,is_sold,
+        gi.gmt_create AS gi_gmt_create,gi.gmt_modified AS gi_gmt_modified,
+        `c`.id AS c_id,category_id,category_designation,
+        `c`.gmt_create AS c_gmt_create,`c`.gmt_modified AS c_gmt_modified,
+        i.id AS i_id,i.goods_id,image_link,
+        i.gmt_create AS i_gmt_create,i.gmt_modified AS i_gmt_modified,
+        t.id AS t_id,content,
+        t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified
+        FROM goods_info AS gi
+        LEFT JOIN goods_category AS c ON gi.category=c.id
+        LEFT JOIN goods_image AS i ON i.goods_id=gi.id
+        LEFT JOIN goods_tag AS `gt` ON `gt`.goods_id=gi.id
+        LEFT JOIN tag_of_goods AS t ON t.id=`gt`.tag_id
+        <where>
+            <if test="info.sellerId !=null and info.sellerId !=''">AND seller_id=#{info.sellerId}</if>
+            <if test="info.price !=null and info.price !=''">AND price=#{price}</if>
+            <if test="info.title !=null and info.title !=''">
+                <if test="info.titleLike !=null and info.titleLike !='' ">
+                    OR title LIKE "%"#{info.title}"%"
+                </if>
+                <if test="info.titleLike ==null or info.titleLike ==''">
+                    AND title=#{info.title}
+                </if>
+            </if>
+            <if test="tag.content !=null and tag.content !=''">
+                <if test="tag.contentLike !=null and tag.contentLike !='' ">
+                    OR content LIKE "%"#{tag.content}"%"
+                </if>
+                <if test="tag.contentLike ==null or tag.contentLike ==''">
+                    AND content=#{tag.content}
+                </if>
+            </if>
+            <if test="info.originalPrice !=null and info.originalPrice !=''">AND original_price=#{info.originalPrice}</if>
+            <if test="info.description !=null and info.description !=''">
+                <if test="info.descriptionLike !=null and info.descriptionLike !='' ">
+                    OR description LIKE "%"#{info.description}"%"
+                </if>
+                <if test="info.descriptionLike ==null or info.descriptionLike ==''">
+                    AND description=#{info.description}
+                </if>
+            </if>
+            <if test="info.category !=null and info.category !='' ">AND category=#{info.category}</if>
+            <if test="info.sold !=null and info.sold !='' ">AND is_sold=#{info.sold}</if>
+            <if test="info.condition !=null and info.condition !='' ">AND `condition`=#{info.condition}</if>
+            <if test="info.createTimeBegin !=null and info.createTimeBegin !='' and info.createTimeEnd !=null and info.createTimeEnd !='' ">
+                AND gmt_create BETWEEN #{info.createTimeBegin} AND #{info.createTimeEnd}
+            </if>
+        </where>
+        <if test="info.limit !=null and info.limit !='' ">limit #{info.begin},#{info.size}</if>
+    </select>
+
+    <!--GoodsInfo-->
+    <resultMap id="GoodsInfo" type="com.example.fidledemo.BO.GoodsInfoBO">
+        <result property="id" column="gi_id"/>
+        <result property="pubId" column="seller_id"/>
+        <result property="title" column="title"/>
+        <result property="price" column="price"/>
+        <result property="originalPrice" column="original_price"/>
+        <result property="description" column="description"/>
+        <result property="condition" column="condition"/>
+        <result property="sold" column="is_sold"/>
+
+        <!--分类-->
+        <association property="category" javaType="com.example.fidledemo.BO.CategoryBO">
+            <result property="id" column="c_id"/>
+            <result property="categoryId" column="category_id"/>
+            <result property="categoryDesignation" column="category_designation"/>
+            <!--时间信息-->
+            <association property="gmtInfo" javaType="com.example.fidledemo.BO.GmtInfo">
+                <result property="gmtCreate" column="c_gmt_create"/>
+                <result property="gmtModified" column="c_gmt_modified"/>
+            </association>
+        </association>
+
+        <!--时间信息-->
+        <association property="gmtInfo" javaType="com.example.fidledemo.BO.GmtInfo">
+            <result property="gmtCreate" column="gi_gmt_create"/>
+            <result property="gmtModified" column="gi_gmt_modified"/>
+        </association>
+
+        <!--图片列表-->
+        <collection property="imageList" ofType="com.example.fidledemo.BO.ImageBO">
+            <result property="id" column="i_id"/>
+            <result property="infoId" column="goods_id"/>
+            <result property="imageLink" column="image_link"/>
+            <!--            <result property="type"></result>-->
+            <!--时间信息-->
+            <association property="gmtInfo" javaType="com.example.fidledemo.BO.GmtInfo">
+                <result property="gmtCreate" column="i_gmt_create"/>
+                <result property="gmtModified" column="i_gmt_modified"/>
+            </association>
+        </collection>
+
+        <!--标签列表-->
+        <collection property="tagList" ofType="com.example.fidledemo.BO.TagBO">
+            <result property="id" column="t_id"/>
+            <result property="content" column="content"/>
+            <!--时间信息-->
+            <association property="gmtInfo" javaType="com.example.fidledemo.BO.GmtInfo">
+                <result property="gmtCreate" column="t_gmt_create"/>
+                <result property="gmtModified" column="t_gmt_modified"/>
+            </association>
+        </collection>
+    </resultMap>
+
+</mapper>
