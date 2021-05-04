@@ -14,6 +14,7 @@ App({
     })
   },
   globalData: {
+    click:1,
     imgsrc:"/images/photo.jpg",
     username:"Fidle",
     userid:"a12345",

@@ -1,11 +1,18 @@
 // pages/comments/comments.js
+let app=getApp();
 Page({
+  onClick(e) {
+    if(app.globalData.click==1)
+    {
+      this.selectComponent('#tabs').resize();
+      app.globalData.click=0;
+    }
+  },
 
   /**
    * 页面的初始数据
    */
   data: {
-    active:1,
     good_secondhand_cmt:[
       {
         imgsrc:"../../images/photo.jpg",
@@ -75,7 +82,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    
   },
 
   /**
