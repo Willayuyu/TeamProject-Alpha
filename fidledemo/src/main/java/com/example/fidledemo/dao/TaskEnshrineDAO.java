@@ -2,11 +2,13 @@ package com.example.fidledemo.dao;
 
 import com.example.fidledemo.DO.TaskEnshrineDO;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 /**
  * @author WWJ
  */
 @Mapper
+@Repository
 public interface TaskEnshrineDAO {
     /**
      * 更新任务委托收藏夹中的信息

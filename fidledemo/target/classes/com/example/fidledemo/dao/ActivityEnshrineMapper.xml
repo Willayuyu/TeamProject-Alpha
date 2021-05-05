@@ -5,7 +5,7 @@
 <mapper namespace="com.example.fidledemo.dao.ActivityEnshrineDAO">
     <insert id="insertActivityEnshrine" parameterType="com.example.fidledemo.DO.ActivityEnshrineDO">
         insert into activity_enshrine(user_id,activity_id,gmt_create,gmt_modified)
-        values (#{user_id},#{activity_id},now(),now());
+        values (#{userId},#{activityId},now(),now());
     </insert>
     <delete id="deleteActivityEnshrine" parameterType="long">
         delete from activity_enshrine
@@ -14,8 +14,8 @@
     <update id="updateActivityEnshrine" parameterType="com.example.fidledemo.DO.ActivityEnshrineDO">
         update activity_enshrine
         <set>
-            <if test="user_id !=NULL AND user_id !=''">user_id=#{user_id},</if>
-            <if test="activity_id !=NULL AND activity_id !=''">activity_id=#{activity_id},</if>
+            <if test="userId !=null and userId !=''">user_id=#{userId},</if>
+            <if test="activityId !=null and activityId !=''">activity_id=#{activityId},</if>
             gmt_modified=now()
         </set>
         where id=#{id}

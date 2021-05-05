@@ -2,11 +2,13 @@ package com.example.fidledemo.dao;
 
 import com.example.fidledemo.DO.GoodsEnshrineDO;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 /**
  * @author WWJ
  */
 @Mapper
+@Repository
 public interface GoodsEnshrineDAO {
     /**
      * 更新二手物品收藏夹中的信息

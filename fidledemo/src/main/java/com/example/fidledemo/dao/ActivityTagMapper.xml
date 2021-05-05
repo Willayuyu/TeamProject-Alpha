@@ -5,7 +5,7 @@
 <mapper namespace="com.example.fidledemo.dao.ActivityTagDAO">
     <insert id="insertActivityTag" parameterType="com.example.fidledemo.DO.ActivityTagDO">
         insert into activity_tag(activity_id,tag_id,gmt_create,gmt_modified)
-        values (#{activity_id},#{tag_id},now(),now());
+        values (#{activityId},#{tagId},now(),now());
     </insert>
     <delete id="deleteActivityTag" parameterType="long">
         delete from activity_tag
@@ -14,8 +14,8 @@
     <update id="updateActivityTag" parameterType="com.example.fidledemo.DO.ActivityTagDO">
         update activity_tag
         <set>
-            <if test="activity_id !=NULL AND activity_id !=''">activity_id=#{activity_id},</if>
-            <if test="tag_id !=NULL AND tag_id !=''">tag_id=#{tag_id},</if>
+            <if test="activityId !=null and activityId !=''">activity_id=#{activityId},</if>
+            <if test="tagId !=null and tagId !=''">tag_id=#{tagId},</if>
             gmt_modified=now()
         </set>
         where id=#{id}

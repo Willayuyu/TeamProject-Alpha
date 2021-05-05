@@ -2,6 +2,7 @@ package com.example.fidledemo.dao;
 
 import com.example.fidledemo.DO.AdminDO;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -9,6 +10,7 @@ import java.util.List;
  * @author WWJ20
  */
 @Mapper
+@Repository
 public interface AdminDAO {
     /**
      * 将管理员实体插入管理员表

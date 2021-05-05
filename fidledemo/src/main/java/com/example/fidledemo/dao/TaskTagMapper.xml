@@ -5,7 +5,7 @@
 <mapper namespace="com.example.fidledemo.dao.TaskTagDAO">
     <insert id="insertTaskTag" parameterType="com.example.fidledemo.DO.TaskTagDO">
         insert into task_tag(task_id,tag_id,gmt_create,gmt_modified)
-        values (#{task_id},#{tag_id},now(),now());
+        values (#{taskId},#{tagId},now(),now());
     </insert>
     <delete id="deleteTaskTag" parameterType="long">
         delete from task_tag
@@ -14,8 +14,8 @@
     <update id="updateTaskTag" parameterType="com.example.fidledemo.DO.TaskTagDO">
         update task_tag
         <set>
-            <if test="task_id !=NULL AND task_id !=''">task_id=#{task_id},</if>
-            <if test="tag_id !=NULL AND tag_id !=''">tag_id=#{tag_id},</if>
+            <if test="taskId !=null and taskId !=''">task_id=#{taskId},</if>
+            <if test="tagId !=null and tagId !=''">tag_id=#{tagId},</if>
             gmt_modified=now()
         </set>
         where id=#{id}

@@ -17,17 +17,22 @@
     </resultMap>
     <select id="listAdminByDO" resultMap="Admin" parameterType="com.example.fidledemo.DO.AdminDO">
         SELECT
-        <if test="distinct !=NULL AND distinct!=''">DISTINCT</if>
+        <if test="distinct !=null and distinct!=''">DISTINCT</if>
         * FROM admin
         <where>
-            <if test="id !=NULL AND id!=''">
+            <if test="id !=null and id!=''">
                 AND id=#{id}
             </if>
-            <if test="account !=NULL AND account!=''">
-                AND account=#{account}
+            <if test="account !=null and account !=''">
+                <if test="accountLike !=null and accountLike !=''">
+                    AND account LIKE "%"#{account}"%"
+                </if>
+                <if test="accountLike ==null or accountLike ==''">
+                    AND account =#{account}
+                </if>
             </if>
         </where>
-        <if test="limit !=NULL AND limit!=''">
+        <if test="limit !=null and limit!=''">
             limit #{begin},#{size}
         </if>
     </select>
@@ -42,9 +47,9 @@
     <update id="updateAdmin" parameterType="com.example.fidledemo.DO.AdminDO">
         update admin
         <set>
-            <if test="account !=NULL AND account !=''">account=#{account},</if>
-            <if test="password !=NULL AND password !=''">password=#{password},</if>
-            <if test="salt !=NULL AND salt !=''">salt=#{salt},</if>
+            <if test="account !=null and account !=''">account=#{account},</if>
+            <if test="password !=null and password !=''">password=#{password},</if>
+            <if test="salt !=null and salt !=''">salt=#{salt},</if>
             gmt_modified=now()
         </set>
         where id=#{id}

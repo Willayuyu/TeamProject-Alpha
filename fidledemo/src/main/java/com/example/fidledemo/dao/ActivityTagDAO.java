@@ -2,11 +2,13 @@ package com.example.fidledemo.dao;
 
 import com.example.fidledemo.DO.ActivityTagDO;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 /**
  * @author WWJ
  */
 @Mapper
+@Repository
 public interface ActivityTagDAO {
     /**
      *  更新活动信息-标签关系表
