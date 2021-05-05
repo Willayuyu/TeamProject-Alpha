@@ -9,6 +9,8 @@
         "van-row": "../../components/dist/row/index",
         "van-col": "../../components/dist/col/index",
         "van-button": "../../components/dist/button/index",
-        "van-icon": "../../components/dist/icon/index"
+        "van-icon": "../../components/dist/icon/index",
+        "time-picker": "../../../components/timePicker/timePicker"
+
     }
 }

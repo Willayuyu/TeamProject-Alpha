@@ -5,8 +5,10 @@
 .tag {
     background-color: #F3F4F4;
     margin-left: 30rpx;
+    margin-top: 10rpx;
     border-radius: 5rpx;
     font-size: 30rpx;
+    float: left;
 }
 
 .label {
@@ -53,11 +55,16 @@
 .icon {
     background-color: #F3F4F4;
     margin-left: 30rpx;
+    margin-top: 10rpx;
     border-radius: 5rpx;
     position: relative;
     top: 5rpx;
 }
 
-.container {
-    padding: 0px;
+.selected {
+    background-color: #7DB5EE;
+}
+
+.tag-create {
+    width: 120rpx;
 }

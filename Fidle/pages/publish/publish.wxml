@@ -1,18 +1,18 @@
-<view class="container">
-  <van-tabs active="goods">
+<view>
+  <van-tabs active="goods" swipeable>
     <view>
-      <van-tab title="二手交易" name="goods">
+      <van-tab title="二手物品" name="goods">
         <van-cell-group>
-          <van-field value="{{ username }}" clearable label="标题" placeholder="请输入标题"></van-field>
-          <van-field value="{{ price }}" clearable label="价格" placeholder="请输入价格" type="digit"></van-field>
-          <van-field value="{{ originalPrice }}" clearable label="原价" placeholder="请输入原价" type="digit"></van-field>  
+          <van-field value="{{goods_title}}" clearable label="标题" placeholder="请输入标题"></van-field>
+          <van-field value="{{goods_price}}" clearable label="价格" placeholder="请输入价格" type="digit"></van-field>
+          <van-field value="{{goods_originalPrice}}" clearable label="原价" placeholder="请输入原价" type="digit"></van-field>  
           <view class="border">
-            <van-field value="{{ message }}" label="详细描述" input-class="message" type="textarea" placeholder="请输入商品的详细描述" autosize border="{{ false }}"></van-field>
+            <van-field value="{{goods_message}}" label="详细描述" input-class="message" type="textarea" placeholder="请输入商品的详细描述" maxlength="200" show-word-limit></van-field>
           </view>
           <view>
            <van-cell>
             <text class="label">图片上传</text> 
-            <van-uploader class="input" file-list="{{ fileList }}" bind:after-read="afterRead" max-count="3"></van-uploader>
+            <van-uploader class="input" file-list="{{ goods_fileList }}" bind:after-read="afterRead" max-count="3"></van-uploader>
            </van-cell>      
           </view>          
           <view>
@@ -25,10 +25,8 @@
                   <image src="../../icons/label.png" mode="widthFix" class="img"></image>
                 </van-col>
                 <van-col span="22" >
-                  <view>                                
-                    <text class="tag">全新</text>
-                    <text class="tag">教材</text>
-                    <text class="tag">大三</text>
+                  <view>     
+                    <text wx:for="{{goods_old_new_list}}" data-id="{{index}}" class="tag {{goods_old_new_list_idx==index?'selected':''}}" wx:key="unique" bindtap="goods_old_new_list_selectApply">{{item}}</text>                       
                   </view>        
                 </van-col>
               </van-row>             
@@ -44,14 +42,8 @@
                   <image src="../../icons/label.png" mode="widthFix" class="img"></image>
                 </van-col>
                 <van-col span="22" >
-                  <view>                                
-                    <text class="tag">服饰</text>
-                    <text class="tag">鞋子</text>
-                    <text class="tag">电子产品</text>
-                    <text class="tag">生活用品</text>
-                    <text class="tag">电动车</text>
-                    <text class="tag">书籍</text>                
-                    <text class="tag">其他</text>
+                  <view>    
+                    <view wx:for="{{goods_class_list}}" data-id="{{index}}" class="tag {{goods_class_list_idx==index?'selected':''}}" wx:key="unique" bindtap="goods_class_list_selectApply">{{item}}</view>                                             
                   </view>        
                 </van-col>
               </van-row>                                                          
@@ -68,14 +60,14 @@
                 </van-col>
                 <van-col span="22" >
                   <view>                                
-                    <text class="tag">李宁</text>
-                    <van-icon name="add-o" class="icon" size="35rpx"></van-icon>
-                  </view>
-                    
+                    <view wx:for="{{goods_label_list}}" data-id="{{index}}" wx:key="unique" class="tag">{{item}}</view>
+                    <input class="tag tag-create" bindinput="goodsTagInput" value="{{goods_tag}}" placeholder="新增标签"></input>
+                    <van-icon name="add-o" class="icon" size="35rpx" bind:click="TagCreate"></van-icon>
+                  </view>                   
                 </van-col>
                 
               </van-row>
-              <van-button class="release" type="info" color="#7DB5EE" size="normal">发布</van-button>                                                       
+                <van-button class="release" type="info" color="#7DB5EE" size="normal">发布</van-button>                                                       
             </view>                                 
           </view>                 
         </van-cell-group>
@@ -84,15 +76,114 @@
     
     <view>
       <van-tab title="任务委托" name="task">
-        任务委托
+        <van-cell-group>   
+          <van-field value="{{ task_title }}" clearable label="标题" placeholder="请输入标题"></van-field>
+          <van-field value="{{ task_remuneration }}" clearable label="酬劳" placeholder="请输入酬劳" type="digit"></van-field>
+          
+          <van-field value="{{startTime}}" clearable label="开始时间" bind:click-input="pickerShow" readonly placeholder="请选择开始时间"></van-field>
+          <van-field value="{{endTime}}" clearable label="结束时间" bind:click-input="pickerShow" readonly placeholder="请选择结束时间"></van-field>
+
+          <time-picker pickerShow="{{isPickerShow}}" id="picker" wx:if="{{isPickerRender}}" bind:hidePicker="pickerHide" bind:setPickerTime="setPickerTime"
+              config="{{pickerConfig}}" ></time-picker>
+          <view class="border">
+            <van-field value="{{task_message}}" label="任务详情" input-class="message" type="textarea" placeholder="请输入任务的详细描述" autosize border="{{ false }}" maxlength="200" show-word-limit></van-field>
+          </view>        
+          <view>
+            <view class="display">
+              <view>
+                <text class="label">类别(点击选择)</text> 
+              </view>               
+              <van-row>
+                <van-col span="2">
+                  <image src="../../icons/label.png" mode="widthFix" class="img"></image>
+                </van-col>
+                <van-col span="22" >
+                  <view>    
+                    <view wx:for="{{task_class_list}}" data-id="{{index}}" class="tag {{task_class_list_idx==index?'selected':''}}" wx:key="unique" bindtap="task_class_list_selectApply">{{item}}</view>                                             
+                  </view>        
+                </van-col>
+              </van-row>                                                          
+            </view>                      
+          </view>   
+          <view>
+            <view class="display">
+              <view>
+                <text class="label">标签</text> 
+              </view>   
+              <van-row>
+                <van-col span="2">
+                  <image src="../../icons/label.png" mode="widthFix" class="img"></image>
+                </van-col>
+                <van-col span="22" >
+                  <view>                                
+                    <view wx:for="{{task_label_list}}" data-id="{{index}}" wx:key="unique" class="tag">{{item}}</view>
+                    <input class="tag tag-create" bindinput="taskTagInput" value="{{task_tag}}" placeholder="新增标签"></input>
+                    <van-icon name="add-o" class="icon" size="35rpx" bind:click="TagCreate"></van-icon>
+                  </view>                  
+                </van-col>              
+              </van-row>
+              <van-button class="release" type="info" color="#7DB5EE" size="normal">发布</van-button>                                                       
+            </view>                                 
+          </view>                 
+        </van-cell-group>
       </van-tab>
     </view>
 
     <view>
       <van-tab title="活动信息" name="activity">
-        活动信息
-      </van-tab>
-    </view>  
-    
+        <van-cell-group>   
+          <van-field value="{{ activity_title }}" clearable label="活动名称" placeholder="请输入活动名称"></van-field>
+          <van-field value="{{ activity_place }}" clearable label="活动地点" placeholder="请输入活动地点" type="digit"></van-field>
+          
+          <van-field value="{{startTime}}" clearable label="开始时间" bind:click-input="pickerShow" readonly placeholder="请选择开始时间"></van-field>
+          <van-field value="{{endTime}}" clearable label="结束时间" bind:click-input="pickerShow" readonly placeholder="请选择结束时间"></van-field>
+
+          <time-picker pickerShow="{{isPickerShow}}" id="picker" wx:if="{{isPickerRender}}"             bind:hidePicker="pickerHide" bind:setPickerTime="setPickerTime"
+              config="{{pickerConfig}}" ></time-picker>
+          <view class="border">
+            <van-field value="{{ activity_message }}" label="活动形式" input-class="message" type="textarea" placeholder="请输入活动的详细描述" placeholder-style="placeholder" autosize border="{{ false }}" maxlength="200" show-word-limit></van-field>
+          </view>           
+          <view>
+            <view class="display">
+              <view>
+                <text class="label">类别(点击选择)</text> 
+              </view>               
+              <van-row>
+                <van-col span="2">
+                  <image src="../../icons/label.png" mode="widthFix" class="img"></image>
+                </van-col>
+                <van-col span="22" >
+                  <view >    
+                    <view wx:for="{{activity_class_list}}" data-id="{{index}}" class="tag {{activity_class_list_idx==index?'selected':''}}" wx:key="unique" bindtap="activity_class_list_selectApply">{{item}}</view>                                             
+                  </view>        
+                </van-col>
+              </van-row>                                                          
+            </view>                      
+          </view>   
+          <view>
+            <view class="display">
+              <view>
+                <text class="label">标签</text> 
+              </view>   
+              <van-row>
+                <van-col span="2">
+                  <image src="../../icons/label.png" mode="widthFix" class="img"></image>
+                </van-col>
+                <van-col span="22" >
+                  <view>                                
+                    <view wx:for="{{activity_label_list}}" data-id="{{index}}" wx:key="unique" class="tag">{{item}}</view>
+                    <input class="tag tag-create" bindinput="activityTagInput" value="{{activity_tag}}" placeholder="新增标签"></input>
+                    <van-icon name="add-o" class="icon" size="35rpx" bind:click="TagCreate"></van-icon>
+                  </view>
+                    
+                </van-col>
+                
+              </van-row>
+              <van-button class="release" type="info" color="#7DB5EE" size="normal">发布</van-button>                                                       
+            </view>                                 
+          </view>                 
+        </van-cell-group>     
+    </van-tab>
+    </view>
   </van-tabs>
 </view>
