@@ -21,8 +21,8 @@
 
     <insert id="insertGoodsReportMessage" parameterType="goodsReportMessageDO" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO
-        goods_report_message(id,whistleblower_id,reported_goods_id,title,reason,`state`,gmt_create,gmt_modified)
-        VALUES (#{id},#{whistleblowerId},#{reportedGoodsId},#{title},#{reason},#{state},now(),now())
+        goods_report_message(whistleblower_id,reported_goods_id,title,reason,`state`,gmt_create,gmt_modified)
+        VALUES (#{whistleblowerId},#{reportedGoodsId},#{title},#{reason},#{state},now(),now())
     </insert>
 
     <delete id="deleteGoodsReportMessageById" parameterType="long">

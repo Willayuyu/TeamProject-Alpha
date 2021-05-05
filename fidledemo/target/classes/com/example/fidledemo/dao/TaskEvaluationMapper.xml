@@ -18,8 +18,8 @@
     </resultMap>
 
     <insert id="insertTaskEvaluation" parameterType="taskEvaluationDO" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO task_evaluation(id,task_delegate_id,valuator_id,evaluation,reason,gmt_create,gmt_modified)
-        VALUES (#{id},#{taskId},#{evaluatorId},#{evaluation},#{reason},now(),now())
+        INSERT INTO task_evaluation(task_delegate_id,valuator_id,evaluation,reason,gmt_create,gmt_modified)
+        VALUES (#{taskId},#{evaluatorId},#{evaluation},#{reason},now(),now())
     </insert>
 
     <delete id="deleteTaskEvaluationById" parameterType="long">

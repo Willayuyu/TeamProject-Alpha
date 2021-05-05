@@ -33,10 +33,9 @@ class TestZSP {
     @Test
     void test1(){
         ActivityReportMessageDO activityReportMessageDO = new ActivityReportMessageDO();
-        activityReportMessageDO.setId(new Long(33336852));
         activityReportMessageDO.setWhistleblowerId(new Long(4));
         activityReportMessageDO.setReportedActivityId(new Long(5));
-        activityReportMessageDO.setTitle("活动举报3");
+        activityReportMessageDO.setTitle("活动举报456");
         activityReportMessageDO.setReason("不真实");
         activityReportMessageDO.setState(1);
         activityReportMessageDAO.insertActivityReportMessage(activityReportMessageDO);

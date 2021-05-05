@@ -20,8 +20,8 @@
 
     <insert id="insertTaskReportMessage" parameterType="taskReportMessageDO" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO
-        task_report_message(id,whistleblower_id,reported_task_id,title,reason,`state`,gmt_create,gmt_modified)
-        VALUES (#{id},#{whistleblowerId},#{reportedTaskId},#{title},#{reason},#{state},now(),now())
+        task_report_message(whistleblower_id,reported_task_id,title,reason,`state`,gmt_create,gmt_modified)
+        VALUES (#{whistleblowerId},#{reportedTaskId},#{title},#{reason},#{state},now(),now())
     </insert>
 
     <delete id="deleteTaskReportMessageById" parameterType="long">

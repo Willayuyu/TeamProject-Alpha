@@ -20,8 +20,8 @@
 
     <insert id="insertActivityReportMessage" parameterType="activityReportMessageDO" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO
-        activity_report_message(id,whistleblower_id,reported_activity_id,title,reason,`state`,gmt_create,gmt_modified)
-        VALUES (#{id},#{whistleblowerId},#{reportedActivityId},#{title},#{reason},#{state},now(),now())
+        activity_report_message(whistleblower_id,reported_activity_id,title,reason,`state`,gmt_create,gmt_modified)
+        VALUES (#{whistleblowerId},#{reportedActivityId},#{title},#{reason},#{state},now(),now())
     </insert>
 
     <delete id="deleteActivityReportMessageById" parameterType="_long">

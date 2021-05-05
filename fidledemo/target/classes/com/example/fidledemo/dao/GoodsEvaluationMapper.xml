@@ -18,8 +18,8 @@
     </resultMap>
 
     <insert id="insertGoodsEvaluation" parameterType="goodsEvaluationDO" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO goods_evaluation(id,goods_id,valuator_id,evaluation,reason,gmt_create,gmt_modified)
-        VALUES (#{id},#{goodsId},#{evaluatorId},#{evaluation},#{reason},now(),now())
+        INSERT INTO goods_evaluation(goods_id,valuator_id,evaluation,reason,gmt_create,gmt_modified)
+        VALUES (#{goodsId},#{evaluatorId},#{evaluation},#{reason},now(),now())
     </insert>
 
     <delete id="deleteGoodsEvaluationById" parameterType="long">

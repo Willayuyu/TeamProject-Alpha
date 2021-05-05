@@ -18,8 +18,8 @@
     </resultMap>
 
     <insert id="insertSystemMessage" parameterType="systemMessageDO" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO  system_message(id,acc_id,title,content,link,`state`,gmt_create,gmt_modified)
-        VALUES (#{id},#{accId},#{title},#{content},#{link},#{state},now(),now());
+        INSERT INTO  system_message(acc_id,title,content,link,`state`,gmt_create,gmt_modified)
+        VALUES (#{accId},#{title},#{content},#{link},#{state},now(),now());
     </insert>
 
     <delete id="deleteSystemMessageById" parameterType="long">
