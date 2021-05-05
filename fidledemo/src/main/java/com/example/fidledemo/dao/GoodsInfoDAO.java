@@ -1,4 +1,4 @@
-package com.example.fidledemo.DAO;
+package com.example.fidledemo.dao;
 
 import com.example.fidledemo.BO.GoodsInfoBO;
 import com.example.fidledemo.DO.GoodsInfoDO;

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.fidledemo.DAO.GoodsInfoDAO">
+<mapper namespace="com.example.fidledemo.dao.GoodsInfoDAO">
 
     <!--插入-->
     <insert id="insertGoodsInfo" parameterType="com.example.fidledemo.DO.GoodsInfoDO" useGeneratedKeys="true" keyProperty="id">
@@ -36,7 +36,7 @@
 
     <!--根据id获得GoodsInfo-->
     <select id="getGoodsInfoById" parameterType="long" resultMap="GoodsInfo">
-        SELECT gi.id AS gi_id,seller_id,title,price,original_price,description,`condition`,is_sold,
+        SELECT gi.id AS gi_id,seller_id,title,price,original_price,description,`condition`,is_sold,1 AS `type`,
         gi.gmt_create AS gi_gmt_create,gi.gmt_modified AS gi_gmt_modified,
         `c`.id AS c_id,category_id,category_designation,
         `c`.gmt_create AS c_gmt_create,`c`.gmt_modified AS c_gmt_modified,
@@ -54,7 +54,7 @@
 
     <!--查询GoodsInfo列表-->
     <select id="listGoodsInfoByDO" resultMap="GoodsInfo">
-        SELECT gi.id AS gi_id,seller_id,title,price,original_price,description,`condition`,is_sold,
+        SELECT gi.id AS gi_id,seller_id,title,price,original_price,description,`condition`,is_sold,1 AS `type`,
         gi.gmt_create AS gi_gmt_create,gi.gmt_modified AS gi_gmt_modified,
         `c`.id AS c_id,category_id,category_designation,
         `c`.gmt_create AS c_gmt_create,`c`.gmt_modified AS c_gmt_modified,
@@ -107,7 +107,7 @@
 
     <!--搜索GoodsInfo列表-->
     <select id="listGoodsInfoBySearch" resultMap="GoodsInfo">
-        SELECT gi.id AS gi_id,seller_id,title,price,original_price,description,`condition`,is_sold,
+        SELECT gi.id AS gi_id,seller_id,title,price,original_price,description,`condition`,is_sold,1 AS `type`,
         gi.gmt_create AS gi_gmt_create,gi.gmt_modified AS gi_gmt_modified,
         `c`.id AS c_id,category_id,category_designation,
         `c`.gmt_create AS c_gmt_create,`c`.gmt_modified AS c_gmt_modified,
@@ -174,6 +174,7 @@
             <result property="id" column="c_id"/>
             <result property="categoryId" column="category_id"/>
             <result property="categoryDesignation" column="category_designation"/>
+            <result property="type" column="type"/>
             <!--时间信息-->
             <association property="gmtInfo" javaType="com.example.fidledemo.BO.GmtInfo">
                 <result property="gmtCreate" column="c_gmt_create"/>
@@ -192,7 +193,7 @@
             <result property="id" column="i_id"/>
             <result property="infoId" column="goods_id"/>
             <result property="imageLink" column="image_link"/>
-            <!--            <result property="type"></result>-->
+            <result property="type" column="type"/>
             <!--时间信息-->
             <association property="gmtInfo" javaType="com.example.fidledemo.BO.GmtInfo">
                 <result property="gmtCreate" column="i_gmt_create"/>
@@ -204,6 +205,7 @@
         <collection property="tagList" ofType="com.example.fidledemo.BO.TagBO">
             <result property="id" column="t_id"/>
             <result property="content" column="content"/>
+            <result property="type" column="type"/>
             <!--时间信息-->
             <association property="gmtInfo" javaType="com.example.fidledemo.BO.GmtInfo">
                 <result property="gmtCreate" column="t_gmt_create"/>
