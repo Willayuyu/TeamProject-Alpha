@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.fidledemo.dao.ActivityInfoDAO">
+
+    <!--插入-->
+    <insert id="insertActivityInfo" parameterType="com.example.fidledemo.DO.ActivityInfoDO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO activity_info(pub_id,title,address,start_time,
+        end_time,description,category,gmt_create,gmt_modified)
+        VALUES(#{pubId},#{title},#{address},#{startTime},#{endTime},
+        #{description},#{category},now(),now())
+    </insert>
+
+    <!--根据id删除ActivityInfo-->
+    <delete id="deleteActivityInfoById" parameterType="Long">
+        DELETE FROM activity_info WHERE id=#{id}
+    </delete>
+
+    <!--更新-->
+    <update id="updateActivityInfo" parameterType="com.example.fidledemo.DO.ActivityInfoDO" >
+        UPDATE activity_info
+        <set>
+            <if test="pubId !=null and pubId !=''">pub_id=#{pubId},</if>
+            <if test="title !=null and title !=''">title=#{title},</if>
+            <if test="address !=null and address !=''">address=#{address},</if>
+            <if test="startTime !=null and startTime !=''">start_time=#{startTime},</if>
+            <if test="endTime !=null and endTime !=''">end_time=#{endTime},</if>
+            <if test="description !=null and description !=''">description=#{description},</if>
+            <if test="category !=null and category !=''">category=#{category},</if>
+            gmt_modified=now()
+        </set>
+        WHERE id=#{id}
+    </update>
+
+    <!--根据id获得ActivityInfo-->
+    <select id="getActivityInfoById" resultMap="ActivityInfo">
+        SELECT a.id AS a_id,pub_id,title,address,start_time,end_time,description,3 AS `type`,
+        a.gmt_create AS a_gmt_create,a.gmt_modified AS a_gmt_modified,
+        `c`.id AS c_id,category_id,category_designation,
+        `c`.gmt_create AS c_gmt_create,`c`.gmt_modified AS c_gmt_modified,
+        i.id AS i_id,i.activity_Id,image_link,
+        i.gmt_create AS i_gmt_create,i.gmt_modified AS i_gmt_modified,
+        t.id AS t_id,content,
+        t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified
+        FROM activity_info AS a
+        LEFT JOIN activity_category AS c ON a.category=c.id
+        LEFT JOIN activity_image AS i ON i.activity_id=a.id
+        LEFT JOIN activity_tag AS `at` ON `at`.activity_id=a.id
+        LEFT JOIN tag_of_activity AS t ON t.id=`at`.tag_id
+        WHERE a.id=#{id}
+    </select>
+
+    <!--查询ActivityInfo列表-->
+    <select id="listActivityInfoByDO" resultMap="ActivityInfo">
+        SELECT a.id AS a_id, pub_id,title,address,start_time,end_time,description,3 AS `type`,
+        a.gmt_create AS a_gmt_create,a.gmt_modified AS a_gmt_modified,
+        `c`.id AS c_id,category_id,category_designation,
+        `c`.gmt_create AS c_gmt_create,`c`.gmt_modified AS c_gmt_modified,
+        i.id AS i_id,i.activity_id,image_link,
+        i.gmt_create AS i_gmt_create,i.gmt_modified AS i_gmt_modified,
+        t.id AS t_id,content,
+        t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified
+        FROM activity_info AS a
+        LEFT JOIN activity_category AS c ON a.category=c.id
+        LEFT JOIN activity_image AS i ON i.activity_id=a.id
+        LEFT JOIN activity_tag AS `at` ON `at`.activity_id=a.id
+        LEFT JOIN tag_of_activity AS t ON t.id=`at`.tag_id
+        <where>
+            <if test="info.pubId !=null and info.pubId !=''">AND pub_id=#{info.pubId}</if>
+            <if test="info.title !=null and info.title !=''">
+                <if test="info.titleLike !=null and info.titleLike !='' ">
+                    AND title LIKE "%"#{info.title}"%"
+                </if>
+                <if test="info.titleLike ==null or info.titleLike ==''">
+                    AND title=#{info.title}
+                </if>
+            </if>
+            <if test="tag.content !=null and tag.content !=''">
+                <if test="tag.contentLike !=null and tag.contentLike !='' ">
+                    AND content LIKE "%"#{tag.content}"%"
+                </if>
+                <if test="tag.contentLike ==null or tag.contentLike ==''">
+                    AND content=#{tag.content}
+                </if>
+            </if>
+            <if test="info.address !=null and info.address !=''">
+                <if test="info.addressLike !=null and info.addressLike !='' ">
+                    AND address LIKE "%"#{info.address}"%"
+                </if>
+                <if test="info.addressLike ==null or info.addressLike ==''">
+                    AND address=#{info.address}
+                </if>
+            </if>
+            <if test="info.description !=null and info.description !=''">
+                <if test="info.descriptionLike !=null and info.descriptionLike !='' ">
+                    AND description LIKE "%"#{info.description}"%"
+                </if>
+                <if test="info.descriptionLike ==null or info.descriptionLike ==''">
+                    AND description=#{info.description}
+                </if>
+            </if>
+            <if test="info.category !=null and info.category !='' ">AND category=#{info.category}</if>
+            <if test="info.createTimeBegin !=null and info.createTimeBegin !='' and info.createTimeEnd !=null and info.createTimeEnd !='' ">
+                AND gmt_create BETWEEN #{info.createTimeBegin} AND #{info.createTimeEnd}
+            </if>
+        </where>
+        <if test="info.limit !=null and info.limit !='' ">limit #{info.begin},#{info.size}</if>
+    </select>
+
+    <!--搜索ActivityInfo列表-->
+    <select id="listActivityInfoBySearch" resultMap="ActivityInfo">
+        SELECT a.id AS a_id, pub_id,title,address,start_time,end_time,description,3 AS `type`,
+        a.gmt_create AS a_gmt_create,a.gmt_modified AS a_gmt_modified,
+        `c`.id AS c_id,category_id,category_designation,
+        `c`.gmt_create AS c_gmt_create,`c`.gmt_modified AS c_gmt_modified,
+        i.id AS i_id,i.activity_id,image_link,
+        i.gmt_create AS i_gmt_create,i.gmt_modified AS i_gmt_modified,
+        t.id AS t_id,content,
+        t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified
+        FROM activity_info AS a
+        LEFT JOIN activity_category AS c ON a.category=c.id
+        LEFT JOIN activity_image AS i ON i.activity_id=a.id
+        LEFT JOIN activity_tag AS `at` ON `at`.activity_id=a.id
+        LEFT JOIN tag_of_activity AS t ON t.id=`at`.tag_id
+        <where>
+            <if test="info.pubId !=null and info.pubId !=''">AND pub_id=#{info.pubId}</if>
+            <if test="info.title !=null and info.title !=''">
+                <if test="info.titleLike !=null and info.titleLike !='' ">
+                    OR title LIKE "%"#{info.title}"%"
+                </if>
+                <if test="info.titleLike ==null or info.titleLike ==''">
+                    AND title=#{info.title}
+                </if>
+            </if>
+            <if test="tag.content !=null and tag.content !=''">
+                <if test="tag.contentLike !=null and tag.contentLike !='' ">
+                    OR content LIKE "%"#{tag.content}"%"
+                </if>
+                <if test="tag.contentLike ==null or tag.contentLike ==''">
+                    AND content=#{tag.content}
+                </if>
+            </if>
+            <if test="info.address !=null and info.address !=''">
+                <if test="info.addressLike !=null and info.addressLike !='' ">
+                    OR address LIKE "%"#{info.address}"%"
+                </if>
+                <if test="info.addressLike ==null or info.addressLike ==''">
+                    AND address=#{info.address}
+                </if>
+            </if>
+            <if test="info.description !=null and info.description !=''">
+                <if test="info.descriptionLike !=null and info.descriptionLike !='' ">
+                    OR description LIKE "%"#{info.description}"%"
+                </if>
+                <if test="info.descriptionLike ==null or info.descriptionLike ==''">
+                    AND description=#{info.description}
+                </if>
+            </if>
+            <if test="info.category !=null and info.category !='' ">AND category=#{info.category}</if>
+            <if test="info.createTimeBegin !=null and info.createTimeBegin !='' and info.createTimeEnd !=null and info.createTimeEnd !='' ">
+                AND gmt_create BETWEEN #{info.createTimeBegin} AND #{info.createTimeEnd}
+            </if>
+        </where>
+        <if test="info.limit !=null and info.limit !='' ">limit #{info.begin},#{info.size}</if>
+    </select>
+
+
+    <!--ActivityInfo-->
+    <resultMap id="ActivityInfo" type="com.example.fidledemo.BO.ActivityInfoBO">
+        <result property="id" column="a_id"/>
+        <result property="pubId" column="pub_id"/>
+        <result property="title" column="title"/>
+        <result property="address" column="address"/>
+        <result property="startTime" column="start_time"/>
+        <result property="endTime" column="end_time"/>
+        <result property="description" column="description"/>
+
+        <!--分类-->
+        <association property="category" javaType="com.example.fidledemo.BO.CategoryBO">
+            <result property="id" column="c_id"/>
+            <result property="categoryId" column="category_id"/>
+            <result property="categoryDesignation" column="category_designation"/>
+            <result property="type" column="type"></result>
+            <!--时间信息-->
+            <association property="gmtInfo" javaType="com.example.fidledemo.BO.GmtInfo">
+                <result property="gmtCreate" column="c_gmt_create"/>
+                <result property="gmtModified" column="c_gmt_modified"/>
+            </association>
+        </association>
+
+        <!--时间信息-->
+        <association property="gmtInfo" javaType="com.example.fidledemo.BO.GmtInfo">
+            <result property="gmtCreate" column="a_gmt_create"/>
+            <result property="gmtModified" column="a_gmt_modified"/>
+        </association>
+
+        <!--图片列表-->
+        <collection property="imageList" ofType="com.example.fidledemo.BO.ImageBO">
+            <result property="id" column="i_id"/>
+            <result property="infoId" column="activity_id"/>
+            <result property="imageLink" column="image_link"/>
+            <result property="type" column="type"></result>
+            <!--时间信息-->
+            <association property="gmtInfo" javaType="com.example.fidledemo.BO.GmtInfo">
+                <result property="gmtCreate" column="i_gmt_create"/>
+                <result property="gmtModified" column="i_gmt_modified"/>
+            </association>
+        </collection>
+
+        <!--标签列表-->
+        <collection property="tagList" ofType="com.example.fidledemo.BO.TagBO">
+            <result property="id" column="t_id"/>
+            <result property="content" column="content"/>
+            <result property="type" column="type"></result>
+            <!--时间信息-->
+            <association property="gmtInfo" javaType="com.example.fidledemo.BO.GmtInfo">
+                <result property="gmtCreate" column="t_gmt_create"/>
+                <result property="gmtModified" column="t_gmt_modified"/>
+            </association>
+        </collection>
+    </resultMap>
+
+</mapper>

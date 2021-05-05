@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.fidledemo.dao.TagOfTaskDAO">
+
+    <resultMap id="TagMap" type="com.example.fidledemo.BO.TagBO">
+        <result property="id" column="id"/>
+        <result property="content" column="content"/>
+        <result property="type" column="type"/>
+        <association property="gmtInfo" javaType="com.example.fidledemo.BO.GmtInfo">
+            <result property="gmtCreate" column="gmt_create"/>
+            <result property="gmtModified" column="gmt_modified"/>
+        </association>
+    </resultMap>
+
+    <insert id="insertTagOfTask" useGeneratedKeys="true" keyProperty="id" parameterType="com.example.fidledemo.DO.TagOfTaskDO" >
+        INSERT INTO tag_of_task
+        VALUES (#{id},#{content},now(),null)
+    </insert>
+
+    <select id="getTagOfTask" parameterType="Long" resultMap="TagMap">
+        SELECT id,content,2 AS `type`,gmt_create,gmt_modified
+        FROM tag_of_task
+        WHERE id = #{id}
+    </select>
+
+    <update id="updateTagOfTask" parameterType="com.example.fidledemo.DO.TagOfTaskDO">
+        UPDATE tag_of_task
+        <set>
+            <if test="content !=null and content !=''">content=#{content},</if>
+            gmt_modified=now()
+        </set>
+        WHERE id=#{id}
+    </update>
+
+    <delete id="deleteTagOfTask" parameterType="com.example.fidledemo.DO.TagOfTaskDO">
+        DELETE FROM tag_of_task
+        WHERE id=#{id}
+    </delete>
+
+    <select id="listTagOfTask" parameterType="Long" resultMap="TagMap">
+        SELECT a.id,content,2 AS `type`,a.gmt_create,a.gmt_modified
+        FROM tag_of_task AS a,task_tag AS b
+        WHERE a.id = b.tag_id AND b.task_id =#{id};
+    </select>
+
+</mapper>

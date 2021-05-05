@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.fidledemo.dao.AdminDAO">
+    <!--Admin-->
+    <resultMap id="Admin" type="com.example.fidledemo.BO.AdminBO">
+        <result property="id" column="id"/>
+        <result property="account" column="account"/>
+        <result property="password" column="password"/>
+        <result property="salt" column="salt"/>
+        <!--时间信息-->
+        <association property="gmtInfo" javaType="com.example.fidledemo.BO.GmtInfo">
+            <result property="gmtCreate" column="gmt_create"/>
+            <result property="gmtModified" column="gmt_modified"/>
+        </association>
+    </resultMap>
+    <select id="listAdminByDO" resultMap="Admin" parameterType="com.example.fidledemo.DO.AdminDO">
+        SELECT
+        <if test="distinct !=NULL AND distinct!=''">DISTINCT</if>
+        * FROM admin
+        <where>
+            <if test="id !=NULL AND id!=''">
+                AND id=#{id}
+            </if>
+            <if test="account !=NULL AND account!=''">
+                AND account=#{account}
+            </if>
+        </where>
+        <if test="limit !=NULL AND limit!=''">
+            limit #{begin},#{size}
+        </if>
+    </select>
+    <insert id="insertAdmin" parameterType="com.example.fidledemo.DO.AdminDO">
+        insert into  admin(account,password,salt,gmt_create,gmt_modified)
+        values (#{account},#{password},#{salt},now(),now());
+    </insert>
+    <delete id="deleteAdminById" parameterType="long">
+        delete from admin
+        where id=#{id}
+    </delete>
+    <update id="updateAdmin" parameterType="com.example.fidledemo.DO.AdminDO">
+        update admin
+        <set>
+            <if test="account !=NULL AND account !=''">account=#{account},</if>
+            <if test="password !=NULL AND password !=''">password=#{password},</if>
+            <if test="salt !=NULL AND salt !=''">salt=#{salt},</if>
+            gmt_modified=now()
+        </set>
+        where id=#{id}
+    </update>
+
+
+</mapper>

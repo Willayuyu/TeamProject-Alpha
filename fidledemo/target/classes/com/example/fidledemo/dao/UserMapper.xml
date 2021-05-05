@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.fidledemo.dao.UserDAO">
+
+    <!--插入-->
+    <insert id="insertUser" parameterType="com.example.fidledemo.DO.UserDO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `user`(open_id,username,tel,qq,wechat_account,portrait,gmt_create,gmt_modified)
+        VALUES(#{openId},#{username},#{tel},#{qq},#{wechatAccount},#{portrait},now(),now())
+    </insert>
+
+    <!--根据id删除User-->
+    <delete id="deleteUserById" parameterType="Long">
+        DELETE FROM `user` WHERE id=#{id}
+    </delete>
+
+    <!--更新-->
+    <update id="updateUser" parameterType="com.example.fidledemo.DO.UserDO" >
+        UPDATE `user`
+        <set>
+            <if test="openId !=null and openId !=''">open_id=#{openId},</if>
+            <if test="username !=null and username !=''">username=#{username},</if>
+            <if test="tel !=null and tel !=''">tel=#{tel},</if>
+            <if test="qq !=null and qq !=''">qq=#{qq},</if>
+            <if test="wechatAccount !=null and wechatAccount !=''">wechat_account=#{wechatAccount},</if>
+            <if test="portrait !=null and portrait !=''">portrait=#{portrait},</if>
+            gmt_modified=now()
+        </set>
+        WHERE id=#{id}
+    </update>
+
+    <!--根据id获得user-->
+    <select id="getUserById" parameterType="long" resultMap="User">
+        SELECT u.id AS u_id,open_id,username,tel,qq,wechat_account,portrait,
+        u.gmt_create AS u_gmt_create,u.gmt_modified AS u_gmt_modified,
+        c.id AS c_id,user_id,credit_score,like_num,dislike_num,
+        c.gmt_create AS c_gmt_create,c.gmt_modified AS c_gmt_modified
+        FROM `user` AS u
+        LEFT JOIN credit AS c ON u.id=c.user_id
+        WHERE u.id=#{id}
+    </select>
+
+    <!--查询user列表-->
+    <select id="listUserByDO" parameterType="com.example.fidledemo.DO.UserDO" resultMap="User">
+        SELECT  u.gmt_create AS u_gmt_create,u.gmt_modified AS u_gmt_modified,
+        c.id AS c_id,user_id,credit_score,like_num,dislike_num,
+        c.gmt_create AS c_gmt_create,c.gmt_modified AS c_gmt_modified
+        FROM `user` AS u
+        LEFT JOIN credit AS c ON u.id=c.user_id
+        <where>
+            <if test="openId !=null and openId !=''">open_id=#{openId},</if>
+            <if test="username !=null and username !=''">
+                <if test="usernameLike !=null and usernameLike !=''">
+                    AND username LIKE "%"#{username}"%"
+                </if>
+                <if test="usernameLike ==null or usernameLike ==''">
+                    AND username=#{username}
+                </if>
+            </if>
+            <if test="tel !=null and tel !=''">
+                <if test="telLike !=null and telLike !=''">
+                    AND tel LIKE "%"#{tel}"%"
+                </if>
+                <if test="telLike ==null or telLike ==''">
+                    AND tel=#{tel}
+                </if>
+            </if>
+            <if test="qq !=null and qq !=''">
+                <if test="qqLike !=null and qqLike !=''">
+                    AND qq LIKE "%"#{qq}"%"
+                </if>
+                <if test="qqLike ==null or qqLike ==''">
+                    AND qq=#{qq}
+                </if>
+            </if>
+            <if test="wechatAccount !=null and wechatAccount !=''">wechat_account=#{wechatAccount},</if>
+            <if test="portrait !=null and portrait !=''">portrait=#{portrait},</if>
+        </where>
+        <if test="limit !=null and limit !='' ">limit #{begin},#{size}</if>
+    </select>
+
+    <!--User-->
+    <resultMap id="User" type="com.example.fidledemo.BO.UserBO">
+        <result property="id" column="u_id"/>
+        <result property="openId" column="open_id"/>
+        <result property="username" column="username"/>
+        <result property="telephone" column="tel"/>
+        <result property="qq" column="qq"/>
+        <result property="wechatAccount" column="wechat_account"/>
+        <result property="portrait" column="portrait"/>
+
+        <!--时间信息-->
+        <association property="gmtInfo" javaType="com.example.fidledemo.BO.GmtInfo">
+            <result property="gmtCreate" column="u_gmt_create"/>
+            <result property="gmtModified" column="u_gmt_modified"/>
+        </association>
+
+        <!--Credit-->
+        <association property="credit" javaType="com.example.fidledemo.BO.CreditBO">
+            <result property="id" column="c_id"/>
+            <result property="userId" column="user_id"/>
+            <result property="creditScore" column="credit_score"/>
+            <result property="likeNum" column="like_num"/>
+            <result property="dislikeNum" column="dislike_num"/>
+
+            <!--时间信息-->
+            <association property="gmtInfo" javaType="com.example.fidledemo.BO.GmtInfo">
+                <result property="gmtCreate" column="c_gmt_create"/>
+                <result property="gmtModified" column="c_gmt_modified"/>
+            </association>
+        </association>
+    </resultMap>
+
+
+</mapper>
