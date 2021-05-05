@@ -3,6 +3,7 @@ package com.example.fidledemo.dao;
 import com.example.fidledemo.BO.EvaluationBO;
 import com.example.fidledemo.DO.TaskEvaluationDO;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * @Author: ZSP
  */
 @Mapper
+@Repository
 public interface TaskEvaluationDAO {
 
     /**
@@ -23,21 +25,21 @@ public interface TaskEvaluationDAO {
      * 删除
      * @param id
      */
-    void deleteTaskEvaluation(Long id);
+    void deleteTaskEvaluationById(Long id);
 
     /**
      * 根据id查找
      * @param id
      * @return
      */
-    EvaluationBO getTaskEvaluation(Long id);
+    EvaluationBO getTaskEvaluationById(Long id);
 
     /**
      * 筛选
      * @param taskEvaluation
      * @return
      */
-    List<EvaluationBO> listTaskEvaluation(TaskEvaluationDO taskEvaluation);
+    List<EvaluationBO> listTaskEvaluationByDO(TaskEvaluationDO taskEvaluation);
 
     /**
      * 更新

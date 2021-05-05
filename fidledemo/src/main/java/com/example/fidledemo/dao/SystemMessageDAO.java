@@ -4,6 +4,7 @@ import com.example.fidledemo.BO.SystemMessageBO;
 import com.example.fidledemo.DO.SystemMessageDO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * @Author: ZSP
  */
 @Mapper
+@Repository
 public interface SystemMessageDAO
 {
     /**
@@ -38,7 +40,7 @@ public interface SystemMessageDAO
      * @param systemMessage
      * @return
      */
-    List<SystemMessageBO> listSystemMessage(SystemMessageDO systemMessage);
+    List<SystemMessageBO> listSystemMessageByDO(SystemMessageDO systemMessage);
 
     /**
      * 更新

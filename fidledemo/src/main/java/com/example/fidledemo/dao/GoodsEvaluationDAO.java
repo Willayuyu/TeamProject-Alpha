@@ -4,6 +4,7 @@ import com.example.fidledemo.BO.EvaluationBO;
 import com.example.fidledemo.DO.GoodsEvaluationDO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * @Author: ZSP
  */
 @Mapper
+@Repository
 public interface GoodsEvaluationDAO {
 
     /**
@@ -23,21 +25,21 @@ public interface GoodsEvaluationDAO {
      * 删除
      * @param id
      */
-    void deleteGoodsEvaluation(Long id);
+    void deleteGoodsEvaluationById(Long id);
 
     /**
      * 根据id查找
      * @param id
      * @return
      */
-    EvaluationBO getGoodsEvaluation(Long id);
+    EvaluationBO getGoodsEvaluationById(Long id);
 
     /**
      * 筛选
      * @param goodsEvaluation
      * @return
      */
-    List<EvaluationBO> listGoodsEvaluation(GoodsEvaluationDO goodsEvaluation);
+    List<EvaluationBO> listGoodsEvaluationByDO(GoodsEvaluationDO goodsEvaluation);
 
     /**
      * 更新

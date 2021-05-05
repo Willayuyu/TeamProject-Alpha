@@ -7,7 +7,7 @@ spring:
     thymeleaf:
         cache: false
 mybatis:
-    type-aliases-package: com.example.fidledemo.DO
+    type-aliases-package: com.example.fidledemo.DO , com.example.fidledemo.BO
     mapper-locations: classpath*:com/example/fidledemo/mapper/*.xml
 
 server:
