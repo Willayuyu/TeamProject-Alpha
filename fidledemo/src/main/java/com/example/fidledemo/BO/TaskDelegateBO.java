@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TaskDelegateBO extends BaseOrder
 {
-
   /**
    * 任务委托信息
    */

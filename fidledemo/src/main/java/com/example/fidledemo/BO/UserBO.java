@@ -82,17 +82,19 @@ public class UserBO
   /**
    * 构造方法
    * @param openId
+   * @param telephone
    * @param username
    * @param qq
    * @param wechatAccount
    * @param portrait
    * @param credit
    */
-  public UserBO(Integer openId, String username, String qq,
+  public UserBO(Integer openId, String username,String telephone, String qq,
                 String wechatAccount, String portrait, CreditBO credit)
   {
     this.openId = openId;
     this.username = username;
+    this.telephone=telephone;
     this.qq = qq;
     this.wechatAccount = wechatAccount;
     this.portrait = portrait;
