@@ -18,7 +18,7 @@
         </association>
     </resultMap>
 
-    <insert id="insertTaskReportMessage" parameterType="taskReportMessageDO" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertTaskReportMessage" parameterType="com.example.fidledemo.DO.TaskReportMessageDO" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO
         task_report_message(whistleblower_id,reported_task_id,title,reason,`state`,gmt_create,gmt_modified)
         VALUES (#{whistleblowerId},#{reportedTaskId},#{title},#{reason},#{state},now(),now())
@@ -35,7 +35,7 @@
         WHERE id=#{id}
     </select>
 
-    <select id="listTaskReportMessageByDO" parameterType="taskReportMessageDO" resultMap="reportMessage">
+    <select id="listTaskReportMessageByDO" parameterType="com.example.fidledemo.DO.TaskReportMessageDO" resultMap="reportMessage">
         SELECT
         <if test="distinct !=null and distinct!=''">DISTINCT</if>
         id,whistleblower_id,reported_task_id,title,reason,`state`,2 As `type`,gmt_create,gmt_modified
@@ -75,7 +75,7 @@
         </if>
     </select>
 
-    <update id="updateTaskReportMessage" parameterType="taskReportMessageDO">
+    <update id="updateTaskReportMessage" parameterType="com.example.fidledemo.DO.TaskReportMessageDO">
         UPDATE task_report_message
         <set>
             <if test="whistleblowerId !=null and whistleblowerId !=''">whistleblower_id=#{whistleblowerId},</if>

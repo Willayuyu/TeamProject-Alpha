@@ -17,7 +17,7 @@
         </association>
     </resultMap>
 
-    <insert id="insertTaskEvaluation" parameterType="taskEvaluationDO" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertTaskEvaluation" parameterType="com.example.fidledemo.DO.TaskEvaluationDO" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO task_evaluation(task_delegate_id,evaluator_id,evaluation,reason,gmt_create,gmt_modified)
         VALUES (#{taskId},#{evaluatorId},#{evaluation},#{reason},now(),now())
     </insert>
@@ -33,7 +33,7 @@
         WHERE id=#{id}
     </select>
 
-    <select id="listTaskEvaluationByDO" parameterType="taskEvaluationDO" resultMap="evaluation">
+    <select id="listTaskEvaluationByDO" parameterType="com.example.fidledemo.DO.TaskEvaluationDO" resultMap="evaluation">
         SELECT
         <if test="distinct !=null and distinct!=''">DISTINCT</if>
         id,task_delegate_id,evaluator_id,evaluation,reason,2 AS `type`,gmt_create,gmt_modified
@@ -65,7 +65,7 @@
         </if>
     </select>
 
-    <update id="updateTaskEvaluation" parameterType="taskEvaluationDO">
+    <update id="updateTaskEvaluation" parameterType="com.example.fidledemo.DO.TaskEvaluationDO">
         UPDATE task_evaluation
         <set>
             <if test="taskId !=null and taskId !=''">task_delegate_id=#{taskId},</if>

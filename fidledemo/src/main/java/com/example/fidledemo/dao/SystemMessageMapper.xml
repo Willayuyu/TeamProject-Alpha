@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.fidledemo.dao.SystemMessageDAO">
 
-    <resultMap id="systemMessage" type="systemMessageBO">
+    <resultMap id="systemMessage" type="com.example.fidledemo.DO.SystemMessageDO">
         <result property="id" column="id"/>
         <result property="accId" column="acc_id"/>
         <result property="title" column="title"/>
@@ -17,7 +17,7 @@
         </association>
     </resultMap>
 
-    <insert id="insertSystemMessage" parameterType="systemMessageDO" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertSystemMessage" parameterType="com.example.fidledemo.DO.SystemMessageDO" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO  system_message(acc_id,title,content,link,`state`,gmt_create,gmt_modified)
         VALUES (#{accId},#{title},#{content},#{link},#{state},now(),now());
     </insert>
@@ -32,7 +32,7 @@
         WHERE id=#{id}
     </select>
 
-    <select id="listSystemMessageByDO" parameterType="systemMessageDO" resultMap="systemMessage">
+    <select id="listSystemMessageByDO" parameterType="com.example.fidledemo.DO.SystemMessageDO" resultMap="systemMessage">
         SELECT
         <if test="distinct !=null and distinct!=''">DISTINCT</if>
         * FROM system_message
@@ -71,7 +71,7 @@
         </if>
     </select>
 
-    <update id="updateSystemMessage" parameterType="systemMessageDO" >
+    <update id="updateSystemMessage" parameterType="com.example.fidledemo.DO.SystemMessageDO" >
         UPDATE system_message
         <set>
             <if test="accId !=null and accId !=''">acc_id=#{accId},</if>

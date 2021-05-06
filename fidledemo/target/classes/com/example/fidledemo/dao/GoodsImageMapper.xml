@@ -16,7 +16,7 @@
 
     <insert id="insertGoodsImage" useGeneratedKeys="true" keyProperty="id" parameterType="com.example.fidledemo.DO.GoodsImageDO" >
         INSERT INTO goods_image
-        VALUES (#{id},#{goodsId},#{imageLink},now(),null)
+        VALUES (#{id},#{goodsId},#{imageLink},now(),now())
     </insert>
 
     <select id="getGoodsImage" parameterType="Long" resultMap="ImageMap">

@@ -13,7 +13,7 @@
 
     <insert id="insertGoodsCategory" useGeneratedKeys="true" keyProperty="id" parameterType="com.example.fidledemo.DO.GoodsCategoryDO" >
         INSERT INTO goods_category
-        VALUES (#{id},#{categoryId},#{categoryDesignation},now(),null)
+        VALUES (#{id},#{categoryId},#{categoryDesignation},now(),now())
     </insert>
 
     <select id="getGoodsCategory" parameterType="Long" resultMap="CategoryMap">

@@ -38,7 +38,6 @@ class TestZSP {
         activityReportMessageDO.setWhistleblowerId((long)1);
         activityReportMessageDO.setReportedActivityId((long)1);
         activityReportMessageDO.setTitle("编译原理投诉");
-        activityReportMessageDO.set
     }
 
     /**

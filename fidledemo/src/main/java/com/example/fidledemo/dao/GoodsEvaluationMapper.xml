@@ -17,7 +17,7 @@
         </association>
     </resultMap>
 
-    <insert id="insertGoodsEvaluation" parameterType="goodsEvaluationDO" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertGoodsEvaluation" parameterType="com.example.fidledemo.DO.GoodsEvaluationDO" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO goods_evaluation(goods_id,evaluator_id,evaluation,reason,gmt_create,gmt_modified)
         VALUES (#{goodsId},#{evaluatorId},#{evaluation},#{reason},now(),now())
     </insert>
@@ -33,7 +33,7 @@
         WHERE id=#{id}
     </select>
 
-    <select id="listGoodsEvaluationByDO" parameterType="goodsEvaluationDO" resultMap="evaluation">
+    <select id="listGoodsEvaluationByDO" parameterType="com.example.fidledemo.DO.GoodsEvaluationDO" resultMap="evaluation">
         SELECT
         <if test="distinct != null and distinct != ''">DISTINCT</if>
         id,goods_id,evaluator_id,evaluation,reason,1 AS `type`,gmt_create,gmt_modified
@@ -65,7 +65,7 @@
         </if>
     </select>
 
-    <update id="updateGoodsEvaluation" parameterType="goodsEvaluationDO">
+    <update id="updateGoodsEvaluation" parameterType="com.example.fidledemo.DO.GoodsEvaluationDO">
         UPDATE goods_evaluation
         <set>
             <if test="goodsId != null and goodsId !=''">goods_id=#{goodsId},</if>

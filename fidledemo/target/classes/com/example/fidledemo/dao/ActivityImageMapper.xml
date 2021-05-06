@@ -16,7 +16,7 @@
 
     <insert id="insertActivityImage" useGeneratedKeys="true" keyProperty="id" parameterType="com.example.fidledemo.DO.ActivityImageDO" >
         INSERT INTO activity_image
-        VALUES (#{id},#{activityId},#{imageLink},now(),null)
+        VALUES (#{id},#{activityId},#{imageLink},now(),now())
     </insert>
 
     <select id="getActivityImage" parameterType="Long" resultMap="ImageMap">
