@@ -35,9 +35,9 @@ public interface TagOfActivityDAO {
 
     /**
      * 删除活动标签
-     * @param tagOfActivityDO 需要删除的标签
+     * @param id
      */
-    void deleteTagOfActivity(TagOfActivityDO tagOfActivityDO);
+    void deleteTagOfActivity(Long id);
 
 
     /**

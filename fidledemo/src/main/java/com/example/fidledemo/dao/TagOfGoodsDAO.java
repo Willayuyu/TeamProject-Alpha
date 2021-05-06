@@ -35,9 +35,9 @@ public interface TagOfGoodsDAO {
 
     /**
      * 删除二手物品标签
-     * @param tagOfGoodsDO 需要删除的标签
+     * @param id
      */
-    void deleteTagOfGoods(TagOfGoodsDO tagOfGoodsDO);
+    void deleteTagOfGoods(Long id);
 
 
     /**

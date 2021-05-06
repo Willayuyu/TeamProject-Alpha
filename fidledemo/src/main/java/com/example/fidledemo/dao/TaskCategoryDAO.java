@@ -35,9 +35,9 @@ public interface TaskCategoryDAO {
 
     /**
      * 删除已有的任务委托类别
-     * @param taskCategoryDO 要删除的任务委托类别
+     * @param id
      */
-    void deleteTaskCategory(TaskCategoryDO taskCategoryDO);
+    void deleteTaskCategory(Long id);
 
     /**
      * 返回所有已有的任务委托类别

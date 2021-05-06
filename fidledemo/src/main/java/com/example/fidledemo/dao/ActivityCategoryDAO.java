@@ -34,9 +34,9 @@ public interface ActivityCategoryDAO {
 
     /**
      * 删除已有的活动类别
-     * @param activityCategoryDO 要删除的活动类别
+     * @param id
      */
-    void deleteActivityCategory(ActivityCategoryDO activityCategoryDO);
+    void deleteActivityCategory(Long id);
 
     /**
      * 返回所有已有的活动类别

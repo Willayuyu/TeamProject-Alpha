@@ -7,6 +7,7 @@
     <resultMap id="ImageMap" type="com.example.fidledemo.BO.ImageBO">
         <result property="id" column="id"/>
         <result property="imageLink" column="image_link"/>
+        <result property="infoId" column="goods_id"/>
         <result property="type" column="type"/>
         <association property="gmtInfo" javaType="com.example.fidledemo.BO.GmtInfo">
             <result property="gmtCreate" column="gmt_create"/>
@@ -35,7 +36,7 @@
         WHERE id=#{id}
     </update>
 
-    <delete id="deleteGoodsImage" parameterType="com.example.fidledemo.DO.GoodsImageDO">
+    <delete id="deleteGoodsImage" parameterType="Long">
         DELETE FROM goods_image
         WHERE id=#{id}
     </delete>

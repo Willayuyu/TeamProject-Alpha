@@ -35,9 +35,9 @@ public interface TagOfTaskDAO {
 
     /**
      * 删除任务委托标签
-     * @param tagOfTaskDO 需要删除的标签
+     * @param id
      */
-    void deleteTagOfTask(TagOfTaskDO tagOfTaskDO);
+    void deleteTagOfTask(Long id);
 
 
     /**

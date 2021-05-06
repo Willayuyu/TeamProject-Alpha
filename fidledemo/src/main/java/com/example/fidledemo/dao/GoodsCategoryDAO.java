@@ -35,9 +35,9 @@ public interface GoodsCategoryDAO {
 
     /**
      * 删除已有的二手物品类别
-     * @param goodsCategoryDO 要删除的二手物品类别
+     * @param id
      */
-    void deleteGoodsCategory(GoodsCategoryDO goodsCategoryDO);
+    void deleteGoodsCategory(Long id);
 
     /**
      * 返回所有已有的二手物品类别

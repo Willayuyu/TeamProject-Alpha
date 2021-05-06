@@ -35,9 +35,9 @@ public interface GoodsImageDAO {
 
     /**
      * 删除二手物品图片
-     * @param goodsImageDO 二手物品图片类
+     * @param id
      */
-    void deleteGoodsImage(GoodsImageDO goodsImageDO);
+    void deleteGoodsImage(Long id);
 
     /**
      * 根据二手物品id返回全部的二手物品图片

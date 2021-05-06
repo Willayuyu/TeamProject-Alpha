@@ -35,9 +35,9 @@ public interface ActivityImageDAO {
 
     /**
      * 删除活动图片
-     * @param activityImageDO 活动图片类
+     * @param id
      */
-    void deleteActivityImage(ActivityImageDO activityImageDO);
+    void deleteActivityImage(Long id);
 
     /**
      * 根据活动id返回全部的活动图片
