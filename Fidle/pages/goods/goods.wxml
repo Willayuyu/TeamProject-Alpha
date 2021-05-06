@@ -1,12 +1,55 @@
-<van-tabs active="goods">
+<van-tabs>
   <van-tab title="在售" name="sell">
-    在售
+    <van-card  price="{{goodsPrice}}" origin-price="{{goodsOriginPrice}}" thumb="{{goodsImageURL}}" class="card">
+      <view slot="title" class="title">
+        <text>{{goodsTitle}}</text>
+      </view>
+      <view slot="num" class="modifyTag">
+        <image class="modify" mode="widthFix" src="../../icons/modify.png"></image>
+      </view>
+      <view slot="tags" class="tagList">
+        <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
+        <van-tag wx:for="{{goodsTagsList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">{{item}}</van-tag>
+      </view>
+      <view slot="footer" class="btns">
+        <van-button  class="btn">生成订单</van-button>
+        <van-button  class="btn">下架</van-button>
+      </view>
+    </van-card>
   </van-tab>
 
   <van-tab title="售出" name="sold">
-    售出
+    <van-card  price="{{goodsPrice}}" origin-price="{{goodsOriginPrice}}" thumb="{{goodsImageURL}}" class="card">
+      <view slot="title" class="title">
+        <text>{{goodsTitle}}</text>
+      </view>
+      <view slot="num" class="modifyTag">
+        <image class="modify" mode="widthFix" src="../../icons/modify.png"></image>
+      </view>
+      <view slot="tags" class="tagList">
+        <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
+        <van-tag wx:for="{{goodsTagsList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">{{item}}</van-tag>
+      </view>
+      <view slot="footer" class="btns">
+        <van-button  class="btn">评价买方</van-button>
+      </view>
+    </van-card>
   </van-tab>
   <van-tab title="活动信息" name="buy">
-    买入
+    <van-card  price="{{goodsPrice}}" origin-price="{{goodsOriginPrice}}" thumb="{{goodsImageURL}}" class="card">
+      <view slot="title" class="title">
+        <text>{{goodsTitle}}</text>
+      </view>
+      <view slot="num" class="modifyTag">
+        <image class="modify" mode="widthFix" src="../../icons/modify.png"></image>
+      </view>
+      <view slot="tags" class="tagList">
+        <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
+        <van-tag wx:for="{{goodsTagsList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">{{item}}</van-tag>
+      </view>
+      <view slot="footer" class="btns">
+        <van-button  class="btn">评价卖方</van-button>
+      </view>
+    </van-card>
   </van-tab>
 </van-tabs>

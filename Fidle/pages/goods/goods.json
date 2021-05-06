@@ -1,6 +1,8 @@
 {
   "usingComponents": {
     "van-tab": "../../components/dist/tab/index",
-    "van-tabs": "../../components/dist/tabs/index"
+    "van-tabs": "../../components/dist/tabs/index",
+    "van-card": "../../components/dist/card/index",
+    "van-tag": "../../components/dist/tag/index"
   }
 }

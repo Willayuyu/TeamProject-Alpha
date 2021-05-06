@@ -1,8 +1,119 @@
-<van-tabs active="task">
+<van-tabs>
   <van-tab title="已发布" name="publish">
-    已发布
+    <van-card class="card">
+      <view slot="price" class="price">
+        <text class="sign">￥</text>
+        <text class="priceText">{{taskPrice}}</text>
+      </view>
+      <view slot="title" class="title">
+        <text>{{taskTitle}}</text>
+      </view>
+      <view slot="num" class="modifyTag">
+        <image class="state" mode="widthFix" src="../../icons/circle.png"></image>
+        <text class="stateText">{{state[0]}}</text>
+        <image class="modify" mode="widthFix" src="../../icons/modify.png"></image>
+      </view>
+      <view slot="tags" class="tagTask">
+        <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
+        <van-tag wx:for="{{taskTagsList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">
+          {{item}}</van-tag>
+      </view>
+      <view slot="footer" class="taskBtns">
+        <van-button class="btn">联系委托人</van-button>
+        <van-button class="btn">取消收藏</van-button>
+      </view>
+    </van-card>
+    <van-card class="card">
+      <view slot="price" class="price">
+        <text class="sign">￥</text>
+        <text class="priceText">{{taskPrice}}</text>
+      </view>
+      <view slot="title" class="title">
+        <text>{{taskTitle}}</text>
+      </view>
+      <view slot="num" class="modifyTag">
+        <image class="state" mode="widthFix" src="../../icons/circle (1).png"></image>
+        <text class="stateText">{{state[1]}}</text>
+        <image class="modify" mode="widthFix" src="../../icons/modify.png"></image>
+      </view>
+      <view slot="tags" class="tagTask">
+        <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
+        <van-tag wx:for="{{taskTagsList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">
+          {{item}}</van-tag>
+      </view>
+      <view slot="footer" class="taskBtns">
+        <van-button class="btn">联系委托人</van-button>
+        <van-button class="btn">取消收藏</van-button>
+      </view>
+    </van-card>
+    <van-card class="card">
+      <view slot="price" class="price">
+        <text class="sign">￥</text>
+        <text class="priceText">{{taskPrice}}</text>
+      </view>
+      <view slot="title" class="title">
+        <text>{{taskTitle}}</text>
+      </view>
+      <view slot="num" class="modifyTag">
+        <image class="state" mode="widthFix" src="../../icons/circle (2).png"></image>
+        <text class="stateText">{{state[2]}}</text>
+        <image class="modify" mode="widthFix" src="../../icons/modify.png"></image>
+      </view>
+      <view slot="tags" class="tagTask">
+        <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
+        <van-tag wx:for="{{taskTagsList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">
+          {{item}}</van-tag>
+      </view>
+      <view slot="footer" class="taskBtns">
+        <van-button class="btn">联系委托人</van-button>
+        <van-button class="btn">取消收藏</van-button>
+      </view>
+    </van-card>
   </van-tab>
   <van-tab title="已接受" name="recept">
-    已接受
+    <van-card class="card">
+      <view slot="price" class="price">
+        <text class="sign">￥</text>
+        <text class="priceText">{{taskPrice}}</text>
+      </view>
+      <view slot="title" class="title">
+        <text>{{taskTitle}}</text>
+      </view>
+      <view slot="num" class="modifyTag">
+        <image class="state" mode="widthFix" src="../../icons/circle (1).png"></image>
+        <text class="stateText">{{state[1]}}</text>
+        <image class="modify" mode="widthFix" src="../../icons/modify.png"></image>
+      </view>
+      <view slot="tags" class="tagTask">
+        <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
+        <van-tag wx:for="{{taskTagsList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">
+          {{item}}</van-tag>
+      </view>
+      <view slot="footer" class="taskBtns">
+        <van-button class="btn">取消</van-button>
+      </view>
+    </van-card>
+    <van-card class="card">
+      <view slot="price" class="price">
+        <text class="sign">￥</text>
+        <text class="priceText">{{taskPrice}}</text>
+      </view>
+      <view slot="title" class="title">
+        <text>{{taskTitle}}</text>
+      </view>
+      <view slot="num" class="modifyTag">
+        <image class="state" mode="widthFix" src="../../icons/circle (2).png"></image>
+        <text class="stateText">{{state[2]}}</text>
+        <image class="modify" mode="widthFix" src="../../icons/modify.png"></image>
+      </view>
+      <view slot="tags" class="tagTask">
+        <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
+        <van-tag wx:for="{{taskTagsList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">
+          {{item}}</van-tag>
+      </view>
+      <view slot="footer" class="taskBtns">
+        <van-button class="btn">取消</van-button>
+      </view>
+    </van-card>
   </van-tab>
 </van-tabs>
