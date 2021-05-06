@@ -99,6 +99,7 @@ public class EvaluationBO
     if (type.equals(GOODS))
     {
       GoodsEvaluationDO goodsEvaluationDO=new GoodsEvaluationDO();
+      goodsEvaluationDO.setId(this.id);
       goodsEvaluationDO.setGoodsId(this.infoId);
       goodsEvaluationDO.setEvaluatorId(this.evaluatorId);
       goodsEvaluationDO.setEvaluation(this.evaluation);
@@ -120,6 +121,7 @@ public class EvaluationBO
     if (type.equals(TASK))
     {
       TaskEvaluationDO evaluationDO=new TaskEvaluationDO();
+      evaluationDO.setId(this.id);
       evaluationDO.setTaskId(this.infoId);
       evaluationDO.setEvaluatorId(this.evaluatorId);
       evaluationDO.setEvaluation(this.evaluation);

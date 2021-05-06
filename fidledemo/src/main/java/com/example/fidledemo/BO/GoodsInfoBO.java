@@ -85,6 +85,7 @@ public class GoodsInfoBO extends BaseInformation
   public GoodsInfoDO getGoodsInfoDO()
   {
     GoodsInfoDO goodsInfoDO=new GoodsInfoDO();
+    goodsInfoDO.setId(this.id);
     goodsInfoDO.setSellerId(this.pubId);
     goodsInfoDO.setTitle(this.title);
     goodsInfoDO.setPrice(this.price);
@@ -106,6 +107,7 @@ public class GoodsInfoBO extends BaseInformation
     for (TagBO tagBO:tagList)
     {
       TagOfGoodsDO tagDO=new TagOfGoodsDO();
+      tagDO.setId(tagBO.getId());
       tagDO.setContent(tagBO.getContent());
       list.add(tagDO);
     }
@@ -139,6 +141,7 @@ public class GoodsInfoBO extends BaseInformation
     for (ImageBO imageBO:imageList)
     {
       GoodsImageDO imageDO=new GoodsImageDO();
+      imageDO.setId(imageBO.getId());
       imageDO.setGoodsId(this.id);
       imageDO.setImageLink(imageBO.getImageLink());
       list.add(imageDO);

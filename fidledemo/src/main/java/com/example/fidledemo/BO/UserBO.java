@@ -108,6 +108,7 @@ public class UserBO
   public UserDO getUserDO()
   {
     UserDO userDO=new UserDO();
+    userDO.setId(this.id);
     userDO.setUsername(this.username);
     userDO.setTel(this.telephone);
     userDO.setQq(this.qq);
@@ -124,6 +125,7 @@ public class UserBO
   public CreditDO getCreditDO()
   {
     CreditDO creditDO=new CreditDO();
+    creditDO.setId(this.credit.getId());
     creditDO.setUserId(this.credit.getUserId());
     creditDO.setCreditScore(this.credit.getCreditScore());
     creditDO.setLikeNum(this.credit.getLikeNum());

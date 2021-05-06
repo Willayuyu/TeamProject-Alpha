@@ -38,6 +38,7 @@ public class TaskDelegateBO extends BaseOrder
   public TaskDelegateDO getTaskDelegateDO()
   {
     TaskDelegateDO delegateDO=new TaskDelegateDO();
+    delegateDO.setId(this.id);
     delegateDO.setTaskInfoId(this.taskInfo.getId());
     delegateDO.setPubId(this.pubId);
     delegateDO.setAccId(this.accId);

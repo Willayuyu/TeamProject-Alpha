@@ -1,5 +1,6 @@
 package com.example.fidledemo.BO;
 
+import com.example.fidledemo.DO.AdminDO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -52,6 +53,15 @@ public class AdminBO
    */
   private GmtInfo gmtInfo;
 
+  public AdminDO getAdminDO()
+  {
+    AdminDO adminDO=new AdminDO();
+    adminDO.setId(this.id);
+    adminDO.setAccount(this.account);
+    adminDO.setPassword(this.password);
+    adminDO.setSalt(this.salt);
+    return adminDO;
+  }
 
 }
 

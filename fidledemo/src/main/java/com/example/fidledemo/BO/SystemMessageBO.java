@@ -70,6 +70,7 @@ public class SystemMessageBO extends BaseMessage
   public SystemMessageDO getSystemMessageDO()
   {
     SystemMessageDO messageDO=new SystemMessageDO();
+    messageDO.setId(this.id);
     messageDO.setAccId(this.accId);
     messageDO.setTitle(this.title);
     messageDO.setContent(this.content);

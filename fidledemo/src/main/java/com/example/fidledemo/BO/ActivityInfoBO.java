@@ -72,6 +72,7 @@ public class ActivityInfoBO extends BaseInformation
   public ActivityInfoDO getActivityInfoDO()
   {
     ActivityInfoDO activityInfoDO=new ActivityInfoDO();
+    activityInfoDO.setId(this.id);
     activityInfoDO.setPubId(this.pubId);
     activityInfoDO.setTitle(this.title);
     activityInfoDO.setAddress(this.address);
@@ -92,6 +93,7 @@ public class ActivityInfoBO extends BaseInformation
     for (TagBO tagBO:tagList)
     {
         TagOfActivityDO tagDO=new TagOfActivityDO();
+        tagDO.setId(tagBO.getId());
         tagDO.setContent(tagBO.getContent());
         list.add(tagDO);
     }
@@ -125,6 +127,7 @@ public class ActivityInfoBO extends BaseInformation
     for (ImageBO imageBO:imageList)
     {
       ActivityImageDO imageDO=new ActivityImageDO();
+      imageDO.setId(imageBO.getId());
       imageDO.setActivityId(this.id);
       imageDO.setImageLink(imageBO.getImageLink());
       list.add(imageDO);

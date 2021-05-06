@@ -91,6 +91,7 @@ public class ReportMessageBO extends BaseMessage
     if (type.equals(GOODS))
     {
       GoodsReportMessageDO messageDO=new GoodsReportMessageDO();
+      messageDO.setId(this.id);
       messageDO.setWhistleblowerId(this.whistleblowerId);
       messageDO.setReportedGoodsId(this.reportedInfoId);
       messageDO.setTitle(this.title);
@@ -113,6 +114,7 @@ public class ReportMessageBO extends BaseMessage
     if (type.equals(TASK))
     {
       TaskReportMessageDO messageDO=new TaskReportMessageDO();
+      messageDO.setId(this.id);
       messageDO.setWhistleblowerId(this.whistleblowerId);
       messageDO.setReportedTaskId(this.reportedInfoId);
       messageDO.setTitle(this.title);
@@ -135,6 +137,7 @@ public class ReportMessageBO extends BaseMessage
     if (type.equals(TASK))
     {
       ActivityReportMessageDO messageDO=new ActivityReportMessageDO();
+      messageDO.setId(this.id);
       messageDO.setWhistleblowerId(this.whistleblowerId);
       messageDO.setReportedActivityId(this.reportedInfoId);
       messageDO.setTitle(this.title);

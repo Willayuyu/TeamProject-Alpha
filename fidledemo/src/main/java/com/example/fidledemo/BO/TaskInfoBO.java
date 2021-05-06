@@ -91,6 +91,7 @@ public class TaskInfoBO extends BaseInformation
   public TaskInformationDO getTaskInformationDO()
   {
     TaskInformationDO infoDO=new TaskInformationDO();
+    infoDO.setId(this.id);
     infoDO.setPubId(this.pubId);
     infoDO.setTitle(this.title);
     infoDO.setReward(this.reward);
@@ -112,6 +113,7 @@ public class TaskInfoBO extends BaseInformation
     for (TagBO tagBO:tagList)
     {
       TagOfTaskDO tagDO=new TagOfTaskDO();
+      tagDO.setId(tagBO.getId());
       tagDO.setContent(tagBO.getContent());
       list.add(tagDO);
     }
@@ -128,6 +130,7 @@ public class TaskInfoBO extends BaseInformation
     for (TagBO tagBO:tagList)
     {
       TaskTagDO tagDO=new TaskTagDO();
+      tagDO.setId(tagBO.getId());
       tagDO.setTagId(tagBO.getId());
       tagDO.setTaskId(this.id);
       list.add(tagDO);

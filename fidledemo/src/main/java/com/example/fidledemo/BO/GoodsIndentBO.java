@@ -39,6 +39,7 @@ public class GoodsIndentBO extends BaseOrder
   public GoodsIndentDO getGoodsIndentDO()
   {
     GoodsIndentDO goodsIndentDO=new GoodsIndentDO();
+    goodsIndentDO.setId(this.id);
     goodsIndentDO.setGoodsId(this.goodsInfo.getId());
     goodsIndentDO.setBuyerId(accId);
     goodsIndentDO.setSellerId(pubId);

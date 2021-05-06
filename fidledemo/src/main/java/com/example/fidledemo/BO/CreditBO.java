@@ -63,6 +63,7 @@ public class CreditBO
   public CreditDO getCreditDO()
   {
     CreditDO creditDO=new CreditDO();
+    creditDO.setId(this.id);
     creditDO.setUserId(this.userId);
     creditDO.setCreditScore(this.creditScore);
     creditDO.setLikeNum(this.likeNum);
