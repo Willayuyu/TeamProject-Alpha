@@ -27,7 +27,7 @@ public class TaskItemVO {
 
     private String category;
 
-    private List<TaskTagVO> categoryList;
+    private List<TaskTagVO> tagList;
 
     private Integer collectState;
 
