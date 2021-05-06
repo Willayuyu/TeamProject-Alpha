@@ -98,7 +98,7 @@
             <if test="info.category !=null and info.category !='' ">AND category=#{info.category}</if>
             <if test="info.sold !=null and info.sold !='' ">AND is_sold=#{info.sold}</if>
             <if test="info.condition !=null and info.condition !='' ">AND `condition`=#{info.condition}</if>
-            <if test="info.createTimeBegin !=null and info.createTimeBegin !='' and info.createTimeEnd !=null and info.createTimeEnd !='' ">
+            <if test="info.createTimeBegin !=null and info.createTimeEnd !=null">
                 AND gmt_create BETWEEN #{info.createTimeBegin} AND #{info.createTimeEnd}
             </if>
         </where>
@@ -151,7 +151,7 @@
             <if test="info.category !=null and info.category !='' ">AND category=#{info.category}</if>
             <if test="info.sold !=null and info.sold !='' ">AND is_sold=#{info.sold}</if>
             <if test="info.condition !=null and info.condition !='' ">AND `condition`=#{info.condition}</if>
-            <if test="info.createTimeBegin !=null and info.createTimeBegin !='' and info.createTimeEnd !=null and info.createTimeEnd !='' ">
+            <if test="info.createTimeBegin !=null and info.createTimeEnd !=null">
                 AND gmt_create BETWEEN #{info.createTimeBegin} AND #{info.createTimeEnd}
             </if>
         </where>

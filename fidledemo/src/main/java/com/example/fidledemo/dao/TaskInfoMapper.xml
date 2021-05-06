@@ -25,8 +25,8 @@
             <if test="taskState !=null and taskState !=''">task_state=#{taskState},</if>
             <if test="title !=null and title !=''">title=#{title},</if>
             <if test="reward !=null and reward !=''">reward=#{reward},</if>
-            <if test="startTime !=null and startTime !=''">start_time=#{startTime},</if>
-            <if test="endTime !=null and endTime !=''">end_time=#{endTime},</if>
+            <if test="startTime !=null">start_time=#{startTime},</if>
+            <if test="endTime !=null">end_time=#{endTime},</if>
             <if test="description !=null and description !=''">description=#{description},</if>
             <if test="category !=null and category !=''">category=#{category},</if>
             gmt_modified=now()
@@ -90,7 +90,7 @@
                 </if>
             </if>
             <if test="info.category !=null and info.category !='' ">AND category=#{info.category}</if>
-            <if test="info.createTimeBegin !=null and info.createTimeBegin !='' and info.createTimeEnd !=null and info.createTimeEnd !='' ">
+            <if test="info.createTimeBegin !=null and info.createTimeEnd !=null">
                 AND gmt_create BETWEEN #{info.createTimeBegin} AND #{info.createTimeEnd}
             </if>
         </where>
@@ -138,7 +138,7 @@
                 </if>
             </if>
             <if test="info.category !=null and info.category !='' ">AND category=#{info.category}</if>
-            <if test="info.createTimeBegin !=null and info.createTimeBegin !='' and info.createTimeEnd !=null and info.createTimeEnd !='' ">
+            <if test="info.createTimeBegin !=null and info.createTimeEnd !=null ">
                 AND gmt_create BETWEEN #{info.createTimeBegin} AND #{info.createTimeEnd}
             </if>
         </where>
