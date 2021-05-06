@@ -27,7 +27,7 @@ public class CategoryBO
   /**
    * 类别编号
    */
-  private Integer categoryId;
+  private Long categoryId;
 
   /**
    *  类别名称
@@ -50,7 +50,7 @@ public class CategoryBO
    * @param categoryDesignation
    * @param type
    */
-  public CategoryBO(Integer categoryId, String categoryDesignation, Integer type)
+  public CategoryBO(Long categoryId, String categoryDesignation, Integer type)
   {
     this.categoryId = categoryId;
     this.categoryDesignation = categoryDesignation;

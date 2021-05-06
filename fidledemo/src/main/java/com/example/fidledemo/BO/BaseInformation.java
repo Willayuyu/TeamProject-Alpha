@@ -58,7 +58,7 @@ public abstract class BaseInformation
    * @param type
    */
   public BaseInformation(Long pubId, String title, String description, List<TagBO> tagList,
-                         Integer categoryId, String categoryDesignation, Integer type)
+                         Long categoryId, String categoryDesignation, Integer type)
   {
     this.pubId = pubId;
     this.title = title;

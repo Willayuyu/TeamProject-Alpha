@@ -67,7 +67,7 @@ public class GoodsInfoBO extends BaseInformation
    * @param imageList
    * @param condition
    */
-  public GoodsInfoBO(Long pubId, String title, String description, List<TagBO> tagList, Integer categoryId, String categoryDesignation,BigDecimal price,
+  public GoodsInfoBO(Long pubId, String title, String description, List<TagBO> tagList, Long categoryId, String categoryDesignation,BigDecimal price,
                      BigDecimal originalPrice, List<ImageBO> imageList, Integer condition)
   {
     super(pubId, title, description, tagList, categoryId, categoryDesignation, TagBO.GOODS);

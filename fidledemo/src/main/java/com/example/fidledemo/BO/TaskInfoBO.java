@@ -76,7 +76,7 @@ public class TaskInfoBO extends BaseInformation
    * @param endTime
    */
   public TaskInfoBO(Long pubId, String title, String description, List<TagBO> tagList,
-                    Integer categoryId, String categoryDesignation, BigDecimal reward, Date startTime, Date endTime) {
+                    Long categoryId, String categoryDesignation, BigDecimal reward, Date startTime, Date endTime) {
     super(pubId, title, description, tagList, categoryId, categoryDesignation, TagBO.TASK);
     this.reward = reward;
     this.startTime = startTime;

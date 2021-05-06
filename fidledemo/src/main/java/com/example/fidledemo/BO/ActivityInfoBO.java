@@ -55,7 +55,7 @@ public class ActivityInfoBO extends BaseInformation
    * @param endTime
    */
   public ActivityInfoBO(Long pubId, String title, String description, List<TagBO> tagList,
-                        Integer categoryId, String categoryDesignation,List<ImageBO> imageList,
+                        Long categoryId, String categoryDesignation,List<ImageBO> imageList,
                         String address, Date startTime, Date endTime) {
     super(pubId, title, description, tagList, categoryId, categoryDesignation, TagBO.ACTIVITY);
     this.address = address;
