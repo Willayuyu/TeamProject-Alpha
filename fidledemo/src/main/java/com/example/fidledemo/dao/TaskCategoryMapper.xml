@@ -13,7 +13,7 @@
 
     <insert id="insertTaskCategory" useGeneratedKeys="true" keyProperty="id" parameterType="com.example.fidledemo.DO.TaskCategoryDO" >
         INSERT INTO task_category
-        VALUES (#{id},#{categoryId},#{categoryDesignation},now(),null)
+        VALUES (#{id},#{categoryId},#{categoryDesignation},now(),now())
     </insert>
 
     <select id="getTaskCategory" parameterType="Long" resultMap="CategoryMap">

@@ -16,7 +16,7 @@
 
     <insert id="insertTagOfActivity" useGeneratedKeys="true" keyProperty="id" parameterType="com.example.fidledemo.DO.TagOfActivityDO" >
         INSERT INTO tag_of_activity
-        VALUES (#{id},#{content},now(),null)
+        VALUES (#{id},#{content},now(),now())
     </insert>
 
     <select id="getTagOfActivity" parameterType="Long" resultMap="TagMap">

@@ -13,7 +13,7 @@
 
     <insert id="insertActivityCategory" useGeneratedKeys="true" keyProperty="id" parameterType="com.example.fidledemo.DO.ActivityCategoryDO" >
         INSERT INTO activity_category
-        VALUES (#{id},#{categoryId},#{categoryDesignation},now(),null)
+        VALUES (#{id},#{categoryId},#{categoryDesignation},now(),now())
     </insert>
 
     <select id="getActivityCategory" parameterType="Long" resultMap="CategoryMap">
