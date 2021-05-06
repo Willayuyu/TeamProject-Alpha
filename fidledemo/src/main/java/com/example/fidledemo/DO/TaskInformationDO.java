@@ -38,7 +38,7 @@ public class TaskInformationDO {
 
     private Date endTime;
 
-    private Integer category;
+    private Long category;
 
     private String description;
 

@@ -36,7 +36,7 @@ public class GoodsInfoDO {
 
     private String description;
 
-    private Integer category;
+    private Long category;
 
     private Integer condition;
 

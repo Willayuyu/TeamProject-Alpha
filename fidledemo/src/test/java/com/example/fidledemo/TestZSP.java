@@ -33,12 +33,12 @@ class TestZSP {
     @Test
     void test1(){
         ActivityReportMessageDO activityReportMessageDO = new ActivityReportMessageDO();
-        activityReportMessageDO.setWhistleblowerId(new Long(4));
-        activityReportMessageDO.setReportedActivityId(new Long(5));
-        activityReportMessageDO.setTitle("活动举报456");
-        activityReportMessageDO.setReason("不真实");
-        activityReportMessageDO.setState(1);
-        activityReportMessageDAO.insertActivityReportMessage(activityReportMessageDO);
+        activityReportMessageDO.setId((long)1);
+        activityReportMessageDO.setReason("不好用");
+        activityReportMessageDO.setWhistleblowerId((long)1);
+        activityReportMessageDO.setReportedActivityId((long)1);
+        activityReportMessageDO.setTitle("编译原理投诉");
+        activityReportMessageDO.set
     }
 
     /**

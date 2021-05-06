@@ -34,7 +34,7 @@ public class ActivityInfoDO {
 
     private Date endTime;
 
-    private Integer category;
+    private Long category;
 
     private String description;
 
