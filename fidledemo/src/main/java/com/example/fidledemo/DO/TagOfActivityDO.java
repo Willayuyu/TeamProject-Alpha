@@ -12,8 +12,10 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TagOfActivityDO {
+public class TagOfActivityDO
+{
     //查询限制字段
+
     private Boolean limit;
 
     private Integer begin;
@@ -23,6 +25,7 @@ public class TagOfActivityDO {
     private Boolean distinct;
 
     //数据库字段
+
     private Long id;
 
     private String content;

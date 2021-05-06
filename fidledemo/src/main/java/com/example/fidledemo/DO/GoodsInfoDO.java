@@ -36,7 +36,7 @@ public class GoodsInfoDO {
 
     private String description;
 
-    private Long category;
+    private Integer category;
 
     private Integer condition;
 
@@ -45,8 +45,6 @@ public class GoodsInfoDO {
     //模糊字段(字符串)
 
     private Boolean titleLike;
-
-    private Boolean priceLike;
 
     /**
      * 起始时间（用于发布时间的模糊查询）

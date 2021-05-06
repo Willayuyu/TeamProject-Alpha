@@ -28,4 +28,6 @@ public class TagOfGoodsDO {
     private String content;
 
     //模糊字段(字符串)
+
+    private Boolean contentLike;
 }

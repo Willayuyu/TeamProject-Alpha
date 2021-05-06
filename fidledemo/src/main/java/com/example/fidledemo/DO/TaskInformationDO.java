@@ -38,13 +38,11 @@ public class TaskInformationDO {
 
     private Date endTime;
 
-    private Long category;
+    private Integer category;
 
     private String description;
 
     //模糊字段(字符串)
-
-    private Boolean rewardLike;
 
     private Boolean titleLike;
 

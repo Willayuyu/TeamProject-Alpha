@@ -14,6 +14,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class TagOfTaskDO {
     //查询限制字段
+
     private Boolean limit;
 
     private Integer begin;
@@ -28,4 +29,6 @@ public class TagOfTaskDO {
     private String content;
 
     //模糊字段(字符串)
+
+    private Boolean contentLike;
 }

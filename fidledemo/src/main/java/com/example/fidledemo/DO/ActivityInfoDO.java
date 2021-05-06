@@ -34,7 +34,7 @@ public class ActivityInfoDO {
 
     private Date endTime;
 
-    private Long category;
+    private Integer category;
 
     private String description;
 
@@ -43,6 +43,8 @@ public class ActivityInfoDO {
     private Boolean titleLike;
 
     private Boolean addressLike;
+
+    private Boolean descriptionLike;
 
     /**
      * 起始时间（用于发布时间的模糊查询）
@@ -54,5 +56,5 @@ public class ActivityInfoDO {
      */
     private Date createTimeEnd;
 
-    private Boolean descriptionLike;
+
 }
