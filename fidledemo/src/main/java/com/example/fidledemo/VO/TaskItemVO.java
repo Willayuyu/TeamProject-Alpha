@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -23,7 +23,7 @@ public class TaskItemVO {
 
     private String title;
 
-    private Double reward;
+    private BigDecimal reward;
 
     private String category;
 

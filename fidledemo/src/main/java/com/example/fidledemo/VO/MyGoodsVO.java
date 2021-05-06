@@ -4,8 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 import java.util.List;
+
 /**
  * @author zyf
  */
@@ -22,9 +23,9 @@ public class MyGoodsVO {
 
     private String title;
 
-    private Double price;
+    private BigDecimal price;
 
-    private Double originalPrice;
+    private BigDecimal originalPrice;
 
     private String imageLink;
 

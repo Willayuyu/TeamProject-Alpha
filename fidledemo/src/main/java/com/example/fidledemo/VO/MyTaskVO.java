@@ -4,8 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 import java.util.List;
+
 /**
  * @author zyf
  */
@@ -22,7 +23,7 @@ public class MyTaskVO {
 
     private String title;
 
-    private Double reward;
+    private BigDecimal reward;
 
     private String category;
 
