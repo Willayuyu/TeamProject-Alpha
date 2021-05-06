@@ -1144,10 +1144,10 @@ SELECT|sys.sys_config:null
       <Comment>详细描述</Comment>
       <DataType>varchar(2000)|0s</DataType>
     </column>
-    <column id="347" parent="297" name="category">
+    <column id="347" parent="297" name="category_id">
       <Position>8</Position>
       <Comment>类别</Comment>
-      <DataType>int|0s</DataType>
+      <DataType>bigint|0s</DataType>
     </column>
     <column id="348" parent="297" name="gmt_create">
       <Position>9</Position>
@@ -1381,7 +1381,7 @@ SELECT|sys.sys_config:null
       <Comment>二手订单id</Comment>
       <DataType>bigint|0s</DataType>
     </column>
-    <column id="395" parent="304" name="valuator_id">
+    <column id="395" parent="304" name="evaluator_id">
       <Position>3</Position>
       <Comment>评价者id</Comment>
       <DataType>bigint|0s</DataType>
@@ -1523,10 +1523,10 @@ SELECT|sys.sys_config:null
       <Comment>详细描述</Comment>
       <DataType>varchar(2000)|0s</DataType>
     </column>
-    <column id="424" parent="307" name="category">
+    <column id="424" parent="307" name="category_id">
       <Position>7</Position>
       <Comment>类别</Comment>
-      <DataType>int|0s</DataType>
+      <DataType>bigint|0s</DataType>
     </column>
     <column id="425" parent="307" name="condition">
       <Position>8</Position>
@@ -1865,7 +1865,7 @@ SELECT|sys.sys_config:null
       <Comment>任务委托项id</Comment>
       <DataType>bigint|0s</DataType>
     </column>
-    <column id="494" parent="317" name="valuator_id">
+    <column id="494" parent="317" name="evaluator_id">
       <Position>3</Position>
       <Comment>评价者id</Comment>
       <DataType>bigint|0s</DataType>
@@ -1929,10 +1929,10 @@ SELECT|sys.sys_config:null
       <Comment>任务结束时间</Comment>
       <DataType>datetime|0s</DataType>
     </column>
-    <column id="507" parent="318" name="category">
+    <column id="507" parent="318" name="category_id">
       <Position>8</Position>
       <Comment>类别</Comment>
-      <DataType>int|0s</DataType>
+      <DataType>bigint|0s</DataType>
     </column>
     <column id="508" parent="318" name="description">
       <Position>9</Position>
@@ -2031,42 +2031,46 @@ SELECT|sys.sys_config:null
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="528" parent="321" name="username">
+    <column id="528" parent="321" name="open_id">
       <Position>2</Position>
+      <DataType>int|0s</DataType>
+    </column>
+    <column id="529" parent="321" name="username">
+      <Position>3</Position>
       <Comment>用户名</Comment>
       <DataType>varchar(40)|0s</DataType>
     </column>
-    <column id="529" parent="321" name="tel">
-      <Position>3</Position>
+    <column id="530" parent="321" name="tel">
+      <Position>4</Position>
       <Comment>电话号码</Comment>
       <DataType>varchar(20)|0s</DataType>
     </column>
-    <column id="530" parent="321" name="qq">
-      <Position>4</Position>
+    <column id="531" parent="321" name="qq">
+      <Position>5</Position>
       <Comment>qq</Comment>
       <DataType>varchar(20)|0s</DataType>
     </column>
-    <column id="531" parent="321" name="wechat_account">
-      <Position>5</Position>
+    <column id="532" parent="321" name="wechat_account">
+      <Position>6</Position>
       <Comment>微信账号</Comment>
       <DataType>varchar(100)|0s</DataType>
     </column>
-    <column id="532" parent="321" name="portrait">
-      <Position>6</Position>
+    <column id="533" parent="321" name="portrait">
+      <Position>7</Position>
       <Comment>头像链接</Comment>
       <DataType>varchar(100)|0s</DataType>
     </column>
-    <column id="533" parent="321" name="gmt_create">
-      <Position>7</Position>
+    <column id="534" parent="321" name="gmt_create">
+      <Position>8</Position>
       <Comment>创建时间</Comment>
       <DataType>datetime|0s</DataType>
     </column>
-    <column id="534" parent="321" name="gmt_modified">
-      <Position>8</Position>
+    <column id="535" parent="321" name="gmt_modified">
+      <Position>9</Position>
       <Comment>修改时间</Comment>
       <DataType>datetime|0s</DataType>
     </column>
-    <key id="535" parent="321" name="PRIMARY">
+    <key id="536" parent="321" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>

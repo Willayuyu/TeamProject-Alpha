@@ -66,7 +66,7 @@
                     AND reason =#{reason}
                 </if>
             </if>
-            <if test="state !=null and state!=''">
+            <if test="state !=null">
                 AND `state`=#{state}
             </if>
         </where>
@@ -82,7 +82,7 @@
             <if test="reportedActivityId !=null and reportedActivityId !=''">reported_activity_id=#{reportedActivityId},</if>
             <if test="title !=null and title !=''">title=#{title},</if>
             <if test="reason !=null and reason !=''">reason=#{reason},</if>
-            <if test="state !=null and state !=''">`state`=#{state},</if>
+            <if test="state !=null">`state`=#{state},</if>
             gmt_modified=now()
         </set>
         WHERE id=#{id}

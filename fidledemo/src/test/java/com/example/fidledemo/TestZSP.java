@@ -94,10 +94,9 @@ class TestZSP {
     @Test
     void test6(){
         GoodsEvaluationDO goodsEvaluationDO = new GoodsEvaluationDO();
-        goodsEvaluationDO.setId((long) 2);
         goodsEvaluationDO.setGoodsId((long) 3);
         goodsEvaluationDO.setEvaluatorId((long) 4);
-        goodsEvaluationDO.setEvaluation(1);
+        goodsEvaluationDO.setEvaluation(0);
         goodsEvaluationDO.setReason("好极了so good");
         goodsEvaluationDAO.insertGoodsEvaluation(goodsEvaluationDO);
     }
@@ -108,10 +107,10 @@ class TestZSP {
     @Test
     void test7(){
         GoodsEvaluationDO goodsEvaluationDO = new GoodsEvaluationDO();
-        goodsEvaluationDO.setId((long) 1);
+        goodsEvaluationDO.setId((long) 2);
         goodsEvaluationDO.setGoodsId((long) 44);
         goodsEvaluationDO.setEvaluatorId((long) 55);
-        goodsEvaluationDO.setEvaluation(-1);
+        goodsEvaluationDO.setEvaluation(0);
         goodsEvaluationDO.setReason("棒极了so good");
         goodsEvaluationDAO.updateGoodsEvaluation(goodsEvaluationDO);
     }
@@ -130,10 +129,10 @@ class TestZSP {
     @Test
     void test9(){
         GoodsEvaluationDO goodsEvaluationDO = new GoodsEvaluationDO();
-        goodsEvaluationDO.setId((long) 1);
-        goodsEvaluationDO.setGoodsId((long) 44);
-        goodsEvaluationDO.setEvaluatorId((long) 55);
-        goodsEvaluationDO.setEvaluation(-1);
+//        goodsEvaluationDO.setId((long) 1);
+//        goodsEvaluationDO.setGoodsId((long) 44);
+//        goodsEvaluationDO.setEvaluatorId((long) 55);
+//        goodsEvaluationDO.setEvaluation(-1);
         goodsEvaluationDO.setReason("so good");
         goodsEvaluationDO.setReasonLike(Boolean.TRUE);
         System.out.println(goodsEvaluationDAO.listGoodsEvaluationByDO(goodsEvaluationDO));
@@ -154,7 +153,6 @@ class TestZSP {
     @Test
     void test11(){
         GoodsReportMessageDO goodsReportMessageDO = new GoodsReportMessageDO();
-        goodsReportMessageDO.setId((long) 1);
         goodsReportMessageDO.setWhistleblowerId((long) 2);
         goodsReportMessageDO.setReportedGoodsId((long) 3);
         goodsReportMessageDO.setTitle("书籍举报");
@@ -174,7 +172,7 @@ class TestZSP {
         goodsReportMessageDO.setReportedGoodsId((long) 55);
         goodsReportMessageDO.setTitle("书籍举报1111");
         goodsReportMessageDO.setReason("新旧不一11111");
-        goodsReportMessageDO.setState(-1);
+        goodsReportMessageDO.setState(0);
         goodsReportMessageDAO.updateGoodsReportMessage(goodsReportMessageDO);
     }
 
@@ -218,7 +216,6 @@ class TestZSP {
     @Test
     void test16(){
         SystemMessageDO systemMessageDO = new SystemMessageDO();
-        systemMessageDO.setId((long) 1);
         systemMessageDO.setAccId((long) 2);
         systemMessageDO.setTitle("举报1");
         systemMessageDO.setContent("信息有假");
@@ -247,7 +244,7 @@ class TestZSP {
      */
     @Test
     void test18(){
-        System.out.println(systemMessageDAO.getSystemMessageById((long) 1));
+        System.out.println(systemMessageDAO.getSystemMessageById((long) 3));
     }
 
     /**
@@ -285,7 +282,6 @@ class TestZSP {
     @Test
     void test21(){
         TaskEvaluationDO taskEvaluationDO = new TaskEvaluationDO();
-        taskEvaluationDO.setId((long) 1);
         taskEvaluationDO.setTaskId((long) 2);
         taskEvaluationDO.setEvaluatorId((long) 3);
         taskEvaluationDO.setEvaluation(1);
@@ -365,7 +361,7 @@ class TestZSP {
         taskReportMessageDO.setReportedTaskId((long) 33);
         taskReportMessageDO.setTitle("任务举报11");
         taskReportMessageDO.setReason("不真实11");
-        taskReportMessageDO.setState(2);
+        taskReportMessageDO.setState(0);
         taskReportMessageDAO.updateTaskReportMessage(taskReportMessageDO);
     }
 

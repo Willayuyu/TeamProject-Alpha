@@ -62,7 +62,7 @@
             <if test="link !=null and link!=''">
                 AND link=#{link}
             </if>
-            <if test="state !=null and state!=''">
+            <if test="state !=null">
                 AND `state`=#{state}
             </if>
         </where>
@@ -78,7 +78,7 @@
             <if test="title !=null and title !=''">title=#{title},</if>
             <if test="content !=null and content !=''">content=#{content},</if>
             <if test="link !=null and link !=''">link=#{link},</if>
-            <if test="state !=null and state !=''">`state`=#{state},</if>
+            <if test="state !=null">`state`=#{state},</if>
             gmt_modified=now()
         </set>
         WHERE id=#{id}
