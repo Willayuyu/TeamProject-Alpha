@@ -1,6 +1,6 @@
 <van-tabs>
   <van-tab title="二手物品" name="goods">
-    <van-card  price="{{goodsPrice}}" origin-price="{{goodsOriginPrice}}" thumb="{{goodsImageURL}}" thumb-link="{{goodsDetialsURL}}" class="card">
+    <van-card  price="{{goodsPrice}}" origin-price="{{goodsOriginPrice}}" thumb="{{goodsImageURL}}" thumb-link="{{goodsDetailsURL}}" class="card">
         <view slot="title" class="title" bindtap="clickGoodsCard">
         <text>{{goodsTitle}}</text>
       </view>
@@ -64,7 +64,7 @@
     </van-card>
   </van-tab>
   <van-tab title="活动信息" name="activity">
-    <van-card  thumb="{{activityImageURL}}" class="card" >
+    <van-card  thumb="{{activityImageURL}}" thumb-link="{{activityDetailsURL}}" class="card" >
       <view slot="title" class="title" bindtap="clickActivityCard">
         <text>{{activityTitle}}</text>
       </view>
@@ -81,7 +81,7 @@
         <van-button  class="btn">取消收藏</van-button>
       </view>
     </van-card>
-    <van-card  thumb="{{activityImageURL}}" thumb-link="{{activityDetialsURL}}" class="card">
+    <van-card  thumb="{{activityImageURL}}" thumb-link="{{activityDetailsURL}}" class="card">
       <view slot="title" class="title" bindtap="clickActivityCard">
         <text>{{activityTitle}}</text>
       </view>

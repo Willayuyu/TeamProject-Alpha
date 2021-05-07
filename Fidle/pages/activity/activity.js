@@ -13,7 +13,8 @@ Page({
     activityTagsList: [
       "团立项",
       "五四活动"
-    ]
+    ],
+    activityDetailsURL: "/pages/activityDetailsPage/activityDetailsPage",
   },
 
   /**
@@ -70,5 +71,14 @@ Page({
    */
   onShareAppMessage: function () {
 
-  }
+  },
+
+    /**
+   * 点击标题跳转详情页
+   */
+  clickActivityCard(event){
+    wx.navigateTo({
+      url: '/pages/activityDetailsPage/activityDetailsPage',
+    })
+  },
 })

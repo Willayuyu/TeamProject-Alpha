@@ -14,7 +14,8 @@ Page({
       "教材",
       "大三",
       "软件工程"
-    ]
+    ],
+    goodsDetailsURL: "/pages/goodsDetailsPage/goodsDetailsPage",
   },
 
   /**
@@ -71,5 +72,15 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  /**
+   * 点击标题跳转详情页
+   */
+  clickGoodsCard(event){
+    wx.navigateTo({
+      url: '/pages/goodsDetailsPage/goodsDetailsPage',
+    })
   }
+
 })

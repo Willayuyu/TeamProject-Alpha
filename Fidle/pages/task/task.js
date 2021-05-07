@@ -72,5 +72,23 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  /**
+   * 点击标题跳转详情页
+   */
+  clickTaskCard(event){
+    wx.navigateTo({
+      url: '/pages/taskDetailsPage/taskDetailsPage',
+    })
+  },
+
+  /**
+   * 点击图标跳转修改页
+   */
+  clickTaskModify(event){
+    wx.navigateTo({
+      url: '/pages/publish/publish',
+    })
   }
 })

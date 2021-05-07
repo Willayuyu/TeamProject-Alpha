@@ -1,7 +1,7 @@
 <van-tabs>
   <van-tab title="在售" name="sell">
-    <van-card  price="{{goodsPrice}}" origin-price="{{goodsOriginPrice}}" thumb="{{goodsImageURL}}" class="card">
-      <view slot="title" class="title">
+    <van-card  price="{{goodsPrice}}" origin-price="{{goodsOriginPrice}}" thumb="{{goodsImageURL}}" thumb-link="{{goodsDetailsURL}}" class="card">
+      <view slot="title" class="title" bindtap="clickGoodsCard">
         <text>{{goodsTitle}}</text>
       </view>
       <view slot="num" class="modifyTag">
@@ -17,10 +17,9 @@
       </view>
     </van-card>
   </van-tab>
-
   <van-tab title="售出" name="sold">
-    <van-card  price="{{goodsPrice}}" origin-price="{{goodsOriginPrice}}" thumb="{{goodsImageURL}}" class="card">
-      <view slot="title" class="title">
+    <van-card  price="{{goodsPrice}}" origin-price="{{goodsOriginPrice}}" thumb="{{goodsImageURL}}" thumb-link="{{goodsDetailsURL}}" class="card">
+      <view slot="title" class="title" bindtap="clickGoodsCard">
         <text>{{goodsTitle}}</text>
       </view>
       <view slot="num" class="modifyTag">
@@ -36,8 +35,8 @@
     </van-card>
   </van-tab>
   <van-tab title="买入" name="buy">
-    <van-card  price="{{goodsPrice}}" origin-price="{{goodsOriginPrice}}" thumb="{{goodsImageURL}}" class="card">
-      <view slot="title" class="title">
+    <van-card  price="{{goodsPrice}}" origin-price="{{goodsOriginPrice}}" thumb="{{goodsImageURL}}" thumb-link="{{goodsDetailsURL}}" class="card">
+      <view slot="title" class="title" bindtap="clickGoodsCard">
         <text>{{goodsTitle}}</text>
       </view>
       <view slot="num" class="modifyTag">

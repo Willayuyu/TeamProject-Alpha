@@ -5,7 +5,7 @@
         <text class="sign">￥</text>
         <text class="priceText">{{taskPrice}}</text>
       </view>
-      <view slot="title" class="title">
+      <view slot="title" class="title" bindtap="clickTaskCard">
         <text>{{taskTitle}}</text>
       </view>
       <view slot="num" class="modifyTag">
@@ -19,8 +19,8 @@
           {{item}}</van-tag>
       </view>
       <view slot="footer" class="taskBtns">
-        <van-button class="btn">联系委托人</van-button>
-        <van-button class="btn">取消收藏</van-button>
+        <van-button class="btn">进行</van-button>
+        <van-button class="btn">删除</van-button>
       </view>
     </van-card>
     <van-card class="card">
@@ -28,7 +28,7 @@
         <text class="sign">￥</text>
         <text class="priceText">{{taskPrice}}</text>
       </view>
-      <view slot="title" class="title">
+      <view slot="title" class="title" bindtap="clickTaskCard">
         <text>{{taskTitle}}</text>
       </view>
       <view slot="num" class="modifyTag">
@@ -42,8 +42,8 @@
           {{item}}</van-tag>
       </view>
       <view slot="footer" class="taskBtns">
-        <van-button class="btn">联系委托人</van-button>
-        <van-button class="btn">取消收藏</van-button>
+        <van-button class="btn">取消</van-button>
+        <van-button class="btn">完成</van-button>
       </view>
     </van-card>
     <van-card class="card">
@@ -51,7 +51,7 @@
         <text class="sign">￥</text>
         <text class="priceText">{{taskPrice}}</text>
       </view>
-      <view slot="title" class="title">
+      <view slot="title" class="title" bindtap="clickTaskCard">
         <text>{{taskTitle}}</text>
       </view>
       <view slot="num" class="modifyTag">
@@ -65,8 +65,7 @@
           {{item}}</van-tag>
       </view>
       <view slot="footer" class="taskBtns">
-        <van-button class="btn">联系委托人</van-button>
-        <van-button class="btn">取消收藏</van-button>
+        <van-button class="btn">评价</van-button>
       </view>
     </van-card>
   </van-tab>
@@ -76,7 +75,7 @@
         <text class="sign">￥</text>
         <text class="priceText">{{taskPrice}}</text>
       </view>
-      <view slot="title" class="title">
+      <view slot="title" class="title" bindtap="clickTaskCard">
         <text>{{taskTitle}}</text>
       </view>
       <view slot="num" class="modifyTag">
@@ -98,13 +97,13 @@
         <text class="sign">￥</text>
         <text class="priceText">{{taskPrice}}</text>
       </view>
-      <view slot="title" class="title">
+      <view slot="title" class="title" bindtap="clickTaskCard">
         <text>{{taskTitle}}</text>
       </view>
       <view slot="num" class="modifyTag">
         <image class="state" mode="widthFix" src="../../icons/circle (2).png"></image>
         <text class="stateText">{{state[2]}}</text>
-        <image class="modify" mode="widthFix" src="../../icons/modify.png"></image>
+        <image class="modify" mode="widthFix" src="../../icons/modify.png" ></image>
       </view>
       <view slot="tags" class="tagTask">
         <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
@@ -112,7 +111,7 @@
           {{item}}</van-tag>
       </view>
       <view slot="footer" class="taskBtns">
-        <van-button class="btn">取消</van-button>
+        <van-button class="btn">评价</van-button>
       </view>
     </van-card>
   </van-tab>
