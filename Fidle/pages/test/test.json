@@ -1,7 +1,0 @@
-{
-  "usingComponents": {
-    "c-select": "/components/c-select/c-select",
-    "van-tab": "/components/dist/tab",
-    "van-tabs": "/components/dist/tabs"
-  }
-}

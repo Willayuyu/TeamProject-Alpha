@@ -1,0 +1,3 @@
+/* pages/contact/contact.wxss */
+@import "../changeInf/changeInf.wxss";
+/* @import "../myInf/myInf.wxss"; */

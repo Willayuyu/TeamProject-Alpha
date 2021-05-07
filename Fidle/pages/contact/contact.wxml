@@ -1,0 +1,37 @@
+<view class="container">
+  <view class="photobg">
+    <view><image class="photo" src="{{imgsrc}}"></image></view>
+  </view>
+  <view class="itembg">
+    <view class="itemname words">
+      <text class="iconfont icon-person left"></text>
+      {{username}}
+    </view>
+  </view>
+  <view class="itembg">
+    <view class="itemname words">
+      <text class="iconfont icon-phone left"></text>
+      {{phonenum}}
+    </view>
+  </view>
+  <view class="itembg">
+    <view class="itemname words">
+      <text class="iconfont icon-qq left"></text>
+      {{qqnum}}
+    </view>
+  </view>
+  <view class="itembg">
+    <view class="itemname words">信用分
+      <text class="itemcontent words" decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{credit}}</text>
+    </view>
+  </view>
+  <view class="itembg" bindtap="comments">
+    <view class="itemname words" decode="{{true}}">曾获评价 
+      <text decode="{{true}}">&nbsp;&nbsp;</text>
+      <text class="itemcontent words iconfont icon-cc-thumbs-up" decode="{{true}}">&nbsp;&nbsp;×{{goodcmt}}</text>
+      <text decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;</text>
+      <text class="itemcontent words iconfont icon-cc-thumbs-down" decode="{{true}}">&nbsp;&nbsp;×{{badcmt}}</text>
+      <van-icon name="arrow" color="#7DB5EE"/>
+    </view>
+  </view>
+</view>

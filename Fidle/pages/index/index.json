@@ -1,8 +1,9 @@
 {
   "usingComponents": {
-    "van-tab": "../../components/dist/tab/index",
-    "van-tabs": "../../components/dist/tabs/index",
-    "van-card": "../../components/dist/card/index",
-    "van-tag": "../../components/dist/tag/index"
+    "c-select": "/components/c-select/c-select",
+    "van-tab": "/components/dist/tab",
+    "van-tabs": "/components/dist/tabs",
+    "van-card": "/components/dist/card/index",
+    "van-tag": "/components/dist/tag/index"
   }
 }
