@@ -9,6 +9,7 @@ Page({
     goodsOriginPrice: "75",
     goodsTitle: "软件工程 第八版 全新未拆封 好价速来！",
     goodsImageURL: "/images/book.png",
+    goodsDetialsURL: "/pages/goodsDetailsPage/goodsDetailsPage",
     goodsTagsList: [
       "全新",
       "教材",
@@ -22,6 +23,7 @@ Page({
       "顺丰"
     ],
     activityImageURL: "http://5b0988e595225.cdn.sohucs.com/images/20190311/ab66040c529445778cf31ced4ba24657.jpeg",
+    activityDetialsURL: "/pages/activityDetailsPage/activityDetailsPage",
     activityTitle: "百米画卷",
     address: "青春广场",
     date: "2021年4月23日",
@@ -86,5 +88,23 @@ Page({
    */
   onShareAppMessage: function () {
 
-  }
+  },
+    /**
+   * 点击标题跳转详情页
+   */
+  clickGoodsCard(event){
+    wx.navigateTo({
+      url: '/pages/goodsDetailsPage/goodsDetailsPage',
+    })
+  },
+  clickTaskCard(event){
+    wx.navigateTo({
+      url: '/pages/taskDetailsPage/taskDetailsPage',
+    })
+  },
+  clickActivityCard(event){
+    wx.navigateTo({
+      url: '/pages/activityDetailsPage/activityDetailsPage',
+    })
+  },
 })

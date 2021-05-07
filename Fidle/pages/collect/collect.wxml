@@ -1,7 +1,7 @@
 <van-tabs>
   <van-tab title="二手物品" name="goods">
-    <van-card  price="{{goodsPrice}}" origin-price="{{goodsOriginPrice}}" thumb="{{goodsImageURL}}" class="card">
-      <view slot="title" class="title">
+    <van-card  price="{{goodsPrice}}" origin-price="{{goodsOriginPrice}}" thumb="{{goodsImageURL}}" thumb-link="{{goodsDetialsURL}}" class="card">
+        <view slot="title" class="title" bindtap="clickGoodsCard">
         <text>{{goodsTitle}}</text>
       </view>
       <view slot="tags" class="tagList">
@@ -14,7 +14,7 @@
       </view>
     </van-card>
     <van-card  price="{{goodsPrice}}" origin-price="{{goodsOriginPrice}}" thumb="{{ goodsImageURL }}">
-      <view slot="title" class="title">
+      <view slot="title" class="title" bindtap="clickGoodsCard">
         <text>{{goodsTitle}}</text>
       </view>
       <view slot="tags" class="tagList">
@@ -33,7 +33,7 @@
         <text class="sign">￥</text>
         <text class="priceText">{{taskPrice}}</text>
       </view>
-      <view slot="title" class="title">
+      <view slot="title" class="title" bindtap="clickTaskCard">
         <text>{{taskTitle}}</text>
       </view>
       <view slot="tags" class="tagTask">
@@ -50,7 +50,7 @@
         <text class="sign">￥</text>
         <text class="priceText">{{taskPrice}}</text>
       </view>
-      <view slot="title" class="title">
+      <view slot="title" class="title" bindtap="clickTaskCard">
         <text>{{taskTitle}}</text>
       </view>
       <view slot="tags" class="tagTask">
@@ -58,14 +58,14 @@
         <van-tag wx:for="{{taskTagsList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">{{item}}</van-tag>
       </view>
       <view slot="footer" class="taskBtns">
-        <van-button  class="btn">联系委托人</van-button>
+        <van-button class="btn" bindtap="contact">联系委托人</van-button>
         <van-button  class="btn">取消收藏</van-button>
       </view>
     </van-card>
   </van-tab>
   <van-tab title="活动信息" name="activity">
     <van-card  thumb="{{activityImageURL}}" class="card" >
-      <view slot="title" class="title">
+      <view slot="title" class="title" bindtap="clickActivityCard">
         <text>{{activityTitle}}</text>
       </view>
       <view slot="desc">
@@ -81,8 +81,8 @@
         <van-button  class="btn">取消收藏</van-button>
       </view>
     </van-card>
-    <van-card  thumb="{{activityImageURL}}" class="card" >
-      <view slot="title" class="title">
+    <van-card  thumb="{{activityImageURL}}" thumb-link="{{activityDetialsURL}}" class="card">
+      <view slot="title" class="title" bindtap="clickActivityCard">
         <text>{{activityTitle}}</text>
       </view>
       <view slot="desc">
