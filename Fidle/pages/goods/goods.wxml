@@ -35,7 +35,7 @@
       </view>
     </van-card>
   </van-tab>
-  <van-tab title="活动信息" name="buy">
+  <van-tab title="买入" name="buy">
     <van-card  price="{{goodsPrice}}" origin-price="{{goodsOriginPrice}}" thumb="{{goodsImageURL}}" class="card">
       <view slot="title" class="title">
         <text>{{goodsTitle}}</text>
