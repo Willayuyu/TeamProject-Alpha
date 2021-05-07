@@ -47,7 +47,7 @@
   </view>
   <view class='placeholder-view'></view>
   <view class="bottomCard" style="position:fixed; bottom:0rpx; width: 100%;">
-    <van-icon name="wap-home-o" size="50rpx"/>
+    <van-icon name="wap-home-o" size="50rpx" bind:click="onClickHome"/>
     <van-icon name="star" size="50rpx" bind:click="onClickStar" wx:if="{{isStar}}"/>
     <van-icon name="star-o" size="50rpx" bind:click="onClickStar" wx:else="{{isStar}}"/>
     <image class="tagsIcon" mode="widthFix" src="../../icons/jubao.png"></image>

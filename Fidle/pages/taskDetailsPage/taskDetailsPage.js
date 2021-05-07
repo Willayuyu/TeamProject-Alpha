@@ -19,6 +19,14 @@ Page({
   },
 
   /**
+   * 点击home图标跳转首页
+   */
+  onClickHome(event){
+    wx.switchTab({
+      url: '/pages/index/index',
+    })
+  },
+  /**
    * 点击收藏变色
    */
   onClickStar(event){
@@ -39,7 +47,14 @@ Page({
       });
     }
   },
-
+  /**
+   * 点击联系委托人跳转
+   */
+  contact: function() {
+    wx.navigateTo({
+      url: '/pages/contact/contact',
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

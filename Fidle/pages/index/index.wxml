@@ -19,8 +19,8 @@
         <c-select initSelect="{{secSort}}" prop-array='{{secSortArray}}'  bind:select='select_Sec_Sort'/>
         <c-select initSelect="{{secDegree}}" prop-array='{{secDegreeArray}}'  bind:select='select_Sec_Degree'/>
       </view>
-      <van-card  price="{{goodsPrice}}" origin-price="{{goodsOriginPrice}}" thumb="{{goodsImageURL}}" class="card">
-        <view slot="title" class="title">
+      <van-card  price="{{goodsPrice}}" origin-price="{{goodsOriginPrice}}" thumb="{{goodsImageURL}}" thumb-link="{{goodsDetialsURL}}" class="card">
+        <view slot="title" class="title" bindtap="clickGoodsCard">
           <text>{{goodsTitle}}</text>
         </view>
         <view slot="tags" class="tagList">
@@ -66,7 +66,7 @@
           <text class="sign">￥</text>
           <text class="priceText">{{taskPrice}}</text>
         </view>
-        <view slot="title" class="title">
+        <view slot="title" class="title" bindtap="clickTaskCard">
           <text>{{taskTitle}}</text>
         </view>
         <view slot="tags" class="tagTask">
@@ -74,9 +74,7 @@
           <van-tag wx:for="{{taskTagsList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">{{item}}</van-tag>
         </view>
         <view slot="footer" class="taskBtns">
-          <van-button class="btn" bindtap="contact">
-            联系委托人
-          </van-button>
+          <van-button class="btn" bindtap="contact">联系委托人</van-button>
           <van-button class="btn" bindtap="storeTask">
             <text decode>{{taskStore}}</text>
           </van-button>
@@ -109,8 +107,8 @@
         <c-select initSelect="{{activityTime}}" prop-array='{{activityTimeArray}}'  bind:select='select_Act_Time'/>
         <c-select initSelect="{{activitySort}}" prop-array='{{activitySortArray}}'  bind:select='select_Act_Sort'/>
       </view>
-      <van-card  thumb="{{activityImageURL}}" class="card" >
-        <view slot="title" class="title">
+      <van-card  thumb="{{activityImageURL}}" thumb-link="{{activityDetialsURL}}" class="card">
+        <view slot="title" class="title" bindtap="clickActivityCard">
           <text>{{activityTitle}}</text>
         </view>
         <view slot="desc">

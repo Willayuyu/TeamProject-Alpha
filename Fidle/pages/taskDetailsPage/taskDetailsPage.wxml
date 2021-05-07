@@ -35,11 +35,11 @@
     </view>
   </view>
   <view class="bottomCard" style="position:fixed; bottom:0rpx; width: 100%;">
-    <van-icon name="wap-home-o" size="50rpx"/>
+    <van-icon name="wap-home-o" size="50rpx" bind:click="onClickHome"/>
     <van-icon name="star" size="50rpx" bind:click="onClickStar" wx:if="{{isStar}}"/>
     <van-icon name="star-o" size="50rpx" bind:click="onClickStar" wx:else="{{isStar}}"/>
     <image class="tagsIcon" mode="widthFix" src="../../icons/jubao.png"></image>
-    <button class="contact" type="primary"  style="width: 330rpx; background-color: #7db5ee;">联系委托人</button>
+    <button class="contact" type="primary"  style="width: 330rpx; background-color: #7db5ee;"  bindtap="contact">联系委托人</button>
   </view>
   <van-toast id="van-toast"/>
 </view>

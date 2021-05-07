@@ -25,6 +25,14 @@ Page({
   },
 
   /**
+   * 点击home图标跳转首页
+   */
+  onClickHome(event){
+    wx.switchTab({
+      url: '/pages/index/index',
+    })
+  },
+  /**
    * 轮播图图片放大预览
    */
   preview(event) {
