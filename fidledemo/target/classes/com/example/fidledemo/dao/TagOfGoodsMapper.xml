@@ -34,7 +34,7 @@
         WHERE id=#{id}
     </update>
 
-    <delete id="deleteTagOfGoods" parameterType="com.example.fidledemo.DO.TagOfGoodsDO">
+    <delete id="deleteTagOfGoods" parameterType="Long">
         DELETE FROM tag_of_goods
         WHERE id=#{id}
     </delete>

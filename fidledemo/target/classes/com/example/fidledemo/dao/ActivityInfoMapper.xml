@@ -43,7 +43,8 @@
         i.gmt_create AS i_gmt_create,i.gmt_modified AS i_gmt_modified,
         t.id AS t_id,content,
         t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified
-        FROM activity_info AS a,activity_category AS c ON a.category=c.id
+        FROM activity_info AS a
+        LEFT JOIN activity_category AS c ON a.category=c.category_id
         LEFT JOIN activity_image AS i ON i.activity_id=a.id
         LEFT JOIN activity_tag AS `at` ON `at`.activity_id=a.id
         LEFT JOIN tag_of_activity AS t ON t.id=`at`.tag_id
@@ -102,7 +103,9 @@
             <if test="info.category !=null and info.category !='' ">AND category_id=#{info.category}</if>
             <if test="info.createTimeBegin !=null and info.createTimeEnd !=null">
                 AND a.gmt_create BETWEEN #{info.createTimeBegin} AND #{info.createTimeEnd}
+                <![CDATA[AND a.end_time >= #{info.createTimeEnd} ]]>
             </if>
+
         </where>
         <if test="info.limit !=null and info.limit !='' ">limit #{info.begin},#{info.size}</if>
     </select>
@@ -132,6 +135,8 @@
         OR description LIKE "%"#{info.description}"%")
 
         AND a.gmt_create BETWEEN #{info.createTimeBegin} AND #{info.createTimeEnd}
+
+        <![CDATA[AND a.end_time >= #{info.createTimeEnd} ]]>
 
 
         <if test="info.limit !=null and info.limit !='' ">limit #{info.begin},#{info.size}</if>

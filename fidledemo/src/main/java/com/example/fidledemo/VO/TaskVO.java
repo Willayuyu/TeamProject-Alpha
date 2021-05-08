@@ -1,5 +1,6 @@
 package com.example.fidledemo.VO;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,8 +33,10 @@ public class TaskVO {
 
     private Integer collectState;
 
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private Date startTime;
 
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private Date endTime;
 
 }

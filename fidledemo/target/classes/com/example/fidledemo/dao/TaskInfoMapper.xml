@@ -92,6 +92,7 @@
             <if test="info.category !=null and info.category !='' ">AND category=#{info.category}</if>
             <if test="info.createTimeBegin !=null and info.createTimeEnd !=null">
                 AND ti.gmt_create BETWEEN #{info.createTimeBegin} AND #{info.createTimeEnd}
+                <![CDATA[AND ti.end_time >= #{info.createTimeEnd} ]]>
             </if>
         </where>
         <if test="info.limit !=null and info.limit !='' ">limit #{info.begin},#{info.size}</if>
@@ -116,6 +117,7 @@
         OR description LIKE "%"#{info.description}"%")
         AND task_state=#{info.taskState}
         AND ti.gmt_create BETWEEN #{info.createTimeBegin} AND #{info.createTimeEnd}
+        <![CDATA[AND ti.end_time >= #{info.createTimeEnd} ]]>
         <if test="info.limit !=null and info.limit !='' ">limit #{info.begin},#{info.size}</if>
     </select>
 

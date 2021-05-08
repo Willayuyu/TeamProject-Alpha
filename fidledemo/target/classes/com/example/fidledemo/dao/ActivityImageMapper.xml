@@ -6,6 +6,7 @@
 
     <resultMap id="ImageMap" type="com.example.fidledemo.BO.ImageBO">
         <result property="id" column="id"/>
+        <result property="infoId" column="activity_id"/>
         <result property="imageLink" column="image_link"/>
         <result property="type" column="type"/>
         <association property="gmtInfo" javaType="com.example.fidledemo.BO.GmtInfo">
@@ -35,7 +36,7 @@
         WHERE id=#{id}
     </update>
 
-    <delete id="deleteActivityImage" parameterType="com.example.fidledemo.DO.ActivityImageDO">
+    <delete id="deleteActivityImage" parameterType="Long">
         DELETE FROM activity_image
         WHERE id=#{id}
     </delete>

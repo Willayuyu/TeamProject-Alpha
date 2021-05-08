@@ -19,7 +19,7 @@
     <select id="getTaskCategory" parameterType="Long" resultMap="CategoryMap">
         SELECT id,category_id,category_designation,2 AS 'type'
         FROM task_category
-        WHERE category_id=1;
+        WHERE category_id=#{id};
     </select>
 
     <update id="updateTaskCategory" parameterType="com.example.fidledemo.DO.TaskCategoryDO">
@@ -31,9 +31,9 @@
         WHERE category_id=#{categoryId}
     </update>
 
-    <delete id="deleteTaskCategory" parameterType="com.example.fidledemo.DO.TaskCategoryDO">
+    <delete id="deleteTaskCategory" parameterType="Long">
         DELETE FROM task_category
-        WHERE category_id=#{categoryId}
+        WHERE category_id=#{id}
     </delete>
 
     <select id="listAllTaskCategory" resultMap="CategoryMap">

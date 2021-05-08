@@ -27,4 +27,17 @@ public interface ActivityEnshrineDAO {
      * @param id
      */
     void deleteActivityEnshrine(long id);
+
+    /**
+     * 根据DO删除
+     * @param activityEnshrineDO
+     */
+    void deleteActivityEnshrineByDO(ActivityEnshrineDO activityEnshrineDO);
+
+    /**
+     * 根据ActivityEnshrineDO查找
+     * @param activityEnshrineDO
+     * @return
+     */
+    Long getActivityEnshrine(ActivityEnshrineDO activityEnshrineDO);
 }
