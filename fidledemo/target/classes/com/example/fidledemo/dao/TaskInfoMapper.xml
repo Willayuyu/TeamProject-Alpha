@@ -119,6 +119,22 @@
         <if test="info.limit !=null and info.limit !='' ">limit #{info.begin},#{info.size}</if>
     </select>
 
+    <select id="listTaskEnshrineByUserDO" resultMap="TaskInfo">
+        SELECT ti.id AS ti_id,pub_id,task_state,title,reward,start_time,end_time,description,2 AS `type`,
+        ti.gmt_create AS ti_gmt_create,ti.gmt_modified AS ti_gmt_modified,
+        `c`.id AS c_id,category_id,category_designation,
+        `c`.gmt_create AS c_gmt_create,`c`.gmt_modified AS c_gmt_modified,
+        t.id AS t_id,content,
+        t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified
+        FROM task_information AS ti
+        LEFT JOIN task_enshrine AS te ON te.task_id=ti.id
+        LEFT JOIN task_category AS c ON ti.category=c.id
+        LEFT JOIN task_tag AS `tt` ON `tt`.task_id=ti.id
+        LEFT JOIN tag_of_task AS t ON t.id=`tt`.tag_id
+        WHERE te.user_id=#{user.id}
+        <if test="user.limit !=null and user.limit !='' ">limit #{user.begin},#{user.size}</if>
+    </select>
+
     <!--TaskInfo-->
     <resultMap id="TaskInfo" type="com.example.fidledemo.BO.TaskInfoBO">
         <result property="id" column="ti_id"/>

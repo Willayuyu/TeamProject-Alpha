@@ -131,7 +131,7 @@
         <if test="info.limit !=null and info.limit !='' ">limit #{info.begin},#{info.size}</if>
     </select>
 
-    <select id="listGoodsInfoBySearch" resultMap="GoodsInfo">
+    <select id="listGoodsEnshrineByUserDO" resultMap="GoodsInfo">
         SELECT gi.id AS gi_id,seller_id,title,price,original_price,description,`condition`,is_sold,1 AS `type`,
         gi.gmt_create AS gi_gmt_create,gi.gmt_modified AS gi_gmt_modified,
         `c`.id AS c_id,category_id,category_designation,

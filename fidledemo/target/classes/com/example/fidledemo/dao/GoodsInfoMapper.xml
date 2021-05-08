@@ -131,6 +131,25 @@
         <if test="info.limit !=null and info.limit !='' ">limit #{info.begin},#{info.size}</if>
     </select>
 
+    <select id="listGoodsEnshrineByUserDO" resultMap="GoodsInfo">
+        SELECT gi.id AS gi_id,seller_id,title,price,original_price,description,`condition`,is_sold,1 AS `type`,
+        gi.gmt_create AS gi_gmt_create,gi.gmt_modified AS gi_gmt_modified,
+        `c`.id AS c_id,category_id,category_designation,
+        `c`.gmt_create AS c_gmt_create,`c`.gmt_modified AS c_gmt_modified,
+        i.id AS i_id,i.goods_id,image_link,
+        i.gmt_create AS i_gmt_create,i.gmt_modified AS i_gmt_modified,
+        t.id AS t_id,content,
+        t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified
+        FROM goods_info AS gi
+        LEFT JOIN goods_enshrine AS ge ON ge.goods_id=gi.id
+        LEFT JOIN goods_category AS c ON gi.category=c.id
+        LEFT JOIN goods_image AS i ON i.goods_id=gi.id
+        LEFT JOIN goods_tag AS `gt` ON `gt`.goods_id=gi.id
+        LEFT JOIN tag_of_goods AS t ON t.id=`gt`.tag_id
+        WHERE ge.user_id=#{user.id}
+        <if test="user.limit !=null and user.limit !='' ">limit #{user.begin},#{user.size}</if>
+    </select>
+
     <!--GoodsInfo-->
     <resultMap id="GoodsInfo" type="com.example.fidledemo.BO.GoodsInfoBO">
         <result property="id" column="gi_id"/>

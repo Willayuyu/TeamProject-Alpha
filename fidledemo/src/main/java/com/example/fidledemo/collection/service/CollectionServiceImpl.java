@@ -7,7 +7,6 @@ import com.example.fidledemo.DO.UserDO;
 import com.example.fidledemo.dao.ActivityInfoDAO;
 import com.example.fidledemo.dao.GoodsInfoDAO;
 import com.example.fidledemo.dao.TaskInfoDAO;
-import com.example.fidledemo.dao.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
