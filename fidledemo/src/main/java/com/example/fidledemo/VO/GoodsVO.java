@@ -29,7 +29,7 @@ public class GoodsVO {
 
     private String category;
 
-    private List<TaskTagVO> tagList;
+    private List<GoodsTagVO> tagList;
 
     private List<String> picturesLink;
 

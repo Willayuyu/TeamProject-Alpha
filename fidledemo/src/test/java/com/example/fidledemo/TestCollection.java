@@ -1,6 +1,7 @@
 package com.example.fidledemo;
 
 import com.example.fidledemo.BO.ActivityInfoBO;
+import com.example.fidledemo.BO.GoodsInfoBO;
 import com.example.fidledemo.BO.TaskInfoBO;
 import com.example.fidledemo.DO.UserDO;
 import com.example.fidledemo.collection.service.CollectionService;
@@ -32,8 +33,19 @@ public class TestCollection {
     @Test
     public void test2() {
         UserDO userDO = new UserDO();
-        userDO.setId((long) 2);
+        userDO.setId((long) 1);
         List<TaskInfoBO> taskInfoBOS = collectionService.listTaskEnshrineByUserDO(userDO);
         System.out.println(taskInfoBOS);
+    }
+
+    /**
+     * 测试二手物品收藏页
+     */
+    @Test
+    public void test3() {
+        UserDO userDO = new UserDO();
+        userDO.setId((long) 2);
+        List<GoodsInfoBO> goodsInfoBOS = collectionService.listGoodsEnshrineByUserDO(userDO);
+        System.out.println(goodsInfoBOS);
     }
 }
