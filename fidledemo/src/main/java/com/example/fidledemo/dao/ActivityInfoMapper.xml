@@ -137,6 +137,25 @@
         <if test="info.limit !=null and info.limit !='' ">limit #{info.begin},#{info.size}</if>
     </select>
 
+    <select id="listActivityEnshrineByUserDO" resultMap="ActivityInfo">
+        SELECT a.id AS a_id, pub_id,title,address,start_time,end_time,description,3 AS `type`,
+        a.gmt_create AS a_gmt_create,a.gmt_modified AS a_gmt_modified,
+        `c`.id AS c_id,category_id,category_designation,
+        `c`.gmt_create AS c_gmt_create,`c`.gmt_modified AS c_gmt_modified,
+        i.id AS i_id,i.activity_id,image_link,
+        i.gmt_create AS i_gmt_create,i.gmt_modified AS i_gmt_modified,
+        t.id AS t_id,content,
+        t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified
+        FROM activity_info AS a
+        LEFT JOIN activity_enshrine AS ae ON ae.activity_id = a.id
+        LEFT JOIN activity_category AS c ON a.category=c.category_id
+        LEFT JOIN activity_image AS i ON i.activity_id=a.id
+        LEFT JOIN activity_tag AS `at` ON `at`.activity_id=a.id
+        LEFT JOIN tag_of_activity AS t ON t.id=`at`.tag_id
+        where ae.user_id = #{user.id}
+        <if test="user.limit !=null and user.limit !='' ">limit #{user.begin},#{user.size}</if>
+    </select>
+
 
     <!--ActivityInfo-->
     <resultMap id="ActivityInfo" type="com.example.fidledemo.BO.ActivityInfoBO">

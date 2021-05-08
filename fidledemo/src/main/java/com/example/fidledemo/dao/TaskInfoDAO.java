@@ -3,8 +3,10 @@ package com.example.fidledemo.dao;
 import com.example.fidledemo.BO.TaskInfoBO;
 import com.example.fidledemo.DO.TagOfTaskDO;
 import com.example.fidledemo.DO.TaskInformationDO;
+import com.example.fidledemo.DO.UserDO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -13,6 +15,7 @@ import java.util.List;
  * @author 11313
  */
 @Mapper
+@Repository
 public interface TaskInfoDAO
 {
   /**
@@ -55,6 +58,13 @@ public interface TaskInfoDAO
    * @param id
    */
   void deleteTaskInfoById(Long id);
+
+  /**
+   *  根据用户id返回其任务委托收藏夹内容
+   * @param userDO
+   * @return
+   */
+  List<TaskInfoBO> listTaskEnshrineByUserDO(@Param("user") UserDO userDO);
 
 
 

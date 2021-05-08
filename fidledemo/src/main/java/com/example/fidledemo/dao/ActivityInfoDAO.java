@@ -3,6 +3,7 @@ package com.example.fidledemo.dao;
 import com.example.fidledemo.BO.ActivityInfoBO;
 import com.example.fidledemo.DO.ActivityInfoDO;
 import com.example.fidledemo.DO.TagOfActivityDO;
+import com.example.fidledemo.DO.UserDO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -59,5 +60,11 @@ public interface ActivityInfoDAO
    */
   void deleteActivityInfoById(Long id);
 
+  /**
+   * 根据用户id返回其活动信息收藏夹内容
+   * @param userDO
+   * @return
+   */
+  List<ActivityInfoBO> listActivityEnshrineByUserDO(@Param("user") UserDO userDO);
 
 }
