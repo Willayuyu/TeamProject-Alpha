@@ -11,7 +11,8 @@
         <result property="type" column="type"/>
     </resultMap>
 
-    <insert id="insertActivityCategory" useGeneratedKeys="true" keyProperty="id" parameterType="com.example.fidledemo.DO.ActivityCategoryDO" >
+    <insert id="insertActivityCategory" useGeneratedKeys="true" keyProperty="
+" parameterType="com.example.fidledemo.DO.ActivityCategoryDO" >
         INSERT INTO activity_category
         VALUES (#{id},#{categoryId},#{categoryDesignation},now(),now())
     </insert>

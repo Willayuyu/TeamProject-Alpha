@@ -45,4 +45,9 @@
         WHERE a.id = b.tag_id AND b.task_id =#{id};
     </select>
 
+     <select id="checkTaskTag" resultType="Long">
+         select id from tag_of_task
+         where content = #{content}
+     </select>
+
 </mapper>

@@ -46,4 +46,11 @@ public interface TagOfTaskDAO {
      * @return 返回该任务委托的所有标签
      */
     List<TagBO> listTagOfTask(Long id);
+
+    /**
+     * 检查taskTag是否重复
+     * @param taskTag
+     * @return
+     */
+    Long checkTaskTag(String content);
 }
