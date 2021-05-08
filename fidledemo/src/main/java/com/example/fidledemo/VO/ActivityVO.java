@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 
@@ -21,6 +20,8 @@ public class ActivityVO {
     private Long pubId;
 
     private String title;
+
+    private String address;
 
     private String description;
 

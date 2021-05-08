@@ -34,4 +34,6 @@ public class GoodsVO {
     private List<String> picturesLink;
 
     private Integer collectState;
+
+    private Integer condition;
 }
