@@ -27,4 +27,17 @@ public interface TaskEnshrineDAO {
      * @param id
      */
     void deleteTaskEnshrine(long id);
+
+    /**
+     * 根据DO删除
+     * @param taskEnshrineDO
+     */
+    void deleteTaskEnshrineByDO(TaskEnshrineDO taskEnshrineDO);
+
+    /**
+     * 根据TaskEnshrineDO查找
+     * @param taskEnshrineDO
+     * @return
+     */
+    Long getTaskEnshrine(TaskEnshrineDO taskEnshrineDO);
 }

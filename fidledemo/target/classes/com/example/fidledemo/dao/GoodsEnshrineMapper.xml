@@ -11,6 +11,12 @@
         delete from goods_enshrine
         where id=#{id}
     </delete>
+
+    <delete id="deleteGoodsEnshrineByDO" parameterType="com.example.fidledemo.DO.GoodsEnshrineDO">
+        delete from goods_enshrine
+        where user_id=#{userId} and goods_id=#{goodsId}
+    </delete>
+
     <update id="updateGoodsEnshrine" parameterType="com.example.fidledemo.DO.GoodsEnshrineDO">
         update goods_enshrine
         <set>
@@ -20,4 +26,9 @@
         </set>
         where id=#{id}
     </update>
+
+    <select id="getGoodsEnshrine" parameterType="com.example.fidledemo.DO.GoodsEnshrineDO" resultType="_long">
+        select id from goods_enshrine
+        WHERE user_id=#{userId} and goods_id=#{goodsId}
+    </select>
 </mapper>

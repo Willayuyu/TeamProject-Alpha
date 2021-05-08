@@ -19,7 +19,7 @@
     <select id="getGoodsCategory" parameterType="Long" resultMap="CategoryMap">
         SELECT id,category_id,category_designation,1 AS 'type'
         FROM goods_category
-        WHERE category_id=1;
+        WHERE category_id=#{id};
     </select>
 
     <update id="updateGoodsCategory" parameterType="com.example.fidledemo.DO.GoodsCategoryDO">
@@ -31,7 +31,7 @@
         WHERE category_id=#{categoryId}
     </update>
 
-    <delete id="deleteGoodsCategory" parameterType="com.example.fidledemo.DO.GoodsCategoryDO">
+    <delete id="deleteGoodsCategory" parameterType="Long">
         DELETE FROM goods_category
         WHERE category_id=#{categoryId}
     </delete>

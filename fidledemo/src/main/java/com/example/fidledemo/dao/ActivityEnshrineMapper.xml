@@ -11,6 +11,12 @@
         delete from activity_enshrine
         where id=#{id}
     </delete>
+
+    <delete id="deleteActivityEnshrineByDO" parameterType="com.example.fidledemo.DO.ActivityEnshrineDO">
+        delete from activity_enshrine
+        where user_id=#{userId} and activity_id=#{activityId}
+    </delete>
+
     <update id="updateActivityEnshrine" parameterType="com.example.fidledemo.DO.ActivityEnshrineDO">
         update activity_enshrine
         <set>
@@ -20,4 +26,9 @@
         </set>
         where id=#{id}
     </update>
+
+    <select id="getActivityEnshrine" parameterType="com.example.fidledemo.DO.ActivityEnshrineDO" resultType="_long">
+        select id from activity_enshrine
+        WHERE  user_id=#{userId} and activity_id=#{activityId}
+    </select>
 </mapper>
