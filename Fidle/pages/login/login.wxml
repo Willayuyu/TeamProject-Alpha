@@ -1,2 +1,8 @@
-<!--pages/login/login.wxml-->
-<text>pages/login/login.wxml</text>
+<view class="container">
+  <view>
+    <image class="img" src="/images/sign.png"></image>
+  </view>
+  <view>
+    <button class="btn" bindtap="login">微信登录</button>
+  </view>
+</view>

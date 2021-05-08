@@ -22,6 +22,9 @@ Page({
       content: '确认退出当前账号吗？',
       success: function (res) {
         if (res.confirm) {
+          wx.navigateTo({
+            url: '/pages/login/login',
+          })
           console.log('用户点击确定');
         } else if (res.cancel) {
           console.log('用户点击取消');

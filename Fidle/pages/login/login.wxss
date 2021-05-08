@@ -1,1 +1,17 @@
-/* pages/login/login.wxss */
+.container{
+  display: flex;
+  justify-content: center;
+  background-color: #fff;
+}
+
+.img {
+  margin-top: 20rpx;
+  width: 350rpx;
+  height: 350rpx;
+}
+
+.btn {
+  margin-top: 50rpx;
+  background-color: #7DB5EE;
+  color: #fff;
+}
