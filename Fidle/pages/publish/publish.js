@@ -44,28 +44,29 @@ Page({
         activity_place: "",
         activity_message: "",
         activity_tag: "",
+        activity_fileList: [],
         activity_class_list: ["团立项", "社团活动", "比赛", "招聘会", "其他"],
         activity_label_list: ["五四活动"],
         activity_class_list_idx: "",
     },
 
-    pickerShow: function() {
+    pickerShow() {
         this.setData({
             isPickerShow: true,
             isPickerRender: true,
             chartHide: true
         });
     },
-    pickerHide: function() {
+    pickerHide() {
         this.setData({
             isPickerShow: false,
             chartHide: false
         });
     },
 
-    bindPickerChange: function(e) {
-        console.log("picker发送选择改变，携带值为", e.detail.value);
-        console.log(this.data.sensorList);
+    bindPickerChange(e) {
+        // console.log("picker发送选择改变，携带值为", e.detail.value);
+        // console.log(this.data.sensorList);
 
         this.getData(this.data.sensorList[e.detail.value].id);
         // let startDate = util.formatTime(new Date(new Date().getTime() - 24 * 60 * 60 * 1000 * 7));
@@ -77,8 +78,8 @@ Page({
                 // endDate
         });
     },
-    setPickerTime: function(val) {
-        console.log(val);
+    setPickerTime(val) {
+        // console.log(val);
         let data = val.detail;
         this.setData({
             startTime: data.startTime,

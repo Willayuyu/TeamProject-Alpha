@@ -1,7 +1,9 @@
+/* 多行文本框 */
 .message {
     height: 180rpx !important;
 }
 
+/* 自定义标签 */
 .tag {
     background-color: #F3F4F4;
     margin-left: 30rpx;
@@ -11,6 +13,7 @@
     float: left;
 }
 
+/* 自定义小标题 */
 .label {
     float: left;
     padding-left: 30rpx;
@@ -20,19 +23,23 @@
     color: var(--field-label-color, #646566)
 }
 
-.input {
+/* 图片 */
+.img-input {
     float: left;
 }
 
+/* 自定义下划线 */
 .border {
     border-bottom: 1rpx solid #F4F5F7;
 }
 
+/* 标签图片 */
 .img {
     width: 40rpx;
     padding-left: 35rpx;
 }
 
+/* 新旧程度 类别 */
 .display {
     flex-direction: column;
     position: relative;
@@ -46,12 +53,14 @@
     background-color: #fff;
 }
 
+/* 发布按钮 */
 .release {
     display: block;
     padding-top: 40rpx;
     margin: 0 auto;
 }
 
+/* 添加图标 */
 .icon {
     background-color: #F3F4F4;
     margin-left: 30rpx;
@@ -61,10 +70,12 @@
     top: 5rpx;
 }
 
+/* 新旧程度 类别选中 */
 .selected {
     background-color: #7DB5EE;
 }
 
+/* 新增标签框 */
 .tag-create {
     width: 120rpx;
 }
