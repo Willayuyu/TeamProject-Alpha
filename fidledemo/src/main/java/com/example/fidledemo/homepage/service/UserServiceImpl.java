@@ -35,19 +35,21 @@ public class UserServiceImpl implements UserService{
     public PersonVO getUserById(Long id) {
         UserBO userBO = userDAO.getUserById(id);
         PersonVO personVO = new PersonVO();
-        personVO.setId(userBO.getId());
-        personVO.setUsername(userBO.getUsername());
-        personVO.setPortrait(userBO.getPortrait());
-        personVO.setQq(userBO.getQq());
-        personVO.setTel(userBO.getTelephone());
-        CreditBO creditBO = userBO.getCredit();
+        if (userBO!=null){
+            personVO.setId(userBO.getId());
+            personVO.setUsername(userBO.getUsername());
+            personVO.setPortrait(userBO.getPortrait());
+            personVO.setQq(userBO.getQq());
+            personVO.setTel(userBO.getTelephone());
+            CreditBO creditBO = userBO.getCredit();
 
-        CreditVO creditVO = new CreditVO();
-        creditVO.setCreditScore(creditBO.getCreditScore());
-        creditVO.setLikeNum(creditBO.getLikeNum());
-        creditVO.setDislikeNum(creditBO.getDislikeNum());
+            CreditVO creditVO = new CreditVO();
+            creditVO.setCreditScore(creditBO.getCreditScore());
+            creditVO.setLikeNum(creditBO.getLikeNum());
+            creditVO.setDislikeNum(creditBO.getDislikeNum());
 
-        personVO.setCredit(creditVO);
+            personVO.setCredit(creditVO);
+        }
 
         return personVO;
     }

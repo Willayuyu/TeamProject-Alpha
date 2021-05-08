@@ -41,97 +41,109 @@ public class ActivityController {
 
     @PostMapping("/activity/listActivity")
     public String getListActivity(HttpServletRequest request){
-        ActivityInfoDO activityInfoDO = new ActivityInfoDO();
-        TagOfActivityDO tagOfActivityDO = new TagOfActivityDO();
+        try{
+            ActivityInfoDO activityInfoDO = new ActivityInfoDO();
+            TagOfActivityDO tagOfActivityDO = new TagOfActivityDO();
 
-        int days=Integer.parseInt(request.getParameter("days"));
-        Long categoryId=Long.parseLong(request.getParameter("categoryId"));
-        int pageid=Integer.parseInt(request.getParameter("pageid"));
+            int days=Integer.parseInt(request.getParameter("days"));
+            Long categoryId=Long.parseLong(request.getParameter("categoryId"));
+            int pageid=Integer.parseInt(request.getParameter("pageid"));
 
-        activityInfoDO.setLimit(Boolean.TRUE);
-        activityInfoDO.setBegin((pageid-1)*10);
-        activityInfoDO.setSize(10);
-        activityInfoDO.setDistinct(Boolean.TRUE);
-        activityInfoDO.setCategory(categoryId);
-        activityInfoDO.setCreateTimeEnd(new Date());
-        activityInfoDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
+            activityInfoDO.setLimit(Boolean.TRUE);
+            activityInfoDO.setBegin((pageid-1)*10);
+            activityInfoDO.setSize(10);
+            activityInfoDO.setDistinct(Boolean.TRUE);
+            activityInfoDO.setCategory(categoryId);
+            activityInfoDO.setCreateTimeEnd(new Date());
+            activityInfoDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
 
-        List<ActivityItemVO> activityItemVOS = activityInfoService.listActivityInfoByDO(activityInfoDO, tagOfActivityDO);
+            List<ActivityItemVO> activityItemVOS = activityInfoService.listActivityInfoByDO(activityInfoDO, tagOfActivityDO);
 
-        //判断是否被该用户收藏
-        Long userId = (Long) request.getSession().getAttribute("userId");
-        ActivityEnshrineDO activityEnshrineDO = new ActivityEnshrineDO();
-        activityEnshrineDO.setUserId(userId);
-        for (ActivityItemVO activityItemVO:activityItemVOS) {
-            activityEnshrineDO.setActivityId(activityItemVO.getId());
-            if(activityEnshrineService.getActivityEnshrine(activityEnshrineDO)!=null){
-                activityItemVO.setCollectState(1);
-            }else{
-                activityItemVO.setCollectState(0);
+            //判断是否被该用户收藏
+            Long userId = (Long) request.getSession().getAttribute("userId");
+            ActivityEnshrineDO activityEnshrineDO = new ActivityEnshrineDO();
+            activityEnshrineDO.setUserId(userId);
+            for (ActivityItemVO activityItemVO:activityItemVOS) {
+                activityEnshrineDO.setActivityId(activityItemVO.getId());
+                if(activityEnshrineService.getActivityEnshrine(activityEnshrineDO)!=null){
+                    activityItemVO.setCollectState(1);
+                }else{
+                    activityItemVO.setCollectState(0);
+                }
             }
-        }
 
-        return JSON.toJSONString(Result.successResult(activityItemVOS));
+            return JSON.toJSONString(Result.successResult(activityItemVOS));
+        }catch (Exception e){
+            return JSON.toJSONString(Result.failureResult(ResultCode.RESOURCE_EMPTY));
+        }
     }
 
     @PostMapping("/activity/listActivityByKeyword")
     public String getListActivityByKeyword(HttpServletRequest request){
-        ActivityInfoDO activityInfoDO = new ActivityInfoDO();
-        TagOfActivityDO tagOfActivityDO = new TagOfActivityDO();
+        try{
+            ActivityInfoDO activityInfoDO = new ActivityInfoDO();
+            TagOfActivityDO tagOfActivityDO = new TagOfActivityDO();
 
-        int days=Integer.parseInt(request.getParameter("days"));
-        Long categoryId=Long.parseLong(request.getParameter("categoryId"));
-        System.out.println(categoryId);
-        int pageid=Integer.parseInt(request.getParameter("pageid"));
-        String keyWord=request.getParameter("keyWord");
+            int days=Integer.parseInt(request.getParameter("days"));
+            Long categoryId=Long.parseLong(request.getParameter("categoryId"));
+            System.out.println(categoryId);
+            int pageid=Integer.parseInt(request.getParameter("pageid"));
+            String keyWord=request.getParameter("keyWord");
 
-        activityInfoDO.setLimit(Boolean.TRUE);
-        activityInfoDO.setBegin((pageid-1)*10);
-        activityInfoDO.setSize(10);
-        activityInfoDO.setDistinct(Boolean.TRUE);
-        activityInfoDO.setCategory(categoryId);
-        activityInfoDO.setCreateTimeEnd(new Date());
-        activityInfoDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
+            activityInfoDO.setLimit(Boolean.TRUE);
+            activityInfoDO.setBegin((pageid-1)*10);
+            activityInfoDO.setSize(10);
+            activityInfoDO.setDistinct(Boolean.TRUE);
+            activityInfoDO.setCategory(categoryId);
+            activityInfoDO.setCreateTimeEnd(new Date());
+            activityInfoDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
 
-        activityInfoDO.setTitle(keyWord);
-        activityInfoDO.setTitleLike(Boolean.TRUE);
-        activityInfoDO.setAddress(keyWord);
-        activityInfoDO.setAddressLike(Boolean.TRUE);
-        activityInfoDO.setDescription(keyWord);
-        activityInfoDO.setDescriptionLike(Boolean.TRUE);
+            activityInfoDO.setTitle(keyWord);
+            activityInfoDO.setTitleLike(Boolean.TRUE);
+            activityInfoDO.setAddress(keyWord);
+            activityInfoDO.setAddressLike(Boolean.TRUE);
+            activityInfoDO.setDescription(keyWord);
+            activityInfoDO.setDescriptionLike(Boolean.TRUE);
 
-        tagOfActivityDO.setContent(keyWord);
-        tagOfActivityDO.setContentLike(Boolean.TRUE);
+            tagOfActivityDO.setContent(keyWord);
+            tagOfActivityDO.setContentLike(Boolean.TRUE);
 
-        List<ActivityItemVO> activityItemVOS = activityInfoService.listActivityInfoBySearch(activityInfoDO, tagOfActivityDO);
+            List<ActivityItemVO> activityItemVOS = activityInfoService.listActivityInfoBySearch(activityInfoDO, tagOfActivityDO);
 
-        //判断是否被该用户收藏
-        Long userId = (Long) request.getSession().getAttribute("userId");
-        ActivityEnshrineDO activityEnshrineDO = new ActivityEnshrineDO();
-        activityEnshrineDO.setUserId(userId);
-        for (ActivityItemVO activityItemVO:activityItemVOS) {
-            activityEnshrineDO.setActivityId(activityItemVO.getId());
-            if(activityEnshrineService.getActivityEnshrine(activityEnshrineDO)!=null){
-                activityItemVO.setCollectState(1);
-            }else{
-                activityItemVO.setCollectState(0);
+            //判断是否被该用户收藏
+            Long userId = (Long) request.getSession().getAttribute("userId");
+            ActivityEnshrineDO activityEnshrineDO = new ActivityEnshrineDO();
+            activityEnshrineDO.setUserId(userId);
+            for (ActivityItemVO activityItemVO:activityItemVOS) {
+                activityEnshrineDO.setActivityId(activityItemVO.getId());
+                if(activityEnshrineService.getActivityEnshrine(activityEnshrineDO)!=null){
+                    activityItemVO.setCollectState(1);
+                }else{
+                    activityItemVO.setCollectState(0);
+                }
             }
-        }
 
-        return JSON.toJSONString(Result.successResult(activityItemVOS));
+            return JSON.toJSONString(Result.successResult(activityItemVOS));
+        }catch (Exception e){
+            return JSON.toJSONString(Result.failureResult(ResultCode.RESOURCE_EMPTY));
+        }
     }
 
     @GetMapping("/activity/listActivityCategory")
     public String getListActivityCategory(){
-        List<ActivityCategoryVO> activityCategoryVOS = activityCategoryService.listAllActivityCategory();
-        return JSON.toJSONString(Result.successResult(activityCategoryVOS));
+        try{
+            List<ActivityCategoryVO> activityCategoryVOS = activityCategoryService.listAllActivityCategory();
+            return JSON.toJSONString(Result.successResult(activityCategoryVOS));
+        }catch (Exception e){
+            return JSON.toJSONString(Result.failureResult(ResultCode.RESOURCE_EMPTY));
+        }
     }
 
     @GetMapping("/activity/collectActivity/{id}")
     public String collectActivity(@PathVariable("id") Long id, HttpServletRequest request){
         try{
             Long userId = (Long) request.getSession().getAttribute("userId");
-            userId= Long.valueOf(2);
+            //userId= Long.valueOf(2);
             ActivityEnshrineDO activityEnshrineDO = new ActivityEnshrineDO();
             activityEnshrineDO.setUserId(userId);
             activityEnshrineDO.setActivityId(id);
@@ -147,7 +159,7 @@ public class ActivityController {
     public String cancelCollectActivity(@PathVariable("id") Long id, HttpServletRequest request){
         try{
             Long userId = (Long) request.getSession().getAttribute("userId");
-            userId= Long.valueOf(2);
+            //userId= Long.valueOf(2);
             ActivityEnshrineDO activityEnshrineDO = new ActivityEnshrineDO();
             activityEnshrineDO.setUserId(userId);
             activityEnshrineDO.setActivityId(id);
@@ -162,15 +174,17 @@ public class ActivityController {
     public String getActivityDetailById(@PathVariable("id") Long id,HttpServletRequest request){
         try{
             ActivityVO activityVO = activityInfoService.getActivityInfoById(id);
-            Long userId = (Long) request.getSession().getAttribute("userId");
-            userId= Long.valueOf(2);
-            ActivityEnshrineDO activityEnshrineDO = new ActivityEnshrineDO();
-            activityEnshrineDO.setUserId(userId);
-            activityEnshrineDO.setActivityId(id);
-            if(activityEnshrineService.getActivityEnshrine(activityEnshrineDO)!=null){
-                activityVO.setCollectState(1);
-            }else {
-                activityVO.setCollectState(0);
+            if (activityVO!=null){
+                Long userId = (Long) request.getSession().getAttribute("userId");
+                //userId= Long.valueOf(2);
+                ActivityEnshrineDO activityEnshrineDO = new ActivityEnshrineDO();
+                activityEnshrineDO.setUserId(userId);
+                activityEnshrineDO.setActivityId(id);
+                if(activityEnshrineService.getActivityEnshrine(activityEnshrineDO)!=null){
+                    activityVO.setCollectState(1);
+                }else {
+                    activityVO.setCollectState(0);
+                }
             }
             return JSON.toJSONString(Result.successResult(activityVO));
         }catch (Exception e){

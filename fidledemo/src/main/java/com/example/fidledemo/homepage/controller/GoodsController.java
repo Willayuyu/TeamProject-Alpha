@@ -48,41 +48,45 @@ public class GoodsController {
      */
     @PostMapping("/goods/listGoods")
     public String getListGoods(HttpServletRequest request){
-        GoodsInfoDO goodsInfoDO = new GoodsInfoDO();
-        TagOfGoodsDO tagOfGoodsDO = new TagOfGoodsDO();
-        int days=Integer.parseInt(request.getParameter("days"));
-        Long categoryId=Long.parseLong(request.getParameter("categoryId"));
-        int condition=Integer.parseInt(request.getParameter("condition"));
-        int pageid=Integer.parseInt(request.getParameter("pageid"));
+        try{
+            GoodsInfoDO goodsInfoDO = new GoodsInfoDO();
+            TagOfGoodsDO tagOfGoodsDO = new TagOfGoodsDO();
+            int days=Integer.parseInt(request.getParameter("days"));
+            Long categoryId=Long.parseLong(request.getParameter("categoryId"));
+            int condition=Integer.parseInt(request.getParameter("condition"));
+            int pageid=Integer.parseInt(request.getParameter("pageid"));
 
-        goodsInfoDO.setLimit(Boolean.TRUE);
-        goodsInfoDO.setBegin((pageid-1)*10);
-        goodsInfoDO.setSize(10);
-        goodsInfoDO.setDistinct(Boolean.TRUE);
-        goodsInfoDO.setCategory(categoryId);
-        goodsInfoDO.setCondition(condition);
-        /**
-         * 0:在售
-         */
-        goodsInfoDO.setSold(0);
-        goodsInfoDO.setCreateTimeEnd(new Date());
-        goodsInfoDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
+            goodsInfoDO.setLimit(Boolean.TRUE);
+            goodsInfoDO.setBegin((pageid-1)*10);
+            goodsInfoDO.setSize(10);
+            goodsInfoDO.setDistinct(Boolean.TRUE);
+            goodsInfoDO.setCategory(categoryId);
+            goodsInfoDO.setCondition(condition);
+            /**
+             * 0:在售
+             */
+            goodsInfoDO.setSold(0);
+            goodsInfoDO.setCreateTimeEnd(new Date());
+            goodsInfoDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
 
-        List<GoodsItemVO> goodsItemVOS = goodsInfoService.listGoodsInfoByDO(goodsInfoDO, tagOfGoodsDO);
+            List<GoodsItemVO> goodsItemVOS = goodsInfoService.listGoodsInfoByDO(goodsInfoDO, tagOfGoodsDO);
 
-        //判断是否被该用户收藏
-        Long userId = (Long) request.getSession().getAttribute("userId");
-        GoodsEnshrineDO goodsEnshrineDO = new GoodsEnshrineDO();
-        goodsEnshrineDO.setUserId(userId);
-        for (GoodsItemVO goodsItemVO:goodsItemVOS) {
-            goodsEnshrineDO.setGoodsId(goodsItemVO.getId());
-            if (goodsEnshrineService.getGoodsEnshrine(goodsEnshrineDO)!=null){
-                goodsItemVO.setCollectState(1);
-            }else {
-                goodsItemVO.setCollectState(0);
+            //判断是否被该用户收藏
+            Long userId = (Long) request.getSession().getAttribute("userId");
+            GoodsEnshrineDO goodsEnshrineDO = new GoodsEnshrineDO();
+            goodsEnshrineDO.setUserId(userId);
+            for (GoodsItemVO goodsItemVO:goodsItemVOS) {
+                goodsEnshrineDO.setGoodsId(goodsItemVO.getId());
+                if (goodsEnshrineService.getGoodsEnshrine(goodsEnshrineDO)!=null){
+                    goodsItemVO.setCollectState(1);
+                }else {
+                    goodsItemVO.setCollectState(0);
+                }
             }
+            return JSON.toJSONString(Result.successResult(goodsItemVOS));
+        }catch (Exception e){
+            return JSON.toJSONString(Result.failureResult(ResultCode.RESOURCE_EMPTY));
         }
-        return JSON.toJSONString(Result.successResult(goodsItemVOS));
     }
 
     /**
@@ -93,59 +97,67 @@ public class GoodsController {
     @PostMapping("/goods/listGoodsByKeyword")
     public String getListGoodsByKeyword(HttpServletRequest request){
 
-        GoodsInfoDO goodsInfoDO = new GoodsInfoDO();
-        TagOfGoodsDO tagOfGoodsDO = new TagOfGoodsDO();
+        try{
+            GoodsInfoDO goodsInfoDO = new GoodsInfoDO();
+            TagOfGoodsDO tagOfGoodsDO = new TagOfGoodsDO();
 
-        int days=Integer.parseInt(request.getParameter("days"));
-        Long categoryId=Long.parseLong(request.getParameter("categoryId"));
-        int condition=Integer.parseInt(request.getParameter("condition"));
-        String keyWord=request.getParameter("keyWord");
-        int pageid=Integer.parseInt(request.getParameter("pageid"));
+            int days=Integer.parseInt(request.getParameter("days"));
+            Long categoryId=Long.parseLong(request.getParameter("categoryId"));
+            int condition=Integer.parseInt(request.getParameter("condition"));
+            String keyWord=request.getParameter("keyWord");
+            int pageid=Integer.parseInt(request.getParameter("pageid"));
 
-        goodsInfoDO.setLimit(Boolean.TRUE);
-        goodsInfoDO.setBegin((pageid-1)*10);
-        goodsInfoDO.setSize(10);
-        goodsInfoDO.setDistinct(Boolean.TRUE);
-        goodsInfoDO.setTitle(keyWord);
-        goodsInfoDO.setTitleLike(Boolean.TRUE);
-        goodsInfoDO.setDescription(keyWord);
-        goodsInfoDO.setDescriptionLike(Boolean.TRUE);
-        goodsInfoDO.setCategory(categoryId);
-        goodsInfoDO.setCondition(condition);
-        goodsInfoDO.setSold(0);//0在售
-        goodsInfoDO.setCreateTimeEnd(new Date());
-        goodsInfoDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
+            goodsInfoDO.setLimit(Boolean.TRUE);
+            goodsInfoDO.setBegin((pageid-1)*10);
+            goodsInfoDO.setSize(10);
+            goodsInfoDO.setDistinct(Boolean.TRUE);
+            goodsInfoDO.setTitle(keyWord);
+            goodsInfoDO.setTitleLike(Boolean.TRUE);
+            goodsInfoDO.setDescription(keyWord);
+            goodsInfoDO.setDescriptionLike(Boolean.TRUE);
+            goodsInfoDO.setCategory(categoryId);
+            goodsInfoDO.setCondition(condition);
+            goodsInfoDO.setSold(0);//0在售
+            goodsInfoDO.setCreateTimeEnd(new Date());
+            goodsInfoDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
 
-        tagOfGoodsDO.setContent(keyWord);
-        tagOfGoodsDO.setContentLike(Boolean.TRUE);
+            tagOfGoodsDO.setContent(keyWord);
+            tagOfGoodsDO.setContentLike(Boolean.TRUE);
 
-        List<GoodsItemVO> goodsItemVOS = goodsInfoService.listGoodsInfoBySearch(goodsInfoDO, tagOfGoodsDO);
-        //判断是否被该用户收藏
-        Long userId = (Long) request.getSession().getAttribute("userId");
-        GoodsEnshrineDO goodsEnshrineDO = new GoodsEnshrineDO();
-        goodsEnshrineDO.setUserId(userId);
-        for (GoodsItemVO goodsItemVO:goodsItemVOS) {
-            goodsEnshrineDO.setGoodsId(goodsItemVO.getId());
-            if (goodsEnshrineService.getGoodsEnshrine(goodsEnshrineDO)!=null){
-                goodsItemVO.setCollectState(1);
-            }else {
-                goodsItemVO.setCollectState(0);
+            List<GoodsItemVO> goodsItemVOS = goodsInfoService.listGoodsInfoBySearch(goodsInfoDO, tagOfGoodsDO);
+            //判断是否被该用户收藏
+            Long userId = (Long) request.getSession().getAttribute("userId");
+            GoodsEnshrineDO goodsEnshrineDO = new GoodsEnshrineDO();
+            goodsEnshrineDO.setUserId(userId);
+            for (GoodsItemVO goodsItemVO:goodsItemVOS) {
+                goodsEnshrineDO.setGoodsId(goodsItemVO.getId());
+                if (goodsEnshrineService.getGoodsEnshrine(goodsEnshrineDO)!=null){
+                    goodsItemVO.setCollectState(1);
+                }else {
+                    goodsItemVO.setCollectState(0);
+                }
             }
+            return JSON.toJSONString(Result.successResult(goodsItemVOS));
+        }catch (Exception e){
+            return JSON.toJSONString(Result.failureResult(ResultCode.RESOURCE_EMPTY));
         }
-        return JSON.toJSONString(Result.successResult(goodsItemVOS));
     }
 
     @GetMapping("/goods/listGoodsCategory")
     public String getListGoodsCategory(){
-        List<GoodsCategoryVO> categoryVOS = goodsCategoryService.listAllGoodsCategory();
-        return JSON.toJSONString(Result.successResult(categoryVOS));
+        try{
+            List<GoodsCategoryVO> categoryVOS = goodsCategoryService.listAllGoodsCategory();
+            return JSON.toJSONString(Result.successResult(categoryVOS));
+        }catch (Exception e){
+            return JSON.toJSONString(Result.failureResult(ResultCode.RESOURCE_EMPTY));
+        }
     }
 
     @GetMapping("/goods/collectGoods/{id}")
     public String collectGoods(@PathVariable("id") Long id,HttpServletRequest request){
         try{
             Long userId = (Long) request.getSession().getAttribute("userId");
-            userId= Long.valueOf(3);
+            //userId= Long.valueOf(3);
             GoodsEnshrineDO goodsEnshrineDO = new GoodsEnshrineDO();
             goodsEnshrineDO.setUserId(userId);
             goodsEnshrineDO.setGoodsId(id);
@@ -160,7 +172,7 @@ public class GoodsController {
     public String cancelCollectGoods(@PathVariable("id") Long id,HttpServletRequest request){
         try{
             Long userId = (Long) request.getSession().getAttribute("userId");
-            userId= Long.valueOf(3);
+            //userId= Long.valueOf(3);
             GoodsEnshrineDO goodsEnshrineDO = new GoodsEnshrineDO();
             goodsEnshrineDO.setUserId(userId);
             goodsEnshrineDO.setGoodsId(id);
@@ -175,15 +187,17 @@ public class GoodsController {
     public String getGoodsDetailById(@PathVariable("id") Long id,HttpServletRequest request){
         try {
             GoodsVO goodsVO = goodsInfoService.getGoodsInfoById(id);
-            Long userId = (Long) request.getSession().getAttribute("userId");
-            //userId= Long.valueOf(2);
-            GoodsEnshrineDO goodsEnshrineDO = new GoodsEnshrineDO();
-            goodsEnshrineDO.setUserId(userId);
-            goodsEnshrineDO.setGoodsId(goodsVO.getId());
-            if (goodsEnshrineService.getGoodsEnshrine(goodsEnshrineDO)!=null){
-                goodsVO.setCollectState(1);
-            }else {
-                goodsVO.setCollectState(0);
+            if (goodsVO!=null){
+                Long userId = (Long) request.getSession().getAttribute("userId");
+                //userId= Long.valueOf(2);
+                GoodsEnshrineDO goodsEnshrineDO = new GoodsEnshrineDO();
+                goodsEnshrineDO.setUserId(userId);
+                goodsEnshrineDO.setGoodsId(goodsVO.getId());
+                if (goodsEnshrineService.getGoodsEnshrine(goodsEnshrineDO)!=null){
+                    goodsVO.setCollectState(1);
+                }else {
+                    goodsVO.setCollectState(0);
+                }
             }
             return JSON.toJSONString(Result.successResult(goodsVO));
         }catch (Exception e){

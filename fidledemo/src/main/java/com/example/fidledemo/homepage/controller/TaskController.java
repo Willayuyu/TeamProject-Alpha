@@ -41,87 +41,99 @@ public class TaskController {
 
     @PostMapping("/task/listTask")
     public String getListTask(HttpServletRequest request){
-        TaskInformationDO taskInformationDO = new TaskInformationDO();
-        TagOfTaskDO tagOfTaskDO = new TagOfTaskDO();
-        int days=Integer.parseInt(request.getParameter("days"));
-        Long categoryId=Long.parseLong(request.getParameter("categoryId"));
-        int pageid=Integer.parseInt(request.getParameter("pageid"));
+        try{
+            TaskInformationDO taskInformationDO = new TaskInformationDO();
+            TagOfTaskDO tagOfTaskDO = new TagOfTaskDO();
+            int days=Integer.parseInt(request.getParameter("days"));
+            Long categoryId=Long.parseLong(request.getParameter("categoryId"));
+            int pageid=Integer.parseInt(request.getParameter("pageid"));
 
-        taskInformationDO.setLimit(Boolean.TRUE);
-        taskInformationDO.setBegin((pageid-1)*10);
-        taskInformationDO.setSize(10);
-        taskInformationDO.setDistinct(Boolean.TRUE);
-        taskInformationDO.setCategory(categoryId);
-        taskInformationDO.setTaskState(0);
-        taskInformationDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
-        taskInformationDO.setCreateTimeEnd(new Date());
+            taskInformationDO.setLimit(Boolean.TRUE);
+            taskInformationDO.setBegin((pageid-1)*10);
+            taskInformationDO.setSize(10);
+            taskInformationDO.setDistinct(Boolean.TRUE);
+            taskInformationDO.setCategory(categoryId);
+            taskInformationDO.setTaskState(0);
+            taskInformationDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
+            taskInformationDO.setCreateTimeEnd(new Date());
 
-        List<TaskItemVO> taskItemVOS = taskInfoService.listTaskInfoByDO(taskInformationDO, tagOfTaskDO);
-        Long userId = (Long) request.getSession().getAttribute("userId");
-        TaskEnshrineDO taskEnshrineDO = new TaskEnshrineDO();
-        taskEnshrineDO.setUserId(userId);
-        for (TaskItemVO taskItemVO:taskItemVOS) {
-            taskEnshrineDO.setTaskId(taskItemVO.getId());
-            if(taskEnshrineService.getTaskEnshrine(taskEnshrineDO)!=null){
-                taskItemVO.setCollectState(1);
-            }else {
-                taskItemVO.setCollectState(0);
+            List<TaskItemVO> taskItemVOS = taskInfoService.listTaskInfoByDO(taskInformationDO, tagOfTaskDO);
+            Long userId = (Long) request.getSession().getAttribute("userId");
+            TaskEnshrineDO taskEnshrineDO = new TaskEnshrineDO();
+            taskEnshrineDO.setUserId(userId);
+            for (TaskItemVO taskItemVO:taskItemVOS) {
+                taskEnshrineDO.setTaskId(taskItemVO.getId());
+                if(taskEnshrineService.getTaskEnshrine(taskEnshrineDO)!=null){
+                    taskItemVO.setCollectState(1);
+                }else {
+                    taskItemVO.setCollectState(0);
+                }
             }
+            return JSON.toJSONString(Result.successResult(taskItemVOS));
+        }catch (Exception e){
+            return JSON.toJSONString(Result.failureResult(ResultCode.RESOURCE_EMPTY));
         }
-        return JSON.toJSONString(Result.successResult(taskItemVOS));
     }
 
     @PostMapping("/task/listTaskByKeyword")
     public String getListTaskByKeyword(HttpServletRequest request){
-        TaskInformationDO taskInformationDO = new TaskInformationDO();
-        TagOfTaskDO tagOfTaskDO = new TagOfTaskDO();
-        int days=Integer.parseInt(request.getParameter("days"));
-        Long categoryId=Long.parseLong(request.getParameter("categoryId"));
-        String keyWord=request.getParameter("keyWord");
-        int pageid=Integer.parseInt(request.getParameter("pageid"));
+        try{
+            TaskInformationDO taskInformationDO = new TaskInformationDO();
+            TagOfTaskDO tagOfTaskDO = new TagOfTaskDO();
+            int days=Integer.parseInt(request.getParameter("days"));
+            Long categoryId=Long.parseLong(request.getParameter("categoryId"));
+            String keyWord=request.getParameter("keyWord");
+            int pageid=Integer.parseInt(request.getParameter("pageid"));
 
-        taskInformationDO.setLimit(Boolean.TRUE);
-        taskInformationDO.setBegin((pageid-1)*10);
-        taskInformationDO.setSize(10);
-        taskInformationDO.setDistinct(Boolean.TRUE);
-        taskInformationDO.setCategory(categoryId);
-        taskInformationDO.setTaskState(0);
-        taskInformationDO.setTitle(keyWord);
-        taskInformationDO.setTitleLike(Boolean.TRUE);
-        taskInformationDO.setDescription(keyWord);
-        taskInformationDO.setDescriptionLike(Boolean.TRUE);
-        tagOfTaskDO.setContent(keyWord);
-        tagOfTaskDO.setContentLike(Boolean.TRUE);
-        taskInformationDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
-        taskInformationDO.setCreateTimeEnd(new Date());
+            taskInformationDO.setLimit(Boolean.TRUE);
+            taskInformationDO.setBegin((pageid-1)*10);
+            taskInformationDO.setSize(10);
+            taskInformationDO.setDistinct(Boolean.TRUE);
+            taskInformationDO.setCategory(categoryId);
+            taskInformationDO.setTaskState(0);
+            taskInformationDO.setTitle(keyWord);
+            taskInformationDO.setTitleLike(Boolean.TRUE);
+            taskInformationDO.setDescription(keyWord);
+            taskInformationDO.setDescriptionLike(Boolean.TRUE);
+            tagOfTaskDO.setContent(keyWord);
+            tagOfTaskDO.setContentLike(Boolean.TRUE);
+            taskInformationDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
+            taskInformationDO.setCreateTimeEnd(new Date());
 
-        List<TaskItemVO> taskItemVOS = taskInfoService.listTaskInfoBySearch(taskInformationDO, tagOfTaskDO);
-        Long userId = (Long) request.getSession().getAttribute("userId");
-        TaskEnshrineDO taskEnshrineDO = new TaskEnshrineDO();
-        taskEnshrineDO.setUserId(userId);
-        for (TaskItemVO taskItemVO:taskItemVOS) {
-            taskEnshrineDO.setTaskId(taskItemVO.getId());
-            if(taskEnshrineService.getTaskEnshrine(taskEnshrineDO)!=null){
-                taskItemVO.setCollectState(1);
-            }else {
-                taskItemVO.setCollectState(0);
+            List<TaskItemVO> taskItemVOS = taskInfoService.listTaskInfoBySearch(taskInformationDO, tagOfTaskDO);
+            Long userId = (Long) request.getSession().getAttribute("userId");
+            TaskEnshrineDO taskEnshrineDO = new TaskEnshrineDO();
+            taskEnshrineDO.setUserId(userId);
+            for (TaskItemVO taskItemVO:taskItemVOS) {
+                taskEnshrineDO.setTaskId(taskItemVO.getId());
+                if(taskEnshrineService.getTaskEnshrine(taskEnshrineDO)!=null){
+                    taskItemVO.setCollectState(1);
+                }else {
+                    taskItemVO.setCollectState(0);
+                }
             }
+            return JSON.toJSONString(Result.successResult(taskItemVOS));
+        }catch (Exception e){
+            return JSON.toJSONString(Result.failureResult(ResultCode.RESOURCE_EMPTY));
         }
-        return JSON.toJSONString(Result.successResult(taskItemVOS));
     }
 
 
     @GetMapping("/task/listTaskCategory")
     public String getListTaskCategory(){
-        List<TaskCategoryVO> taskCategoryVOS = taskCategoryService.listAllTaskCategory();
-        return JSON.toJSONString(Result.successResult(taskCategoryVOS));
+        try{
+            List<TaskCategoryVO> taskCategoryVOS = taskCategoryService.listAllTaskCategory();
+            return JSON.toJSONString(Result.successResult(taskCategoryVOS));
+        }catch (Exception e){
+            return JSON.toJSONString(Result.failureResult(ResultCode.RESOURCE_EMPTY));
+        }
     }
 
     @GetMapping("/task/collectTask/{id}")
     public String collectTask(@PathVariable("id") Long id, HttpServletRequest request){
         try {
             Long userId = (Long) request.getSession().getAttribute("userId");
-            userId= Long.valueOf(2);
+            //userId= Long.valueOf(2);
             TaskEnshrineDO taskEnshrineDO = new TaskEnshrineDO();
             taskEnshrineDO.setUserId(userId);
             taskEnshrineDO.setTaskId(id);
@@ -136,7 +148,7 @@ public class TaskController {
     public String cancelCollectTask(@PathVariable("id") Long id, HttpServletRequest request){
         try {
             Long userId = (Long) request.getSession().getAttribute("userId");
-            userId= Long.valueOf(2);
+            //userId= Long.valueOf(2);
             TaskEnshrineDO taskEnshrineDO = new TaskEnshrineDO();
             taskEnshrineDO.setUserId(userId);
             taskEnshrineDO.setTaskId(id);
@@ -151,15 +163,17 @@ public class TaskController {
     public String getTaskDetailById(@PathVariable("id") Long id,HttpServletRequest request){
         try {
             TaskVO taskVO = taskInfoService.getTaskInfoById(id);
-            Long userId = (Long) request.getSession().getAttribute("userId");
-            userId= Long.valueOf(2);
-            TaskEnshrineDO taskEnshrineDO = new TaskEnshrineDO();
-            taskEnshrineDO.setUserId(userId);
-            taskEnshrineDO.setTaskId(id);
-            if(taskEnshrineService.getTaskEnshrine(taskEnshrineDO)!=null){
-                taskVO.setCollectState(1);
-            }else {
-                taskVO.setCollectState(0);
+            if (taskVO!=null){
+                Long userId = (Long) request.getSession().getAttribute("userId");
+                //userId= Long.valueOf(2);
+                TaskEnshrineDO taskEnshrineDO = new TaskEnshrineDO();
+                taskEnshrineDO.setUserId(userId);
+                taskEnshrineDO.setTaskId(id);
+                if(taskEnshrineService.getTaskEnshrine(taskEnshrineDO)!=null){
+                    taskVO.setCollectState(1);
+                }else {
+                    taskVO.setCollectState(0);
+                }
             }
             return JSON.toJSONString(Result.successResult(taskVO));
         }catch (Exception e){

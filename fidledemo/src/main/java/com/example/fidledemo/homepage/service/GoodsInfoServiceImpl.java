@@ -30,34 +30,36 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
     public GoodsVO getGoodsInfoById(Long id) {
         GoodsInfoBO goodsInfoBO = goodsInfoDAO.getGoodsInfoById(id);
         GoodsVO goodsVO = new GoodsVO();
-        goodsVO.setId(goodsInfoBO.getId());
-        goodsVO.setPubId(goodsInfoBO.getPubId());
-        goodsVO.setTitle(goodsInfoBO.getTitle());
-        goodsVO.setPrice(goodsInfoBO.getPrice());
-        goodsVO.setOriginalPrice(goodsInfoBO.getOriginalPrice());
-        goodsVO.setDescription(goodsInfoBO.getDescription());
-        goodsVO.setCategory(goodsInfoBO.getCategory().getCategoryDesignation());
+        if (goodsInfoBO!=null){
+            goodsVO.setId(goodsInfoBO.getId());
+            goodsVO.setPubId(goodsInfoBO.getPubId());
+            goodsVO.setTitle(goodsInfoBO.getTitle());
+            goodsVO.setPrice(goodsInfoBO.getPrice());
+            goodsVO.setOriginalPrice(goodsInfoBO.getOriginalPrice());
+            goodsVO.setDescription(goodsInfoBO.getDescription());
+            goodsVO.setCategory(goodsInfoBO.getCategory().getCategoryDesignation());
 
-        List<TagBO> tagList = goodsInfoBO.getTagList();
-        List<TaskTagVO> taskTagVOS=new ArrayList<>();
-        for (TagBO tagBO:tagList) {
-            TaskTagVO taskTagVO = new TaskTagVO();
-            taskTagVO.setId(tagBO.getId());
-            taskTagVO.setContent(tagBO.getContent());
-            taskTagVOS.add(taskTagVO);
+            List<TagBO> tagList = goodsInfoBO.getTagList();
+            List<GoodsTagVO> goodsTagVOS=new ArrayList<>();
+            for (TagBO tagBO:tagList) {
+                GoodsTagVO goodsTagVO = new GoodsTagVO();
+                goodsTagVO.setId(tagBO.getId());
+                goodsTagVO.setContent(tagBO.getContent());
+                goodsTagVOS.add(goodsTagVO);
+            }
+
+            goodsVO.setTagList(goodsTagVOS);
+
+            List<ImageBO> imageList = goodsInfoBO.getImageList();
+            List<String> picturesLink=new ArrayList<>();
+            for (ImageBO imageBO:imageList) {
+                String link=imageBO.getImageLink();
+                picturesLink.add(link);
+            }
+
+            goodsVO.setPicturesLink(picturesLink);
+            goodsVO.setCondition(goodsInfoBO.getCondition());
         }
-
-        goodsVO.setTagList(taskTagVOS);
-
-        List<ImageBO> imageList = goodsInfoBO.getImageList();
-        List<String> picturesLink=new ArrayList<>();
-        for (ImageBO imageBO:imageList) {
-            String link=imageBO.getImageLink();
-            picturesLink.add(link);
-        }
-
-        goodsVO.setPicturesLink(picturesLink);
-        goodsVO.setCondition(goodsInfoBO.getCondition());
 
         return goodsVO;
     }

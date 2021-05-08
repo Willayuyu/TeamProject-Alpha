@@ -40,33 +40,35 @@ public class ActivityInfoServiceImpl implements ActivityInfoService{
         ActivityInfoBO activityInfoBO = activityInfoDAO.getActivityInfoById(id);
         ActivityVO activityVO = new ActivityVO();
 
-        activityVO.setId(activityInfoBO.getId());
-        activityVO.setPubId(activityInfoBO.getPubId());
-        activityVO.setTitle(activityInfoBO.getTitle());
-        activityVO.setDescription(activityInfoBO.getDescription());
-        activityVO.setCategory(activityInfoBO.getCategory().getCategoryDesignation());
+        if (activityInfoBO!=null){
+            activityVO.setId(activityInfoBO.getId());
+            activityVO.setPubId(activityInfoBO.getPubId());
+            activityVO.setTitle(activityInfoBO.getTitle());
+            activityVO.setDescription(activityInfoBO.getDescription());
+            activityVO.setCategory(activityInfoBO.getCategory().getCategoryDesignation());
 
-        List<TagBO> tagList = activityInfoBO.getTagList();
-        List<ActivityTagVO> activityTagVOS=new ArrayList<>();
-        for (TagBO tagBO:tagList) {
-            ActivityTagVO activityTagVO = new ActivityTagVO();
-            activityTagVO.setId(tagBO.getId());
-            activityTagVO.setContent(tagBO.getContent());
-            activityTagVOS.add(activityTagVO);
+            List<TagBO> tagList = activityInfoBO.getTagList();
+            List<ActivityTagVO> activityTagVOS=new ArrayList<>();
+            for (TagBO tagBO:tagList) {
+                ActivityTagVO activityTagVO = new ActivityTagVO();
+                activityTagVO.setId(tagBO.getId());
+                activityTagVO.setContent(tagBO.getContent());
+                activityTagVOS.add(activityTagVO);
+            }
+
+            activityVO.setTagList(activityTagVOS);
+            activityVO.setStartTime(activityInfoBO.getStartTime());
+            activityVO.setEndTime(activityInfoBO.getEndTime());
+            activityVO.setAddress(activityInfoBO.getAddress());
+
+            List<ImageBO> imageList = activityInfoBO.getImageList();
+            List<String> picturesLink=new ArrayList<>();
+            for (ImageBO imageBO:imageList) {
+                String link=imageBO.getImageLink();
+                picturesLink.add(link);
+            }
+            activityVO.setPicturesLink(picturesLink);
         }
-
-        activityVO.setTagList(activityTagVOS);
-        activityVO.setStartTime(activityInfoBO.getStartTime());
-        activityVO.setEndTime(activityInfoBO.getEndTime());
-        activityVO.setAddress(activityInfoBO.getAddress());
-
-        List<ImageBO> imageList = activityInfoBO.getImageList();
-        List<String> picturesLink=new ArrayList<>();
-        for (ImageBO imageBO:imageList) {
-            String link=imageBO.getImageLink();
-            picturesLink.add(link);
-        }
-        activityVO.setPicturesLink(picturesLink);
         
         return activityVO;
     }

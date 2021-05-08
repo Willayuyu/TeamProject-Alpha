@@ -29,25 +29,27 @@ public class TaskInfoServiceImpl implements TaskInfoService{
         TaskInfoBO taskInfoBO = taskInfoDAO.getTaskInfoById(id);
         TaskVO taskVO = new TaskVO();
 
-        taskVO.setId(taskInfoBO.getId());
-        taskVO.setPubId(taskInfoBO.getPubId());
-        taskVO.setReward(taskInfoBO.getReward());
-        taskVO.setTitle(taskInfoBO.getTitle());
-        taskVO.setDescription(taskInfoBO.getDescription());
-        taskVO.setCategory(taskInfoBO.getCategory().getCategoryDesignation());
+        if (taskInfoBO!=null){
+            taskVO.setId(taskInfoBO.getId());
+            taskVO.setPubId(taskInfoBO.getPubId());
+            taskVO.setReward(taskInfoBO.getReward());
+            taskVO.setTitle(taskInfoBO.getTitle());
+            taskVO.setDescription(taskInfoBO.getDescription());
+            taskVO.setCategory(taskInfoBO.getCategory().getCategoryDesignation());
 
-        List<TagBO> tagList = taskInfoBO.getTagList();
-        List<TaskTagVO> taskTagVOS=new ArrayList<>();
-        for (TagBO tagBO:tagList) {
-            TaskTagVO taskTagVO = new TaskTagVO();
-            taskTagVO.setId(tagBO.getId());
-            taskTagVO.setContent(tagBO.getContent());
-            taskTagVOS.add(taskTagVO);
+            List<TagBO> tagList = taskInfoBO.getTagList();
+            List<TaskTagVO> taskTagVOS=new ArrayList<>();
+            for (TagBO tagBO:tagList) {
+                TaskTagVO taskTagVO = new TaskTagVO();
+                taskTagVO.setId(tagBO.getId());
+                taskTagVO.setContent(tagBO.getContent());
+                taskTagVOS.add(taskTagVO);
+            }
+
+            taskVO.setTagList(taskTagVOS);
+            taskVO.setStartTime(taskInfoBO.getStartTime());
+            taskVO.setEndTime(taskInfoBO.getEndTime());
         }
-
-        taskVO.setTagList(taskTagVOS);
-        taskVO.setStartTime(taskInfoBO.getStartTime());
-        taskVO.setEndTime(taskInfoBO.getEndTime());
         return taskVO;
     }
 
