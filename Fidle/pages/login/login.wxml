@@ -2,7 +2,18 @@
   <view>
     <image class="img" src="/images/sign.png"></image>
   </view>
-  <view>
-    <button class="btn" bindtap="login">微信登录</button>
+  <view class="container">
+
+  <view class="userinfo">
+    <block wx:if="{{!hasUserInfo}}">
+      <button class="btn" wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile"> 微信登录 </button>
+      <button class="btn" wx:else open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 微信登录 </button>
+    </block>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
   </view>
+</view>
+
 </view>
