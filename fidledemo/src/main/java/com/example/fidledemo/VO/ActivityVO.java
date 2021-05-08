@@ -1,10 +1,6 @@
 package com.example.fidledemo.VO;
 
-<<<<<<< Updated upstream
 import com.alibaba.fastjson.annotation.JSONField;
-=======
-import com.example.fidledemo.BO.CategoryBO;
->>>>>>> Stashed changes
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

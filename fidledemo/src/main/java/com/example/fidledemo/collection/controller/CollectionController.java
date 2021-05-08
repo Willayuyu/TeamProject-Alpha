@@ -20,7 +20,6 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/collection")
-@UserLoginToken
 public class CollectionController {
     @Autowired
     CollectionService collectionService;
@@ -31,6 +30,7 @@ public class CollectionController {
      * @return
      */
     @GetMapping("/listCollectibleActivityByPageid/{Pageid}")
+    @UserLoginToken
     public String listCollectibleActivityByPageid(@PathVariable("Pageid") int pageId, HttpSession session) {
         //获得Session中的用户信息
         UserDO userDO = (UserDO) session.getAttribute("user");
@@ -85,6 +85,7 @@ public class CollectionController {
      * @return
      */
     @GetMapping("/listCollectibleTaskByPageid/{Pageid}")
+    @UserLoginToken
     public String listCollectibleTaskByPageid(@PathVariable("Pageid") int pageId, HttpSession session) {
         //获得Session中的用户信息
         UserDO userDO = (UserDO) session.getAttribute("user");
@@ -131,6 +132,7 @@ public class CollectionController {
      * @return
      */
     @GetMapping("/listCollectibleGoodsByPageid/{Pageid}")
+    @UserLoginToken
     public String listCollectibleGoodsByPageid(@PathVariable("Pageid") int pageId, HttpSession session) {
         //获得Session中的用户信息
         UserDO userDO = (UserDO) session.getAttribute("user");
