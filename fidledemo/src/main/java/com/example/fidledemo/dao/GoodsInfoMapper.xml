@@ -96,8 +96,8 @@
                 </if>
             </if>
             <if test="info.category !=null and info.category !='' ">AND category_id=#{info.category}</if>
-            <if test="info.sold !=null and info.sold !='' ">AND is_sold=#{info.sold}</if>
-            <if test="info  .condition !=null and info.condition !='' ">AND `condition`=#{info.condition}</if>
+            <if test="info.sold !=null ">AND is_sold=#{info.sold}</if>
+            <if test="info.condition !=null and info.condition !='' ">AND `condition`=#{info.condition}</if>
             <if test="info.createTimeBegin !=null and info.createTimeEnd !=null">
                 AND gi.gmt_create BETWEEN #{info.createTimeBegin} AND #{info.createTimeEnd}
             </if>
