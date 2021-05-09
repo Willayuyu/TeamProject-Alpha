@@ -23,7 +23,7 @@ public class UserBO
   /**
    * 用户唯一标识id
    */
-  private Integer openId;
+  private String openId;
 
   //基本信息
   /**
@@ -89,7 +89,7 @@ public class UserBO
    * @param portrait
    * @param credit
    */
-  public UserBO(Integer openId, String username,String telephone, String qq,
+  public UserBO(String openId, String username,String telephone, String qq,
                 String wechatAccount, String portrait, CreditBO credit)
   {
     this.openId = openId;
