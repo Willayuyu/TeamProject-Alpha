@@ -32,8 +32,10 @@ public class CollectionController {
     @GetMapping("/listCollectibleActivityByPageid/{Pageid}")
     @UserLoginToken
     public String listCollectibleActivityByPageid(@PathVariable("Pageid") int pageId, HttpSession session) {
-        //获得Session中的用户信息
-        UserDO userDO = (UserDO) session.getAttribute("user");
+//        //获得Session中的用户信息
+//        UserDO userDO = (UserDO) session.getAttribute("user");
+        UserDO userDO = new UserDO();
+        userDO.setId(2L);
         //设置分页信息
         userDO.setLimit(Boolean.TRUE);
         userDO.setBegin((pageId - 1) * 10);
@@ -88,7 +90,9 @@ public class CollectionController {
     @UserLoginToken
     public String listCollectibleTaskByPageid(@PathVariable("Pageid") int pageId, HttpSession session) {
         //获得Session中的用户信息
-        UserDO userDO = (UserDO) session.getAttribute("user");
+        //UserDO userDO = (UserDO) session.getAttribute("user");
+        UserDO userDO = new UserDO();
+        userDO.setId((long)1);
         //设置分页信息
         userDO.setLimit(Boolean.TRUE);
         userDO.setBegin((pageId - 1) * 10);
@@ -134,8 +138,10 @@ public class CollectionController {
     @GetMapping("/listCollectibleGoodsByPageid/{Pageid}")
     @UserLoginToken
     public String listCollectibleGoodsByPageid(@PathVariable("Pageid") int pageId, HttpSession session) {
-        //获得Session中的用户信息
-        UserDO userDO = (UserDO) session.getAttribute("user");
+//        //获得Session中的用户信息
+//        UserDO userDO = (UserDO) session.getAttribute("user");
+        UserDO userDO = new UserDO();
+        userDO.setId((long)1);
         //设置分页信息
         userDO.setLimit(Boolean.TRUE);
         userDO.setBegin((pageId - 1) * 10);

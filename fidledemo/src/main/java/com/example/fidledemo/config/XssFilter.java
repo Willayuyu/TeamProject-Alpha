@@ -21,7 +21,6 @@ public class XssFilter implements Filter
   @Override
   public void init(FilterConfig arg0)
   {
-    System.out.println(1111);
   }
 
   @Override
