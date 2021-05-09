@@ -3,6 +3,7 @@ package com.example.fidledemo.homepage.controller;
 import com.alibaba.fastjson.JSON;
 import com.example.fidledemo.BO.Result;
 import com.example.fidledemo.BO.ResultCode;
+import com.example.fidledemo.BO.UserLoginToken;
 import com.example.fidledemo.DO.GoodsEnshrineDO;
 import com.example.fidledemo.DO.GoodsInfoDO;
 import com.example.fidledemo.DO.TagOfGoodsDO;
@@ -41,11 +42,13 @@ public class GoodsController {
 
     @Autowired
     GoodsCategoryDAO goodsCategoryDAO;
+
     /**
      * 根据多选框筛选条件获得二手列表
      * @param request
      * @return
      */
+    @UserLoginToken
     @PostMapping("/goods/listGoods")
     public String getListGoods(HttpServletRequest request){
         try{
@@ -94,6 +97,7 @@ public class GoodsController {
      * @param request
      * @return
      */
+    @UserLoginToken
     @PostMapping("/goods/listGoodsByKeyword")
     public String getListGoodsByKeyword(HttpServletRequest request){
 
@@ -143,6 +147,11 @@ public class GoodsController {
         }
     }
 
+    /**
+     * 获得二手类别
+     * @return
+     */
+    @UserLoginToken
     @GetMapping("/goods/listGoodsCategory")
     public String getListGoodsCategory(){
         try{
@@ -153,6 +162,13 @@ public class GoodsController {
         }
     }
 
+    /**
+     * 根据二手id和用户id 收藏二手物品
+     * @param id
+     * @param request
+     * @return
+     */
+    @UserLoginToken
     @GetMapping("/goods/collectGoods/{id}")
     public String collectGoods(@PathVariable("id") Long id,HttpServletRequest request){
         try{
@@ -168,6 +184,13 @@ public class GoodsController {
         }
     }
 
+    /**
+     * 根据二手id和用户id 取消收藏二手物品
+     * @param id
+     * @param request
+     * @return
+     */
+    @UserLoginToken
     @GetMapping("/goods/cancelCollectGoods/{id}")
     public String cancelCollectGoods(@PathVariable("id") Long id,HttpServletRequest request){
         try{
@@ -183,6 +206,13 @@ public class GoodsController {
         }
     }
 
+    /**
+     * 根据ID返回二手物品详情
+     * @param id
+     * @param request
+     * @return
+     */
+    @UserLoginToken
     @GetMapping("/goods/getGoodsDetailById/{id}")
     public String getGoodsDetailById(@PathVariable("id") Long id,HttpServletRequest request){
         try {

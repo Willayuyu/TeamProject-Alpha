@@ -3,6 +3,7 @@ package com.example.fidledemo.homepage.controller;
 import com.alibaba.fastjson.JSON;
 import com.example.fidledemo.BO.Result;
 import com.example.fidledemo.BO.ResultCode;
+import com.example.fidledemo.BO.UserLoginToken;
 import com.example.fidledemo.DO.TagOfTaskDO;
 import com.example.fidledemo.DO.TaskEnshrineDO;
 import com.example.fidledemo.DO.TaskInformationDO;
@@ -39,6 +40,12 @@ public class TaskController {
     @Autowired
     TaskCategoryServiceImpl taskCategoryService;
 
+    /**
+     * 根据多选框筛选条件获得任务列表
+     * @param request
+     * @return
+     */
+    @UserLoginToken
     @PostMapping("/task/listTask")
     public String getListTask(HttpServletRequest request){
         try{
@@ -75,6 +82,12 @@ public class TaskController {
         }
     }
 
+    /**
+     * 根据多选框筛选条件及关键词获得任务列表
+     * @param request
+     * @return
+     */
+    @UserLoginToken
     @PostMapping("/task/listTaskByKeyword")
     public String getListTaskByKeyword(HttpServletRequest request){
         try{
@@ -118,7 +131,11 @@ public class TaskController {
         }
     }
 
-
+    /**
+     * 获得任务类别
+     * @return
+     */
+    @UserLoginToken
     @GetMapping("/task/listTaskCategory")
     public String getListTaskCategory(){
         try{
@@ -129,6 +146,13 @@ public class TaskController {
         }
     }
 
+    /**
+     * 根据任务id和用户id收藏任务
+     * @param id
+     * @param request
+     * @return
+     */
+    @UserLoginToken
     @GetMapping("/task/collectTask/{id}")
     public String collectTask(@PathVariable("id") Long id, HttpServletRequest request){
         try {
@@ -144,6 +168,13 @@ public class TaskController {
         }
     }
 
+    /**
+     * 根据任务id和用户id取消收藏任务
+     * @param id
+     * @param request
+     * @return
+     */
+    @UserLoginToken
     @GetMapping("/task/cancelCollectTask/{id}")
     public String cancelCollectTask(@PathVariable("id") Long id, HttpServletRequest request){
         try {
@@ -159,6 +190,13 @@ public class TaskController {
         }
     }
 
+    /**
+     * 根据Id获得任务详情
+     * @param id
+     * @param request
+     * @return
+     */
+    @UserLoginToken
     @GetMapping("/task/getTaskDetailById/{id}")
     public String getTaskDetailById(@PathVariable("id") Long id,HttpServletRequest request){
         try {

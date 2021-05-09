@@ -3,6 +3,7 @@ package com.example.fidledemo.homepage.controller;
 import com.alibaba.fastjson.JSON;
 import com.example.fidledemo.BO.Result;
 import com.example.fidledemo.BO.ResultCode;
+import com.example.fidledemo.BO.UserLoginToken;
 import com.example.fidledemo.DO.ActivityEnshrineDO;
 import com.example.fidledemo.DO.ActivityInfoDO;
 import com.example.fidledemo.DO.TagOfActivityDO;
@@ -39,6 +40,12 @@ public class ActivityController {
     @Autowired
     ActivityCategoryServiceImpl activityCategoryService;
 
+    /**
+     * 根据多选框筛选条件获得活动列表
+     * @param request
+     * @return
+     */
+    @UserLoginToken
     @PostMapping("/activity/listActivity")
     public String getListActivity(HttpServletRequest request){
         try{
@@ -78,6 +85,12 @@ public class ActivityController {
         }
     }
 
+    /**
+     * 根据多选框筛选条件和关键词获得活动列表
+     * @param request
+     * @return
+     */
+    @UserLoginToken
     @PostMapping("/activity/listActivityByKeyword")
     public String getListActivityByKeyword(HttpServletRequest request){
         try{
@@ -129,6 +142,11 @@ public class ActivityController {
         }
     }
 
+    /**
+     * 获得活动类别
+     * @return
+     */
+    @UserLoginToken
     @GetMapping("/activity/listActivityCategory")
     public String getListActivityCategory(){
         try{
@@ -139,6 +157,13 @@ public class ActivityController {
         }
     }
 
+    /**
+     * 根据活动id和用户id收藏活动
+     * @param id
+     * @param request
+     * @return
+     */
+    @UserLoginToken
     @GetMapping("/activity/collectActivity/{id}")
     public String collectActivity(@PathVariable("id") Long id, HttpServletRequest request){
         try{
@@ -155,6 +180,13 @@ public class ActivityController {
     }
 
 
+    /**
+     * 根据活动id和用户id取消收藏活动
+     * @param id
+     * @param request
+     * @return
+     */
+    @UserLoginToken
     @GetMapping("/activity/cancelCollectActivity/{id}")
     public String cancelCollectActivity(@PathVariable("id") Long id, HttpServletRequest request){
         try{
@@ -170,6 +202,13 @@ public class ActivityController {
         }
     }
 
+    /**
+     * 根据id获得活动详情
+     * @param id
+     * @param request
+     * @return
+     */
+    @UserLoginToken
     @GetMapping("/activity/getActivityDetailById/{id}")
     public String getActivityDetailById(@PathVariable("id") Long id,HttpServletRequest request){
         try{
