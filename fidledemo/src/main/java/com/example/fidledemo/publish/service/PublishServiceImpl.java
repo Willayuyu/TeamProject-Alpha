@@ -87,6 +87,7 @@ public class PublishServiceImpl implements PublishService {
         //将activity与tag的对应关系数组数组插入activity_tag
         List<ActivityTagDO> activityTagDOList = activityInfoBO.getActivityTagDOList();
         for (ActivityTagDO activityTagDO : activityTagDOList) {
+            activityTagDO.setActivityId(activityInfoDO.getId());
             activityTagDAO.insertActivityTag(activityTagDO);
         }
 

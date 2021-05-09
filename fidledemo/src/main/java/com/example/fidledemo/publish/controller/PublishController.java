@@ -56,7 +56,7 @@ public class PublishController {
      * @throws ParseException
      */
     @PostMapping("/task")
-    //@UserLoginToken
+    @UserLoginToken
     public String insertTask(HttpServletRequest request, HttpSession session) throws ParseException {
         TaskInfoBO taskInfoBO = new TaskInfoBO();
 
@@ -99,6 +99,7 @@ public class PublishController {
             }
             tagBOS.add(tagBO);
         }
+        taskInfoBO.setState(2);
         taskInfoBO.setTagList(tagBOS);
         publishService.insertTask(taskInfoBO);
         return JSON.toJSONString(Result.successResult());
@@ -178,7 +179,7 @@ public class PublishController {
      * @throws ParseException
      */
     @PostMapping("/activity")
-    //@UserLoginToken
+    @UserLoginToken
     public String insertActivity(HttpServletRequest request, HttpSession session) throws ParseException {
         ActivityInfoBO activityInfoBO = new ActivityInfoBO();
 
@@ -279,7 +280,7 @@ public class PublishController {
             return JSON.toJSONString(Result.failureResult(ResultCode.UPLOAD_FAILURE));
         }
         ImageBO imageBO = new ImageBO(null, image_link, 1);
-        publishService.insertImage(imageBO);
+        imageBO.setId(publishService.insertImage(imageBO));
         return JSON.toJSONString(Result.successResult(imageBO));
     }
 
