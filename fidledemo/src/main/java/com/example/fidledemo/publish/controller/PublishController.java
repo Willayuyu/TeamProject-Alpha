@@ -13,14 +13,10 @@ import com.example.fidledemo.publish.service.PublishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
@@ -51,6 +47,14 @@ public class PublishController {
     @Value("${imageHost.path}")
     String path;
 
+    /**
+     * 任务委托发布接口
+     *
+     * @param request
+     * @param session
+     * @return
+     * @throws ParseException
+     */
     @PostMapping("/task")
     @UserLoginToken
     public String insertTask(HttpServletRequest request, HttpSession session) throws ParseException {
@@ -100,6 +104,13 @@ public class PublishController {
         return JSON.toJSONString(Result.successResult());
     }
 
+    /**
+     * 二手物品发布接口
+     *
+     * @param request
+     * @param session
+     * @return
+     */
     @PostMapping("/goods")
     @UserLoginToken
     public String insertGoods(HttpServletRequest request, HttpSession session) {
@@ -157,9 +168,17 @@ public class PublishController {
         return JSON.toJSONString(Result.successResult());
     }
 
+    /**
+     * 活动信息发布接口
+     *
+     * @param request
+     * @param session
+     * @return
+     * @throws ParseException
+     */
     @PostMapping("/activity")
     @UserLoginToken
-    public String insertActivity(HttpServletRequest request,HttpSession session) throws ParseException {
+    public String insertActivity(HttpServletRequest request, HttpSession session) throws ParseException {
         ActivityInfoBO activityInfoBO = new ActivityInfoBO();
 
         //获得发布者id
@@ -217,8 +236,15 @@ public class PublishController {
         publishService.insertActivity(activityInfoBO);
         return JSON.toJSONString(Result.successResult());
     }
+
+    /**
+     * 上传二手物品图片
+     *
+     * @param image
+     * @return
+     */
     @PostMapping("/uploadGoodsImage")
-//    @UserLoginToken
+    @UserLoginToken
     public String uploadGoodsImage(@RequestParam("image") MultipartFile image) {
         String image_link = "";
 
@@ -247,10 +273,90 @@ public class PublishController {
 
         try {
             image.transferTo(dest);
-            image_link = url  + fileName;
+            image_link = url + fileName;
         } catch (IOException e) {
             return JSON.toJSONString(Result.failureResult(ResultCode.UPLOAD_FAILURE));
         }
-        return JSON.toJSONString(Result.successResult(image_link));
+        ImageBO imageBO = new ImageBO(null, image_link, 1);
+        publishService.insertImage(imageBO);
+        return JSON.toJSONString(Result.successResult(imageBO));
     }
+
+    /**
+     * 上传活动信息图片
+     *
+     * @param image
+     * @return
+     */
+    @PostMapping("/uploadActivityImage")
+    @UserLoginToken
+    public String uploadActivityImage(@RequestParam("image") MultipartFile image) {
+        String image_link = "";
+
+        //判断文件是否为空
+        if (image.isEmpty()) {
+            return JSON.toJSONString(Result.failureResult(ResultCode.FILE_EMPTY));
+        }
+
+        //获取文件名
+        String fileName = image.getOriginalFilename();
+        //加个时间戳，尽量避免图片名称重复
+        fileName = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + "_" + fileName;
+
+        //创建文件路径
+        String imagePath = path + fileName;
+
+        File dest = new File(imagePath);
+        if (dest.exists()) {
+            return JSON.toJSONString(Result.failureResult(ResultCode.FILE_EXISTED));
+        }
+
+        //判断文件父目录是否存在
+        if (!dest.getParentFile().exists()) {
+            dest.getParentFile().mkdir();
+        }
+
+        try {
+            image.transferTo(dest);
+            image_link = url + fileName;
+        } catch (IOException e) {
+            return JSON.toJSONString(Result.failureResult(ResultCode.UPLOAD_FAILURE));
+        }
+        ImageBO imageBO = new ImageBO(null, image_link, 3);
+        publishService.insertImage(imageBO);
+        return JSON.toJSONString(Result.successResult(imageBO));
+    }
+
+    /**
+     * 删除二手物品图片
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping("/deleteGoodsImage/{id}")
+    @UserLoginToken
+    public String deleteGoodsImage(@PathVariable("id") Long id) {
+        ImageBO imageBO = new ImageBO();
+        imageBO.setType(1);
+        imageBO.setId(id);
+        publishService.deleteImage(imageBO);
+        return JSON.toJSONString(Result.successResult());
+    }
+
+    /**
+     * 删除活动信息图片
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping("/deleteActivityImage/{id}")
+    @UserLoginToken
+    public String deleteActivityImage(@PathVariable("id") Long id) {
+        ImageBO imageBO = new ImageBO();
+        imageBO.setType(3);
+        imageBO.setId(id);
+        publishService.deleteImage(imageBO);
+        return JSON.toJSONString(Result.successResult());
+    }
+
 }

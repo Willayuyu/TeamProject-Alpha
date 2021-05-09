@@ -16,6 +16,7 @@ public interface GoodsImageDAO {
 
     /**
      * 根据id获取二手物品图片
+     *
      * @param id 图片id
      * @return 查找所得的图片类
      */
@@ -23,27 +24,38 @@ public interface GoodsImageDAO {
 
     /**
      * 插入新的二手物品图片
+     *
      * @param goodsImageDO 二手物品图片类
      */
     void insertGoodsImage(GoodsImageDO goodsImageDO);
 
     /**
      * 更新二手物品图片
+     *
      * @param goodsImageDO 二手物品图片类
      */
     void updateGoodsImage(GoodsImageDO goodsImageDO);
 
     /**
      * 删除二手物品图片
+     *
      * @param id
      */
     void deleteGoodsImage(Long id);
 
     /**
      * 根据二手物品id返回全部的二手物品图片
+     *
      * @param goodsImageDO 二手物品图片类
      * @return 图片列表
      */
     List<ImageBO> listGoodsImage(GoodsImageDO goodsImageDO);
 
+    /**
+     * 根据链接查询对应的id
+     *
+     * @param image_link
+     * @return
+     */
+    Long getGoodsImageByLink(String image_link);
 }

@@ -2,6 +2,7 @@ package com.example.fidledemo.publish.service;
 
 import com.example.fidledemo.BO.ActivityInfoBO;
 import com.example.fidledemo.BO.GoodsInfoBO;
+import com.example.fidledemo.BO.ImageBO;
 import com.example.fidledemo.BO.TaskInfoBO;
 import com.example.fidledemo.DO.*;
 import com.example.fidledemo.dao.*;
@@ -65,11 +66,13 @@ public class PublishServiceImpl implements PublishService {
             goodsTagDAO.insertGoodsTag(goodsTagDO);
         }
 
-        //将List<GoodsImageDO>插入goods_image
+        //用List<GoodsImageDO>更新goods_image
         List<GoodsImageDO> goodsImageDOList = goodsInfoBO.getGoodsImageDOList();
         for (GoodsImageDO goodsImageDO : goodsImageDOList) {
+            //根据link查出对应的id
+            goodsImageDO.setId(goodsImageDAO.getGoodsImageByLink(goodsImageDO.getImageLink()));
             goodsImageDO.setGoodsId(goodsInfoDO.getId());
-            goodsImageDAO.insertGoodsImage(goodsImageDO);
+            goodsImageDAO.updateGoodsImage(goodsImageDO);
         }
     }
 
@@ -85,11 +88,13 @@ public class PublishServiceImpl implements PublishService {
             activityTagDAO.insertActivityTag(activityTagDO);
         }
 
-        //将List<ActivityImageDO>插入activity_image
+        //用List<ActivityImageDO>更新activity_image
         List<ActivityImageDO> activityImageDOList = activityInfoBO.getActivityImageDOList();
         for (ActivityImageDO activityImageDO : activityImageDOList) {
+            //根据link查出对应的id
+            activityImageDO.setId(activityImageDAO.getActivityImageByLink(activityImageDO.getImageLink()));
             activityImageDO.setActivityId(activityInfoDO.getId());
-            activityImageDAO.insertActivityImage(activityImageDO);
+            activityImageDAO.updateActivityImage(activityImageDO);
         }
     }
 
@@ -106,5 +111,29 @@ public class PublishServiceImpl implements PublishService {
     @Override
     public Long checkActivityTag(String content) {
         return tagOfActivityDAO.checkActivityTag(content);
+    }
+
+    @Override
+    public Long insertImage(ImageBO imageBO) {
+        if (imageBO.getType() == 3) {
+            ActivityImageDO activityImageDO = new ActivityImageDO();
+            activityImageDO.setImageLink(imageBO.getImageLink());
+            activityImageDAO.insertActivityImage(activityImageDO);
+            return activityImageDO.getId();
+        } else {
+            GoodsImageDO goodsImageDO = new GoodsImageDO();
+            goodsImageDO.setImageLink(imageBO.getImageLink());
+            goodsImageDAO.insertGoodsImage(goodsImageDO);
+            return goodsImageDO.getId();
+        }
+    }
+
+    @Override
+    public void deleteImage(ImageBO imageBO) {
+        if (imageBO.getType() == 3) {
+            activityImageDAO.deleteActivityImage(imageBO.getId());
+        } else {
+            goodsImageDAO.deleteGoodsImage(imageBO.getId());
+        }
     }
 }

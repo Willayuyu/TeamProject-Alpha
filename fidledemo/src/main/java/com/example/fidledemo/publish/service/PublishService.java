@@ -2,6 +2,7 @@ package com.example.fidledemo.publish.service;
 
 import com.example.fidledemo.BO.ActivityInfoBO;
 import com.example.fidledemo.BO.GoodsInfoBO;
+import com.example.fidledemo.BO.ImageBO;
 import com.example.fidledemo.BO.TaskInfoBO;
 
 /**
@@ -52,4 +53,19 @@ public interface PublishService {
      * @return
      */
     Long checkActivityTag(String activityTag);
+
+    /**
+     * 将imageBO插入activity_image中
+     *
+     * @param imageBO
+     */
+    Long insertImage(ImageBO imageBO);
+
+    /**
+     * 根据id删除图片
+     *
+     * @param imageBO
+     * @return
+     */
+    void deleteImage(ImageBO imageBO);
 }
