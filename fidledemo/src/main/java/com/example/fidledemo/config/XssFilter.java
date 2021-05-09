@@ -28,8 +28,6 @@ public class XssFilter implements Filter
   public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
       throws IOException, ServletException
   {
-    System.out.println("enter");
-
     HttpServletRequest request=(HttpServletRequest) servletRequest;
     //创建XSSHttpServletRequest实例，对表单输入的< > 进行转义
     XssHttpServletRequest req=new XssHttpServletRequest(request);
