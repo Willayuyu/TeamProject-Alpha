@@ -57,6 +57,7 @@
     <!--GoodsIndent-->
     <resultMap id="GoodsIndent" type="com.example.fidledemo.BO.GoodsIndentBO">
         <result property="id" column="id"/>
+        <result property="infoId" column="goods_id"/>
         <result property="accId" column="buyer_id"/>
         <result property="pubId" column="seller_id"/>
         <result property="pubEvaluated" column="is_seller_evaluated"/>

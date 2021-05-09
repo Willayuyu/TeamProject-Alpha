@@ -35,6 +35,11 @@ public abstract class BaseOrder
   protected Long id;
 
   /**
+   * 信息项id
+   */
+  protected Long infoId;
+
+  /**
    * 甲方id
    */
   protected Long pubId;
