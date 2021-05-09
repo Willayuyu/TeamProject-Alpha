@@ -3,6 +3,7 @@ package com.example.fidledemo.VO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.relational.core.sql.In;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -27,7 +28,20 @@ public class MyTaskVO {
 
     private String category;
 
-    private List<TaskTagVO> categoryList;
+    private List<TaskTagVO> tagList;
 
     private String taskState;
+
+    public void setState(Integer state){
+
+        if (state.equals(new Integer(-1))) {
+            this.setTaskState("已取消");
+        } else if (state.equals(new Integer(0))) {
+            this.setTaskState("未接收");
+        } else if (state.equals(new Integer(1))) {
+            this.setTaskState("进行中");
+        } else if (state.equals(new Integer(2))) {
+            this.setTaskState("已完成");
+        }
+    }
 }
