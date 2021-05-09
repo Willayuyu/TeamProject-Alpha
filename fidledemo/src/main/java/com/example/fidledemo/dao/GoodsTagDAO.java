@@ -29,9 +29,9 @@ public interface GoodsTagDAO {
     void insertGoodsTag(GoodsTagDO goodsTag);
 
     /**
-     * 检查二手物品-标签关系表中是否含有某条记录
-     * @param goodstag
+     * 删除一个二手物品的所有标签关系
+     * @param goodsId
      * @return
      */
-    Boolean checkGoodsTag(GoodsTagDO goodstag);
+    void deleteGoodsTagById(Long goodsId);
 }

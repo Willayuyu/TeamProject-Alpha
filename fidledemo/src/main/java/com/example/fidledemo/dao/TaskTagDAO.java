@@ -29,9 +29,9 @@ public interface TaskTagDAO {
     void insertTaskTag(TaskTagDO taskTag);
 
     /**
-     * 检查任务委托-标签关系表中是否含有某条记录
-     * @param tasktag
+     * 删除一个任务委托的所有标签关系
+     * @param taskId
      * @return
      */
-    Boolean checkTaskTag(TaskTagDO tasktag);
+    void deleteTaskTagById(Long taskId);
 }

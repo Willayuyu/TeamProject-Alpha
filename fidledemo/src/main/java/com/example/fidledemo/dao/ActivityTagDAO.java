@@ -29,9 +29,9 @@ public interface ActivityTagDAO {
     void insertActivityTag(ActivityTagDO activityTag);
 
     /**
-     * 检查活动-标签关系表中是否含有某条记录
-     * @param activityTag
+     * 删除一个活动的所有标签关系
+     * @param activityId
      * @return
      */
-    Boolean checkActivityTag(ActivityTagDO activityTag);
+    void deleteActivityTagById(Long activityId);
 }
