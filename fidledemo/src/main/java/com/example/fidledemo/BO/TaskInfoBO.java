@@ -29,17 +29,17 @@ public class TaskInfoBO extends BaseInformation
   /**
    * 未接收
    */
-  public static final Integer UNACCEPTED=0;
+  public static final Integer UNACCEPTED=1;
 
   /**
    * 进行中
    */
-  public static final Integer PROCESSING=1;
+  public static final Integer PROCESSING=2;
 
   /**
    * 已完成
    */
-  public static final Integer COMPLETED=2;
+  public static final Integer COMPLETED=3;
 
 
 

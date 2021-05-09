@@ -22,12 +22,12 @@ public class GoodsInfoBO extends BaseInformation
   /**
    * 在售
    */
-  public static final Integer SELLING=0;
+  public static final Integer SELLING=1;
 
   /**
    * 售出
    */
-  public static final Integer SOLD=1;
+  public static final Integer SOLD=2;
 
   /**
    * 售价
