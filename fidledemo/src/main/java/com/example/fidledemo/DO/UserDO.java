@@ -31,7 +31,7 @@ public class UserDO {
 
     private String qq;
 
-    private Integer openId;
+    private String openId;
 
     private String wechatAccount;
 
