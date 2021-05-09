@@ -1,7 +1,7 @@
 package com.example.fidledemo.config;
 
 import org.apache.commons.lang3.StringEscapeUtils;
-import org.thymeleaf.util.StringUtils;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
