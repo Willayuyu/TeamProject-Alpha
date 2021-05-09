@@ -14,6 +14,7 @@ public enum ResultCode
   SESSION_EXPIRED(1002,"会话过期"),
   LOGIN_EXCEPTION(1003,"登录状态异常"),
   RESOURCE_EMPTY(1004,"访问资源为空"),
+  PARAM_ERROR(1005,"请求参数异常"),
   SERVER_ERROR(1050,"服务端错误");
 
 
