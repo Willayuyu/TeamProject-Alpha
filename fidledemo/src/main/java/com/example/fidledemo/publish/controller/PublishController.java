@@ -246,7 +246,7 @@ public class PublishController {
      * @return
      */
     @PostMapping("/uploadGoodsImage")
-    //@UserLoginToken
+    @UserLoginToken
     public String uploadGoodsImage(@RequestParam("image") MultipartFile image) {
         String image_link = "";
 
@@ -291,7 +291,7 @@ public class PublishController {
      * @return
      */
     @PostMapping("/uploadActivityImage")
-    //@UserLoginToken
+    @UserLoginToken
     public String uploadActivityImage(@RequestParam("image") MultipartFile image) {
         String image_link = "";
 
@@ -325,7 +325,7 @@ public class PublishController {
             return JSON.toJSONString(Result.failureResult(ResultCode.UPLOAD_FAILURE));
         }
         ImageBO imageBO = new ImageBO(null, image_link, 3);
-        publishService.insertImage(imageBO);
+        imageBO.setId(publishService.insertImage(imageBO));
         return JSON.toJSONString(Result.successResult(imageBO));
     }
 
