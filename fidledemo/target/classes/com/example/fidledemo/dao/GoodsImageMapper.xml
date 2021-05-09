@@ -15,7 +15,8 @@
         </association>
     </resultMap>
 
-    <insert id="insertGoodsImage" useGeneratedKeys="true" keyProperty="id" parameterType="com.example.fidledemo.DO.GoodsImageDO" >
+    <insert id="insertGoodsImage" useGeneratedKeys="true" keyProperty="id"
+            parameterType="com.example.fidledemo.DO.GoodsImageDO">
         INSERT INTO goods_image
         VALUES (#{id},#{goodsId},#{imageLink},now(),now())
     </insert>
@@ -46,10 +47,16 @@
         <if test="distinct != null and distinct != ''">DISTINCT</if>
         id,goods_id,image_link,gmt_create,gmt_modified,1 AS `type` FROM goods_image
         <where>
-            <if test="goodsId != null and goodsId !=''"> AND goods_id=#{goodsId}</if>
+            <if test="goodsId != null and goodsId !=''">AND goods_id=#{goodsId}</if>
             <if test="id != null and id != ''">AND id=#{id}</if>
         </where>
         <if test="limit != null and limit != ''">limit #{begin},#{size}</if>
+    </select>
+
+    <select id="getGoodsImageByLink" resultType="Long" parameterType="String">
+        select id
+        from goods_image
+        where image_link=#{image_link}
     </select>
 
 </mapper>

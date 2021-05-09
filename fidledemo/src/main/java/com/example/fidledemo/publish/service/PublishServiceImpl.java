@@ -50,6 +50,7 @@ public class PublishServiceImpl implements PublishService {
         //将task与tag的对应关系数组数组插入task_tag
         List<TaskTagDO> taskTagDOList = taskInfoBO.getTaskTagDOList();
         for (TaskTagDO taskTagDO : taskTagDOList) {
+            taskTagDO.setTaskId(taskInformationDO.getId());
             taskTagDAO.insertTaskTag(taskTagDO);
         }
     }
@@ -63,6 +64,7 @@ public class PublishServiceImpl implements PublishService {
         //将goods与tag的对应关系数组数组插入goods_tag
         List<GoodsTagDO> goodsTagDOList = goodsInfoBO.getGoodsTagDOList();
         for (GoodsTagDO goodsTagDO : goodsTagDOList) {
+            goodsTagDO.setGoodsId(goodsInfoDO.getId());
             goodsTagDAO.insertGoodsTag(goodsTagDO);
         }
 

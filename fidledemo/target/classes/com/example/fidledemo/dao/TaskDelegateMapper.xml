@@ -56,6 +56,7 @@
     <!--TaskDelegate-->
     <resultMap id="TaskDelegate" type="com.example.fidledemo.BO.TaskDelegateBO">
         <result property="id" column="id"/>
+        <result property="infoId" column="task_info_id"/>
         <result property="pubId" column="pub_id"/>
         <result property="accId" column="acc_id"/>
         <result property="pubEvaluated" column="is_pub_evaluated"/>
