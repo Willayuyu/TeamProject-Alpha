@@ -20,4 +20,9 @@
         </set>
         where id=#{id}
     </update>
+
+    <select id="checkActivityTag" parameterType="com.example.fidledemo.DO.ActivityTagDO" resultType="Boolean">
+        SELECT TRUE FROM activity_tag
+        WHERE activity_id = #{activityId} AND tag_id = #{tagId}
+    </select>
 </mapper>
