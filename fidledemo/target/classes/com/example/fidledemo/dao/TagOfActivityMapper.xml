@@ -45,4 +45,9 @@
         WHERE a.id = b.tag_id AND b.activity_id =#{id};
     </select>
 
+    <select id="checkActivityTag" resultType="Long">
+         select id from tag_of_activity
+         where content = #{content}
+     </select>
+
 </mapper>

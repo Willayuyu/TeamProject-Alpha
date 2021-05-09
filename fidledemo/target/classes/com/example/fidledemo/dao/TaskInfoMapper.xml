@@ -63,7 +63,7 @@
         LEFT JOIN tag_of_task AS t ON t.id=`tt`.tag_id
         <where>
             <if test="info.pubId !=null and info.pubId !=''">AND pub_id=#{info.pubId}</if>
-            <if test="info.taskState !=null and info.taskState !=''">AND task_state=#{taskState}</if>
+            <if test="info.taskState !=null">AND task_state=#{taskState}</if>
             <if test="info.title !=null and info.title !=''">
                 <if test="info.titleLike !=null and info.titleLike !='' ">
                     AND title LIKE "%"#{info.title}"%"

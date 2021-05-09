@@ -45,4 +45,9 @@
         WHERE a.id = b.tag_id AND b.goods_id =#{id};
     </select>
 
+    <select id="checkGoodsTag" resultType="Long">
+         select id from tag_of_goods
+         where content = #{content}
+     </select>
+
 </mapper>

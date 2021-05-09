@@ -63,9 +63,9 @@ public class GoodsController {
             goodsInfoDO.setCategory(categoryId);
             goodsInfoDO.setCondition(condition);
             /**
-             * 0:在售
+             * 1:在售
              */
-            goodsInfoDO.setSold(0);
+            goodsInfoDO.setSold(1);
             goodsInfoDO.setCreateTimeEnd(new Date());
             goodsInfoDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
 
@@ -117,7 +117,7 @@ public class GoodsController {
             goodsInfoDO.setDescriptionLike(Boolean.TRUE);
             goodsInfoDO.setCategory(categoryId);
             goodsInfoDO.setCondition(condition);
-            goodsInfoDO.setSold(0);//0在售
+            goodsInfoDO.setSold(1);//1在售
             goodsInfoDO.setCreateTimeEnd(new Date());
             goodsInfoDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
 

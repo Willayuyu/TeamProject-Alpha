@@ -53,7 +53,7 @@ public class TaskController {
             taskInformationDO.setSize(10);
             taskInformationDO.setDistinct(Boolean.TRUE);
             taskInformationDO.setCategory(categoryId);
-            taskInformationDO.setTaskState(0);
+            taskInformationDO.setTaskState(1);//1未接收
             taskInformationDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
             taskInformationDO.setCreateTimeEnd(new Date());
 
@@ -90,7 +90,7 @@ public class TaskController {
             taskInformationDO.setSize(10);
             taskInformationDO.setDistinct(Boolean.TRUE);
             taskInformationDO.setCategory(categoryId);
-            taskInformationDO.setTaskState(0);
+            taskInformationDO.setTaskState(1);//1未接收
             taskInformationDO.setTitle(keyWord);
             taskInformationDO.setTitleLike(Boolean.TRUE);
             taskInformationDO.setDescription(keyWord);
