@@ -21,5 +21,8 @@
         where id=#{id}
     </update>
 
-
+    <select id="checkGoodsTag" parameterType="com.example.fidledemo.DO.GoodsTagDO" resultType="Boolean">
+        SELECT TRUE FROM goods_tag
+        WHERE goods_id = #{goodsId} AND tag_id = #{tagId}
+    </select>
 </mapper>

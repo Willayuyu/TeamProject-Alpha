@@ -27,4 +27,11 @@ public interface GoodsTagDAO {
      * @param goodsTag
      */
     void insertGoodsTag(GoodsTagDO goodsTag);
+
+    /**
+     * 检查二手物品-标签关系表中是否含有某条记录
+     * @param goodstag
+     * @return
+     */
+    Boolean checkGoodsTag(GoodsTagDO goodstag);
 }

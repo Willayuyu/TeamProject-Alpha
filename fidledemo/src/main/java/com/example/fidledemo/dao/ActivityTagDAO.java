@@ -27,4 +27,11 @@ public interface ActivityTagDAO {
      * @param activityTag
      */
     void insertActivityTag(ActivityTagDO activityTag);
+
+    /**
+     * 检查活动-标签关系表中是否含有某条记录
+     * @param activityTag
+     * @return
+     */
+    Boolean checkActivityTag(ActivityTagDO activityTag);
 }

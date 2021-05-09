@@ -27,4 +27,11 @@ public interface TaskTagDAO {
      * @param taskTag
      */
     void insertTaskTag(TaskTagDO taskTag);
+
+    /**
+     * 检查任务委托-标签关系表中是否含有某条记录
+     * @param tasktag
+     * @return
+     */
+    Boolean checkTaskTag(TaskTagDO tasktag);
 }
