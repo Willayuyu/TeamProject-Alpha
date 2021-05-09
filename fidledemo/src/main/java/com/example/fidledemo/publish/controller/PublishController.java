@@ -11,17 +11,24 @@ import com.example.fidledemo.dao.TagOfGoodsDAO;
 import com.example.fidledemo.dao.TagOfTaskDAO;
 import com.example.fidledemo.publish.service.PublishService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,6 +36,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/publish")
+@PropertySource("classpath:application.yml")
 public class PublishController {
     @Autowired
     PublishService publishService;
@@ -38,6 +46,10 @@ public class PublishController {
     TagOfActivityDAO tagOfActivityDAO;
     @Autowired
     TagOfGoodsDAO tagOfGoodsDAO;
+    @Value("${imageHost.url}")
+    String url;
+    @Value("${imageHost.path}")
+    String path;
 
     @PostMapping("/task")
     @UserLoginToken
@@ -129,7 +141,17 @@ public class PublishController {
             tagBOS.add(tagBO);
         }
         goodsInfoBO.setTagList(tagBOS);
-        //image_link////////////////////////////
+
+        //String[]转List<ImageBO>
+        String[] image_links = request.getParameterValues("image_links");
+        List<ImageBO> imageBOS = new ArrayList<>();
+        for (String image_link : image_links) {
+            ImageBO imageBO = new ImageBO();
+            imageBO.setType(1);
+            imageBO.setImageLink(image_link);
+            imageBOS.add(imageBO);
+        }
+        goodsInfoBO.setImageList(imageBOS);
 
         publishService.insertGoods(goodsInfoBO);
         return JSON.toJSONString(Result.successResult());
@@ -154,7 +176,16 @@ public class PublishController {
 
         activityInfoBO.setDescription(request.getParameter("description"));
 
-        //image_link////////////////////////////
+        //String[]转List<ImageBO>
+        String[] image_links = request.getParameterValues("image_links");
+        List<ImageBO> imageBOS = new ArrayList<>();
+        for (String image_link : image_links) {
+            ImageBO imageBO = new ImageBO();
+            imageBO.setType(3);
+            imageBO.setImageLink(image_link);
+            imageBOS.add(imageBO);
+        }
+        activityInfoBO.setImageList(imageBOS);
 
         //String转Long放入CategoryBO
         CategoryBO categoryBO = new CategoryBO();
@@ -186,5 +217,40 @@ public class PublishController {
         publishService.insertActivity(activityInfoBO);
         return JSON.toJSONString(Result.successResult());
     }
+    @PostMapping("/uploadGoodsImage")
+//    @UserLoginToken
+    public String uploadGoodsImage(@RequestParam("image") MultipartFile image) {
+        String image_link = "";
 
+        //判断文件是否为空
+        if (image.isEmpty()) {
+            return JSON.toJSONString(Result.failureResult(ResultCode.FILE_EMPTY));
+        }
+
+        //获取文件名
+        String fileName = image.getOriginalFilename();
+        //加个时间戳，尽量避免图片名称重复
+        fileName = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + "_" + fileName;
+
+        //创建文件路径
+        String imagePath = path + fileName;
+
+        File dest = new File(imagePath);
+        if (dest.exists()) {
+            return JSON.toJSONString(Result.failureResult(ResultCode.FILE_EXISTED));
+        }
+
+        //判断文件父目录是否存在
+        if (!dest.getParentFile().exists()) {
+            dest.getParentFile().mkdir();
+        }
+
+        try {
+            image.transferTo(dest);
+            image_link = url  + fileName;
+        } catch (IOException e) {
+            return JSON.toJSONString(Result.failureResult(ResultCode.UPLOAD_FAILURE));
+        }
+        return JSON.toJSONString(Result.successResult(image_link));
+    }
 }

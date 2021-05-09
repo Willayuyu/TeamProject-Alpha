@@ -15,6 +15,9 @@ public enum ResultCode
   LOGIN_EXCEPTION(1003,"登录状态异常"),
   RESOURCE_EMPTY(1004,"访问资源为空"),
   PARAM_ERROR(1005,"请求参数异常"),
+  FILE_EMPTY(1006,"文件为空"),
+  FILE_EXISTED(1007,"文件已存在"),
+  UPLOAD_FAILURE(1008,"图片上传失败"),
   SERVER_ERROR(1050,"服务端错误");
 
 

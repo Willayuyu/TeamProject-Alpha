@@ -68,6 +68,7 @@ public class PublishServiceImpl implements PublishService {
         //将List<GoodsImageDO>插入goods_image
         List<GoodsImageDO> goodsImageDOList = goodsInfoBO.getGoodsImageDOList();
         for (GoodsImageDO goodsImageDO : goodsImageDOList) {
+            goodsImageDO.setGoodsId(goodsInfoDO.getId());
             goodsImageDAO.insertGoodsImage(goodsImageDO);
         }
     }
@@ -87,6 +88,7 @@ public class PublishServiceImpl implements PublishService {
         //将List<ActivityImageDO>插入activity_image
         List<ActivityImageDO> activityImageDOList = activityInfoBO.getActivityImageDOList();
         for (ActivityImageDO activityImageDO : activityImageDOList) {
+            activityImageDO.setActivityId(activityInfoDO.getId());
             activityImageDAO.insertActivityImage(activityImageDO);
         }
     }
