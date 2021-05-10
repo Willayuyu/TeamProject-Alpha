@@ -33,6 +33,13 @@ public interface UserDAO
   UserBO getUserById(Long id);
 
   /**
+   * 根据openId获取user
+   * @param openId
+   * @return
+   */
+  UserBO getUserByOpenId(String openId);
+
+  /**
    * 根据DO查询User列表
    * @param user
    * @return

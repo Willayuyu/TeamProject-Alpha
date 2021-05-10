@@ -41,6 +41,17 @@
         WHERE u.id=#{id}
     </select>
 
+    <!--根据id获得user-->
+    <select id="getUserByOpenId" parameterType="string" resultMap="User">
+        SELECT u.id AS u_id,open_id,username,tel,qq,wechat_account,portrait,
+        u.gmt_create AS u_gmt_create,u.gmt_modified AS u_gmt_modified,
+        c.id AS c_id,user_id,credit_score,like_num,dislike_num,
+        c.gmt_create AS c_gmt_create,c.gmt_modified AS c_gmt_modified
+        FROM `user` AS u
+        LEFT JOIN credit AS c ON u.id=c.user_id
+        WHERE open_id=#{openId}
+    </select>
+
     <!--查询user列表-->
     <select id="listUserByDO" parameterType="com.example.fidledemo.DO.UserDO" resultMap="User">
         SELECT  u.gmt_create AS u_gmt_create,u.gmt_modified AS u_gmt_modified,
@@ -49,7 +60,7 @@
         FROM `user` AS u
         LEFT JOIN credit AS c ON u.id=c.user_id
         <where>
-            <if test="openId !=null and openId !=''">open_id=#{openId},</if>
+            <if test="openId !=null and openId !=''">AND open_id=#{openId}</if>
             <if test="username !=null and username !=''">
                 <if test="usernameLike !=null and usernameLike !=''">
                     AND username LIKE "%"#{username}"%"
@@ -74,8 +85,8 @@
                     AND qq=#{qq}
                 </if>
             </if>
-            <if test="wechatAccount !=null and wechatAccount !=''">wechat_account=#{wechatAccount},</if>
-            <if test="portrait !=null and portrait !=''">portrait=#{portrait},</if>
+            <if test="wechatAccount !=null and wechatAccount !=''">AND wechat_account=#{wechatAccount}</if>
+            <if test="portrait !=null and portrait !=''">AND portrait=#{portrait}</if>
         </where>
         <if test="limit !=null and limit !='' ">limit #{begin},#{size}</if>
     </select>
