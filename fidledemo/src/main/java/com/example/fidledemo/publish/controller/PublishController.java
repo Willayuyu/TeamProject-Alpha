@@ -313,6 +313,18 @@ public class PublishController {
             return JSON.toJSONString(Result.failureResult(ResultCode.FILE_EXISTED));
         }
 
+        //判断图片大小是否大于50MB
+        if(image.getSize()>(long)52428800){
+            return JSON.toJSONString(Result.failureResult(ResultCode.IMAGE_SIZE_ERROR));
+        }
+
+        //判断图片格式是否正确
+        String imageName = image.getOriginalFilename();// 文件原名称
+        String type = imageName.indexOf(".") != -1 ? imageName.substring(imageName.lastIndexOf(".") + 1, imageName.length()) : null;
+        if(!(type.equals("jpg")||type.equals("png")||type.equals("jpeg"))){
+            return JSON.toJSONString(Result.failureResult(ResultCode.FORMAT_ERROR));
+        }
+
         //判断文件父目录是否存在
         if (!dest.getParentFile().exists()) {
             dest.getParentFile().mkdir();

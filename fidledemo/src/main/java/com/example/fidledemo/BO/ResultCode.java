@@ -18,6 +18,8 @@ public enum ResultCode
   FILE_EMPTY(1006,"文件为空"),
   FILE_EXISTED(1007,"文件已存在"),
   UPLOAD_FAILURE(1008,"图片上传失败"),
+  FORMAT_ERROR(1009,"图片格式错误"),
+  IMAGE_SIZE_ERROR(1010,"图片过大"),
   SERVER_ERROR(1050,"服务端错误");
 
 

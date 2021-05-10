@@ -19,7 +19,7 @@
     </resultMap>
 
 
-    <insert id="insertGoodsReportMessage" parameterType="goodsReportMessageDO" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertGoodsReportMessage" parameterType="com.example.fidledemo.DO.GoodsReportMessageDO" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO
         goods_report_message(whistleblower_id,reported_goods_id,title,reason,`state`,gmt_create,gmt_modified)
         VALUES (#{whistleblowerId},#{reportedGoodsId},#{title},#{reason},#{state},now(),now())
@@ -36,7 +36,7 @@
         WHERE id=#{id}
     </select>
 
-    <select id="listGoodsReportMessageByDO" parameterType="goodsReportMessageDO" resultMap="reportMessage">
+    <select id="listGoodsReportMessageByDO" parameterType="com.example.fidledemo.DO.GoodsReportMessageDO" resultMap="reportMessage">
         SELECT
         <if test="distinct !=null and distinct!=''">DISTINCT</if>
         id,whistleblower_id,reported_goods_id,title,reason,state,1 As `type`,gmt_create,gmt_modified
@@ -76,7 +76,7 @@
         </if>
     </select>
 
-    <update id="updateGoodsReportMessage" parameterType="goodsReportMessageDO" >
+    <update id="updateGoodsReportMessage" parameterType="com.example.fidledemo.DO.GoodsReportMessageDO" >
         UPDATE goods_report_message
         <set>
             <if test="whistleblowerId !=null and whistleblowerId !=''">whistleblower_id=#{whistleblowerId},</if>
