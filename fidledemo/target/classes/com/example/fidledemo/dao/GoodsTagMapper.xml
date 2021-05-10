@@ -21,8 +21,8 @@
         where id=#{id}
     </update>
 
-    <select id="checkGoodsTag" parameterType="com.example.fidledemo.DO.GoodsTagDO" resultType="Boolean">
-        SELECT TRUE FROM goods_tag
-        WHERE goods_id = #{goodsId} AND tag_id = #{tagId}
-    </select>
+    <delete id="deleteGoodsTagById" parameterType="Long">
+        DELETE FROM task_tag
+        WHERE goods_id = #{goodsId};
+    </delete>
 </mapper>

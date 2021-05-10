@@ -3,6 +3,7 @@ package com.example.fidledemo.homepage.controller;
 import com.alibaba.fastjson.JSON;
 import com.example.fidledemo.BO.Result;
 import com.example.fidledemo.BO.ResultCode;
+import com.example.fidledemo.BO.UserBO;
 import com.example.fidledemo.BO.UserLoginToken;
 import com.example.fidledemo.DO.ActivityEnshrineDO;
 import com.example.fidledemo.DO.ActivityInfoDO;
@@ -67,7 +68,8 @@ public class ActivityController {
             List<ActivityItemVO> activityItemVOS = activityInfoService.listActivityInfoByDO(activityInfoDO, tagOfActivityDO);
 
             //判断是否被该用户收藏
-            Long userId = (Long) request.getSession().getAttribute("userId");
+            UserBO user = (UserBO) request.getSession().getAttribute("user");
+            Long userId = user.getId();
             ActivityEnshrineDO activityEnshrineDO = new ActivityEnshrineDO();
             activityEnshrineDO.setUserId(userId);
             for (ActivityItemVO activityItemVO:activityItemVOS) {
@@ -124,7 +126,8 @@ public class ActivityController {
             List<ActivityItemVO> activityItemVOS = activityInfoService.listActivityInfoBySearch(activityInfoDO, tagOfActivityDO);
 
             //判断是否被该用户收藏
-            Long userId = (Long) request.getSession().getAttribute("userId");
+            UserBO user = (UserBO) request.getSession().getAttribute("user");
+            Long userId = user.getId();
             ActivityEnshrineDO activityEnshrineDO = new ActivityEnshrineDO();
             activityEnshrineDO.setUserId(userId);
             for (ActivityItemVO activityItemVO:activityItemVOS) {
@@ -167,7 +170,8 @@ public class ActivityController {
     @GetMapping("/activity/collectActivity/{id}")
     public String collectActivity(@PathVariable("id") Long id, HttpServletRequest request){
         try{
-            Long userId = (Long) request.getSession().getAttribute("userId");
+            UserBO user = (UserBO) request.getSession().getAttribute("user");
+            Long userId = user.getId();
             //userId= Long.valueOf(2);
             ActivityEnshrineDO activityEnshrineDO = new ActivityEnshrineDO();
             activityEnshrineDO.setUserId(userId);
@@ -190,7 +194,8 @@ public class ActivityController {
     @GetMapping("/activity/cancelCollectActivity/{id}")
     public String cancelCollectActivity(@PathVariable("id") Long id, HttpServletRequest request){
         try{
-            Long userId = (Long) request.getSession().getAttribute("userId");
+            UserBO user = (UserBO) request.getSession().getAttribute("user");
+            Long userId = user.getId();
             //userId= Long.valueOf(2);
             ActivityEnshrineDO activityEnshrineDO = new ActivityEnshrineDO();
             activityEnshrineDO.setUserId(userId);
@@ -214,7 +219,8 @@ public class ActivityController {
         try{
             ActivityVO activityVO = activityInfoService.getActivityInfoById(id);
             if (activityVO!=null){
-                Long userId = (Long) request.getSession().getAttribute("userId");
+                UserBO user = (UserBO) request.getSession().getAttribute("user");
+                Long userId = user.getId();
                 //userId= Long.valueOf(2);
                 ActivityEnshrineDO activityEnshrineDO = new ActivityEnshrineDO();
                 activityEnshrineDO.setUserId(userId);

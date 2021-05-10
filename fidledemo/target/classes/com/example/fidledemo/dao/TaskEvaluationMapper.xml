@@ -77,6 +77,27 @@
         WHERE id=#{id}
     </update>
 
+    <select id="listTaskEvaluationByUser" parameterType="com.example.fidledemo.DO.TaskEvaluationDO" resultMap="evaluation">
+        SELECT
+        <if test="distinct != null and distinct != ''">DISTINCT</if>
+        a.id AS id,a.task_delegate_id AS task_delegate_id,a.evaluator_id AS evaluator_id,a.evaluation AS evaluation,a.reason AS reason,2 AS `type`,a.gmt_create AS gmt_create,a.gmt_modified AS gmt_modified
+        FROM task_evaluation AS a,task_delegate AS b
+        WHERE
+        (
+        b.acc_id = #{evaluatorId} AND b.is_pub_evaluated = 1 AND a.id = b.pub_evaluate_id
+        <if test="evaluation != null and evaluation != ''">
+            AND a.evaluation = #{evaluation}
+        </if>
+        )
+        OR
+        (
+        b.pub_id = #{evaluatorId} and b.is_acc_evaluated = 1 and a.id = b.acc_evaluate_id
+        <if test="evaluation != null and evaluation != ''">
+            AND a.evaluation = #{evaluation}
+        </if>
+        )
+        ORDER BY a.gmt_create DESC;
+    </select>
 
 
 </mapper>

@@ -3,6 +3,7 @@ package com.example.fidledemo.homepage.controller;
 import com.alibaba.fastjson.JSON;
 import com.example.fidledemo.BO.Result;
 import com.example.fidledemo.BO.ResultCode;
+import com.example.fidledemo.BO.UserBO;
 import com.example.fidledemo.BO.UserLoginToken;
 import com.example.fidledemo.DO.GoodsEnshrineDO;
 import com.example.fidledemo.DO.GoodsInfoDO;
@@ -75,7 +76,8 @@ public class GoodsController {
             List<GoodsItemVO> goodsItemVOS = goodsInfoService.listGoodsInfoByDO(goodsInfoDO, tagOfGoodsDO);
 
             //判断是否被该用户收藏
-            Long userId = (Long) request.getSession().getAttribute("userId");
+            UserBO user = (UserBO) request.getSession().getAttribute("user");
+            Long userId = user.getId();
             GoodsEnshrineDO goodsEnshrineDO = new GoodsEnshrineDO();
             goodsEnshrineDO.setUserId(userId);
             for (GoodsItemVO goodsItemVO:goodsItemVOS) {
@@ -130,7 +132,8 @@ public class GoodsController {
 
             List<GoodsItemVO> goodsItemVOS = goodsInfoService.listGoodsInfoBySearch(goodsInfoDO, tagOfGoodsDO);
             //判断是否被该用户收藏
-            Long userId = (Long) request.getSession().getAttribute("userId");
+            UserBO user = (UserBO) request.getSession().getAttribute("user");
+            Long userId = user.getId();
             GoodsEnshrineDO goodsEnshrineDO = new GoodsEnshrineDO();
             goodsEnshrineDO.setUserId(userId);
             for (GoodsItemVO goodsItemVO:goodsItemVOS) {
@@ -172,7 +175,8 @@ public class GoodsController {
     @GetMapping("/goods/collectGoods/{id}")
     public String collectGoods(@PathVariable("id") Long id,HttpServletRequest request){
         try{
-            Long userId = (Long) request.getSession().getAttribute("userId");
+            UserBO user = (UserBO) request.getSession().getAttribute("user");
+            Long userId = user.getId();
             //userId= Long.valueOf(3);
             GoodsEnshrineDO goodsEnshrineDO = new GoodsEnshrineDO();
             goodsEnshrineDO.setUserId(userId);
@@ -194,7 +198,8 @@ public class GoodsController {
     @GetMapping("/goods/cancelCollectGoods/{id}")
     public String cancelCollectGoods(@PathVariable("id") Long id,HttpServletRequest request){
         try{
-            Long userId = (Long) request.getSession().getAttribute("userId");
+            UserBO user = (UserBO) request.getSession().getAttribute("user");
+            Long userId = user.getId();
             //userId= Long.valueOf(3);
             GoodsEnshrineDO goodsEnshrineDO = new GoodsEnshrineDO();
             goodsEnshrineDO.setUserId(userId);
@@ -218,7 +223,8 @@ public class GoodsController {
         try {
             GoodsVO goodsVO = goodsInfoService.getGoodsInfoById(id);
             if (goodsVO!=null){
-                Long userId = (Long) request.getSession().getAttribute("userId");
+                UserBO user = (UserBO) request.getSession().getAttribute("user");
+                Long userId = user.getId();
                 //userId= Long.valueOf(2);
                 GoodsEnshrineDO goodsEnshrineDO = new GoodsEnshrineDO();
                 goodsEnshrineDO.setUserId(userId);

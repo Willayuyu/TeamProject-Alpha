@@ -3,6 +3,7 @@ package com.example.fidledemo.homepage.controller;
 import com.alibaba.fastjson.JSON;
 import com.example.fidledemo.BO.Result;
 import com.example.fidledemo.BO.ResultCode;
+import com.example.fidledemo.BO.UserBO;
 import com.example.fidledemo.BO.UserLoginToken;
 import com.example.fidledemo.DO.TagOfTaskDO;
 import com.example.fidledemo.DO.TaskEnshrineDO;
@@ -65,7 +66,8 @@ public class TaskController {
             taskInformationDO.setCreateTimeEnd(new Date());
 
             List<TaskItemVO> taskItemVOS = taskInfoService.listTaskInfoByDO(taskInformationDO, tagOfTaskDO);
-            Long userId = (Long) request.getSession().getAttribute("userId");
+            UserBO user = (UserBO) request.getSession().getAttribute("user");
+            Long userId = user.getId();
             TaskEnshrineDO taskEnshrineDO = new TaskEnshrineDO();
             taskEnshrineDO.setUserId(userId);
             for (TaskItemVO taskItemVO:taskItemVOS) {
@@ -114,7 +116,8 @@ public class TaskController {
             taskInformationDO.setCreateTimeEnd(new Date());
 
             List<TaskItemVO> taskItemVOS = taskInfoService.listTaskInfoBySearch(taskInformationDO, tagOfTaskDO);
-            Long userId = (Long) request.getSession().getAttribute("userId");
+            UserBO user = (UserBO) request.getSession().getAttribute("user");
+            Long userId = user.getId();
             TaskEnshrineDO taskEnshrineDO = new TaskEnshrineDO();
             taskEnshrineDO.setUserId(userId);
             for (TaskItemVO taskItemVO:taskItemVOS) {
@@ -156,7 +159,8 @@ public class TaskController {
     @GetMapping("/task/collectTask/{id}")
     public String collectTask(@PathVariable("id") Long id, HttpServletRequest request){
         try {
-            Long userId = (Long) request.getSession().getAttribute("userId");
+            UserBO user = (UserBO) request.getSession().getAttribute("user");
+            Long userId = user.getId();
             //userId= Long.valueOf(2);
             TaskEnshrineDO taskEnshrineDO = new TaskEnshrineDO();
             taskEnshrineDO.setUserId(userId);
@@ -178,7 +182,8 @@ public class TaskController {
     @GetMapping("/task/cancelCollectTask/{id}")
     public String cancelCollectTask(@PathVariable("id") Long id, HttpServletRequest request){
         try {
-            Long userId = (Long) request.getSession().getAttribute("userId");
+            UserBO user = (UserBO) request.getSession().getAttribute("user");
+            Long userId = user.getId();
             //userId= Long.valueOf(2);
             TaskEnshrineDO taskEnshrineDO = new TaskEnshrineDO();
             taskEnshrineDO.setUserId(userId);
@@ -202,7 +207,8 @@ public class TaskController {
         try {
             TaskVO taskVO = taskInfoService.getTaskInfoById(id);
             if (taskVO!=null){
-                Long userId = (Long) request.getSession().getAttribute("userId");
+                UserBO user = (UserBO) request.getSession().getAttribute("user");
+                Long userId = user.getId();
                 //userId= Long.valueOf(2);
                 TaskEnshrineDO taskEnshrineDO = new TaskEnshrineDO();
                 taskEnshrineDO.setUserId(userId);
