@@ -133,7 +133,7 @@ Page({
         this.setData({
             url: this.data.goods_uploadUrl
         })
-        afterRead(event);
+        this.afterRead(event);
         this.setData({
             goods_fileList: this.data.fileList
         })
@@ -144,7 +144,7 @@ Page({
         this.setData({
             url: this.data.activity_uploadUrl
         })
-        afterRead(event);
+        this.afterRead(event);
         this.setData({
             activity_fileList: this.data.fileList
         })
@@ -200,7 +200,7 @@ Page({
 
     // 删除二手物品已上传的图片
     goods_deleteImg(event) {
-        deleteImg(event);
+        this.deleteImg(event);
         this.setData({
             goods_fileList: this.data.fileList
         })
@@ -208,7 +208,7 @@ Page({
 
     // 删除活动信息已上传的图片
     activity_deleteImg(event) {
-        deleteImg(event);
+        this.deleteImg(event);
         this.setData({
             activity_fileList: this.data.fileList
         })
