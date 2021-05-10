@@ -159,3 +159,4 @@ Fidle/project.config.json
 .idea/libraries/Maven__org_unbescape_unbescape_1_1_6_RELEASE.xml
 .idea/libraries/Maven__org_xmlunit_xmlunit_core_2_7_0.xml
 .idea/libraries/Maven__org_yaml_snakeyaml_1_27.xml
+*.class
