@@ -30,19 +30,38 @@ Page({
       app.globalData.username=username;
       app.globalData.phonenum=phonenum;
       app.globalData.qqnum=qqnum;
-  
-      wx.showToast({
-        title: '修改成功！',
-        icon: 'success',
-        duration: 1000,
-        success:function(){ 
-          setTimeout(function () { 
-              wx.redirectTo({ 
-                  url: '/pages/changeInf/changeInf'
-               }) 
-           }, 1000) 
-        } 
+
+      wx.request({
+        url: 'http://xxx.com/personalPage/alterInformation',
+        data: {
+          username: username,
+          tel: phonenum,
+          qq: qqnum
+        },
+        method: 'POST',
+        header: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        success: function(res){
+          wx.showToast({
+            title: '修改成功！',
+            icon: 'success',
+            duration: 1000,
+            success:function(){ 
+              setTimeout(function () { 
+                  wx.redirectTo({ 
+                      url: '/pages/changeInf/changeInf'
+                   }) 
+               }, 1000) 
+            } 
+          })
+        },
+        fail: function(res){
+          console.log("修改失败！")
+        }
       })
+  
+      
     }   
   },
 

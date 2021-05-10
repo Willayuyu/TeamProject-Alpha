@@ -12,7 +12,7 @@
           <view>
            <van-cell>
             <text class="label">图片上传</text> 
-            <van-uploader class="img-input" file-list="{{goods_fileList}}" bind:after-read="afterRead" max-count="3"></van-uploader>
+            <van-uploader class="img-input" file-list="{{goods_fileList}}" bind:after-read="goods_afterRead" bind:delete="good_deleteImg" multiple="{{true}}" max-count="3" preview-image></van-uploader>
            </van-cell>      
           </view>          
           <view>
@@ -26,7 +26,7 @@
                 </van-col>
                 <van-col span="22" >
                   <view>     
-                    <text wx:for="{{goods_old_new_list}}" data-id="{{index}}" class="tag {{goods_old_new_list_idx==index?'selected':''}}" wx:key="unique" bindtap="goods_old_new_list_selectApply">{{item}}</text>                       
+                    <view wx:for="{{goods_old_new_list}}" data-id="{{index}}" class="tag {{goods_old_new_list_idx==index?'selected':''}}" wx:key="unique" bindtap="goods_old_new_list_selectApply">{{item}}</view>                       
                   </view>        
                 </van-col>
               </van-row>             
@@ -147,7 +147,7 @@
           <view>
            <van-cell>
             <text class="label">图片上传</text> 
-            <van-uploader class="img-input" file-list="{{activity_fileList}}" bind:after-read="afterRead" max-count="3"></van-uploader>
+            <van-uploader class="img-input" file-list="{{activity_fileList}}" bind:after-read="activity_afterRead" bind:delete="activity_deleteImg" multiple="{{true}}" max-count="3"  preview-image></van-uploader>
            </van-cell>      
           </view>         
           <view>
@@ -181,10 +181,8 @@
                     <view wx:for="{{activity_label_list}}" data-id="{{index}}" wx:key="unique" class="tag">{{item}}</view>
                     <input class="tag tag-create" bindinput="activityTagInput" value="{{activity_tag}}" placeholder="新增标签"></input>
                     <van-icon name="add-o" class="icon" size="35rpx" bind:click="TagCreate"></van-icon>
-                  </view>
-                    
-                </van-col>
-                
+                  </view>                   
+                </van-col>              
               </van-row>
               <van-button class="release" type="info" color="#7DB5EE" size="normal">发布</van-button>                                                       
             </view>                                 

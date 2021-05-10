@@ -2,11 +2,10 @@
 
 
 Page({
-
-    /**
-     * 页面的初始数据
-     */
     data: {
+        url: "",
+        fileList: [],
+
         goods_title: "",
         goods_price: "",
         goods_originalPrice: "",
@@ -18,6 +17,7 @@ Page({
         goods_label_list: ["李宁"],
         goods_old_new_list_idx: "",
         goods_class_list_idx: "",
+        goods_uploadUrl: "http://xx.com/publish/uploadGoodsImage",
 
         task_title: "",
         task_remuneration: "",
@@ -48,6 +48,7 @@ Page({
         activity_class_list: ["团立项", "社团活动", "比赛", "招聘会", "其他"],
         activity_label_list: ["五四活动"],
         activity_class_list_idx: "",
+        activity_uploadUrl: "http://xx.com/publish/uploadActivityImage",
     },
 
     pickerShow() {
@@ -87,6 +88,7 @@ Page({
         });
     },
 
+    //新旧程度单选功能
     goods_old_new_list_selectApply(e) {
         let id = e.target.dataset.id
         this.setData({
@@ -119,35 +121,112 @@ Page({
 
     },
 
-    /**
-     * 一键清空
-     */
+    //一键清空
     clearInputEvent(res) {
         this.setData({
             'message': ''
         })
     },
 
-    afterRead(event) {
-        const { file } = event.detail;
-        // 当设置 mutiple 为 true 时, file 为数组格式，否则为对象格式
-        wx.uploadFile({
-            url: 'https://example.weixin.qq.com/upload', // 仅为示例，非真实的接口地址
-            filePath: file.url,
-            name: 'file',
-            formData: { user: 'test' },
-            success(res) {
-                // 上传完成需要更新 fileList
-                const { fileList = [] } = this.data;
-                fileList.push({...file, url: res.data });
-                this.setData({ fileList });
-            },
-        });
+    //上传二手物品图片
+    goods_afterRead(event) {
+        this.setData({
+            url: this.data.goods_uploadUrl
+        })
+        this.afterRead(event);
+        this.setData({
+            goods_fileList: this.data.fileList
+        })
     },
 
-    /**
-     * 生命周期函数--监听页面加载
-     */
+    //上传活动信息图片
+    activity_afterRead(event) {
+        this.setData({
+            url: this.data.activity_uploadUrl
+        })
+        this.afterRead(event);
+        this.setData({
+            activity_fileList: this.data.fileList
+        })
+    },
+
+    //上传图片后操作
+    afterRead(event) {
+        wx.showLoading({
+            title: '上传中...'
+        })
+        const { file } = event.detail //获取所需要上传的文件列表
+        let uploadPromiseTask = [] //定义上传的promise任务栈
+        for (let i = 0; i < file.length; i++) {
+            uploadPromiseTask.push(this.uploadFile(file[i].path)) //push进每一张所需要的上传的图片promise栈
+        }
+        Promise.all(uploadPromiseTask).then(res => {
+            //全部上传完毕
+            this.setData({
+                fileList: this.data.fileList.concat(res)
+            })
+            wx.hideLoading()
+        }).catch(error => {
+            //存在有上传失败的文件
+            wx.hideLoading()
+            wx.showToast({
+                title: '上传失败！',
+                icon: 'none',
+            })
+        })
+    },
+
+    // 上传图片到指定服务器
+    uploadFile(uploadFile) {
+        return new Promise((resolve, reject) => {
+            wx.uploadFile({
+                filePath: uploadFile,
+                name: 'file', //上传的所需字段，后端提供
+                success: (res) => {
+                    // 上传完成操作
+                    const data = JSON.parse(res.data)
+                    const url = data.data.url
+                    resolve({
+                        url: url
+                    })
+                },
+                fail: (err) => {
+                    //上传失败：修改pedding为reject
+                    reject(err)
+                }
+            });
+        })
+    },
+
+    // 删除二手物品已上传的图片
+    goods_deleteImg(event) {
+        this.deleteImg(event);
+        this.setData({
+            goods_fileList: this.data.fileList
+        })
+    },
+
+    // 删除活动信息已上传的图片
+    activity_deleteImg(event) {
+        this.deleteImg(event);
+        this.setData({
+            activity_fileList: this.data.fileList
+        })
+    },
+
+    // 删除已上传的图片
+    deleteImg(event) {
+        const delIndex = event.detail.index
+        const { fileList } = this.data
+        fileList.splice(delIndex, 1)
+        this.setData({
+            fileList
+        })
+    },
+
+
+
+    //生命周期函数--监听页面加载
     onLoad: function(options) {
         let time = this.getCurrentTime();
         this.setData({
@@ -206,9 +285,7 @@ Page({
         return Array.from(new Set(arr))
     },
 
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
+    //生命周期函数--监听页面初次渲染完成
     onReady: function() {
         if (this.data.goods_tag) {
             this.data.goods_label_list.push(this.data.goods_tag.replaceAll(" ", ""));
@@ -238,44 +315,32 @@ Page({
         }
     },
 
-    /**
-     * 生命周期函数--监听页面显示
-     */
+    // 生命周期函数--监听页面显示
     onShow: function() {
 
     },
 
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
+    // 生命周期函数--监听页面隐藏
     onHide: function() {
 
     },
 
-    /**
-     * 生命周期函数--监听页面卸载
-     */
+    // 生命周期函数--监听页面卸载
     onUnload: function() {
 
     },
 
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
+    // 页面相关事件处理函数--监听用户下拉动作
     onPullDownRefresh: function() {
 
     },
 
-    /**
-     * 页面上拉触底事件的处理函数
-     */
+    // 页面上拉触底事件的处理函数
     onReachBottom: function() {
 
     },
 
-    /**
-     * 用户点击右上角分享
-     */
+    // 用户点击右上角分享
     onShareAppMessage: function() {
 
     }
