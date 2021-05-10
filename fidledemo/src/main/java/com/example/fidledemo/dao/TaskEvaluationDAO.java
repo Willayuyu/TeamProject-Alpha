@@ -46,4 +46,11 @@ public interface TaskEvaluationDAO {
      * @param taskEvaluation
      */
     void updateTaskEvaluation(TaskEvaluationDO taskEvaluation);
+
+    /**
+     * 筛选所有用户相关的评价
+     * @param taskEvaluation
+     * @return
+     */
+    List<EvaluationBO> listTaskEvaluationByUser(TaskEvaluationDO taskEvaluation);
 }

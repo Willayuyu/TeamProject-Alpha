@@ -46,4 +46,11 @@ public interface GoodsEvaluationDAO {
      * @param goodsEvaluation
      */
     void updateGoodsEvaluation(GoodsEvaluationDO goodsEvaluation);
+
+    /**
+     * 筛选用户相关的所有评价
+     * @param goodsEvaluationDO
+     * @return
+     */
+    List<EvaluationBO> listGoodsEvaluationByUser(GoodsEvaluationDO goodsEvaluationDO);
 }
