@@ -19,6 +19,8 @@
     "pages/logs/logs"
   ],
   "window": {
+    "enablePullDownRefresh": true,
+    "onReachBottomDistance": 100,
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "Fidle",

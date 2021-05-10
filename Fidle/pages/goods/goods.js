@@ -57,7 +57,15 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
+    wx.request({
+      url: 'http://120.77.210.142:8080/myGoods/listGoodsOnSaleByPageid/Pageid',
+      method: 'GET',
+      success: function(res){
+        console.log(res.code);
+        console.log(res.data);
+      }
 
+    })
   },
 
   /**

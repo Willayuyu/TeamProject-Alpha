@@ -38,7 +38,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.setNavigationBarTitle({ title: '我的收藏' });  
+    wx.setNavigationBarTitle({ title: '我的收藏' });
   },
 
   /**
@@ -73,6 +73,14 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
+    wx.request({
+      url: 'http://47.106.241.182:8080/collection/listCollectibleGoodsByPageid/1',
+      method: 'GET',
+      success: function(res){
+        console.log(res.data.code);
+        console.log(res.data.data);
+      }
+    })
 
   },
 
@@ -92,19 +100,24 @@ Page({
   /**
    * 点击标题跳转详情页
    */
-  clickGoodsCard(event){
+  clickGoodsCard(event) {
     wx.navigateTo({
       url: '/pages/goodsDetailsPage/goodsDetailsPage',
     })
   },
-  clickTaskCard(event){
+  clickTaskCard(event) {
     wx.navigateTo({
       url: '/pages/taskDetailsPage/taskDetailsPage',
     })
   },
-  clickActivityCard(event){
+  clickActivityCard(event) {
     wx.navigateTo({
       url: '/pages/activityDetailsPage/activityDetailsPage',
     })
   },
+
+  ShowGoods: function () {
+    
+  }
+
 })

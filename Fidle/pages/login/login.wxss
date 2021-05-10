@@ -11,7 +11,7 @@
 }
 
 .btn {
-  margin-top: 50rpx;
+  margin-top: 40rpx;
   background-color: #7DB5EE;
   color: #fff;
 }
