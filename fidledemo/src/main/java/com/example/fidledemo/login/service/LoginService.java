@@ -24,6 +24,6 @@ public interface LoginService
      * @param portrait
      * @return
      */
-    UserBO userAuth(Long id,String wechatAccount,String portrait);
+    UserBO userAuth(Long id, String wechatAccount, String portrait);
 
 }

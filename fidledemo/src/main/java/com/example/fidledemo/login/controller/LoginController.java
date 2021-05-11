@@ -32,7 +32,13 @@ public class LoginController
   @PostMapping("/loginRequest")
   public String loginRequest(@RequestParam("code") String code, HttpSession session)
   {
+
+    System.out.println("code:"+code);
+
     UserBO userBO=loginService.loginRequest(code);
+
+    System.out.println(userBO);
+
     session.setAttribute("user",userBO);
 
     String token=TokenUtil.getToken(userBO);
@@ -46,9 +52,13 @@ public class LoginController
     personVO.setUsername(userBO.getWechatAccount());
 
     CreditVO creditVO=new CreditVO();
-    creditVO.setCreditScore(userBO.getCredit().getCreditScore());
-    creditVO.setLikeNum(userBO.getCredit().getLikeNum());
-    creditVO.setDislikeNum(userBO.getCredit().getDislikeNum());
+    if(userBO.getCredit()!=null)
+    {
+      creditVO.setCreditScore(userBO.getCredit().getCreditScore());
+      creditVO.setLikeNum(userBO.getCredit().getLikeNum());
+      creditVO.setDislikeNum(userBO.getCredit().getDislikeNum());
+    }
+
     personVO.setCredit(creditVO);
 
     return JSON.toJSONString(Result.successResult(new LoginVO(personVO,token)));

@@ -27,21 +27,27 @@ public class LoginServiceImpl implements LoginService
     String url = String.format(urlFormat, LoginUtil.APP_ID, LoginUtil.SECRET, code);
     String json = LoginUtil.httpRequest(url,"GET",null);
 
+
+    System.out.println("json:"+json);
+
     //将json字符串转化成对象
     result = JSON.parseObject(json, LoginResult.class);
 
     String openId=result.getOpenid();
     UserDO userDO=new UserDO();
+
+    System.out.println(openId);
+
     userDO.setOpenId(openId);
 
     //判断该用户是否第一次登录
-    if(userDAO.listUserByDO(userDO)==null)
+    if(userDAO.getUserByOpenId(openId)==null)
     {
       //若第一次登录则插入openId
       userDAO.insertUser(userDO);
     }
     //返回对应的user信息
-    return userDAO.listUserByDO(userDO).get(0);
+    return userDAO.getUserByOpenId(openId);
   }
 
   @Override
