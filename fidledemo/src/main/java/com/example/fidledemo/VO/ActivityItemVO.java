@@ -34,4 +34,6 @@ public class ActivityItemVO {
     private Integer collectState;
 
     private List<ActivityTagVO> tagList;
+
+    private String imageLink;
 }
