@@ -44,9 +44,11 @@ public class UserServiceImpl implements UserService{
             CreditBO creditBO = userBO.getCredit();
 
             CreditVO creditVO = new CreditVO();
-            creditVO.setCreditScore(creditBO.getCreditScore());
-            creditVO.setLikeNum(creditBO.getLikeNum());
-            creditVO.setDislikeNum(creditBO.getDislikeNum());
+            if(creditBO!=null){
+                creditVO.setCreditScore(creditBO.getCreditScore());
+                creditVO.setLikeNum(creditBO.getLikeNum());
+                creditVO.setDislikeNum(creditBO.getDislikeNum());
+            }
 
             personVO.setCredit(creditVO);
         }
