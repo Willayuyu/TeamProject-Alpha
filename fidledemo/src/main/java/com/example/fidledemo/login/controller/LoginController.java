@@ -32,6 +32,7 @@ public class LoginController
   @PostMapping("/loginRequest")
   public String loginRequest(@RequestParam("code") String code, HttpSession session)
   {
+    System.out.println("login:"+session.getId());
 
     System.out.println("code:"+code);
 
@@ -40,6 +41,10 @@ public class LoginController
     System.out.println(userBO);
 
     session.setAttribute("user",userBO);
+
+    UserBO user= (UserBO) session.getAttribute("user");
+
+    System.out.println("set-session:"+user);
 
     String token=TokenUtil.getToken(userBO);
     session.setAttribute("token",token);
@@ -68,10 +73,33 @@ public class LoginController
   @PostMapping("/userAuth")
   public String userAuth(@RequestParam("nickname") String wechatAccount,@RequestParam("avatar_url") String portrait,HttpSession session)
   {
+    System.out.println("auth:"+session.getId());
+
     UserBO user= (UserBO) session.getAttribute("user");
+
+    System.out.println("session:"+user);
+
     UserBO newUser=loginService.userAuth(user.getId(),wechatAccount,portrait);
     session.setAttribute("user",newUser);
-    return JSON.toJSONString(Result.successResult(newUser));
+
+    System.out.println("after:"+newUser);
+
+    PersonVO personVO=new PersonVO();
+    personVO.setId(newUser.getId());
+    personVO.setPortrait(newUser.getPortrait());
+    personVO.setQq(newUser.getQq());
+    personVO.setTel(newUser.getTelephone());
+    personVO.setUsername(newUser.getWechatAccount());
+
+    CreditVO creditVO=new CreditVO();
+    if(newUser.getCredit()!=null)
+    {
+      creditVO.setCreditScore(newUser.getCredit().getCreditScore());
+      creditVO.setLikeNum(newUser.getCredit().getLikeNum());
+      creditVO.setDislikeNum(newUser.getCredit().getDislikeNum());
+    }
+
+    return JSON.toJSONString(Result.successResult(personVO));
   }
 
 }

@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/login/login",
     "pages/index/index",
     "pages/contact/contact",
     "pages/change/change",
@@ -11,7 +12,6 @@
     "pages/taskDetailsPage/taskDetailsPage",
     "pages/publish/publish",
     "pages/myInf/myInf",
-    "pages/login/login",
     "pages/goods/goods",
     "pages/task/task",
     "pages/activity/activity",

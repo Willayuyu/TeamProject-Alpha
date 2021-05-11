@@ -23,7 +23,7 @@ public class ExceptionAdvice
    * @return
    */
   @ExceptionHandler(MethodArgumentNotValidException.class)
-  public String handle(MethodArgumentNotValidException e)
+  public String methodException(MethodArgumentNotValidException e)
   {
     e.printStackTrace();
     return JSON.toJSONString(Result.failureResult(ResultCode.PARAM_ERROR));
@@ -36,6 +36,14 @@ public class ExceptionAdvice
 //
 //    return JSON.toJSONString(Result);
 //  }
+
+
+  @ExceptionHandler(RuntimeException.class)
+  public String runtimeException(RuntimeException e)
+  {
+    e.printStackTrace();
+    return JSON.toJSONString(Result.failureResult(ResultCode.UN_AUTHORIZED));
+  }
 
   /**
    * 其他未知错误

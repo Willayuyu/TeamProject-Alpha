@@ -36,10 +36,19 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log("登录后来到个人信息页")
+    console.log(app.globalData.user)
     this.setData({
-      imgsrc:app.globalData.imgsrc,
-      username:app.globalData.username,
-      userid:app.globalData.userid,
+      imgsrc: app.globalData.user.portrait,
+      username: app.globalData.user.username,
+      userid: app.globalData.user.id,
+      // credit: app.globalData.user.credit.creditScore,
+      // goodcmt: app.globalData.user.credit.likeNum,
+      // badcmt: app.globalData.user.credit.dislikeNum,
+      
+      // imgsrc:app.globalData.imgsrc,
+      // username:app.globalData.username,
+      // userid:app.globalData.userid,
       credit:app.globalData.credit,
       goodcmt:app.globalData.goodcmt,
       badcmt:app.globalData.badcmt,
