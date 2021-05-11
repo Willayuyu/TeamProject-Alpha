@@ -61,6 +61,7 @@ public class GoodsController {
             int days=Integer.parseInt(request.getParameter("days"));
             Long categoryId=Long.parseLong(request.getParameter("categoryId"));
             int condition=Integer.parseInt(request.getParameter("condition"));
+            System.out.println(request.getParameter("pageid"));
             int pageid=Integer.parseInt(request.getParameter("pageid"));
 
             goodsInfoDO.setLimit(Boolean.TRUE);

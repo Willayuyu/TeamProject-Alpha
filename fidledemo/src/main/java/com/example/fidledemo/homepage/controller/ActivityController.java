@@ -62,7 +62,6 @@ public class ActivityController {
             int days=Integer.parseInt(request.getParameter("days"));
             Long categoryId=Long.parseLong(request.getParameter("categoryId"));
             int pageid=Integer.parseInt(request.getParameter("pageid"));
-
             activityInfoDO.setLimit(Boolean.TRUE);
             activityInfoDO.setBegin((pageid-1)*size);
             activityInfoDO.setSize(size);
