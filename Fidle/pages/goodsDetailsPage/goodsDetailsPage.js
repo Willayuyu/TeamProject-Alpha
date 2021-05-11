@@ -6,22 +6,54 @@ Page({
    * 页面的初始数据
    */
   data: {
-    swiperList: [
-      "https://bkimg.cdn.bcebos.com/pic/86d6277f9e2f0708134ac8a5ef24b899a801f2cc?x-bce-process=image/resize,m_lfit,w_268,limit_1/format,f_jpg",
-      "https://bkimg.cdn.bcebos.com/pic/e61190ef76c6a7ef58da72f6fafaaf51f2de6666?x-bce-process=image/watermark,image_d2F0ZXIvYmFpa2UxMTY=,g_7,xp_5,yp_5/format,f_auto",
-      "https://img.yzcdn.cn/vant/cat.jpeg"
-    ],
-    tagsList: [
-      "标签",
-      "标签"
-    ],
-    title: "软件工程 第八版 全新未拆 好价速来！",
-    currentPrice: 30,
-    originalPrice: 50,
-    isStar:false,
-    detailsText:"软件工程是一门研究用工程化方法构建和维护有效实用和高质量的软件的学科。它涉及程序设计语言、数据库、软件开工具、系统平台、标准、设计模式等方面。在现代社会中，软件应用于多个方面。典型的软件有电子邮件、嵌入式系统、人机界面、办公套件、操作系统、编译器、数据库、游戏等。同时，各个行业几乎都有计算机软件的应用，如工业农业银行航空政府部门等。这些应用促进了经济和社会的发展，也提高了工作效率和生活效率 。 ",
+    swiperList: [],
+    collectState: 0,
+    category: "",
+    condition: "",
+    tagsList: [],
+    title: "",
+    currentPrice: 0,
+    originalPrice: 0,
+    description:" ",
+    pubId: 0,
+    id: 0,
   },
 
+  /**
+   * 获取二手详情页信息
+   */
+  getGoodsDetail:function(event){
+    let that = this;
+    //let id = event.id;
+    var session_id = wx.getStorageSync('sessionid');
+    var header = {'content-type': 'application/x-www-form-urlencoded', 'Cookie': session_id };
+    wx.request({
+      url: 'http://47.106.241.182:8080/goods/getGoodsDetailById/' + 2,
+      method: "GET",
+      header: header,
+      success(res){
+        console.log(res.data);
+        if(res.data.code===200){
+          that.setData({
+            swiperList: res.data.data.picturesLink,
+            title: res.data.data.title,
+            currentPrice: res.data.data.price,
+            originalPrice: res.data.data.originalPrice,
+            condition: res.data.data.condition,
+            tagsList: res.data.data.tagList,
+            collectState: res.data.data.collectState,
+            description: res.data.data.description,
+            category: res.data.data.category,
+            pubId: res.data.data.pubId,
+            id:res.data.data.id,
+          })
+        }
+      },
+      fail(err){
+        console.log(err);
+      }
+    })
+  },
   /**
    * 轮播图图片放大预览
    */
@@ -47,35 +79,50 @@ Page({
    */
   onClickStar(event){
     let that = this;
-    var state = that.data.isStar;
-    that.setData({
-      isStar: !state
+    var session_id = wx.getStorageSync('sessionid');
+    var header = {'content-type': 'application/x-www-form-urlencoded', 'Cookie': session_id };
+    wx.request({
+      url: 'http://47.106.241.182:8080/goods/collectGoods/' + 2,
+      method: 'GET',
+      header: header,
+      success(res){
+        console.log(res);
+        if(res.data.code===200){
+          if(that.data.collectState == 0){
+            that.setData({
+              collectState: 1
+            });
+            Toast({
+              position: 'bottom',
+              message: '收藏成功！'
+            });
+          } else {
+            that.setData({
+              collectState: 0
+            });
+            Toast({
+              position: 'bottom',
+              message: '取消收藏成功！'
+            });
+          }
+        }
+      }
     })
-    if(!state) {
-      Toast({
-        position: 'bottom',
-        message: '收藏成功！'
-      });
-    } else {
-      Toast({
-        position: 'bottom',
-        message: '取消收藏成功！'
-      });
-    }
   },
   /**
    * 点击联系卖家跳转
    */
   contact: function() {
+    let that = this;
     wx.navigateTo({
-      url: '/pages/contact/contact',
+      url: '/pages/contact/contact?pubId=' + that.data.pubId,
     })
   },
  /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    this.getGoodsDetail();
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
