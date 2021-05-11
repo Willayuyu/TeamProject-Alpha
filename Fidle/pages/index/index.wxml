@@ -19,34 +19,26 @@
         <c-select initSelect="{{secSort}}" prop-array='{{secSortArray}}'  bind:select='select_Sec_Sort'/>
         <c-select initSelect="{{secDegree}}" prop-array='{{secDegreeArray}}'  bind:select='select_Sec_Degree'/>
       </view>
-      <van-card  price="{{goodsPrice}}" origin-price="{{goodsOriginPrice}}" thumb="{{goodsImageURL}}" thumb-link="{{goodsDetialsURL}}" class="card">
+      <view wx:for="{{goodsList}}" wx:key="{{index}}">
+        <van-card  price="{{item.price}}" origin-price="{{item.originalPrice}}" thumb="{{item.imageLink}}" thumb-link="{{goodsDetialsURL}}" class="card">
         <view slot="title" class="title" bindtap="clickGoodsCard">
-          <text>{{goodsTitle}}</text>
+          <text>{{item.title}}</text>
         </view>
         <view slot="tags" class="tagList">
           <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
-          <van-tag wx:for="{{goodsTagsList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">{{item}}</van-tag>
+          <van-tag wx:for="{{item.tagList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">{{item.content}}</van-tag>
         </view>
         <view slot="footer" class="btns">
           <van-button class="btn" bindtap="contact">联系卖家</van-button>
-          <van-button class="btn" bindtap="storeGoods">
-            <text decode>{{goodsStore}}</text>
+          <van-button wx:if="{{item.collectState == -1}}" class="btn" bindtap="storeGoods">
+            <text decode>&nbsp;收&nbsp;&nbsp;藏&nbsp;</text>
+          </van-button>
+          <van-button wx:if="{{item.collectState == 1}}" class="btn" bindtap="storeGoods">
+            <text decode>已收藏</text>
           </van-button>
         </view>
-      </van-card>
-      <van-card  price="{{goodsPrice}}" origin-price="{{goodsOriginPrice}}" thumb="{{ goodsImageURL }}">
-        <view slot="title" class="title">
-          <text>{{goodsTitle}}</text>
-        </view>
-        <view slot="tags" class="tagList">
-          <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
-          <van-tag wx:for="{{goodsTagsList}}" wx:key="{{index}}" class="tagItem"  color="#dbdbdb" text-color="#394044">{{item}}</van-tag>
-        </view>
-        <view slot="footer" class="btns">
-          <van-button class="btn">联系卖家</van-button>
-          <van-button class="btn">已收藏</van-button>
-        </view>
-      </van-card>
+        </van-card>
+      </view>
     </van-tab>
     <van-tab title="任务" name="task">
       <view class="tab">
@@ -61,25 +53,30 @@
         <c-select initSelect="{{taskTime}}" prop-array='{{taskTimeArray}}'  bind:select='select_Task_Time'/>
         <c-select initSelect="{{taskSort}}" prop-array='{{taskSortArray}}'  bind:select='select_Task_Sort'/>
       </view>
-      <van-card class="card">
+      <view wx:for="{{taskList}}" wx:key="{{index}}">
+        <van-card class="card">
         <view slot="title" class="title" bindtap="clickTaskCard">
-          <text>{{taskTitle}}</text>
+          <text>{{item.title}}</text>
           <view class="price">
           <text class="sign">￥</text>
-          <text class="priceText">{{taskPrice}}</text>
+          <text class="priceText">{{item.reward}}</text>
         </view>
         </view>
         <view slot="tags" class="tagTask">
           <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
-          <van-tag wx:for="{{taskTagsList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">{{item}}</van-tag>
+          <van-tag wx:for="{{item.tagList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">{{item.content}}</van-tag>
           <view class="taskBtns">
             <van-button class="btn" bindtap="contact">联系委托人</van-button>
-            <van-button class="btn" bindtap="storeTask">
-            <text decode>{{taskStore}}</text>
+            <van-button wx:if="{{item.collectState == -1}}" class="btn" bindtap="storeTask">
+            <text decode>&nbsp;收&nbsp;&nbsp;藏&nbsp;</text>
+            </van-button>
+            <van-button wx:if="{{item.collectState == 1}}" class="btn" bindtap="storeTask">
+            <text decode>已收藏</text>
             </van-button>
           </view>
         </view>
       </van-card>
+      </view>
     </van-tab>  
     <van-tab title="活动" name="activity">
       <view class="tab">
@@ -90,42 +87,25 @@
         <c-select initSelect="{{activityTime}}" prop-array='{{activityTimeArray}}'  bind:select='select_Act_Time'/>
         <c-select initSelect="{{activitySort}}" prop-array='{{activitySortArray}}'  bind:select='select_Act_Sort'/>
       </view>
-      <van-card  thumb="{{activityImageURL}}" thumb-link="{{activityDetialsURL}}" class="card">
+      <view wx:for="{{activityList}}" wx:key="{{index}}">
+        <van-card  thumb="{{item.imageLink}}" thumb-link="{{activityDetialsURL}}" class="card">
         <view slot="title" class="title" bindtap="clickActivityCard">
-          <text>{{activityTitle}}</text>
-        </view>
-        <view slot="desc">
-          <text>{{date + address}}</text>
-          <text>{{'\n'}}</text>
-          <text>{{'主办方：'+ oganizer}}</text>
+          <text>{{item.title}}</text>
         </view>
         <view slot="tags" class="tagTask">
           <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
-          <van-tag wx:for="{{activityTagsList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">{{item}}</van-tag>
+          <van-tag wx:for="{{item.tagList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">{{item.content}}</van-tag>
         </view>
         <view slot="footer" class="activityBtns">
-          <van-button class="btn" bindtap="storeActivity">
-            <text decode>{{activityStore}}</text>
+          <van-button wx:if="{{item.collectState == -1}}" class="btn" bindtap="storeActivity">
+            <text decode>&nbsp;收&nbsp;&nbsp;藏&nbsp;</text>
+          </van-button>
+          <van-button wx:if="{{item.collectState == 1}}" class="btn" bindtap="storeActivity">
+            <text decode>已收藏</text>
           </van-button>
         </view>
       </van-card>
-      <van-card  thumb="{{activityImageURL}}" class="card" >
-        <view slot="title" class="title">
-          <text>{{activityTitle}}</text>
-        </view>
-        <view slot="desc">
-          <text>{{date + address}}</text>
-          <text>{{'\n'}}</text>
-          <text>{{'主办方：'+ oganizer}}</text>
-        </view>
-        <view slot="tags" class="tagTask">
-          <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
-          <van-tag wx:for="{{activityTagsList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">{{item}}</van-tag>
-        </view>
-        <view slot="footer" class="activityBtns">
-          <van-button  class="btn">已收藏</van-button>
-        </view>
-      </van-card>
+      </view>
     </van-tab>
   </van-tabs> 
   <view>

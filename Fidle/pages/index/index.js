@@ -16,58 +16,90 @@ Page({
     secTimeArray: [
       "近三天","近一天","近七天","近一个月","近三个月"
     ],
+    secSortMap: new Map(),//二手类别键值对
     secSortArray: [
-      "类别","服饰","鞋子","生活用品","电子产品","书籍",
-      "电动车","其他"
-    ],
+      
+    ],//二手类别名称
     secDegreeArray: [
       "新旧程度","全新","九成新","八成新","八成新以下"
     ],
     taskTimeArray: [
       "近三天","近一天","近七天","近一个月"
     ],
+    taskSortMap: new Map(),//任务类别键值对
     taskSortArray: [
-      "类别","取快递","填写问卷","考试辅导","食堂带饭","其他"
-    ],
+      
+    ],//任务类别名称
     activityTimeArray: [
       "近七天","近一天","近三天","近一个月","近三个月"
     ],
+    activitySortMap: new Map(),//活动类别键值对
     activitySortArray: [
-      "类别","团立项","社团活动","比赛","招聘会","其他"
-    ],
+      
+    ],//活动类别名称
 
-    goodsStore: "&nbsp;收&nbsp;&nbsp;藏&nbsp;",
-    goodsPrice: "30",
-    goodsOriginPrice: "75",
-    goodsTitle: "软件工程 第八版 全新未拆封 好价速来！",
-    goodsImageURL: "/images/book.png",
+    goodsList: [ {
+      "category":"鞋子",
+      "collectState":0,
+      "condition":1,
+      "id":1,
+      "imageLink":"13213",
+      "originalPrice":6,
+      "price":4,
+      "sellerId":1,
+      "tagList":
+          [
+              {
+                  "content":"hhhhh",
+                  "id":1
+              }
+          ],
+      "title":"hhh"
+  }],//二手物品列表
+
     goodsDetialsURL: "/pages/goodsDetailsPage/goodsDetailsPage",
-    goodsTagsList: [
-      "全新",
-      "教材",
-      "大三",
-      "软件工程"
-    ],
 
-    taskStore: "&nbsp;收&nbsp;&nbsp;藏&nbsp;",
-    taskPrice: "30",
-    taskTitle: "找人拿快递 3小件 送到41号楼",
-    taskTagsList: [
-      "拿快递",
-      "顺丰"
-    ],
+    taskList: [{
+      "category":"取快递",
+      "collectState":0,
+      "id":1,
+      "pulisherId":1,
+      "reward":4,
+      "tagList":
+          [
+              {
+                  "content":"hhhhh",
+                  "id":1
+              },
+              {
+                  "content":"xixixi",
+                  "id":2
+              }
+          ],
+      "title":"hhh"
+  }],
 
-    activityStore: "&nbsp;收&nbsp;&nbsp;藏&nbsp;",
-    activityImageURL: "http://5b0988e595225.cdn.sohucs.com/images/20190311/ab66040c529445778cf31ced4ba24657.jpeg",
+
     activityDetialsURL: "/pages/activityDetailsPage/activityDetailsPage",
-    activityTitle: "百米画卷",
-    address: "青春广场",
-    date: "2021年4月23日",
-    oganizer: "2018级软件工程3班",
-    activityTagsList: [
-      "团立项",
-      "五四活动"
-    ]
+    
+    activityList: [{
+      "category":"XXX",
+      "collectState":0,
+      "id":1,
+      "imageLink":"",
+      "tagList":
+          [
+              {
+                  "content":"hhhhh",
+                  "id":1
+              },
+              {
+                  "content":"xixixixi",
+                  "id":2
+              }
+          ],
+      "title":"hhh"
+  }]
   },
 
   //获取搜索框内容
@@ -125,10 +157,19 @@ Page({
   //搜索
   search: function() {
     console.log(this.data.searchInput);
-    console.log(this.data.tabIndex);
     switch(this.data.tabIndex) {
       case 0:
         console.log(this.data.secTime);
+        console.log(this.data.secSortArray);
+        var map = this.data.secSortMap;
+        var secSortId = 0;
+        var secSort = this.data.secSort;
+        for(let item of map.entries()) {
+          if(item[1] == secSort) {
+            secSortId = item[0];
+          }//从map中找到类别对应的数据库Id
+        }
+        console.log(secSortId);
         console.log(this.data.secSort);
         console.log(this.data.secDegree);
         break;
@@ -206,30 +247,207 @@ Page({
       url: '/pages/activityDetailsPage/activityDetailsPage',
     })
   },
-  /**
-   * 获取二手物品列表
-   */
-  getSecondhandList(){
-    // let that=this;
-    // wx.request({
-    //   url: 'url',
-    //   success(res){
-    //     console.log(res);
-    //     if(res.data.code===0){
-    //       that.setData({
-    //         secondhandList:res.data.data.list
-    //       })
+  
+  //数组去空值
+  removeEmpty: function(arr) {   
+    for(var i = 0; i < arr.length; i++) {
+     if(arr[i] == "" || typeof(arr[i]) == "undefined") {
+        arr.splice(i,1);
+        i = i - 1; // i - 1 ,因为空元素在数组下标 2 位置，删除空之后，后面的元素要向前补位
+      }
+     }
+     return arr;
+  },
 
-    //     }
-    //   }
-    // })
+  //获取二手物品类别列表
+  getGoodsCategory: function() {
+    let that=this;
+    wx.request({
+      url: 'http://47.106.241.182:8082/goods/listGoodsCategory',
+      header: {
+        'Content-Type': 'application/json'
+      },
+      data: {
+      },
+      method: "GET",
+      success(res){
+        if(res.data.code == 200){
+          var map = new Map();
+          var array = []; 
+          var list = res.data.data;//json中的data数组
+          for(var i in list) {
+            var category = list[i].categoryDesignation;
+            var id = list[i].categoryId;
+            array.push(category);
+            map.set(id,category);//遍历其中的categoryDesignation并插入
+          }
+          that.removeEmpty(array);
+          that.setData({
+            secSortArray : array,
+            secSortMap: map
+          })
+        }
+      }
+    })
+  },
+
+  //获取任务委托类别列表
+  getTaskCategory: function() {
+    let that=this;
+    wx.request({
+      url: 'http://47.106.241.182:8082/task/listTaskCategory',
+      header: {
+        'Content-Type': 'application/json'
+      },
+      data: {
+      },
+      method: "GET",
+      success(res){
+        if(res.data.code == 200){
+          var map = new Map();
+          var array = []; 
+          var list = res.data.data;//json中的data数组
+          for(var i in list) {
+            var category = list[i].categoryDesignation;
+            var id = list[i].categoryId;
+            array.push(category);
+            map.set(id,category);//遍历其中的categoryDesignation并插入
+          }
+          that.removeEmpty(array);
+          that.setData({
+            taskSortArray : array,
+            taskSortMap: map
+          })
+        }
+      }
+    })
+  },
+
+  //获取活动类别列表
+  getActivityCategory: function() {
+    let that=this;
+    wx.request({
+      url: 'http://47.106.241.182:8082/activity/listActivityCategory',
+      header: {
+        'Content-Type': 'application/json'
+      },
+      data: {
+      },
+      method: "GET",
+      success(res){
+        if(res.data.code == 200){
+          var map = new Map();
+          var array = []; 
+          var list = res.data.data;//json中的data数组
+          for(var i in list) {
+            var category = list[i].categoryDesignation;
+            var id = list[i].categoryId;
+            array.push(category);
+            map.set(id,category);//遍历其中的categoryDesignation并插入
+          }
+          that.removeEmpty(array);
+          that.setData({
+            activitySortArray : array,
+            activitySortMap: map
+          })
+        }
+      }
+    })
+  },
+
+  //获取二手物品列表
+  getGoodsList: function(days, categoryId, condition, pageid) {
+    let that = this;
+    wx.request({
+      url: 'http://47.106.241.182:8082/goods/listGoods',
+      header: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        days: days,
+        categoryId: categoryId,
+        condition: condition,
+        pageid: pageid
+      },
+      method: "POST",
+      success(res){
+        console.log(res);
+        if(res.data.code == 200){
+          var list = res.data.data;//json中的data数组
+          console.log(list);
+          that.setData({
+            goodsList: list
+          })
+        }
+      }
+    })
+  },
+
+  //获取任务物品列表
+  getTaskList: function(days, categoryId, pageid) {
+    let that = this;
+    wx.request({
+      url: 'http://47.106.241.182:8082/task/listTask',
+      header: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        days: days,
+        categoryId: categoryId,
+        pageid: pageid
+      },
+      method: "POST",
+      success(res){
+        console.log(res);
+        if(res.data.code == 200){
+          var list = res.data.data;//json中的data数组
+          console.log(list);
+          that.setData({
+            taskList: list
+          })
+        }
+      }
+    })
+  },
+
+  //获取活动列表
+  getActivityList: function(days, categoryId, pageid) {
+    let that = this;
+    wx.request({
+      url: 'http://47.106.241.182:8082/activity/listActivity',
+      header: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        days: days,
+        categoryId: categoryId,
+        pageid: pageid
+      },
+      method: "POST",
+      success(res){
+        console.log(res);
+        if(res.data.code == 200){
+          var list = res.data.data;//json中的data数组
+          console.log(list);
+          that.setData({
+            activityList: list
+          })
+        }
+      }
+    })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.getGoodsCategory();//渲染二手类别下拉框
+    this.getTaskCategory();//渲染任务类别下拉框
+    this.getActivityCategory();//渲染活动类别下拉框
+    this.getGoodsList(3,1,9,1);//初始二手列表
+    this.getTaskList(3,1,1);//初始任务列表
+    this.getActivityList(7,1,1);//初始活动列表
+    console.log(this.data.goodsList);
   },
 
   /**
