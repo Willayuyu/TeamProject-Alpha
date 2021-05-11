@@ -63,10 +63,17 @@ public class TaskController {
             taskInformationDO.setBegin((pageid-1)*size);
             taskInformationDO.setSize(size);
             taskInformationDO.setDistinct(Boolean.TRUE);
-            taskInformationDO.setCategory(categoryId);
+
+            if (categoryId!=0){
+                taskInformationDO.setCategory(categoryId);
+            }
+
             taskInformationDO.setTaskState(TaskInfoBO.UNACCEPTED);
-            taskInformationDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
-            taskInformationDO.setCreateTimeEnd(new Date());
+
+            if (days!=0){
+                taskInformationDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
+                taskInformationDO.setCreateTimeEnd(new Date());
+            }
 
             List<TaskItemVO> taskItemVOS = taskInfoService.listTaskInfoByDO(taskInformationDO, tagOfTaskDO);
             UserBO user = (UserBO) request.getSession().getAttribute("user");
@@ -83,6 +90,7 @@ public class TaskController {
             }
             return JSON.toJSONString(Result.successResult(taskItemVOS));
         }catch (Exception e){
+            e.printStackTrace();
             return JSON.toJSONString(Result.failureResult(ResultCode.RESOURCE_EMPTY));
         }
     }
@@ -107,7 +115,11 @@ public class TaskController {
             taskInformationDO.setBegin((pageid-1)*size);
             taskInformationDO.setSize(size);
             taskInformationDO.setDistinct(Boolean.TRUE);
-            taskInformationDO.setCategory(categoryId);
+
+            if (categoryId!=0){
+                taskInformationDO.setCategory(categoryId);
+            }
+
             taskInformationDO.setTaskState(TaskInfoBO.UNACCEPTED);
             taskInformationDO.setTitle(keyWord);
             taskInformationDO.setTitleLike(Boolean.TRUE);
@@ -115,8 +127,11 @@ public class TaskController {
             taskInformationDO.setDescriptionLike(Boolean.TRUE);
             tagOfTaskDO.setContent(keyWord);
             tagOfTaskDO.setContentLike(Boolean.TRUE);
-            taskInformationDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
-            taskInformationDO.setCreateTimeEnd(new Date());
+
+            if (days!=0){
+                taskInformationDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
+                taskInformationDO.setCreateTimeEnd(new Date());
+            }
 
             List<TaskItemVO> taskItemVOS = taskInfoService.listTaskInfoBySearch(taskInformationDO, tagOfTaskDO);
             UserBO user = (UserBO) request.getSession().getAttribute("user");
@@ -133,6 +148,7 @@ public class TaskController {
             }
             return JSON.toJSONString(Result.successResult(taskItemVOS));
         }catch (Exception e){
+            e.printStackTrace();
             return JSON.toJSONString(Result.failureResult(ResultCode.RESOURCE_EMPTY));
         }
     }
@@ -148,6 +164,7 @@ public class TaskController {
             List<TaskCategoryVO> taskCategoryVOS = taskCategoryService.listAllTaskCategory();
             return JSON.toJSONString(Result.successResult(taskCategoryVOS));
         }catch (Exception e){
+            e.printStackTrace();
             return JSON.toJSONString(Result.failureResult(ResultCode.RESOURCE_EMPTY));
         }
     }
@@ -171,6 +188,7 @@ public class TaskController {
             taskEnshrineService.insertTaskEnshrine(taskEnshrineDO);
             return JSON.toJSONString(Result.successResult());
         }catch (Exception e){
+            e.printStackTrace();
             return JSON.toJSONString(Result.failureResult(ResultCode.SESSION_EXPIRED));
         }
     }
@@ -194,6 +212,7 @@ public class TaskController {
             taskEnshrineService.deleteTaskEnshrineByDO(taskEnshrineDO);
             return JSON.toJSONString(Result.successResult());
         }catch (Exception e){
+            e.printStackTrace();
             return JSON.toJSONString(Result.failureResult(ResultCode.SESSION_EXPIRED));
         }
     }
@@ -224,6 +243,7 @@ public class TaskController {
             }
             return JSON.toJSONString(Result.successResult(taskVO));
         }catch (Exception e){
+            e.printStackTrace();
             return JSON.toJSONString(Result.failureResult(ResultCode.RESOURCE_EMPTY));
         }
     }

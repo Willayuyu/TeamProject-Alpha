@@ -28,7 +28,7 @@
     </update>
 
     <select id="getActivityEnshrine" parameterType="com.example.fidledemo.DO.ActivityEnshrineDO" resultType="_long">
-        select id from activity_enshrine
+        select distinct user_id from activity_enshrine
         WHERE  user_id=#{userId} and activity_id=#{activityId}
     </select>
 </mapper>

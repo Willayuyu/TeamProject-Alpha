@@ -28,7 +28,7 @@
     </update>
 
     <select id="getTaskEnshrine" parameterType="com.example.fidledemo.DO.TaskEnshrineDO" resultType="_long">
-        select id from task_enshrine
+        select distinct user_id from task_enshrine
         WHERE user_id=#{userId} and task_id=#{taskId}
     </select>
 </mapper>

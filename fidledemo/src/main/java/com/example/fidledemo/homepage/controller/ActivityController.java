@@ -67,9 +67,15 @@ public class ActivityController {
             activityInfoDO.setBegin((pageid-1)*size);
             activityInfoDO.setSize(size);
             activityInfoDO.setDistinct(Boolean.TRUE);
-            activityInfoDO.setCategory(categoryId);
-            activityInfoDO.setCreateTimeEnd(new Date());
-            activityInfoDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
+
+            if (categoryId!=0){
+                activityInfoDO.setCategory(categoryId);
+            }
+
+            if (days!=0){
+                activityInfoDO.setCreateTimeEnd(new Date());
+                activityInfoDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
+            }
 
             List<ActivityItemVO> activityItemVOS = activityInfoService.listActivityInfoByDO(activityInfoDO, tagOfActivityDO);
 
@@ -88,6 +94,7 @@ public class ActivityController {
             }
             return JSON.toJSONString(Result.successResult(activityItemVOS));
         }catch (Exception e){
+            e.printStackTrace();
             return JSON.toJSONString(Result.failureResult(ResultCode.RESOURCE_EMPTY));
         }
     }
@@ -114,9 +121,15 @@ public class ActivityController {
             activityInfoDO.setBegin((pageid-1)*size);
             activityInfoDO.setSize(size);
             activityInfoDO.setDistinct(Boolean.TRUE);
-            activityInfoDO.setCategory(categoryId);
-            activityInfoDO.setCreateTimeEnd(new Date());
-            activityInfoDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
+
+            if(categoryId!=0){
+                activityInfoDO.setCategory(categoryId);
+            }
+
+            if(days!=0){
+                activityInfoDO.setCreateTimeEnd(new Date());
+                activityInfoDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
+            }
 
             activityInfoDO.setTitle(keyWord);
             activityInfoDO.setTitleLike(Boolean.TRUE);
@@ -146,6 +159,7 @@ public class ActivityController {
 
             return JSON.toJSONString(Result.successResult(activityItemVOS));
         }catch (Exception e){
+            e.printStackTrace();
             return JSON.toJSONString(Result.failureResult(ResultCode.RESOURCE_EMPTY));
         }
     }
@@ -161,6 +175,7 @@ public class ActivityController {
             List<ActivityCategoryVO> activityCategoryVOS = activityCategoryService.listAllActivityCategory();
             return JSON.toJSONString(Result.successResult(activityCategoryVOS));
         }catch (Exception e){
+            e.printStackTrace();
             return JSON.toJSONString(Result.failureResult(ResultCode.RESOURCE_EMPTY));
         }
     }
@@ -184,6 +199,7 @@ public class ActivityController {
             activityEnshrineService.insertActivityEnshrine(activityEnshrineDO);
             return JSON.toJSONString(Result.successResult());
         }catch (Exception e){
+            e.printStackTrace();
             return JSON.toJSONString(Result.failureResult(ResultCode.SESSION_EXPIRED));
         }
     }
@@ -208,6 +224,7 @@ public class ActivityController {
             activityEnshrineService.deleteActivityEnshrineByDO(activityEnshrineDO);
             return JSON.toJSONString(Result.successResult());
         }catch (Exception e){
+            e.printStackTrace();
             return JSON.toJSONString(Result.failureResult(ResultCode.SESSION_EXPIRED));
         }
     }
@@ -238,6 +255,7 @@ public class ActivityController {
             }
             return JSON.toJSONString(Result.successResult(activityVO));
         }catch (Exception e){
+            e.printStackTrace();
             return JSON.toJSONString(Result.failureResult(ResultCode.RESOURCE_EMPTY));
         }
     }
