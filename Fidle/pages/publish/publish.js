@@ -13,17 +13,18 @@ Page({
         goods_tag: "",
         goods_fileList: [],
         goods_old_new_list: ["全新", "九成新", "八成新", "八成以下"],
-        goods_class_list: ["服饰", "鞋子", "电子产品", "生活用品", "电动车", "书籍", "其他"],
-        goods_label_list: ["李宁"],
+        goods_class_list: [],
+        goods_label_list: [],
         goods_old_new_list_idx: "",
         goods_class_list_idx: "",
-        goods_uploadUrl: "http://xx.com/publish/uploadGoodsImage",
+        goods_uploadUrl: "http://47.106.241.182:8082/publish/uploadGoodsImage",
+
 
         task_title: "",
         task_remuneration: "",
         task_message: "",
         task_tag: "",
-        task_class_list: ["取快递", "填写问卷", "考试辅导", "食堂带饭", "其他"],
+        task_class_list: [],
         task_label_list: ["高数"],
         task_class_list_idx: "",
 
@@ -45,10 +46,10 @@ Page({
         activity_message: "",
         activity_tag: "",
         activity_fileList: [],
-        activity_class_list: ["团立项", "社团活动", "比赛", "招聘会", "其他"],
+        activity_class_list: [],
         activity_label_list: ["五四活动"],
         activity_class_list_idx: "",
-        activity_uploadUrl: "http://xx.com/publish/uploadActivityImage",
+        activity_uploadUrl: "http://47.106.241.182:8082/publish/uploadActivityImage",
     },
 
     pickerShow() {
@@ -225,16 +226,138 @@ Page({
     },
 
 
-
     //生命周期函数--监听页面加载
     onLoad: function(options) {
         let time = this.getCurrentTime();
         this.setData({
             initStartTime: time,
-
         })
 
+        this.getGoodsClassList();
+        this.getTaskClassList();
+        this.getActivityClassList();
     },
+
+    //从服务器上获取活动信息的类别列表并展示
+    getActivityClassList() {
+        let that = this;
+
+        wx.request({
+            url: "http://47.106.241.182:8082/activity/listActivityCategory", //这里''里面填写你的服务器API接口的路径  
+            //data: {},  //这里是可以填写服务器需要的参数  
+            method: 'GET', // 声明GET请求  
+            // header: {}, // 设置请求的 header，GET请求可以不填  
+            success: function(res) {
+                console.log("返回成功的数据:" + JSON.stringify(res.data)) //这样就可以愉快的看到后台的数据啦
+                let activity_list = new Array();
+
+                res.data.data.forEach(function(e) {
+                    console.log(e.categoryDesignation);
+                    console.log(e.categoryId);
+
+                    let activity = {
+                        categoryId: "",
+                        categoryDesignation: ""
+                    }
+                    activity.categoryId = e.categoryId;
+                    activity.categoryDesignation = e.categoryDesignation;
+                    console.log(activity);
+                    activity_list.push(activity);
+                });
+
+                that.setData({
+                    activity_class_list: activity_list,
+                })
+            },
+            fail: function(fail) {
+                // 这里是失败的回调，取值方法同上,把res改一下就行了  
+            },
+            complete: function(arr) {
+                // 这里是请求以后返回的所以信息，请求方法同上，把res改一下就行了  
+            }
+        })
+    },
+
+    //从服务器上获取任务委托的类别列表并展示
+    getTaskClassList() {
+        let that = this;
+
+        wx.request({
+            url: "http://47.106.241.182:8082/task/listTaskCategory", //这里''里面填写你的服务器API接口的路径  
+            //data: {},  //这里是可以填写服务器需要的参数  
+            method: 'GET', // 声明GET请求  
+            // header: {}, // 设置请求的 header，GET请求可以不填  
+            success: function(res) {
+                console.log("返回成功的数据:" + JSON.stringify(res.data)) //这样就可以愉快的看到后台的数据啦
+                let task_list = new Array();
+
+                res.data.data.forEach(function(e) {
+                    console.log(e.categoryDesignation);
+                    console.log(e.categoryId);
+
+                    let task = {
+                        categoryId: "",
+                        categoryDesignation: ""
+                    }
+                    task.categoryId = e.categoryId;
+                    task.categoryDesignation = e.categoryDesignation;
+                    console.log(task);
+                    task_list.push(task);
+                });
+
+                that.setData({
+                    task_class_list: task_list,
+                })
+            },
+            fail: function(fail) {
+                // 这里是失败的回调，取值方法同上,把res改一下就行了  
+            },
+            complete: function(arr) {
+                // 这里是请求以后返回的所以信息，请求方法同上，把res改一下就行了  
+            }
+        })
+    },
+
+    //从服务器上获取二手交易的类别列表并展示
+    getGoodsClassList() {
+        let that = this;
+        wx.request({
+            url: "http://47.106.241.182:8082/goods/listGoodsCategory", //这里''里面填写你的服务器API接口的路径  
+            //data: {},  //这里是可以填写服务器需要的参数  
+            method: 'GET', // 声明GET请求  
+            // header: {}, // 设置请求的 header，GET请求可以不填  
+            success: function(res) {
+                console.log("返回成功的数据:" + JSON.stringify(res.data)) //这样就可以愉快的看到后台的数据啦
+                let goods_list = new Array();
+
+                res.data.data.forEach(function(e) {
+                    console.log(e.categoryDesignation);
+                    console.log(e.categoryId);
+
+                    let good = {
+                        categoryId: "",
+                        categoryDesignation: ""
+                    }
+                    good.categoryId = e.categoryId;
+                    good.categoryDesignation = e.categoryDesignation;
+                    console.log(good);
+                    goods_list.push(good);
+                });
+
+                that.setData({
+                    goods_class_list: goods_list,
+                })
+            },
+            fail: function(fail) {
+                // 这里是失败的回调，取值方法同上,把res改一下就行了  
+            },
+            complete: function(arr) {
+                // 这里是请求以后返回的所以信息，请求方法同上，把res改一下就行了  
+            }
+        })
+    },
+
+
 
     getCurrentTime() {
         var date = new Date(); //当前时间
@@ -313,6 +436,8 @@ Page({
 
             })
         }
+
+
     },
 
     // 生命周期函数--监听页面显示

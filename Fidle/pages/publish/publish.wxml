@@ -43,7 +43,7 @@
                 </van-col>
                 <van-col span="22" >
                   <view>    
-                    <view wx:for="{{goods_class_list}}" data-id="{{index}}" class="tag {{goods_class_list_idx==index?'selected':''}}" wx:key="unique" bindtap="goods_class_list_selectApply">{{item}}</view>                                             
+                    <view wx:for="{{goods_class_list}}" data-id="{{index}}" class="tag {{goods_class_list_idx==index?'selected':''}}" wx:key="unique" bindtap="goods_class_list_selectApply">{{item.categoryDesignation}}</view>                                             
                   </view>        
                 </van-col>
               </van-row>                                                          
@@ -100,7 +100,7 @@
                 <van-col span="22" >
                   <view>    
                     <view wx:for="{{task_class_list}}" data-id="{{index}}" 
-                    class="tag {{task_class_list_idx==index?'selected':''}}" wx:key="unique" bindtap="task_class_list_selectApply">{{item}}</view>                                                
+                    class="tag {{task_class_list_idx==index?'selected':''}}" wx:key="unique" bindtap="task_class_list_selectApply">{{item.categoryDesignation}}</view>                                                
                   </view>        
                 </van-col>
               </van-row>                                                          
@@ -161,7 +161,7 @@
                 </van-col>
                 <van-col span="22" >
                   <view >    
-                    <view wx:for="{{activity_class_list}}" data-id="{{index}}" class="tag {{activity_class_list_idx==index?'selected':''}}" wx:key="unique" bindtap="activity_class_list_selectApply">{{item}}</view>                                             
+                    <view wx:for="{{activity_class_list}}" data-id="{{index}}" class="tag {{activity_class_list_idx==index?'selected':''}}" wx:key="unique" bindtap="activity_class_list_selectApply">{{item.categoryDesignation}}</view>                                             
                   </view>        
                 </van-col>
               </van-row>                                                          
