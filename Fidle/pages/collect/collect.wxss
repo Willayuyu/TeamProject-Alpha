@@ -65,12 +65,11 @@
 }
 
 .taskBtns{
-  margin-top: -70rpx;
-  margin-bottom: 10rpx;
-}
+  margin-top: 35rpx;
+  text-align: right;
 
+}
 .activityBtns{
   margin-top: -10rpx;
   margin-bottom: 10rpx;
 }
-

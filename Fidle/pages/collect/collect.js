@@ -5,33 +5,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    goodsPrice: "30",
-    goodsOriginPrice: "75",
-    goodsTitle: "软件工程 第八版 全新未拆封 好价速来！",
-    goodsImageURL: "/images/book.png",
-    goodsDetailsURL: "/pages/goodsDetailsPage/goodsDetailsPage",
-    goodsTagsList: [
-      "全新",
-      "教材",
-      "大三",
-      "软件工程"
-    ],
-    taskPrice: "30",
-    taskTitle: "找人拿快递 3小件 送到41号楼",
-    taskTagsList: [
-      "拿快递",
-      "顺丰"
-    ],
-    activityImageURL: "http://5b0988e595225.cdn.sohucs.com/images/20190311/ab66040c529445778cf31ced4ba24657.jpeg",
-    activityDetailsURL: "/pages/activityDetailsPage/activityDetailsPage",
-    activityTitle: "百米画卷",
-    address: "青春广场",
-    date: "2021年4月23日",
-    oganizer: "2018级软件工程3班",
-    activityTagsList: [
-      "团立项",
-      "五四活动"
-    ]
   },
 
   /**
@@ -39,6 +12,7 @@ Page({
    */
   onLoad: function (options) {
     wx.setNavigationBarTitle({ title: '我的收藏' });
+    this.showPromise();
   },
 
   /**
@@ -73,17 +47,8 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    wx.request({
-      url: 'http://47.106.241.182:8080/collection/listCollectibleGoodsByPageid/1',
-      method: 'GET',
-      success: function(res){
-        console.log(res.data.code);
-        console.log(res.data.data);
-      }
-    })
-
+    this.showPromise();
   },
-
   /**
    * 页面上拉触底事件的处理函数
    */
@@ -116,8 +81,103 @@ Page({
     })
   },
 
-  ShowGoods: function () {
-    
-  }
+  showGoods() {
+    return new Promise(function(resolve,reject){
+      wx.request({
+        url: 'http://47.106.241.182:8082/collection/listCollectibleGoodsByPageid/1',
+        method: 'GET',
+        dataType: 'json',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        success:(result)=> {
+          resolve(result);
+          // console.log(res.data.code);
+          // console.log(res.data.data); 
+          // console.log(res.data.data[0]);
+          // that.setData({
+          //   dataList: res.data.data,
+          // });
+          // console.log(dataList);
+        },
+        fail:(err)=> {
+          reject(err);
+          wx.showToast({ title: '系统错误' })
+        },
+      })
+    })
+  },
+  showTask(){
+    return new Promise(function(resolve,reject){
+      wx.request({
+        url: 'http://47.106.241.182:8082/collection/listCollectibleTaskByPageid/1',
+        method: 'GET',
+        dataType: 'json',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        success:(result)=> {
+          resolve(result);
+          // console.log(res.data.code);
+          // console.log(res.data.data); 
+          // console.log(res.data.data[0]);
+          // that.setData({
+          //   dataList: res.data.data,
+          // });
+          // console.log(dataList);
+        },
+        fail:(err)=> {
+          reject(err);
+          wx.showToast({ title: '系统错误' })
+        },
+      })
+    })
+  },
 
+  showActivity(){
+    return new Promise(function(resolve,reject){
+      wx.request({
+        url: 'http://47.106.241.182:8082/collection/listCollectibleActivityByPageid/1',
+        method: 'GET',
+        dataType: 'json',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        success:(result)=> {
+          resolve(result);
+          // console.log(res.data.code);
+          // console.log(res.data.data); 
+          // console.log(res.data.data[0]);
+          // that.setData({
+          //   dataList: res.data.data,
+          // });
+          // console.log(dataList);
+        },
+        fail:(err)=> {
+          reject(err);
+          wx.showToast({ title: '系统错误' })
+        },
+      })
+    })
+  },
+  showPromise(){
+    let that=this;
+    let goodsList;
+    let taskList;
+    let activityList;
+    Promise.all(
+        [that.showGoods(),that.showTask(), that.showActivity()]).then((res) => {
+      //三个方法回来后的数据
+        console.log(res.data);
+        const [res1, res2, res3] = res;
+        console.log(res1.data.data);
+        console.log(res2.data.data);
+        console.log(res3.data.data);
+        that.setData({
+          goodsList: res1.data.data,
+          taskList: res2.data.data,
+          activityList: res3.data.data
+        })
+      });
+}
 })

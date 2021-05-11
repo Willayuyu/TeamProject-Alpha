@@ -61,8 +61,8 @@
 }
 
 .taskBtns{
-  margin-top: -20rpx;
-  margin-bottom: 10rpx;
+  margin-top: 20rpx;
+  text-align: right;
 }
 
 .modifyTag{

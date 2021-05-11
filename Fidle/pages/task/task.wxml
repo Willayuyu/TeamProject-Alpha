@@ -17,10 +17,10 @@
         <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
         <van-tag wx:for="{{taskTagsList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">
           {{item}}</van-tag>
-      </view>
-      <view slot="footer" class="taskBtns">
+        <view class="taskBtns">
         <van-button class="btn">进行</van-button>
         <van-button class="btn">删除</van-button>
+      </view>
       </view>
     </van-card>
     <van-card class="card">
@@ -40,10 +40,10 @@
         <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
         <van-tag wx:for="{{taskTagsList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">
           {{item}}</van-tag>
-      </view>
-      <view slot="footer" class="taskBtns">
+        <view class="taskBtns">
         <van-button class="btn">取消</van-button>
         <van-button class="btn">完成</van-button>
+      </view>
       </view>
     </van-card>
     <van-card class="card">
@@ -63,9 +63,9 @@
         <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
         <van-tag wx:for="{{taskTagsList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">
           {{item}}</van-tag>
-      </view>
-      <view slot="footer" class="taskBtns">
+        <view  class="taskBtns">
         <van-button class="btn">评价</van-button>
+        </view>
       </view>
     </van-card>
   </van-tab>
@@ -87,9 +87,9 @@
         <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
         <van-tag wx:for="{{taskTagsList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">
           {{item}}</van-tag>
-      </view>
-      <view slot="footer" class="taskBtns">
+        <view class="taskBtns">
         <van-button class="btn">取消</van-button>
+      </view>
       </view>
     </van-card>
     <van-card class="card">
@@ -109,9 +109,9 @@
         <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
         <van-tag wx:for="{{taskTagsList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">
           {{item}}</van-tag>
-      </view>
-      <view slot="footer" class="taskBtns">
+          <view class="taskBtns">
         <van-button class="btn">评价</van-button>
+      </view>
       </view>
     </van-card>
   </van-tab>

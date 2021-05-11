@@ -142,7 +142,8 @@ c-select {
 }
 
 .taskBtns{
-  margin: 20rpx 0 10rpx 340rpx;
+  margin-top: 35rpx;
+  text-align: right;
 }
 
 .activityBtns{

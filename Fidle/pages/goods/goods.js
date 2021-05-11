@@ -64,7 +64,6 @@ Page({
         console.log(res.code);
         console.log(res.data);
       }
-
     })
   },
 
