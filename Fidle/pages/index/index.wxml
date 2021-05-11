@@ -72,32 +72,15 @@
         <view slot="tags" class="tagTask">
           <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
           <van-tag wx:for="{{taskTagsList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">{{item}}</van-tag>
-        </view>
-        <view slot="footer" class="taskBtns">
-          <van-button class="btn" bindtap="contact">联系委托人</van-button>
-          <van-button class="btn" bindtap="storeTask">
+          <view class="taskBtns">
+            <van-button class="btn" bindtap="contact">联系委托人</van-button>
+            <van-button class="btn" bindtap="storeTask">
             <text decode>{{taskStore}}</text>
-          </van-button>
+            </van-button>
+          </view>
         </view>
       </van-card>
-      <van-card class="card">
-        <view slot="price" class="price">
-          <text class="sign">￥</text>
-          <text class="priceText">{{taskPrice}}</text>
-        </view>
-        <view slot="title" class="title">
-          <text>{{taskTitle}}</text>
-        </view>
-        <view slot="tags" class="tagTask">
-          <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
-          <van-tag wx:for="{{taskTagsList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">{{item}}</van-tag>
-        </view>
-        <view slot="footer" class="taskBtns">
-          <van-button  class="btn">联系委托人</van-button>
-          <van-button  class="btn">已收藏</van-button>
-        </view>
-      </van-card>
-    </van-tab>
+    </van-tab>  
     <van-tab title="活动" name="activity">
       <view class="tab">
         <view class="screen_btn screen_btn_large screen_btn-left2">

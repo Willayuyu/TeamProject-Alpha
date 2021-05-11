@@ -118,7 +118,6 @@ c-select {
   color: #F3F4F4;
   font-size: 22rpx;
   border-radius: 5rpx;
-  z-index: 4;
 }
 
 .price{
@@ -143,8 +142,7 @@ c-select {
 }
 
 .taskBtns{
-  margin-top: -70rpx;
-  margin-bottom: 10rpx;
+  margin: 20rpx 0 10rpx 340rpx;
 }
 
 .activityBtns{
