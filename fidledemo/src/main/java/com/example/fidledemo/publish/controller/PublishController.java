@@ -60,9 +60,9 @@ public class PublishController {
     public String insertTask(HttpServletRequest request, HttpSession session) throws ParseException {
         TaskInfoBO taskInfoBO = new TaskInfoBO();
 
-        //获得发布者id
-        UserDO userDO = (UserDO) session.getAttribute("user");
-        taskInfoBO.setPubId(userDO.getId());
+        //获得Session中的用户信息
+        UserBO userBO = (UserBO) session.getAttribute("user");
+        taskInfoBO.setPubId(userBO.getId());
 
         taskInfoBO.setTitle(request.getParameter("title"));
         taskInfoBO.setReward(new BigDecimal(request.getParameter("reward")));
@@ -91,15 +91,15 @@ public class PublishController {
                 tagOfTaskDAO.insertTagOfTask(tagOfTaskDO);
                 tagBO.setId(tagOfTaskDO.getId());
                 tagBO.setContent(tag);
-                tagBO.setType(2);
+                tagBO.setType(TagBO.TASK);
             } else {
                 tagBO.setId(tagOfTaskDAO.checkTaskTag(tag));
                 tagBO.setContent(tag);
-                tagBO.setType(2);
+                tagBO.setType(TagBO.TASK);
             }
             tagBOS.add(tagBO);
         }
-        taskInfoBO.setState(2);
+        taskInfoBO.setState(TaskInfoBO.UNACCEPTED);
         taskInfoBO.setTagList(tagBOS);
         publishService.insertTask(taskInfoBO);
         return JSON.toJSONString(Result.successResult());
@@ -117,9 +117,9 @@ public class PublishController {
     public String insertGoods(HttpServletRequest request, HttpSession session) {
         GoodsInfoBO goodsInfoBO = new GoodsInfoBO();
 
-        //获得发布者id
-        UserDO userDO = (UserDO) session.getAttribute("user");
-        goodsInfoBO.setPubId(userDO.getId());
+        //获得Session中的用户信息
+        UserBO userBO = (UserBO) session.getAttribute("user");
+        goodsInfoBO.setPubId(userBO.getId());
 
         goodsInfoBO.setTitle(request.getParameter("title"));
         goodsInfoBO.setPrice(new BigDecimal(request.getParameter("price")));
@@ -144,11 +144,11 @@ public class PublishController {
                 tagOfGoodsDAO.insertTagOfGoods(tagOfGoodsDO);
                 tagBO.setId(tagOfGoodsDO.getId());
                 tagBO.setContent(tag);
-                tagBO.setType(1);
+                tagBO.setType(TagBO.GOODS);
             } else {
                 tagBO.setId(tagOfGoodsDAO.checkGoodsTag(tag));
                 tagBO.setContent(tag);
-                tagBO.setType(1);
+                tagBO.setType(TagBO.GOODS);
             }
             tagBOS.add(tagBO);
         }
@@ -159,12 +159,12 @@ public class PublishController {
         List<ImageBO> imageBOS = new ArrayList<>();
         for (String image_link : image_links) {
             ImageBO imageBO = new ImageBO();
-            imageBO.setType(1);
+            imageBO.setType(ImageBO.GOODS);
             imageBO.setImageLink(image_link);
             imageBOS.add(imageBO);
         }
         goodsInfoBO.setImageList(imageBOS);
-        goodsInfoBO.setSold(1);
+        goodsInfoBO.setSold(GoodsInfoBO.SELLING);
 
         publishService.insertGoods(goodsInfoBO);
         return JSON.toJSONString(Result.successResult());
@@ -183,9 +183,9 @@ public class PublishController {
     public String insertActivity(HttpServletRequest request, HttpSession session) throws ParseException {
         ActivityInfoBO activityInfoBO = new ActivityInfoBO();
 
-        //获得发布者id
-        UserDO userDO = (UserDO) session.getAttribute("user");
-        activityInfoBO.setPubId(userDO.getId());
+        //获得Session中的用户信息
+        UserBO userBO = (UserBO) session.getAttribute("user");
+        activityInfoBO.setPubId(userBO.getId());
 
         activityInfoBO.setTitle(request.getParameter("title"));
         activityInfoBO.setAddress(request.getParameter("address"));
@@ -202,7 +202,7 @@ public class PublishController {
         List<ImageBO> imageBOS = new ArrayList<>();
         for (String image_link : image_links) {
             ImageBO imageBO = new ImageBO();
-            imageBO.setType(3);
+            imageBO.setType(ImageBO.ACTIVITY);
             imageBO.setImageLink(image_link);
             imageBOS.add(imageBO);
         }
@@ -225,11 +225,11 @@ public class PublishController {
                 this.tagOfActivityDAO.insertTagOfActivity(tagOfActivityDO);
                 tagBO.setId(tagOfActivityDO.getId());
                 tagBO.setContent(tag);
-                tagBO.setType(3);
+                tagBO.setType(TagBO.ACTIVITY);
             } else {
                 tagBO.setId(tagOfActivityDAO.checkActivityTag(tag));
                 tagBO.setContent(tag);
-                tagBO.setType(3);
+                tagBO.setType(TagBO.ACTIVITY);
             }
             tagBOS.add(tagBO);
         }
@@ -290,7 +290,7 @@ public class PublishController {
         } catch (IOException e) {
             return JSON.toJSONString(Result.failureResult(ResultCode.UPLOAD_FAILURE));
         }
-        ImageBO imageBO = new ImageBO(null, image_link, 1);
+        ImageBO imageBO = new ImageBO(null, image_link, ImageBO.GOODS);
         imageBO.setId(publishService.insertImage(imageBO));
         return JSON.toJSONString(Result.successResult(imageBO));
     }
@@ -347,7 +347,7 @@ public class PublishController {
         } catch (IOException e) {
             return JSON.toJSONString(Result.failureResult(ResultCode.UPLOAD_FAILURE));
         }
-        ImageBO imageBO = new ImageBO(null, image_link, 3);
+        ImageBO imageBO = new ImageBO(null, image_link, ImageBO.ACTIVITY);
         imageBO.setId(publishService.insertImage(imageBO));
         return JSON.toJSONString(Result.successResult(imageBO));
     }
@@ -362,7 +362,7 @@ public class PublishController {
     @UserLoginToken
     public String deleteGoodsImage(@PathVariable("id") Long id) {
         ImageBO imageBO = new ImageBO();
-        imageBO.setType(1);
+        imageBO.setType(ImageBO.GOODS);
         imageBO.setId(id);
         publishService.deleteImage(imageBO);
         return JSON.toJSONString(Result.successResult());
@@ -378,7 +378,7 @@ public class PublishController {
     @UserLoginToken
     public String deleteActivityImage(@PathVariable("id") Long id) {
         ImageBO imageBO = new ImageBO();
-        imageBO.setType(3);
+        imageBO.setType(ImageBO.ACTIVITY);
         imageBO.setId(id);
         publishService.deleteImage(imageBO);
         return JSON.toJSONString(Result.successResult());

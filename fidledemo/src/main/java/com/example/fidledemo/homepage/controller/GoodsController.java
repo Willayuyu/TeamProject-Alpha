@@ -1,10 +1,7 @@
 package com.example.fidledemo.homepage.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.example.fidledemo.BO.Result;
-import com.example.fidledemo.BO.ResultCode;
-import com.example.fidledemo.BO.UserBO;
-import com.example.fidledemo.BO.UserLoginToken;
+import com.example.fidledemo.BO.*;
 import com.example.fidledemo.DO.GoodsEnshrineDO;
 import com.example.fidledemo.DO.GoodsInfoDO;
 import com.example.fidledemo.DO.TagOfGoodsDO;
@@ -17,6 +14,8 @@ import com.example.fidledemo.homepage.service.GoodsEnshrineServiceImpl;
 import com.example.fidledemo.homepage.service.GoodsInfoServiceImpl;
 import com.example.fidledemo.homepage.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,7 +29,11 @@ import java.util.List;
  * 二手物品模块
  */
 @RestController
+@PropertySource("classpath:application.yml")
 public class GoodsController {
+
+    @Value("${size}")
+    private int size;
 
     @Autowired
     GoodsInfoServiceImpl goodsInfoService;
@@ -61,15 +64,12 @@ public class GoodsController {
             int pageid=Integer.parseInt(request.getParameter("pageid"));
 
             goodsInfoDO.setLimit(Boolean.TRUE);
-            goodsInfoDO.setBegin((pageid-1)*10);
-            goodsInfoDO.setSize(10);
+            goodsInfoDO.setBegin((pageid-1)*size);
+            goodsInfoDO.setSize(size);
             goodsInfoDO.setDistinct(Boolean.TRUE);
             goodsInfoDO.setCategory(categoryId);
             goodsInfoDO.setCondition(condition);
-            /**
-             * 1:在售
-             */
-            goodsInfoDO.setSold(1);
+            goodsInfoDO.setSold(GoodsInfoBO.SELLING);
             goodsInfoDO.setCreateTimeEnd(new Date());
             goodsInfoDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
 
@@ -83,9 +83,9 @@ public class GoodsController {
             for (GoodsItemVO goodsItemVO:goodsItemVOS) {
                 goodsEnshrineDO.setGoodsId(goodsItemVO.getId());
                 if (goodsEnshrineService.getGoodsEnshrine(goodsEnshrineDO)!=null){
-                    goodsItemVO.setCollectState(1);
+                    goodsItemVO.setCollectState(GoodsItemVO.COLLECT);
                 }else {
-                    goodsItemVO.setCollectState(0);
+                    goodsItemVO.setCollectState(GoodsItemVO.DISCOLLECT);
                 }
             }
             return JSON.toJSONString(Result.successResult(goodsItemVOS));
@@ -114,8 +114,8 @@ public class GoodsController {
             int pageid=Integer.parseInt(request.getParameter("pageid"));
 
             goodsInfoDO.setLimit(Boolean.TRUE);
-            goodsInfoDO.setBegin((pageid-1)*10);
-            goodsInfoDO.setSize(10);
+            goodsInfoDO.setBegin((pageid-1)*size);
+            goodsInfoDO.setSize(size);
             goodsInfoDO.setDistinct(Boolean.TRUE);
             goodsInfoDO.setTitle(keyWord);
             goodsInfoDO.setTitleLike(Boolean.TRUE);
@@ -123,7 +123,7 @@ public class GoodsController {
             goodsInfoDO.setDescriptionLike(Boolean.TRUE);
             goodsInfoDO.setCategory(categoryId);
             goodsInfoDO.setCondition(condition);
-            goodsInfoDO.setSold(1);//1在售
+            goodsInfoDO.setSold(GoodsInfoBO.SELLING);
             goodsInfoDO.setCreateTimeEnd(new Date());
             goodsInfoDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
 
@@ -139,9 +139,9 @@ public class GoodsController {
             for (GoodsItemVO goodsItemVO:goodsItemVOS) {
                 goodsEnshrineDO.setGoodsId(goodsItemVO.getId());
                 if (goodsEnshrineService.getGoodsEnshrine(goodsEnshrineDO)!=null){
-                    goodsItemVO.setCollectState(1);
+                    goodsItemVO.setCollectState(GoodsItemVO.COLLECT);
                 }else {
-                    goodsItemVO.setCollectState(0);
+                    goodsItemVO.setCollectState(GoodsItemVO.DISCOLLECT);
                 }
             }
             return JSON.toJSONString(Result.successResult(goodsItemVOS));
@@ -230,9 +230,9 @@ public class GoodsController {
                 goodsEnshrineDO.setUserId(userId);
                 goodsEnshrineDO.setGoodsId(goodsVO.getId());
                 if (goodsEnshrineService.getGoodsEnshrine(goodsEnshrineDO)!=null){
-                    goodsVO.setCollectState(1);
+                    goodsVO.setCollectState(GoodsVO.COLLECT);
                 }else {
-                    goodsVO.setCollectState(0);
+                    goodsVO.setCollectState(GoodsVO.DISCOLLECT);
                 }
             }
             return JSON.toJSONString(Result.successResult(goodsVO));

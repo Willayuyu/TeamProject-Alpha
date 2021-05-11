@@ -2025,7 +2025,7 @@
     <column id="516" parent="304" name="portrait">
       <Position>7</Position>
       <Comment>头像链接</Comment>
-      <DataType>varchar(100)|0s</DataType>
+      <DataType>varchar(1000)|0s</DataType>
     </column>
     <column id="517" parent="304" name="gmt_create">
       <Position>8</Position>

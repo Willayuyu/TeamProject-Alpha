@@ -16,6 +16,8 @@ import com.example.fidledemo.homepage.service.ActivityEnshrineServiceImpl;
 import com.example.fidledemo.homepage.service.ActivityInfoServiceImpl;
 import com.example.fidledemo.homepage.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,7 +32,11 @@ import java.util.List;
  * @Author: ZSP
  */
 @RestController
+@PropertySource("classpath:application.yml")
 public class ActivityController {
+
+    @Value("${size}")
+    private int size;
 
     @Autowired
     ActivityInfoServiceImpl activityInfoService;
@@ -58,8 +64,8 @@ public class ActivityController {
             int pageid=Integer.parseInt(request.getParameter("pageid"));
 
             activityInfoDO.setLimit(Boolean.TRUE);
-            activityInfoDO.setBegin((pageid-1)*10);
-            activityInfoDO.setSize(10);
+            activityInfoDO.setBegin((pageid-1)*size);
+            activityInfoDO.setSize(size);
             activityInfoDO.setDistinct(Boolean.TRUE);
             activityInfoDO.setCategory(categoryId);
             activityInfoDO.setCreateTimeEnd(new Date());
@@ -75,12 +81,11 @@ public class ActivityController {
             for (ActivityItemVO activityItemVO:activityItemVOS) {
                 activityEnshrineDO.setActivityId(activityItemVO.getId());
                 if(activityEnshrineService.getActivityEnshrine(activityEnshrineDO)!=null){
-                    activityItemVO.setCollectState(1);
+                    activityItemVO.setCollectState(ActivityItemVO.COLLECT);
                 }else{
-                    activityItemVO.setCollectState(0);
+                    activityItemVO.setCollectState(ActivityItemVO.DISCOLLECT);
                 }
             }
-
             return JSON.toJSONString(Result.successResult(activityItemVOS));
         }catch (Exception e){
             return JSON.toJSONString(Result.failureResult(ResultCode.RESOURCE_EMPTY));
@@ -106,8 +111,8 @@ public class ActivityController {
             String keyWord=request.getParameter("keyWord");
 
             activityInfoDO.setLimit(Boolean.TRUE);
-            activityInfoDO.setBegin((pageid-1)*10);
-            activityInfoDO.setSize(10);
+            activityInfoDO.setBegin((pageid-1)*size);
+            activityInfoDO.setSize(size);
             activityInfoDO.setDistinct(Boolean.TRUE);
             activityInfoDO.setCategory(categoryId);
             activityInfoDO.setCreateTimeEnd(new Date());
@@ -133,9 +138,9 @@ public class ActivityController {
             for (ActivityItemVO activityItemVO:activityItemVOS) {
                 activityEnshrineDO.setActivityId(activityItemVO.getId());
                 if(activityEnshrineService.getActivityEnshrine(activityEnshrineDO)!=null){
-                    activityItemVO.setCollectState(1);
+                    activityItemVO.setCollectState(ActivityItemVO.COLLECT);
                 }else{
-                    activityItemVO.setCollectState(0);
+                    activityItemVO.setCollectState(ActivityItemVO.DISCOLLECT);
                 }
             }
 
@@ -226,9 +231,9 @@ public class ActivityController {
                 activityEnshrineDO.setUserId(userId);
                 activityEnshrineDO.setActivityId(id);
                 if(activityEnshrineService.getActivityEnshrine(activityEnshrineDO)!=null){
-                    activityVO.setCollectState(1);
+                    activityVO.setCollectState(ActivityVO.COLLECT);
                 }else {
-                    activityVO.setCollectState(0);
+                    activityVO.setCollectState(ActivityVO.DISCOLLECT);
                 }
             }
             return JSON.toJSONString(Result.successResult(activityVO));

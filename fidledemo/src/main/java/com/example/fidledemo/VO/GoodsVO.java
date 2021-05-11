@@ -15,6 +15,16 @@ import java.util.List;
 @NoArgsConstructor
 public class GoodsVO {
 
+    /**
+     *已收藏
+     */
+    public static final Integer COLLECT=1;
+
+    /**
+     *未收藏
+     */
+    public static final Integer DISCOLLECT=-1;
+
     private Long id;
 
     private Long pubId;

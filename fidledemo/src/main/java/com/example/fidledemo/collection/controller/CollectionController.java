@@ -6,6 +6,8 @@ import com.example.fidledemo.DO.UserDO;
 import com.example.fidledemo.VO.*;
 import com.example.fidledemo.collection.service.CollectionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +22,12 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/collection")
+@PropertySource("classpath:application.yml")
 public class CollectionController {
+
+    @Value("${size}")
+    private int size;
+
     @Autowired
     CollectionService collectionService;
 
@@ -32,14 +39,15 @@ public class CollectionController {
     @GetMapping("/listCollectibleActivityByPageid/{Pageid}")
     @UserLoginToken
     public String listCollectibleActivityByPageid(@PathVariable("Pageid") int pageId, HttpSession session) {
-//        //获得Session中的用户信息
-//        UserDO userDO = (UserDO) session.getAttribute("user");
+        //获得Session中的用户信息
+        UserBO userBO = (UserBO) session.getAttribute("user");
         UserDO userDO = new UserDO();
-        userDO.setId(2L);
+        userDO.setId(userBO.getId());
+
         //设置分页信息
         userDO.setLimit(Boolean.TRUE);
-        userDO.setBegin((pageId - 1) * 10);
-        userDO.setSize(10);
+        userDO.setBegin((pageId - 1) * size);
+        userDO.setSize(size);
 
         List<ActivityInfoBO> activityInfoBOS = collectionService.listActivityEnshrineByUserDO(userDO);
         List<ActivityVO> activityVOS = new ArrayList<>();
@@ -64,7 +72,7 @@ public class CollectionController {
 
             activityVO.setStartTime(activityInfoBO.getStartTime());
             activityVO.setEndTime(activityInfoBO.getEndTime());
-            activityVO.setCollectState(1);
+            activityVO.setCollectState(ActivityVO.COLLECT);
 
             //将List<ImageBO>转化成List<String>
             List<ImageBO> imageList = activityInfoBO.getImageList();
@@ -90,13 +98,14 @@ public class CollectionController {
     @UserLoginToken
     public String listCollectibleTaskByPageid(@PathVariable("Pageid") int pageId, HttpSession session) {
         //获得Session中的用户信息
-        //UserDO userDO = (UserDO) session.getAttribute("user");
+        UserBO userBO = (UserBO) session.getAttribute("user");
         UserDO userDO = new UserDO();
-        userDO.setId((long)1);
+        userDO.setId(userBO.getId());
+
         //设置分页信息
         userDO.setLimit(Boolean.TRUE);
-        userDO.setBegin((pageId - 1) * 10);
-        userDO.setSize(10);
+        userDO.setBegin((pageId - 1) * size);
+        userDO.setSize(size);
 
         List<TaskInfoBO> taskInfoBOS = collectionService.listTaskEnshrineByUserDO(userDO);
         List<TaskVO> taskVOS = new ArrayList<>();
@@ -120,7 +129,7 @@ public class CollectionController {
             }
             taskVO.setTagList(taskTagVOS);
 
-            taskVO.setCollectState(1);
+            taskVO.setCollectState(TaskVO.COLLECT);
             taskVO.setStartTime(taskInfoBO.getStartTime());
             taskVO.setEndTime(taskInfoBO.getEndTime());
             taskVOS.add(taskVO);
@@ -138,14 +147,15 @@ public class CollectionController {
     @GetMapping("/listCollectibleGoodsByPageid/{Pageid}")
     @UserLoginToken
     public String listCollectibleGoodsByPageid(@PathVariable("Pageid") int pageId, HttpSession session) {
-//        //获得Session中的用户信息
-//        UserDO userDO = (UserDO) session.getAttribute("user");
+        //获得Session中的用户信息
+        UserBO userBO = (UserBO) session.getAttribute("user");
         UserDO userDO = new UserDO();
-        userDO.setId((long)1);
+        userDO.setId(userBO.getId());
+
         //设置分页信息
         userDO.setLimit(Boolean.TRUE);
-        userDO.setBegin((pageId - 1) * 10);
-        userDO.setSize(10);
+        userDO.setBegin((pageId - 1) * size);
+        userDO.setSize(size);
 
         List<GoodsInfoBO> goodsInfoBOS = collectionService.listGoodsEnshrineByUserDO(userDO);
         List<GoodsVO> goodsVOS = new ArrayList<>();
@@ -158,6 +168,7 @@ public class CollectionController {
             goodsVO.setOriginalPrice(goodsInfoBO.getOriginalPrice());
             goodsVO.setDescription(goodsInfoBO.getDescription());
             goodsVO.setCategory(goodsInfoBO.getCategory().getCategoryDesignation());
+            goodsVO.setCondition(goodsInfoBO.getCondition());
 
             //将List<TagBo>转化成List<GoodsTagVO>
             List<TagBO> tagList = goodsInfoBO.getTagList();
@@ -178,7 +189,7 @@ public class CollectionController {
                 picturesLink.add(pictureLink);
             }
             goodsVO.setPicturesLink(picturesLink);
-            goodsVO.setCollectState(1);
+            goodsVO.setCollectState(GoodsVO.COLLECT);
             goodsVOS.add(goodsVO);
         }
         return JSON.toJSONString(Result.successResult(goodsVOS));
