@@ -1,10 +1,7 @@
 package com.example.fidledemo.homepage.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.example.fidledemo.BO.Result;
-import com.example.fidledemo.BO.ResultCode;
-import com.example.fidledemo.BO.UserBO;
-import com.example.fidledemo.BO.UserLoginToken;
+import com.example.fidledemo.BO.*;
 import com.example.fidledemo.DO.TagOfTaskDO;
 import com.example.fidledemo.DO.TaskEnshrineDO;
 import com.example.fidledemo.DO.TaskInformationDO;
@@ -16,6 +13,8 @@ import com.example.fidledemo.homepage.service.TaskEnshrineServiceImpl;
 import com.example.fidledemo.homepage.service.TaskInfoServiceImpl;
 import com.example.fidledemo.homepage.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,7 +29,11 @@ import java.util.List;
  * @Author: ZSP
  */
 @RestController
+@PropertySource("classpath:application.yml")
 public class TaskController {
+
+    @Value("${size}")
+    private int size;
 
     @Autowired
     TaskInfoServiceImpl taskInfoService;
@@ -57,11 +60,11 @@ public class TaskController {
             int pageid=Integer.parseInt(request.getParameter("pageid"));
 
             taskInformationDO.setLimit(Boolean.TRUE);
-            taskInformationDO.setBegin((pageid-1)*10);
-            taskInformationDO.setSize(10);
+            taskInformationDO.setBegin((pageid-1)*size);
+            taskInformationDO.setSize(size);
             taskInformationDO.setDistinct(Boolean.TRUE);
             taskInformationDO.setCategory(categoryId);
-            taskInformationDO.setTaskState(1);//1未接收
+            taskInformationDO.setTaskState(TaskInfoBO.UNACCEPTED);
             taskInformationDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
             taskInformationDO.setCreateTimeEnd(new Date());
 
@@ -73,9 +76,9 @@ public class TaskController {
             for (TaskItemVO taskItemVO:taskItemVOS) {
                 taskEnshrineDO.setTaskId(taskItemVO.getId());
                 if(taskEnshrineService.getTaskEnshrine(taskEnshrineDO)!=null){
-                    taskItemVO.setCollectState(1);
+                    taskItemVO.setCollectState(TaskItemVO.COLLECT);
                 }else {
-                    taskItemVO.setCollectState(0);
+                    taskItemVO.setCollectState(TaskItemVO.DISCOLLECT);
                 }
             }
             return JSON.toJSONString(Result.successResult(taskItemVOS));
@@ -101,11 +104,11 @@ public class TaskController {
             int pageid=Integer.parseInt(request.getParameter("pageid"));
 
             taskInformationDO.setLimit(Boolean.TRUE);
-            taskInformationDO.setBegin((pageid-1)*10);
-            taskInformationDO.setSize(10);
+            taskInformationDO.setBegin((pageid-1)*size);
+            taskInformationDO.setSize(size);
             taskInformationDO.setDistinct(Boolean.TRUE);
             taskInformationDO.setCategory(categoryId);
-            taskInformationDO.setTaskState(1);//1未接收
+            taskInformationDO.setTaskState(TaskInfoBO.UNACCEPTED);
             taskInformationDO.setTitle(keyWord);
             taskInformationDO.setTitleLike(Boolean.TRUE);
             taskInformationDO.setDescription(keyWord);
@@ -123,9 +126,9 @@ public class TaskController {
             for (TaskItemVO taskItemVO:taskItemVOS) {
                 taskEnshrineDO.setTaskId(taskItemVO.getId());
                 if(taskEnshrineService.getTaskEnshrine(taskEnshrineDO)!=null){
-                    taskItemVO.setCollectState(1);
+                    taskItemVO.setCollectState(TaskItemVO.COLLECT);
                 }else {
-                    taskItemVO.setCollectState(0);
+                    taskItemVO.setCollectState(TaskItemVO.DISCOLLECT);
                 }
             }
             return JSON.toJSONString(Result.successResult(taskItemVOS));
@@ -214,9 +217,9 @@ public class TaskController {
                 taskEnshrineDO.setUserId(userId);
                 taskEnshrineDO.setTaskId(id);
                 if(taskEnshrineService.getTaskEnshrine(taskEnshrineDO)!=null){
-                    taskVO.setCollectState(1);
+                    taskVO.setCollectState(TaskVO.COLLECT);
                 }else {
-                    taskVO.setCollectState(0);
+                    taskVO.setCollectState(TaskVO.DISCOLLECT);
                 }
             }
             return JSON.toJSONString(Result.successResult(taskVO));
