@@ -1,4 +1,5 @@
 // pages/login/login.js
+var app = getApp()
 Page({
 
   /**
@@ -68,107 +69,110 @@ Page({
 
   },
   onLoad() {
-    console.log("hasuserinfo="+this.hasUserInfo)
-    let that = this;
-    //1 wx.login获取code
-    wx.login({
-      success (res) {
-        if (res.code) {
-          console.log('res.code='+res.code)
-          //2 发起网络请求,获取token和用户信息
-          wx.request({
-            url: 'http://47.106.241.182:8080/login/loginRequest',
-            method: 'POST',
-            data:{code: res.code},
-            header: {
-              'content-type': 'application/x-www-form-urlencoded',
-            },
-            success: (res) => {
-              console.log(res)
-              // 把数据存下来
-              that.setData({
-                user: res.data.user,
-                token: res.data.token,
-              }) 
-            },
-            fail:function(err){
-              console.log('fail')
-              console.log(err)
-            },
-            //先注释掉第二个请求
-            /*
-            complete: function () { 
-              //不论成功还是失败都会到这里面。第二个请求放在第一个请求的complete里面                         
-              try {
-                console.log('that.user.nickname='+that.user.nickname)
-                //3 判断是否用户信息中的nickname和portrait为空
-                if(that.user.nickname=="" && that.user.portrait=="") {
-                  //3.1 为空，则用户为第一次登录
-                  //必须留在当前页面，进行授权
-                  if (wx.getUserProfile) {
-                    that.setData({
-                      canIUseGetUserProfile: true
-                    })
-                  }
-                  //4 授权成功后，发送用户信息给后端，返回完整的用户信息
-                  wx.request({
-                    url: 'http://xx/login/userAuth', 
-                    data: {
-                      nickname: user.nickname,
-                      avatar_url: user.portrait,
-                    },
-                    header: {
-                      'token': token,
-                    },
-                    success (res) {
-                      console.log(res.data)
-                      //把数据存下来
-                      that.setData({
-                        user: res.data.user,
-                        token: res.data.token,
-                      }) 
-                    },
-                    fail:function(err){
-                      console.log(err)
-                    },
-                  })
+    console.log("onLoad")
+    if (wx.getUserProfile) {
+      this.setData({
+        canIUseGetUserProfile: true
+      })
+    }
+    //let that = this;
+    //0 如果isLogin==true，那么自动登录
+    let value = wx.getStorageSync('isLogin')
+    console.log("isLogin="+value)
+    if(value==true)
+    {
+      console.log("wx.login")
+      //1 wx.login获取code
+      wx.login({
+        success (res) {
+          if (res.code) {
+            console.log('res.code='+res.code)
+            //2 发起网络请求,获取token和用户信息
+            wx.request({
+              url: 'http://47.106.241.182:8080/login/loginRequest',
+              // url: 'https://baidu.com',
+              method: 'POST',
+              data:{code: res.code},
+              header: {
+                'content-type': 'application/x-www-form-urlencoded',
+              },
+              success: (res) => {
+                /*小程序登录时，保存这次session id，下次访问修改请求头header的cookie。*/
 
+                if (res && res.header && res.header['Set-Cookie']) {
+                wx.setStorageSync('sessionid', res.header['Set-Cookie']); //登录返回，保存Cookie到Storage
                 }
-                else {
+                       
+
+                console.log(res)
+                console.log(res.data)
+                console.log(res.data.data)
+                console.log(res.data.data.user)
+                // 把数据存下来
+                app.globalData.token = res.data.data.token
+                app.globalData.user = res.data.data.user
+
+                // app.globalData.token="token=lalala"
+                // app.globalData.user=
+                // {
+                //     "credit":    
+                //     {    
+                //         "creditScore":1500,
+                //         "dislikeNum":20,
+                //         "likeNum":30
+                //     },
+                // "id":1,
+                // "portrait":"",
+                // "qq":"11111",
+                // "username":""
+                // }
+                console.log("app.globalData.token="+app.globalData.token)
+                console.log("app.globalData.user="+app.globalData.user)
+              },
+              fail:function(err){
+                console.log('fail')
+                console.log(err)
+              },
+              complete: function () { 
+                //不论成功还是失败都会到这里面。第二个请求放在第一个请求的complete里面                         
+                try {
+                  console.log('app.globalData.username='+app.globalData.user.username)
+                  console.log('globalData.user.portrait='+app.globalData.user.portrait)
+                  //3 判断是否用户信息中的nickname和portrait为空
+                  if(app.globalData.user.username==null && app.globalData.user.portrait==null) {
+                    console.log('为空')
+                    //3.1 为空，则用户为第一次登录
+                    //必须留在当前页面，进行授权
+                    // if (wx.getUserProfile) {
+                    //   that.setData({
+                    //     canIUseGetUserProfile: true
+                    //   })
+                    // }
+                    //等待用户自己点击微信登录按钮
+                    //进入授权函数
                   
-                }       
-              } catch (e) { }
-            }*/
-           })
-
-          //3.2 昵称和头像不为空
-          //直接登录，跳转至首页
-          //5 授权成功后，也获取了昵称和头像，跳转至首页
-          //把token和user存入Storage
-          /*if(that.user.nickname=="" && that.user.portrait=="") {
-            wx.setStorageSync('token', that.token)
-            wx.setStorageSync('id', that.user.id)
-            wx.setStorageSync('portrait', that.user.portrait)
-            wx.setStorageSync('qq', that.user.qq)
-            wx.setStorageSync('username', that.user.username)
-            wx.setStorageSync('creditScore', that.user.credit.creditScore)
-            wx.setStorageSync('dislikeNum', that.user.credit.dislikeNum)
-            wx.setStorageSync('likeNum', that.user.credit.likeNum)
-
-            wx.redirectTo({
-              url: '/pages/index/index'
+                  }
+                  else {
+                    //3.2 昵称和头像不为空
+                    //直接登录，跳转至首页
+                    wx.setStorageSync('isLogin', true)
+                    wx.switchTab({
+                      url:'/pages/index/index'
+                    })                 
+                  }       
+                } catch (e) { }
+              }
             })
-          }*/
-
-        } else {
-          console.log('登录失败！' + res.errMsg)
+          } else {
+            console.log('登录失败！' + res.errMsg)
+          }
         }
-      }
-    })
-
-  
+      }) 
+    } 
   },
   getUserProfile(e) {
+    console.log("getUserProfile")
+    // let my_token = globalData.token
     // 推荐使用wx.getUserProfile获取用户信息，开发者每次通过该接口获取用户个人信息均需用户确认
     // 开发者妥善保管用户快速填写的头像昵称，避免重复弹窗
     wx.getUserProfile({
@@ -178,6 +182,50 @@ Page({
         this.setData({
           userInfo: res.userInfo,
           hasUserInfo: true
+        })
+
+        // 4 授权成功后，发送用户信息(昵称+头像)给后端，返回完整的用户信息
+        console.log("res.userInfo.nickName="+res.userInfo.nickName)
+        console.log("res.userInfo.avatarUrl="+res.userInfo.avatarUrl)
+        let session_id = wx.getStorageSync('sessionid');
+        
+                // var header = { 'content-type': 'application/x-www-form-urlencoded', 'Cookie': session_id }
+         console.log('token='+app.globalData.token)
+        wx.request({
+          url: 'http://47.106.241.182:8080/login/userAuth', 
+          // url: 'https://baidu.com',
+          method: 'POST',
+          data: {
+            nickname: res.userInfo.nickName,
+            avatar_url: res.userInfo.avatarUrl,
+          },
+          header: { 'content-type': 'application/x-www-form-urlencoded', 'Cookie': session_id ,
+          'token': app.globalData.token},
+          success (res) {
+            console.log('授权成功，返回完整的用户信息')
+          
+            wx.setStorageSync('isLogin', true)
+            console.log(res.data)
+            //把数据存在全局变量
+            app.globalData.user = res.data.data
+            console.log("res.data.data=")
+            console.log(res.data.data)
+            //打印出来看看，确认已经头像和昵称已经有了
+            console.log("app.globalData.user"+app.globalData.user)
+            //跳转进入首页
+            if(app.globalData.user!=null) {
+              console.log("跳转")
+              wx.switchTab({
+                url:'/pages/index/index'
+              }) 
+            }
+            else{
+              console.log("不跳转")
+            }
+          },
+          fail:function(err){
+            console.log(err)
+          },
         })
       }
     })

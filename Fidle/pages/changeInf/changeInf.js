@@ -21,6 +21,8 @@ Page({
     wx.showModal({
       content: '确认退出当前账号吗？',
       success: function (res) {
+        //进行退出登录操作：把Storage中的flag置为false
+        wx.setStorageSync('isLogin',false)
         if (res.confirm) {
           wx.navigateTo({
             url: '/pages/login/login',
