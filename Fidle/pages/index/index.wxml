@@ -62,12 +62,12 @@
         <c-select initSelect="{{taskSort}}" prop-array='{{taskSortArray}}'  bind:select='select_Task_Sort'/>
       </view>
       <van-card class="card">
-        <view slot="price" class="price">
+        <view slot="title" class="title" bindtap="clickTaskCard">
+          <text>{{taskTitle}}</text>
+          <view class="price">
           <text class="sign">￥</text>
           <text class="priceText">{{taskPrice}}</text>
         </view>
-        <view slot="title" class="title" bindtap="clickTaskCard">
-          <text>{{taskTitle}}</text>
         </view>
         <view slot="tags" class="tagTask">
           <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
