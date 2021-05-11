@@ -28,7 +28,7 @@
     </update>
 
     <select id="getGoodsEnshrine" parameterType="com.example.fidledemo.DO.GoodsEnshrineDO" resultType="_long">
-        select id from goods_enshrine
+        select distinct user_id from goods_enshrine
         WHERE user_id=#{userId} and goods_id=#{goodsId}
     </select>
 </mapper>

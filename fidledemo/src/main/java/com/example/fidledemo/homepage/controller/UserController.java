@@ -35,6 +35,7 @@ public class UserController {
 
             return JSON.toJSONString(Result.successResult(personVO));
         }catch (Exception e){
+            e.printStackTrace();
             return JSON.toJSONString(Result.failureResult(ResultCode.RESOURCE_EMPTY));
         }
     }

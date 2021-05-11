@@ -15,34 +15,45 @@ Page({
   },
 
   change: function(e) {
-    var username=e.detail.value.username;
-    var phonenum=e.detail.value.phonenum;
-    var qqnum=e.detail.value.qqnum;
+    var username=e.detail.value.username.trim();
+    var phonenum=e.detail.value.phonenum.trim();
+    var qqnum=e.detail.value.qqnum.trim();
     
-    if(username==''||phonenum==''||qqnum=='') {
+    if(username.length==0||phonenum.length==0||qqnum.length==0) {
       wx.showToast({
         title: '信息不能为空！',
         duration: 1000,
         icon: 'none'
       })
     }
+     else if(phonenum.length!=11) {
+      wx.showToast({
+        title: '电话号码输入有误！',
+        duration: 1000,
+        icon: 'none'
+      })
+    }
     else{
+      //将修改的信息赋给全局数据 方便调用
       app.globalData.username=username;
       app.globalData.phonenum=phonenum;
       app.globalData.qqnum=qqnum;
 
       wx.request({
-        url: 'http://xxx.com/personalPage/alterInformation',
+        url: 'http://120.77.210.142:8080/personalPage/alterInformation',
         data: {
+          //将修改的数据传给后台进行同步修改
           username: username,
           tel: phonenum,
           qq: qqnum
         },
         method: 'POST',
         header: {
-          "Content-Type": "application/x-www-form-urlencoded"
+          "Content-Type": "application/x-www-form-urlencoded",
+          'Cookie': wx.getStorageSync('sessionid')
         },
         success: function(res){
+          console.log(res);
           wx.showToast({
             title: '修改成功！',
             icon: 'success',

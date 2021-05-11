@@ -61,17 +61,29 @@ public class GoodsController {
             int days=Integer.parseInt(request.getParameter("days"));
             Long categoryId=Long.parseLong(request.getParameter("categoryId"));
             int condition=Integer.parseInt(request.getParameter("condition"));
+            System.out.println(request.getParameter("pageid"));
             int pageid=Integer.parseInt(request.getParameter("pageid"));
 
             goodsInfoDO.setLimit(Boolean.TRUE);
             goodsInfoDO.setBegin((pageid-1)*size);
             goodsInfoDO.setSize(size);
             goodsInfoDO.setDistinct(Boolean.TRUE);
-            goodsInfoDO.setCategory(categoryId);
-            goodsInfoDO.setCondition(condition);
+
+            if(categoryId!=0){
+                goodsInfoDO.setCategory(categoryId);
+            }
+
+            if(condition!=0){
+                goodsInfoDO.setCondition(condition);
+            }
+
             goodsInfoDO.setSold(GoodsInfoBO.SELLING);
-            goodsInfoDO.setCreateTimeEnd(new Date());
-            goodsInfoDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
+
+            if(days!=0){
+                goodsInfoDO.setCreateTimeEnd(new Date());
+                goodsInfoDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
+            }
+
 
             List<GoodsItemVO> goodsItemVOS = goodsInfoService.listGoodsInfoByDO(goodsInfoDO, tagOfGoodsDO);
 
@@ -90,6 +102,7 @@ public class GoodsController {
             }
             return JSON.toJSONString(Result.successResult(goodsItemVOS));
         }catch (Exception e){
+            e.printStackTrace();
             return JSON.toJSONString(Result.failureResult(ResultCode.RESOURCE_EMPTY));
         }
     }
@@ -121,11 +134,21 @@ public class GoodsController {
             goodsInfoDO.setTitleLike(Boolean.TRUE);
             goodsInfoDO.setDescription(keyWord);
             goodsInfoDO.setDescriptionLike(Boolean.TRUE);
-            goodsInfoDO.setCategory(categoryId);
-            goodsInfoDO.setCondition(condition);
+
+            if(categoryId!=0){
+                goodsInfoDO.setCategory(categoryId);
+            }
+
+            if(condition!=0){
+                goodsInfoDO.setCondition(condition);
+            }
+
             goodsInfoDO.setSold(GoodsInfoBO.SELLING);
-            goodsInfoDO.setCreateTimeEnd(new Date());
-            goodsInfoDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
+
+            if(days!=0){
+                goodsInfoDO.setCreateTimeEnd(new Date());
+                goodsInfoDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
+            }
 
             tagOfGoodsDO.setContent(keyWord);
             tagOfGoodsDO.setContentLike(Boolean.TRUE);
@@ -146,6 +169,7 @@ public class GoodsController {
             }
             return JSON.toJSONString(Result.successResult(goodsItemVOS));
         }catch (Exception e){
+            e.printStackTrace();
             return JSON.toJSONString(Result.failureResult(ResultCode.RESOURCE_EMPTY));
         }
     }
@@ -161,6 +185,7 @@ public class GoodsController {
             List<GoodsCategoryVO> categoryVOS = goodsCategoryService.listAllGoodsCategory();
             return JSON.toJSONString(Result.successResult(categoryVOS));
         }catch (Exception e){
+            e.printStackTrace();
             return JSON.toJSONString(Result.failureResult(ResultCode.RESOURCE_EMPTY));
         }
     }
@@ -184,6 +209,7 @@ public class GoodsController {
             goodsEnshrineService.insertGoodsEnshrine(goodsEnshrineDO);
             return JSON.toJSONString(Result.successResult());
         }catch (Exception e){
+            e.printStackTrace();
             return JSON.toJSONString(Result.failureResult(ResultCode.SESSION_EXPIRED));
         }
     }
@@ -207,6 +233,7 @@ public class GoodsController {
             goodsEnshrineService.deleteGoodsEnshrineByDO(goodsEnshrineDO);
             return JSON.toJSONString(Result.successResult());
         }catch (Exception e){
+            e.printStackTrace();
             return JSON.toJSONString(Result.failureResult(ResultCode.SESSION_EXPIRED));
         }
     }
@@ -237,6 +264,7 @@ public class GoodsController {
             }
             return JSON.toJSONString(Result.successResult(goodsVO));
         }catch (Exception e){
+            e.printStackTrace();
             return JSON.toJSONString(Result.failureResult(ResultCode.RESOURCE_EMPTY));
         }
     }

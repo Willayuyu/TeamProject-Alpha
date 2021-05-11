@@ -10,7 +10,7 @@
         <property name="serverTimezone" value="UTC" />
       </driver-properties>
     </data-source>
-    <data-source source="LOCAL" name="fidle@47.106.241.182" uuid="4a4a405b-3418-42e6-b421-7c5cb0daf656">
+    <data-source source="LOCAL" name="fidle@47.106.241.182" uuid="503e8543-5167-4e1d-acce-5679ff2da6a1">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>

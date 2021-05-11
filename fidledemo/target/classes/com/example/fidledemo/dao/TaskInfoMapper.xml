@@ -62,8 +62,9 @@
         LEFT JOIN task_tag AS `tt` ON `tt`.task_id=ti.id
         LEFT JOIN tag_of_task AS t ON t.id=`tt`.tag_id
         <where>
+            <![CDATA[ ti.end_time >= now() ]]>
             <if test="info.pubId !=null and info.pubId !=''">AND pub_id=#{info.pubId}</if>
-            <if test="info.taskState !=null">AND task_state=#{taskState}</if>
+            <if test="info.taskState !=null">AND task_state=#{info.taskState}</if>
             <if test="info.title !=null and info.title !=''">
                 <if test="info.titleLike !=null and info.titleLike !='' ">
                     AND title LIKE "%"#{info.title}"%"
@@ -92,7 +93,6 @@
             <if test="info.category !=null and info.category !='' ">AND category=#{info.category}</if>
             <if test="info.createTimeBegin !=null and info.createTimeEnd !=null">
                 AND ti.gmt_create BETWEEN #{info.createTimeBegin} AND #{info.createTimeEnd}
-                <![CDATA[AND ti.end_time >= #{info.createTimeEnd} ]]>
             </if>
         </where>
         <if test="info.limit !=null and info.limit !='' ">limit #{info.begin},#{info.size}</if>
@@ -111,13 +111,24 @@
         LEFT JOIN task_tag AS `tt` ON `tt`.task_id=ti.id
         LEFT JOIN tag_of_task AS t ON t.id=`tt`.tag_id
         WHERE
-        category=#{info.category} AND
         (title LIKE "%"#{info.title}"%"
+
         OR content LIKE "%"#{tag.content}"%"
+
         OR description LIKE "%"#{info.description}"%")
+
         AND task_state=#{info.taskState}
-        AND ti.gmt_create BETWEEN #{info.createTimeBegin} AND #{info.createTimeEnd}
-        <![CDATA[AND ti.end_time >= #{info.createTimeEnd} ]]>
+
+        <if test="info.category != null and info.category != ''">
+            AND category=#{info.category}
+        </if>
+
+        <if test="info.createTimeBegin != null and info.createTimeEnd != null">
+            AND ti.gmt_create BETWEEN #{info.createTimeBegin} AND #{info.createTimeEnd}
+        </if>
+
+        <![CDATA[AND ti.end_time >= now() ]]>
+
         <if test="info.limit !=null and info.limit !='' ">limit #{info.begin},#{info.size}</if>
     </select>
 

@@ -20,29 +20,29 @@
       <view class="tag">
         <text>类别:</text>
         <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
-        <van-tag wx:for="{{tagsList}}" wx:key="{{index}}" color="#f3f4f4" text-color="#323232">{{item}}</van-tag>
+        <van-tag color="#f3f4f4" text-color="#323232">{{category}}</van-tag>
       </view>
       <view class="tag">
         <text decode="true">标签:</text>
         <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
-        <van-tag wx:for="{{tagsList}}" wx:key="{{index}}" color="#f3f4f4" text-color="#323232">{{item}}</van-tag>
+        <van-tag wx:for="{{tagsList}}" wx:key="{{index}}" color="#f3f4f4" text-color="#323232">{{item.content}}</van-tag>
       </view>
       <view class="tag">
         <text decode="true">新旧程度:</text>
         <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
-        <van-tag wx:for="{{tagsList}}" wx:key="{{index}}" color="#f3f4f4" text-color="#323232">{{item}}</van-tag>
+        <van-tag color="#f3f4f4" text-color="#323232">{{condition}}</van-tag>
       </view>
     </view>
     <view class="content">
       <text>详细描述：</text>
-      <text>{{detailsText}}</text>
+      <text>{{description}}</text>
     </view>
   </view>
   <view class='placeholder-view'></view>
   <view class="bottomCard" style="position:fixed; bottom:0rpx; width: 100%;">
     <van-icon name="wap-home-o" size="50rpx" bind:click="onClickHome"/>
-    <van-icon name="star" size="50rpx" bind:click="onClickStar" wx:if="{{isStar}}"/>
-    <van-icon name="star-o" size="50rpx" bind:click="onClickStar" wx:else="{{isStar}}"/>
+    <van-icon name="star-o" size="50rpx" bind:click="onClickStar" wx:if="{{collectState == 0}}"/>
+    <van-icon name="star" size="50rpx" bind:click="onClickStar" wx:else="{{collectState == 1}}"/>
     <image class="tagsIcon" mode="widthFix" src="../../icons/jubao.png"></image>
     <button class="contact" type="primary" style="width: 330rpx; background-color: #7db5ee;" bindtap="contact">联系卖家</button>
   </view>

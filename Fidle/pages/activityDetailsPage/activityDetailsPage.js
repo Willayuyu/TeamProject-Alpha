@@ -6,24 +6,56 @@ Page({
    * 页面的初始数据
    */
   data: {
-    swiperList: [
-      "http://5b0988e595225.cdn.sohucs.com/images/20190311/ab66040c529445778cf31ced4ba24657.jpeg",
-      "https://img.yzcdn.cn/vant/cat.jpeg",
-      "https://img.yzcdn.cn/vant/cat.jpeg"
-    ],
-    tagsList: [
-      "标签",
-      "标签"
-    ],
-    title: "百米画卷",
-    organizer: "2018级软件工程3班",
-    place: "青春广场",
-    beginTime: "2021.4.4 12:00",
-    endTime: "2021.4.4 20:00",
-    isStar:false,
-    activityForm:"百米画卷画好后参赛者即可离场，等画干后将画布收起，第二天在学子广场挂起展出。评选分为两个环节有老师为所有作品打分；有观看的学生投票。每名观看的学生在准备好的纸片上写上自己认为最有意义的作品的组序号投入投票箱内。最后通过两个环节的综合评选选出获胜者。",
+    swiperList: [],
+    tagsList: [],
+    category: "",
+    title: "",
+    organizer: "",
+    address: "",
+    beginTime: "",
+    endTime: "",
+    collectState: 0,
+    description:"",
+    pubId: 0,
+    id: 0,
   },
 
+  /**
+   * 获取活动详情页信息
+   */
+  getActivityDetail:function(){
+    let that=this;
+    //let id = event.id;
+    var session_id = wx.getStorageSync('sessionid');
+    var token = wx.getStorageSync('token');
+    var header = {'content-type': 'application/x-www-form-urlencoded', 'Cookie': session_id };
+    wx.request({
+      url: 'http://47.106.241.182:8080/activity/getActivityDetailById/' + 1,
+      method: "GET",
+      header: header,
+      success(res){
+        console.log(res.data);
+        if(res.data.code===200){
+          that.setData({
+            swiperList: res.data.data.picturesLink,
+            title: res.data.data.title,
+            address: res.data.data.address,
+            beginTime: res.data.data.start_time,
+            endTime: res.data.data.end_time,
+            tagsList: res.data.data.tagList,
+            collectState: res.data.data.collectState,
+            description: res.data.data.description,
+            category: res.data.data.category,
+            pubId: res.data.data.pubId,
+            id:res.data.data.id,
+          })
+        }
+      },
+      fail(err){
+        console.log(err);
+      }
+    })
+  },
   /**
    * 点击home图标跳转首页
    */
@@ -49,27 +81,41 @@ Page({
    */
   onClickStar(event){
     let that = this;
-    var state = that.data.isStar;
-    that.setData({
-      isStar: !state
+    var session_id = wx.getStorageSync('sessionid');
+    var header = {'content-type': 'application/x-www-form-urlencoded', 'Cookie': session_id };
+    wx.request({
+      url: 'http://47.106.241.182:8080/activity/collectActivity/' + 1,
+      method: 'GET',
+      header: header,
+      success(res){
+        console.log(res);
+        if(res.data.code===200){
+          if(that.data.collectState == 0){
+            that.setData({
+              collectState: 1
+            });
+            Toast({
+              position: 'bottom',
+              message: '收藏成功！'
+            });
+          } else {
+            that.setData({
+              collectState: 0
+            });
+            Toast({
+              position: 'bottom',
+              message: '取消收藏成功！'
+            });
+          }
+        }
+      }
     })
-    if(!state) {
-      Toast({
-        position: 'bottom',
-        message: '收藏成功！'
-      });
-    } else {
-      Toast({
-        position: 'bottom',
-        message: '取消收藏成功！'
-      });
-    }
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.getActivityDetail();
   },
 
   /**

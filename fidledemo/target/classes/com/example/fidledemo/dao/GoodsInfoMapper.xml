@@ -120,14 +120,25 @@
         LEFT JOIN goods_image AS i ON i.goods_id=gi.id
         LEFT JOIN goods_tag AS `gt` ON `gt`.goods_id=gi.id
         LEFT JOIN tag_of_goods AS t ON t.id=`gt`.tag_id
+
         WHERE
-        category_id=#{info.category} AND
         (title LIKE "%"#{info.title}"%"
         OR content LIKE "%"#{tag.content}"%"
         OR description LIKE "%"#{info.description}"%")
         AND is_sold=#{info.sold}
-        AND `condition`=#{info.condition}
-        AND gi.gmt_create BETWEEN #{info.createTimeBegin} AND #{info.createTimeEnd}
+
+
+        <if test="info.category !=null and info.category!= '' ">
+            AND category_id=#{info.category}
+        </if>
+        <if test="info.condition !=null and info.condition != ''">
+            AND `condition`=#{info.condition}
+        </if>
+        <if test="info.createTimeBegin !=null and info.createTimeEnd !=null ">
+            AND gi.gmt_create BETWEEN #{info.createTimeBegin} AND #{info.createTimeEnd}
+        </if>
+
+
         <if test="info.limit !=null and info.limit !='' ">limit #{info.begin},#{info.size}</if>
     </select>
 

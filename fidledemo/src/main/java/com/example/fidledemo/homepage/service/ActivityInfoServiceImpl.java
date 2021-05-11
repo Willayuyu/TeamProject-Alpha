@@ -91,6 +91,7 @@ public class ActivityInfoServiceImpl implements ActivityInfoService{
                 activityTagVOS.add(activityTagVO);
 
             }
+            activityItemVO.setImageLink(activityInfoBO.getImageList().get(0).getImageLink());
             activityItemVO.setTagList(activityTagVOS);
             activityItemVOS.add(activityItemVO);
         }

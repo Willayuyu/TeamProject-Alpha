@@ -6,18 +6,52 @@ Page({
    * 页面的初始数据
    */
   data: {
-    tagsList: [
-      "标签",
-      "标签"
-    ],
-    title: "找人拿快递 3小件 送到41号楼！",
-    currentPrice: 30,
-    isStar:false,
-    detailsText:"中通快递，晚上7点前送到即可。",
-    beginTime: "2021.4.4 12:00",
-    endTime: "2021.4.4 20:00"
+    tagsList: [],
+    title: "",
+    price: 0,
+    description: "",
+    collectState: 0,
+    category: "",
+    beginTime: "",
+    endTime: "",
+    pubId: 0,
+    id: 0,
   },
 
+  /**
+   * 获取任务详情页信息
+   */
+  getTaskDetail:function(){
+    let that=this;
+    //let id = event.id;
+    var session_id = wx.getStorageSync('sessionid');
+    var header = {'content-type': 'application/x-www-form-urlencoded', 'Cookie': session_id };
+    wx.request({
+      url: 'http://47.106.241.182:8080/task/getTaskDetailById/' + 2,
+      method: "GET",
+      header: header,
+      success(res){
+        console.log(res.data);
+        if(res.data.code===200){
+          that.setData({
+            title: res.data.data.title,
+            price: res.data.data.reward,
+            category: res.data.data.category,
+            tagsList: res.data.data.tagList,
+            collectState: res.data.data.collectState,
+            description: res.data.data.description,
+            beginTime: res.data.data.startTime,
+            endTime: res.data.data.endTime,
+            pubId: res.data.data.pubId,
+            id:res.data.data.id,
+          })
+        }
+      },
+      fail(err){
+        console.log(err);
+      }
+    })
+  },
   /**
    * 点击home图标跳转首页
    */
@@ -31,35 +65,50 @@ Page({
    */
   onClickStar(event){
     let that = this;
-    var state = that.data.isStar;
-    that.setData({
-      isStar: !state
+    var session_id = wx.getStorageSync('sessionid');
+    var header = {'content-type': 'application/x-www-form-urlencoded', 'Cookie': session_id };
+    wx.request({
+      url: 'http://47.106.241.182:8080/task/collectTask/' + 2,
+      method: 'GET',
+      header: header,
+      success(res){
+        console.log(res);
+        if(res.data.code===200){
+          if(that.data.collectState == 0){
+            that.setData({
+              collectState: 1
+            });
+            Toast({
+              position: 'bottom',
+              message: '收藏成功！'
+            });
+          } else {
+            that.setData({
+              collectState: 0
+            });
+            Toast({
+              position: 'bottom',
+              message: '取消收藏成功！'
+            });
+          }
+        }
+      }
     })
-    if(!state) {
-      Toast({
-        position: 'bottom',
-        message: '收藏成功！'
-      });
-    } else {
-      Toast({
-        position: 'bottom',
-        message: '取消收藏成功！'
-      });
-    }
   },
   /**
    * 点击联系委托人跳转
    */
   contact: function() {
+    let that = this;
     wx.navigateTo({
-      url: '/pages/contact/contact',
+      url: '/pages/contact/contact?pubId=' + that.data.pubId,
     })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.getTaskDetail();
   },
 
   /**

@@ -4,7 +4,7 @@ Page({
   /**
    * 页面的初始数据
    */
-  data: {
+  data: {//没有真实数据的时候先填充一下
       imgsrc:app.globalData.imgsrc,
       username:app.globalData.username,
       phonenum:app.globalData.phonenum,
@@ -55,10 +55,14 @@ Page({
    */
   onShow: function () {
     this.setData({
-      imgsrc:app.globalData.imgsrc,
-      username:app.globalData.username,
-      phonenum:app.globalData.phonenum,
-      qqnum:app.globalData.qqnum,
+      // imgsrc:app.globalData.imgsrc,
+      // username:app.globalData.username,
+      // phonenum:app.globalData.phonenum,
+      // qqnum:app.globalData.qqnum,
+      imgsrc: app.globalData.user.portrait,
+      username: app.globalData.user.username,
+      phonenum:app.globalData.phonenum,//手机号码不知道从哪里获取 或者说要用户自己在注册时填写
+      qqnum:app.globalData.user.qq,
     })
   },
 
