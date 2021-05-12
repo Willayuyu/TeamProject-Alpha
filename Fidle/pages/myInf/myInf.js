@@ -6,12 +6,13 @@ Page({
    * 页面的初始数据
    */
   data: {
-  imgsrc:"",
-  username:"",
-  userid:"",
-  credit:"",
-  goodcmt:0,
-  badcmt:0,
+    reload:0,
+    imgsrc:"",
+    username:"",
+    userid:"",
+    credit:"100",
+    goodcmt:0,
+    badcmt:0,
   },
 
   aboutus: function (options) {
@@ -36,23 +37,39 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log("登录后来到个人信息页")
-    console.log(app.globalData.user)
-    this.setData({
-      imgsrc: app.globalData.user.portrait,
-      username: app.globalData.user.username,
-      userid: app.globalData.user.id,
-      // credit: app.globalData.user.credit.creditScore,
-      // goodcmt: app.globalData.user.credit.likeNum,
-      // badcmt: app.globalData.user.credit.dislikeNum,
-      
-      // imgsrc:app.globalData.imgsrc,
-      // username:app.globalData.username,
-      // userid:app.globalData.userid,
-      credit:app.globalData.credit,
-      goodcmt:app.globalData.goodcmt,
-      badcmt:app.globalData.badcmt,
-    })
+    if(this.data.reload==0) {
+      console.log("登录后来到个人信息页");
+      console.log(app.globalData.user);
+      var that=this;
+      console.log("此用户id为："+app.globalData.user.id);
+      wx.request({
+        url: 'http://120.77.210.142:8080/personalPage/getHomePageById/'+app.globalData.user.id,
+        method: 'GET',
+        header: {
+          "Content-Type": "application/json",
+          'Cookie': wx.getStorageSync('sessionid')
+        },
+        success: function(res){
+          console.log(res);
+          that.setData({
+            //onload装载页面要显示的信息
+            imgsrc:res.data.data.portrait,
+            username:res.data.data.username,
+            userid:res.data.data.id,
+            credit:res.data.data.credit.creditScore,
+            goodcmt:res.data.data.credit.likeNum,
+            badcmt:res.data.data.credit.dislikeNum,
+          })
+          app.globalData.username=res.data.data.username;
+          app.globalData.phonenum=res.data.data.tel;
+          app.globalData.qqnum=res.data.data.qq;
+        },
+        fail: function(res){
+          console.log("根据id获取个人信息失败")
+        }
+      })    
+      this.data.reload=1;
+    }
   },
 
   /**
@@ -66,6 +83,32 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    console.log("reload我的界面");
+    if(this.data.reload==1) {
+      var that=this;
+      console.log("此用户id为："+app.globalData.user.id);
+      wx.request({
+        url: 'http://120.77.210.142:8080/personalPage/getHomePageById/'+app.globalData.user.id,
+        method: 'GET',
+        header: {
+          "Content-Type": "application/json",
+          'Cookie': wx.getStorageSync('sessionid')
+        },
+        success: function(res){
+          console.log(res);
+          that.setData({
+            //页面显示的可能会改变的信息需要刷新
+            username:res.data.data.username,
+            credit:res.data.data.credit.creditScore,
+            goodcmt:res.data.data.credit.likeNum,
+            badcmt:res.data.data.credit.dislikeNum,
+          })
+        },
+        fail: function(res){
+          console.log("根据id获取个人信息失败")
+        }
+      })    
+    }
   },
 
   /**
