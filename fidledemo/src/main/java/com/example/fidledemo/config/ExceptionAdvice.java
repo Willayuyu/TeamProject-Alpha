@@ -42,7 +42,14 @@ public class ExceptionAdvice
   public String runtimeException(RuntimeException e)
   {
     e.printStackTrace();
-    return JSON.toJSONString(Result.failureResult(ResultCode.UN_AUTHORIZED));
+    if(e.getMessage().equals("401"))
+    {
+      return JSON.toJSONString(Result.failureResult(ResultCode.UN_AUTHORIZED));
+    }
+    else
+    {
+      return JSON.toJSONString(Result.failureResult(ResultCode.SERVER_ERROR));
+    }
   }
 
   /**
