@@ -27,7 +27,7 @@ Page({
     var session_id = wx.getStorageSync('sessionid');
     var header = {'content-type': 'application/x-www-form-urlencoded', 'Cookie': session_id };
     wx.request({
-      url: 'http://47.106.241.182:8080/task/getTaskDetailById/' + 2,
+      url: 'http://47.106.241.182:8082/task/getTaskDetailById/' + 2,
       method: "GET",
       header: header,
       success(res){
@@ -67,14 +67,14 @@ Page({
     let that = this;
     var session_id = wx.getStorageSync('sessionid');
     var header = {'content-type': 'application/x-www-form-urlencoded', 'Cookie': session_id };
-    wx.request({
-      url: 'http://47.106.241.182:8080/task/collectTask/' + 2,
-      method: 'GET',
-      header: header,
-      success(res){
-        console.log(res);
-        if(res.data.code===200){
-          if(that.data.collectState == 0){
+    if(that.data.collectState == 0){
+      wx.request({
+        url: 'http://47.106.241.182:8082/task/collectTask/' + 1,
+        method: 'GET',
+        header: header,
+        success(res){
+          console.log(res);
+          if(res.data.code===200){
             that.setData({
               collectState: 1
             });
@@ -82,7 +82,20 @@ Page({
               position: 'bottom',
               message: '收藏成功！'
             });
-          } else {
+          } 
+        },
+        fail(err){
+          console.log(err);
+        }
+      })
+    } else if(that.data.collectState == 1) {
+      wx.request({
+        url: 'http://47.106.241.182:8082/task/cancelCollectTask/' + 1,
+        method: 'GET',
+        header: header,
+        success(res){
+          console.log(res);
+          if(res.data.code===200){
             that.setData({
               collectState: 0
             });
@@ -91,9 +104,12 @@ Page({
               message: '取消收藏成功！'
             });
           }
+        },
+        fail(err){
+          console.log(err);
         }
-      }
-    })
+      })
+    }
   },
   /**
    * 点击联系委托人跳转

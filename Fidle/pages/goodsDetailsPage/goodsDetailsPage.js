@@ -28,7 +28,7 @@ Page({
     var session_id = wx.getStorageSync('sessionid');
     var header = {'content-type': 'application/x-www-form-urlencoded', 'Cookie': session_id };
     wx.request({
-      url: 'http://47.106.241.182:8080/goods/getGoodsDetailById/' + 2,
+      url: 'http://47.106.241.182:8082/goods/getGoodsDetailById/' + 1,
       method: "GET",
       header: header,
       success(res){
@@ -81,14 +81,14 @@ Page({
     let that = this;
     var session_id = wx.getStorageSync('sessionid');
     var header = {'content-type': 'application/x-www-form-urlencoded', 'Cookie': session_id };
-    wx.request({
-      url: 'http://47.106.241.182:8080/goods/collectGoods/' + 2,
-      method: 'GET',
-      header: header,
-      success(res){
-        console.log(res);
-        if(res.data.code===200){
-          if(that.data.collectState == 0){
+    if(that.data.collectState == 0){
+      wx.request({
+        url: 'http://47.106.241.182:8082/goods/collectGoods/' + 1,
+        method: 'GET',
+        header: header,
+        success(res){
+          console.log(res);
+          if(res.data.code===200){
             that.setData({
               collectState: 1
             });
@@ -96,7 +96,20 @@ Page({
               position: 'bottom',
               message: '收藏成功！'
             });
-          } else {
+          } 
+        },
+        fail(err){
+          console.log(err);
+        }
+      })
+    } else if(that.data.collectState == 1) {
+      wx.request({
+        url: 'http://47.106.241.182:8082/goods/cancelCollectGoods/' + 1,
+        method: 'GET',
+        header: header,
+        success(res){
+          console.log(res);
+          if(res.data.code===200){
             that.setData({
               collectState: 0
             });
@@ -105,9 +118,12 @@ Page({
               message: '取消收藏成功！'
             });
           }
+        },
+        fail(err){
+          console.log(err);
         }
-      }
-    })
+      })
+    }
   },
   /**
    * 点击联系卖家跳转
@@ -134,7 +150,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
   },
 
   /**
