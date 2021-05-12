@@ -23,6 +23,7 @@ Page({
         goods_old_new_list_idx: "",
         goods_class_list_idx: "",
         goods_uploadUrl: "http://47.106.241.182:8082/publish/uploadGoodsImage",
+        goods_deleteUrl: "http://47.106.241.182:8082/publish/deleteGoodsImage/id?id=",
 
 
         task_title: "",
@@ -55,12 +56,11 @@ Page({
         activity_label_list: [],
         activity_class_list_idx: "",
         activity_uploadUrl: "http://47.106.241.182:8082/publish/uploadActivityImage",
+        activity_deleteUrl: "http://47.106.241.182:8082/publish/deleteActivityImage/id?id=",
     },
 
-    /**
-     * 上传图片方法
-     */
-    upload: function() {
+    //二手交易上传图片方法
+    goods_upload() {
         let that = this;
         wx.chooseImage({
             count: 9, // 默认9
@@ -76,7 +76,7 @@ Page({
                     // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
 
                 let tempFilePaths = [];
-                let init = that.data.tempFilePaths.length;
+                let init = that.data.goods_fileList.length;
 
 
                 for (var i = 0; i < res.tempFilePaths.length; i++) {
@@ -99,25 +99,21 @@ Page({
                 }
 
 
-                /**
-                 * 上传完成后把文件上传到服务器
-                 */
-
+                //上传完成后把文件上传到服务器
                 for (var i = 0, h = tempFilePaths.length; i < h; i++) {
                     console.log(tempFilePaths[i]);
 
                     //上传文件
                     wx.uploadFile({
-                        url: "http://47.106.241.182:8082/publish/uploadGoodsImage",
+                        url: that.data.goods_uploadUrl,
                         filePath: tempFilePaths[i],
-
                         name: 'image',
                         header: {
                             "Content-Type": "multipart/form-data"
                         },
                         success: function(res) {
-                            let imageFile = that.data.tempFilePaths;
-
+                            let imageFile = that.data.goods_fileList;
+                            console.log(tempFilePaths[i]);
                             //如果是最后一张,则隐藏等待中  
                             if (i == tempFilePaths.length) {
                                 wx.hideToast();
@@ -132,10 +128,9 @@ Page({
                             imageFile.push(image);
                             console.log(data.data.id);
                             console.log(image);
-                            console.log(data.data.imageLink);
-                            console.log(that.data.tempFilePaths)
+
                             that.setData({
-                                tempFilePaths: imageFile,
+                                goods_fileList: imageFile,
                             })
                         },
                         fail: function(res) {
@@ -153,21 +148,20 @@ Page({
             }
         })
     },
-    /**
-     * 预览图片方法
-     */
-    listenerButtonPreviewImage: function(e) {
+
+    // 预览二手交易图片方法
+    goodsListenerButtonPreviewImage(e) {
         let index = e.target.dataset.index;
         let that = this;
-        console.log(that.data.tempFilePaths[index].imageLink);
+        console.log(that.data.goods_fileList[index].imageLink);
         let imageList = [];
-        for (var i = 0; i < that.data.tempFilePaths.length; i++)
-            imageList.push(that.data.tempFilePaths[i].imageLink)
+        for (var i = 0; i < that.data.goods_fileList.length; i++)
+            imageList.push(that.data.goods_fileList[i].imageLink)
 
         console.log(imageList);
 
         wx.previewImage({
-            current: that.data.tempFilePaths[index].imageLink,
+            current: that.data.goods_fileList[index].imageLink,
             urls: imageList,
             //这根本就不走
             success: function(res) {
@@ -179,21 +173,38 @@ Page({
             }
         })
     },
+
     /**
-     * 长按删除图片
+     * 删除二手交易图片
      */
     deleteImage: function(e) {
         var that = this;
-        var tempFilePaths = that.data.tempFilePaths;
-        var index = e.currentTarget.dataset.index; //获取当前长按图片下标
+        var tempFilePaths = that.data.goods_fileList;
+
+        var index = e.currentTarget.dataset.id; //获取当前长按图片下标
+        console.log(index);
+        var tempId = tempFilePaths[index].id;
         wx.showModal({
             title: '提示',
             content: '确定要删除此图片吗？',
             success: function(res) {
                 if (res.confirm) {
-                    console.log('确定');
+                    wx.request({
+                        url: that.data.goods_deleteUrl + tempId,
+
+                        header: {
+                            'content-type': 'application/json' // 默认值
+
+                        },
+                        success: function(res) {
+                            console.log("删除成功");
+                            console.log(tempId);
+                        }
+
+                    })
+
                     tempFilePaths.splice(index, 1);
-                    console.log(index);
+
                     that.setData({
                         goods_add_img: false,
                     })
@@ -286,16 +297,6 @@ Page({
         })
     },
 
-    //上传二手物品图片
-    goods_afterRead(event) {
-        this.setData({
-            url: this.data.goods_uploadUrl
-        })
-        this.afterRead(event);
-        this.setData({
-            goods_fileList: this.data.fileList
-        })
-    },
 
     //上传活动信息图片
     activity_afterRead(event) {
