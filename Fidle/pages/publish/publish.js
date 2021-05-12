@@ -159,11 +159,16 @@ Page({
     listenerButtonPreviewImage: function(e) {
         let index = e.target.dataset.index;
         let that = this;
-        console.log(that.data.tempFilePaths[index]);
-        console.log(that.data.tempFilePaths);
+        console.log(that.data.tempFilePaths[index].imageLink);
+        let imageList = [];
+        for (var i = 0; i < that.data.tempFilePaths.length; i++)
+            imageList.push(that.data.tempFilePaths[i].imageLink)
+
+        console.log(imageList);
+
         wx.previewImage({
-            current: that.data.tempFilePaths[index],
-            urls: that.data.tempFilePaths,
+            current: that.data.tempFilePaths[index].imageLink,
+            urls: imageList,
             //这根本就不走
             success: function(res) {
                 //console.log(res);
