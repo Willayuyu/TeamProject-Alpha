@@ -3,9 +3,9 @@
     <van-card  thumb="{{activityImageURL}}" thumb-link="{{activityDetailsURL}}" class="card" >
       <view slot="title" class="title" bindtap="clickActivityCard">
         <text>{{activityTitle}}</text>
-      </view>
-      <view slot="num" class="modifyTag">
+        <view class="modifyTag">
         <image class="modify" mode="widthFix" src="../../icons/modify.png"></image>
+      </view>
       </view>
       <view slot="desc">
         <text>{{date + address}}</text>

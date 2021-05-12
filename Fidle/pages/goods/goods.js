@@ -23,6 +23,7 @@ Page({
    */
   onLoad: function (options) {
     wx.setNavigationBarTitle({ title: '我的二手' });  
+    this.showPromise();
   },
 
   /**
@@ -57,14 +58,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    wx.request({
-      url: 'http://120.77.210.142:8080/myGoods/listGoodsOnSaleByPageid/Pageid',
-      method: 'GET',
-      success: function(res){
-        console.log(res.code);
-        console.log(res.data);
-      }
-    })
+    this.showPromise();
   },
 
   /**
@@ -88,6 +82,108 @@ Page({
     wx.navigateTo({
       url: '/pages/goodsDetailsPage/goodsDetailsPage',
     })
-  }
+  },
+  showOnSale() {
+    return new Promise(function (resolve, reject) {
+      wx.request({
+        url: 'http://120.77.210.142:8080/myGoods/listGoodsOnSaleByPageid/1',
+        method: 'GET',
+        dataType: 'json',
+        headers: {
+          'Content-Type': 'application/json',
+          'Cookie': wx.getStorageSync('sessionid')
+        },
+        success: (result) => {
+          resolve(result);
+          // console.log(res.data.code);
+          // console.log(res.data.data); 
+          // console.log(res.data.data[0]);
+          // that.setData({
+          //   dataList: res.data.data,
+          // });
+          // console.log(dataList);
+        },
+        fail: (err) => {
+          reject(err);
+          wx.showToast({ title: '系统错误' })
+        },
+      })
+    })
+  },
+  showSold() {
+    return new Promise(function (resolve, reject) {
+      wx.request({
+        url: 'http://120.77.210.142:8080/myGoods/listGoodsSoldByPageid/1',
+        method: 'GET',
+        dataType: 'json',
+        headers: {
+          'Content-Type': 'application/json',
+          'Cookie': wx.getStorageSync('sessionid')
+        },
+        success: (result) => {
+          resolve(result);
+          // console.log(res.data.code);
+          // console.log(res.data.data); 
+          // console.log(res.data.data[0]);
+          // that.setData({
+          //   dataList: res.data.data,
+          // });
+          // console.log(dataList);
+        },
+        fail: (err) => {
+          reject(err);
+          wx.showToast({ title: '系统错误' })
+        },
+      })
+    })
+  },
+
+  showBuy() {
+    return new Promise(function (resolve, reject) {
+      wx.request({
+        url: 'http://120.77.210.142:8080/myGoods/listGoodsBuyingByPageid//1',
+        method: 'GET',
+        dataType: 'json',
+        headers: {
+          'Content-Type': 'application/json',
+          'Cookie': wx.getStorageSync('sessionid')
+        },
+        success: (result) => {
+          resolve(result);
+          // console.log(res.data.code);
+          // console.log(res.data.data); 
+          // console.log(res.data.data[0]);
+          // that.setData({
+          //   dataList: res.data.data,
+          // });
+          // console.log(dataList);
+        },
+        fail: (err) => {
+          reject(err);
+          wx.showToast({ title: '系统错误' })
+        },
+      })
+    })
+  },
+  showPromise() {
+    let that = this;
+    let goodsOnSale;
+    let goodsSold;
+    let goodsBuy;
+    Promise.all(
+      [that.showOnSale(), that.showSold(), that.showBuy()]).then((res) => {
+        //三个方法回来后的数据
+        console.log(res.data);
+        const [res1, res2, res3] = res;
+        console.log(res1.data.data);
+        console.log(res2.data.data);
+        console.log(res3.data.data);
+        that.setData({
+          goodsOnSale: res1.data.data,
+          goodsSold: res2.data.data,
+          goodsBuy: res3.data.data
+        })
+      });
+  },
 
 })
