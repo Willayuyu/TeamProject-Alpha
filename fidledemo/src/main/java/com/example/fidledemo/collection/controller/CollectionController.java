@@ -46,7 +46,7 @@ public class CollectionController {
         userDO.setId(userBO.getId());
 
         //设置分页信息
-        userDO.setLimit(Boolean.TRUE);
+        userDO.setLimit(Boolean.FALSE);
         userDO.setBegin((pageId - 1) * size);
         userDO.setSize(size);
 
@@ -104,7 +104,7 @@ public class CollectionController {
         userDO.setId(userBO.getId());
 
         //设置分页信息
-        userDO.setLimit(Boolean.TRUE);
+        userDO.setLimit(Boolean.FALSE);
         userDO.setBegin((pageId - 1) * size);
         userDO.setSize(size);
 
@@ -154,7 +154,7 @@ public class CollectionController {
         userDO.setId(userBO.getId());
 
         //设置分页信息
-        userDO.setLimit(Boolean.TRUE);
+        userDO.setLimit(Boolean.FALSE);
         userDO.setBegin((pageId - 1) * size);
         userDO.setSize(size);
 

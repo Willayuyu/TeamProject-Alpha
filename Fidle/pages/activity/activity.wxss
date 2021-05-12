@@ -17,6 +17,8 @@
 .title{
   font-size: 28rpx;
   font-weight: bold;
+  display: flex;
+  justify-content: space-between;
 }
 
 .tagsIcon{
@@ -43,15 +45,9 @@
   margin-bottom: 15rpx;
 }
 
-.modifyTag{
-  display: flex;
-  align-items: center;
-}
-
 .modify{
   margin-left: auto;
   margin-right: 25rpx;
-  margin-top: -310rpx;
   width: 40rpx;
   height: auto;
   vertical-align: middle;

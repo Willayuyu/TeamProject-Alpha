@@ -3,6 +3,7 @@ package com.example.fidledemo.dao;
 import com.example.fidledemo.BO.CreditBO;
 import com.example.fidledemo.DO.CreditDO;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * @author 11313
  */
 @Mapper
+@Repository
 public interface CreditDAO
 {
   /**

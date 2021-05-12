@@ -7,7 +7,7 @@ Page({
    */
   data: {
     swiperList: [],
-    collectState: 0,
+    collectState: -1,
     category: "",
     condition: "",
     tagsList: [],
@@ -22,13 +22,12 @@ Page({
   /**
    * 获取二手详情页信息
    */
-  getGoodsDetail:function(event){
+  getGoodsDetail:function(){
     let that = this;
-    //let id = event.id;
     var session_id = wx.getStorageSync('sessionid');
-    var header = {'content-type': 'application/x-www-form-urlencoded', 'Cookie': session_id };
+    var header = {'content-type': 'application/json', 'Cookie': session_id };
     wx.request({
-      url: 'http://47.106.241.182:8082/goods/getGoodsDetailById/' + 1,
+      url: 'http://47.106.241.182:8082/goods/getGoodsDetailById/' + that.data.id,
       method: "GET",
       header: header,
       success(res){
@@ -80,10 +79,10 @@ Page({
   onClickStar(event){
     let that = this;
     var session_id = wx.getStorageSync('sessionid');
-    var header = {'content-type': 'application/x-www-form-urlencoded', 'Cookie': session_id };
-    if(that.data.collectState == 0){
+    var header = {'content-type': 'application/json', 'Cookie': session_id };
+    if(that.data.collectState == -1){
       wx.request({
-        url: 'http://47.106.241.182:8082/goods/collectGoods/' + 1,
+        url: 'http://47.106.241.182:8082/goods/collectGoods/' + that.data.id,
         method: 'GET',
         header: header,
         success(res){
@@ -104,14 +103,14 @@ Page({
       })
     } else if(that.data.collectState == 1) {
       wx.request({
-        url: 'http://47.106.241.182:8082/goods/cancelCollectGoods/' + 1,
+        url: 'http://47.106.241.182:8082/goods/cancelCollectGoods/' + that.data.id,
         method: 'GET',
         header: header,
         success(res){
           console.log(res);
           if(res.data.code===200){
             that.setData({
-              collectState: 0
+              collectState: -1
             });
             Toast({
               position: 'bottom',
@@ -138,6 +137,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let goodsID = options.id;
+    this.setData({
+      id: goodsID
+    })
     this.getGoodsDetail();
   },
   /**
@@ -150,6 +153,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    
   },
 
   /**

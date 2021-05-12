@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.fidledemo.dao.TaskCategoryDAO">
+
+    <resultMap id="CategoryMap" type="com.example.fidledemo.BO.CategoryBO">
+        <result property="id" column="id"/>
+        <result property="categoryId" column="category_id"/>
+        <result property="categoryDesignation" column="category_designation"/>
+        <result property="type" column="type"/>
+    </resultMap>
+
+    <insert id="insertTaskCategory" useGeneratedKeys="true" keyProperty="id" parameterType="com.example.fidledemo.DO.TaskCategoryDO" >
+        INSERT INTO task_category
+        VALUES (#{id},#{categoryId},#{categoryDesignation},now(),now())
+    </insert>
+
+    <select id="getTaskCategory" parameterType="Long" resultMap="CategoryMap">
+        SELECT id,category_id,category_designation,2 AS 'type'
+        FROM task_category
+        WHERE category_id=#{id};
+    </select>
+
+    <update id="updateTaskCategory" parameterType="com.example.fidledemo.DO.TaskCategoryDO">
+        UPDATE task_category
+        <set>
+            <if test="categoryDesignation !=null and categoryDesignation !=''">category_designation=#{categoryDesignation},</if>
+            gmt_modified=now()
+        </set>
+        WHERE category_id=#{categoryId}
+    </update>
+
+    <delete id="deleteTaskCategory" parameterType="Long">
+        DELETE FROM task_category
+        WHERE category_id=#{id}
+    </delete>
+
+    <select id="listAllTaskCategory" resultMap="CategoryMap">
+        SELECT id,category_id,category_designation,2 AS 'type'
+        FROM task_category
+    </select>
+
+</mapper>

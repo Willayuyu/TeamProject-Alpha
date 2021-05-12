@@ -66,18 +66,102 @@ Page({
    * 点击标题跳转详情页
    */
   clickGoodsCard(event) {
-    wx.navigateTo({
-      url: '/pages/goodsDetailsPage/goodsDetailsPage',
+    let index = event.currentTarget.dataset.index;
+    let id;
+    let pubId;
+    wx.request({
+      url: 'http://47.106.241.182:8082/collection/listCollectibleGoodsByPageid/1',
+      method: 'GET',
+      dataType: 'json',
+      data: {
+        'id': id,
+        'pubId': pubId
+      },
+      headers: {
+        'Content-Type': 'application/json',
+        'Cookie': wx.getStorageSync('sessionid')
+      },
+      success: (res) => {
+        console.log(index);
+        let dataList = res.data.data[index];
+        console.log(dataList);
+        id = dataList.id;
+        pubId = dataList.pubId;
+        console.log(id);
+        console.log(pubId);
+        wx.navigateTo({
+          url: '/pages/goodsDetailsPage/goodsDetailsPage?id='+id,
+        })
+      },
+      fail: (err) => {
+        wx.showToast({ title: '系统错误' })
+      },
     })
   },
   clickTaskCard(event) {
-    wx.navigateTo({
-      url: '/pages/taskDetailsPage/taskDetailsPage',
+    let index = event.currentTarget.dataset.index;
+    let id;
+    let pubId;
+    wx.request({
+      url: 'http://47.106.241.182:8082/collection/listCollectibleTaskByPageid/1',
+      method: 'GET',
+      dataType: 'json',
+      data: {
+        'id': id,
+        'pubId': pubId
+      },
+      headers: {
+        'Content-Type': 'application/json',
+        'Cookie': wx.getStorageSync('sessionid')
+      },
+      success: (res) => {
+        console.log(index);
+        let dataList = res.data.data[index];
+        console.log(dataList);
+        id = dataList.id;
+        pubId = dataList.pubId;
+        console.log(id);
+        console.log(pubId);
+        wx.navigateTo({
+          url: '/pages/taskDetailsPage/taskDetailsPage?id='+id,
+        })
+      },
+      fail: (err) => {
+        wx.showToast({ title: '系统错误' })
+      },
     })
   },
   clickActivityCard(event) {
-    wx.navigateTo({
-      url: '/pages/activityDetailsPage/activityDetailsPage',
+    let index = event.currentTarget.dataset.index;
+    let id;
+    let pubId;
+    wx.request({
+      url: 'http://47.106.241.182:8082/collection/listCollectibleActivityByPageid/1',
+      method: 'GET',
+      dataType: 'json',
+      data: {
+        'id': id,
+        'pubId': pubId
+      },
+      headers: {
+        'Content-Type': 'application/json',
+        'Cookie': wx.getStorageSync('sessionid')
+      },
+      success: (res) => {
+        console.log(index);
+        let dataList = res.data.data[index];
+        console.log(dataList);
+        id = dataList.id;
+        pubId = dataList.pubId;
+        console.log(id);
+        console.log(pubId);
+        wx.navigateTo({
+          url: '/pages/activityDetailsPage/activityDetailsPage?id='+id,
+        })
+      },
+      fail: (err) => {
+        wx.showToast({ title: '系统错误' })
+      },
     })
   },
 
@@ -208,8 +292,42 @@ Page({
         pubId = dataList.pubId;
         console.log(id);
         console.log(pubId);
+        wx.redirectTo({ 
+          url: '/pages/contact/contact?pubId='+pubId
+        }) 
+      },
+      fail: (err) => {
+        wx.showToast({ title: '系统错误' })
+      },
+    })
+  },
+
+  taskConnect: function(event){
+    let index = event.currentTarget.dataset.index;
+    let id;
+    let pubId;
+    wx.request({
+      url: 'http://47.106.241.182:8082/collection/listCollectibleTaskByPageid/1',
+      method: 'GET',
+      dataType: 'json',
+      data: {
+        'id': id,
+        'pubId': pubId
+      },
+      headers: {
+        'Content-Type': 'application/json',
+        'Cookie': wx.getStorageSync('sessionid')
+      },
+      success: (res) => {
+        console.log(index);
+        let dataList = res.data.data[index];
+        console.log(dataList);
+        id = dataList.id;
+        pubId = dataList.pubId;
+        console.log(id);
+        console.log(pubId);
           wx.redirectTo({ 
-              url: '/pages/contact/contact?pubID='+pubId
+              url: '/pages/contact/contact?pubId='+pubId
            }) 
 
       },

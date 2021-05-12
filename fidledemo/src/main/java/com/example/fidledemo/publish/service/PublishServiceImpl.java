@@ -1,20 +1,22 @@
 package com.example.fidledemo.publish.service;
 
-import com.example.fidledemo.BO.ActivityInfoBO;
-import com.example.fidledemo.BO.GoodsInfoBO;
-import com.example.fidledemo.BO.ImageBO;
-import com.example.fidledemo.BO.TaskInfoBO;
+import com.alibaba.fastjson.JSON;
+import com.example.fidledemo.BO.*;
 import com.example.fidledemo.DO.*;
 import com.example.fidledemo.dao.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.util.List;
 
 /**
  * @author WWJ
  */
 @Service
+@PropertySource("classpath:application.yml")
 public class PublishServiceImpl implements PublishService {
     @Autowired
     TaskInfoDAO taskInfoDAO;
@@ -40,6 +42,9 @@ public class PublishServiceImpl implements PublishService {
     TagOfActivityDAO tagOfActivityDAO;
     @Autowired
     ActivityImageDAO activityImageDAO;
+
+    @Value("${imageHost.path}")
+    String path;
 
     @Override
     public void insertTask(TaskInfoBO taskInfoBO) {
@@ -134,8 +139,10 @@ public class PublishServiceImpl implements PublishService {
     @Override
     public void deleteImage(ImageBO imageBO) {
         if (imageBO.getType() == 3) {
+            deleteFile(activityImageDAO.getActivityImageById(imageBO.getId()));
             activityImageDAO.deleteActivityImage(imageBO.getId());
         } else {
+            deleteFile(goodsImageDAO.getGoodsImageById(imageBO.getId()));
             goodsImageDAO.deleteGoodsImage(imageBO.getId());
         }
     }
@@ -146,6 +153,19 @@ public class PublishServiceImpl implements PublishService {
             return goodsImageDAO.getGoodsImageByLink(imageBO.getImageLink());
         }else{
             return activityImageDAO.getActivityImageByLink(imageBO.getImageLink());
+        }
+    }
+
+    public void deleteFile(String url){
+        String[] split = url.split("/");
+        String fileName=split[4];
+        System.out.println(path+fileName);
+        File file=new File(path+fileName);
+        if(file.exists()){
+            file.delete();
+            System.out.println("文件删除成功");
+        }else{
+            System.out.println("文件为空");
         }
     }
 }
