@@ -36,7 +36,7 @@
 .btn{
   width: 50rpx;
   height: 20rpx; 
-  margin: 0 20rpx 40rpx;
+  margin: 0 20rpx;
   padding: 10rpx 20rpx;
   background-color: #7db5ee;
   color: #F3F4F4;
@@ -72,4 +72,27 @@
   width: 40rpx;
   height: auto;
   vertical-align: middle;
+}
+
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.panelBtns{
+  display: flex;
+  justify-content: space-between;
+}
+
+.panelBtn{
+  width: 50rpx;
+  height: 20rpx; 
+  padding: 20rpx;
+  background-color: #7db5ee;
+  color: #F3F4F4;
+  font-size: 22rpx;
+  border-radius: 5rpx;
 }

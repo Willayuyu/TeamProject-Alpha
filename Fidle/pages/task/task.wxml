@@ -22,8 +22,21 @@
         <van-tag wx:for="{{taskTagsList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">
           {{item}}</van-tag>
         <view class="taskBtns">
-          <van-button class="btn">进行</van-button>
+          <van-button class="btn" bindtap="showOverlap">进行</van-button>
           <van-button class="btn">删除</van-button>
+          <van-overlay show="{{ show }}">
+            <view class="wrapper">
+            <van-panel title="生成订单"use-footer-slot>
+              <van-cell-group>
+                <van-field value="{{ value }}" placeholder="请输入接受人id" border="{{ false }}" />
+              </van-cell-group>
+              <view slot="footer" class="panelBtns">
+                <van-button class="panelBtn">确认</van-button>
+                <van-button class="panelBtn" bindtap="onClickHide">取消</van-button>
+              </view>
+            </van-panel>
+          </view>
+          </van-overlay>
         </view>
       </view>
     </van-card>
