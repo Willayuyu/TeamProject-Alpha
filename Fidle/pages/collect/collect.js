@@ -82,15 +82,16 @@ Page({
   },
 
   showGoods() {
-    return new Promise(function(resolve,reject){
+    return new Promise(function (resolve, reject) {
       wx.request({
         url: 'http://47.106.241.182:8082/collection/listCollectibleGoodsByPageid/1',
         method: 'GET',
         dataType: 'json',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Cookie': wx.getStorageSync('sessionid')
         },
-        success:(result)=> {
+        success: (result) => {
           resolve(result);
           // console.log(res.data.code);
           // console.log(res.data.data); 
@@ -100,23 +101,24 @@ Page({
           // });
           // console.log(dataList);
         },
-        fail:(err)=> {
+        fail: (err) => {
           reject(err);
           wx.showToast({ title: '系统错误' })
         },
       })
     })
   },
-  showTask(){
-    return new Promise(function(resolve,reject){
+  showTask() {
+    return new Promise(function (resolve, reject) {
       wx.request({
         url: 'http://47.106.241.182:8082/collection/listCollectibleTaskByPageid/1',
         method: 'GET',
         dataType: 'json',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Cookie': wx.getStorageSync('sessionid')
         },
-        success:(result)=> {
+        success: (result) => {
           resolve(result);
           // console.log(res.data.code);
           // console.log(res.data.data); 
@@ -126,7 +128,7 @@ Page({
           // });
           // console.log(dataList);
         },
-        fail:(err)=> {
+        fail: (err) => {
           reject(err);
           wx.showToast({ title: '系统错误' })
         },
@@ -134,16 +136,17 @@ Page({
     })
   },
 
-  showActivity(){
-    return new Promise(function(resolve,reject){
+  showActivity() {
+    return new Promise(function (resolve, reject) {
       wx.request({
         url: 'http://47.106.241.182:8082/collection/listCollectibleActivityByPageid/1',
         method: 'GET',
         dataType: 'json',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Cookie': wx.getStorageSync('sessionid')
         },
-        success:(result)=> {
+        success: (result) => {
           resolve(result);
           // console.log(res.data.code);
           // console.log(res.data.data); 
@@ -153,21 +156,21 @@ Page({
           // });
           // console.log(dataList);
         },
-        fail:(err)=> {
+        fail: (err) => {
           reject(err);
           wx.showToast({ title: '系统错误' })
         },
       })
     })
   },
-  showPromise(){
-    let that=this;
+  showPromise() {
+    let that = this;
     let goodsList;
     let taskList;
     let activityList;
     Promise.all(
-        [that.showGoods(),that.showTask(), that.showActivity()]).then((res) => {
-      //三个方法回来后的数据
+      [that.showGoods(), that.showTask(), that.showActivity()]).then((res) => {
+        //三个方法回来后的数据
         console.log(res.data);
         const [res1, res2, res3] = res;
         console.log(res1.data.data);
@@ -179,5 +182,41 @@ Page({
           activityList: res3.data.data
         })
       });
-}
+  },
+
+  goodsConnect: function(event){
+    let index = event.currentTarget.dataset.index;
+    let id;
+    let pubId;
+    wx.request({
+      url: 'http://47.106.241.182:8082/collection/listCollectibleGoodsByPageid/1',
+      method: 'GET',
+      dataType: 'json',
+      data: {
+        'id': id,
+        'pubId': pubId
+      },
+      headers: {
+        'Content-Type': 'application/json',
+        'Cookie': wx.getStorageSync('sessionid')
+      },
+      success: (res) => {
+        console.log(index);
+        let dataList = res.data.data[index];
+        console.log(dataList);
+        id = dataList.id;
+        pubId = dataList.pubId;
+        console.log(id);
+        console.log(pubId);
+          wx.redirectTo({ 
+              url: '/pages/contact/contact?pubID='+pubId
+           }) 
+
+      },
+      fail: (err) => {
+        wx.showToast({ title: '系统错误' })
+      },
+    })
+
+  }
 })

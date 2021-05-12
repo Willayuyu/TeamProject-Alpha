@@ -11,7 +11,7 @@
         <van-tag wx:for="{{item.tagList}}" wx:key="index" class="tagItem" color="#dbdbdb" text-color="#394044">{{item.content}}</van-tag>
       </view>
       <view slot="footer" class="btns">
-        <van-button  class="btn">联系卖家</van-button>
+        <van-button  class="btn" bindtap="goodsConnect" data-index="{{index}}">联系卖家</van-button>
         <van-button  class="btn">取消收藏</van-button>
       </view>
     </van-card>
@@ -29,7 +29,7 @@
         <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
         <van-tag wx:for="{{item.tagList}}" wx:key="index" class="tagItem" color="#dbdbdb" text-color="#394044">{{item.content}}</van-tag>
         <view class="taskBtns">
-        <van-button  class="btn">联系委托人</van-button>
+        <van-button  class="btn" bindtap="taskConnect">联系委托人</van-button>
         <van-button  class="btn">取消收藏</van-button>
       </view>
       </view>
@@ -53,6 +53,7 @@
         <van-tag wx:for="{{item.tagList}}" wx:key="index" class="tagItem" color="#dbdbdb" text-color="#394044">{{item.content}}</van-tag>
       </view>
       <view slot="footer" class="activityBtns">
+        <van-button  class="btn">取消收藏</van-button>
       </view>
     </van-card>
   </van-tab>

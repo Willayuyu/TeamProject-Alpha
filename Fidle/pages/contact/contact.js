@@ -12,6 +12,7 @@ Page({
       credit: 100,
       goodcmt: 5,
       badcmt: 1,
+      id:''
   },
 
   comments: function (options) {
@@ -25,6 +26,26 @@ Page({
    */
   onLoad: function (options) {
     wx.setNavigationBarTitle({ title: '对方信息' })  
+    this.setData({
+      id: options.pubId
+    }),
+    console.log(id);
+    wx.request({
+      url: 'http://47.106.241.182:8082/homePage/getPublisherBusinessCard/'+options.pubId,
+      method: 'GET',
+      dataType: 'json',
+      headers: {
+        'Content-Type': 'application/json',
+        'Cookie': wx.getStorageSync('sessionid')
+      },
+      success: (res) => {
+        console.log(res.data);
+        console.log(res.data.data);
+      },
+      fail: (err) => {
+        wx.showToast({ title: '系统错误' })
+      },
+    })
   },
 
   /**
