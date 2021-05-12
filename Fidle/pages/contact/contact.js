@@ -5,13 +5,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-      imgsrc: app.globalData.imgsrc,
-      username: app.globalData.username,
-      phonenum: app.globalData.phonenum,
-      qqnum: app.globalData.qqnum,
-      credit: 100,
-      goodcmt: 5,
-      badcmt: 1,
       id:''
   },
 
@@ -25,13 +18,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let id;
+    let that = this;
+    let dataList;
     wx.setNavigationBarTitle({ title: '对方信息' })  
-    this.setData({
+    that.setData({
       id: options.pubId
     }),
-    console.log(id);
+    console.log(options.pubId);
     wx.request({
-      url: 'http://47.106.241.182:8082/homePage/getPublisherBusinessCard/'+options.pubId,
+      url: 'http://47.106.241.182:8082/homePage/getPublisherBusinessCard/'+ options.pubId,
       method: 'GET',
       dataType: 'json',
       headers: {
@@ -41,6 +37,9 @@ Page({
       success: (res) => {
         console.log(res.data);
         console.log(res.data.data);
+        that.setData({
+          dataList: res.data.data
+        })
       },
       fail: (err) => {
         wx.showToast({ title: '系统错误' })

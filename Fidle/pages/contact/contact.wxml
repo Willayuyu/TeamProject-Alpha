@@ -1,36 +1,36 @@
 <view class="container">
   <view class="photobg">
-    <view><image class="photo" src="{{imgsrc}}"></image></view>
+    <view><image class="photo" src="{{dataList.portrait}}"></image></view>
   </view>
   <view class="itembg">
     <view class="itemname words">
       <text class="iconfont icon-person left"></text>
-      {{username}}
+      {{dataList.username}}
     </view>
   </view>
   <view class="itembg">
     <view class="itemname words">
       <text class="iconfont icon-phone left"></text>
-      {{phonenum}}
+      {{dataList.tel}}
     </view>
   </view>
   <view class="itembg">
     <view class="itemname words">
       <text class="iconfont icon-qq left"></text>
-      {{qqnum}}
+      {{dataList.qq}}
     </view>
   </view>
   <view class="itembg">
     <view class="itemname words">信用分
-      <text class="itemcontent words" decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{credit}}</text>
+      <text class="itemcontent words" decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{dataList.credit.creditScore}}</text>
     </view>
   </view>
   <view class="itembg" bindtap="comments">
     <view class="itemname words" decode="{{true}}">曾获评价 
       <text decode="{{true}}">&nbsp;&nbsp;</text>
-      <text class="itemcontent words iconfont icon-cc-thumbs-up" decode="{{true}}">&nbsp;&nbsp;×{{goodcmt}}</text>
+      <text class="itemcontent words iconfont icon-cc-thumbs-up" decode="{{true}}">&nbsp;&nbsp;×{{dataList.credit.likeNum}}</text>
       <text decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;</text>
-      <text class="itemcontent words iconfont icon-cc-thumbs-down" decode="{{true}}">&nbsp;&nbsp;×{{badcmt}}</text>
+      <text class="itemcontent words iconfont icon-cc-thumbs-down" decode="{{true}}">&nbsp;&nbsp;×{{dataList.credit.dislikeNum}}</text>
       <van-icon name="arrow" color="#7DB5EE"/>
     </view>
   </view>
