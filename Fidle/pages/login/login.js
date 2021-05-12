@@ -69,6 +69,14 @@ Page({
 
   },
   onLoad() {
+
+    // 清除Storage缓存
+    // try {
+    //   wx.clearStorageSync()
+    // } catch(e) {
+    //   // Do something when catch error
+    // }
+    
     console.log("onLoad")
     if (wx.getUserProfile) {
       this.setData({
@@ -79,7 +87,8 @@ Page({
     //0 如果isLogin==true，那么自动登录
     let value = wx.getStorageSync('isLogin')
     console.log("isLogin="+value)
-    if(value==true)
+    console.log(value=="")
+    if(value==true || value=="")
     {
       console.log("wx.login")
       //1 wx.login获取code
@@ -138,8 +147,10 @@ Page({
                 try {
                   console.log('app.globalData.username='+app.globalData.user.username)
                   console.log('globalData.user.portrait='+app.globalData.user.portrait)
+                  console.log("判断是否用户信息中的nickname和portrait为空")
+                  console.log(value=="")
                   //3 判断是否用户信息中的nickname和portrait为空
-                  if(app.globalData.user.username==null && app.globalData.user.portrait==null) {
+                  if(app.globalData.user.username==null && app.globalData.user.portrait==null || value=="") {
                     console.log('为空')
                     //3.1 为空，则用户为第一次登录
                     //必须留在当前页面，进行授权
@@ -169,6 +180,9 @@ Page({
         }
       }) 
     } 
+    else{
+      console.log("走到这里了")
+    }
   },
   getUserProfile(e) {
     console.log("getUserProfile")
@@ -190,7 +204,8 @@ Page({
         let session_id = wx.getStorageSync('sessionid');
         
                 // var header = { 'content-type': 'application/x-www-form-urlencoded', 'Cookie': session_id }
-         console.log('token='+app.globalData.token)
+        console.log('token='+app.globalData.token)
+        console.log("发起授权网络请求")
         wx.request({
           url: 'http://47.106.241.182:8080/login/userAuth', 
           // url: 'https://baidu.com',
@@ -202,30 +217,38 @@ Page({
           header: { 'content-type': 'application/x-www-form-urlencoded', 'Cookie': session_id ,
           'token': app.globalData.token},
           success (res) {
-            console.log('授权成功，返回完整的用户信息')
-          
-            wx.setStorageSync('isLogin', true)
-            console.log(res.data)
-            //把数据存在全局变量
-            app.globalData.user = res.data.data
-            console.log("res.data.data=")
-            console.log(res.data.data)
-            //打印出来看看，确认已经头像和昵称已经有了
-            console.log("app.globalData.user"+app.globalData.user)
-            //跳转进入首页
-            if(app.globalData.user!=null) {
+            // console.log(res)
+            // console.log(res.data)
+            if(res.data.code == 200) {
+              console.log('授权成功，返回完整的用户信息')
+            
+              wx.setStorageSync('isLogin', true)
+              console.log("res=")
+              console.log(res)
+              console.log(res.data)
+              //把数据存在全局变量
+              app.globalData.user = res.data.data
+              console.log("res.data.data=")
+              console.log(res.data.data)
+              //打印出来看看，确认已经头像和昵称已经有了
+              console.log("app.globalData.user"+app.globalData.user)
+              //跳转进入首页              
               console.log("跳转")
               wx.switchTab({
                 url:'/pages/index/index'
-              }) 
+              })             
             }
             else{
-              console.log("不跳转")
+              console.log("res.data.code="+res.data.code)
             }
           },
           fail:function(err){
+            console.log("跳转")
             console.log(err)
           },
+          complete:function(){
+            console.log("complete")
+          }
         })
       }
     })
