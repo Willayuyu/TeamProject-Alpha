@@ -5,7 +5,8 @@ import com.example.fidledemo.BO.*;
 import com.example.fidledemo.DO.TagOfActivityDO;
 import com.example.fidledemo.DO.TagOfGoodsDO;
 import com.example.fidledemo.DO.TagOfTaskDO;
-import com.example.fidledemo.DO.UserDO;
+import com.example.fidledemo.VO.ActivityImageVO;
+import com.example.fidledemo.VO.GoodsImageVO;
 import com.example.fidledemo.dao.TagOfActivityDAO;
 import com.example.fidledemo.dao.TagOfGoodsDAO;
 import com.example.fidledemo.dao.TagOfTaskDAO;
@@ -292,7 +293,8 @@ public class PublishController {
         }
         ImageBO imageBO = new ImageBO(null, image_link, ImageBO.GOODS);
         imageBO.setId(publishService.insertImage(imageBO));
-        return JSON.toJSONString(Result.successResult(imageBO));
+        GoodsImageVO goodsImageVO = new GoodsImageVO(imageBO.getId(),imageBO.getImageLink());
+        return JSON.toJSONString(Result.successResult(goodsImageVO));
     }
 
     /**
@@ -349,7 +351,8 @@ public class PublishController {
         }
         ImageBO imageBO = new ImageBO(null, image_link, ImageBO.ACTIVITY);
         imageBO.setId(publishService.insertImage(imageBO));
-        return JSON.toJSONString(Result.successResult(imageBO));
+        ActivityImageVO activityImageVO = new ActivityImageVO(imageBO.getId(),imageBO.getImageLink());
+        return JSON.toJSONString(Result.successResult(activityImageVO));
     }
 
     /**
@@ -372,7 +375,7 @@ public class PublishController {
     /**
      * 删除活动信息图片
      *
-     * @param id
+     * @param request
      * @return
      */
     @GetMapping("/deleteActivityImage/{id}")

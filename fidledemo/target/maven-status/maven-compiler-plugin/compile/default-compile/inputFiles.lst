@@ -27,6 +27,7 @@ C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\ex
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\BO\Result.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\DO\TaskCategoryDO.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\homepage\service\TaskInfoServiceImpl.java
+C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\historypage\controller\MyActivityController.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\homepage\service\ActivityInfoService.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\dao\TaskReportMessageDAO.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\BO\ReportMessage.java
@@ -35,6 +36,7 @@ C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\ex
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\BO\MessageList.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\config\AuthenticationInterceptor.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\BO\CategoryBO.java
+C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\person\controller\PersonalCardController.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\VO\LoginVO.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\collection\service\CollectionServiceImpl.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\VO\MyGoodsVO.java
@@ -44,6 +46,7 @@ C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\ex
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\dao\TaskTagDAO.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\homepage\service\ActivityCategoryServiceImpl.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\dao\TaskInfoDAO.java
+C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\person\service\PersonalCardService.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\VO\ActivityCategoryVO.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\VO\ActivityVO.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\config\InterceptorConfig.java
@@ -52,10 +55,13 @@ C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\ex
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\config\ExceptionAdvice.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\homepage\service\GoodsInfoService.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\DO\TagOfTaskDO.java
+C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\historypage\controller\MyGoodsController.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\DO\AdminDO.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\config\XssFilter.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\dao\GoodsEvaluationDAO.java
+C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\historypage\controller\MyTaskController.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\homepage\service\CreditServiceImpl.java
+C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\person\service\UserService.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\BO\GmtInfo.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\VO\TaskEvaluationVO.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\dao\TagOfGoodsDAO.java
@@ -74,6 +80,7 @@ C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\ex
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\dao\GoodsReportMessageDAO.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\DO\TaskDelegateDO.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\VO\TaskImageVO.java
+C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\historypage\service\MyTaskServiceImpl.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\homepage\service\ActivityCategoryService.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\homepage\service\ActivityInfoServiceImpl.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\dao\ActivityEnshrineDAO.java
@@ -86,8 +93,10 @@ C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\ex
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\config\XssHttpServletRequest.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\dao\TaskDelegateDAO.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\DO\TaskEvaluationDO.java
+C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\person\service\UserServiceImpl.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\dao\ActivityInfoDAO.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\BO\TaskDelegateBO.java
+C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\historypage\service\MyActivityService.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\BO\BaseOrder.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\homepage\controller\TaskController.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\BO\CreditBO.java
@@ -95,6 +104,7 @@ C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\ex
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\dao\GoodsImageDAO.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\dao\UserDAO.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\homepage\service\TaskEnshrineService.java
+C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\person\controller\PersonInfoController.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\DO\TaskInformationDO.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\dao\GoodsCategoryDAO.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\homepage\service\UserService.java
@@ -107,10 +117,12 @@ C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\ex
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\FidledemoApplication.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\homepage\service\GoodsEnshrineServiceImpl.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\login\util\LoginUtil.java
+C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\historypage\service\MyTaskService.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\homepage\service\TaskInfoService.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\dao\TaskCategoryDAO.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\login\service\LoginService.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\VO\GoodsEvaluationVO.java
+C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\historypage\service\MyGoodsServiceImpl.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\DO\GoodsReportMessageDO.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\DO\GoodsTagDO.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\BO\ActivityInfoBO.java
@@ -136,9 +148,12 @@ C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\ex
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\BO\BaseInformation.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\BO\BaseMessage.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\BO\IndexList.java
+C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\historypage\service\MyGoodsService.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\homepage\controller\GoodsController.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\BO\PassToken.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\DO\GoodsEvaluationDO.java
+C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\historypage\service\MyActivityServiceImpl.java
+C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\person\service\PersonalCarServiceImpl.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\homepage\service\GoodsEnshrineService.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\homepage\service\TaskCategoryServiceImpl.java
 C:\Users\WWJ20\Documents\GitHub\TeamProject-Alpha\fidledemo\src\main\java\com\example\fidledemo\BO\GoodsIndentBO.java

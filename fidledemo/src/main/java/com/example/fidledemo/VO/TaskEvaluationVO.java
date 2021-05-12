@@ -15,7 +15,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class TaskEvaluationVO {
 
-    private Long goodsId;
+    private Long taskId;
 
     private Long valuatorId;
 
