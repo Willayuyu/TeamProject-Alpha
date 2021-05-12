@@ -39,8 +39,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.setNavigationBarTitle({ title: '个人信息' })  
-
+    wx.setNavigationBarTitle({ title: '个人信息' });
+    this.setData({
+      imgsrc:app.globalData.user.portrait,
+      username:app.globalData.username,
+      phonenum:app.globalData.phonenum,
+      qqnum:app.globalData.qqnum,
+    })
   },
 
   /**
@@ -55,14 +60,9 @@ Page({
    */
   onShow: function () {
     this.setData({
-      // imgsrc:app.globalData.imgsrc,
-      // username:app.globalData.username,
-      // phonenum:app.globalData.phonenum,
-      // qqnum:app.globalData.qqnum,
-      imgsrc: app.globalData.user.portrait,
-      username: app.globalData.user.username,
-      phonenum:app.globalData.phonenum,//手机号码不知道从哪里获取 或者说要用户自己在注册时填写
-      qqnum:app.globalData.user.qq,
+      username:app.globalData.username,
+      phonenum:app.globalData.phonenum,
+      qqnum:app.globalData.qqnum,
     })
   },
 

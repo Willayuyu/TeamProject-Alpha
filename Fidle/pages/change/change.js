@@ -1,14 +1,11 @@
 // pages/changeInf/changeInf.js
 let app=getApp();
-
-import Toast from '../../components/dist/toast/toast';
-
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-      imgsrc:app.globalData.imgsrc,
+      imgsrc:app.globalData.user.portrait,
       username:app.globalData.username,
       phonenum:app.globalData.phonenum,
       qqnum:app.globalData.qqnum,
@@ -38,6 +35,9 @@ Page({
       app.globalData.username=username;
       app.globalData.phonenum=phonenum;
       app.globalData.qqnum=qqnum;
+      console.log("填入的用户名："+username);
+      console.log("填入的电话号码："+phonenum);
+      console.log("填入的qq："+qqnum);
 
       wx.request({
         url: 'http://120.77.210.142:8080/personalPage/alterInformation',
@@ -70,9 +70,7 @@ Page({
         fail: function(res){
           console.log("修改失败！")
         }
-      })
-  
-      
+      })      
     }   
   },
 
@@ -80,7 +78,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.setNavigationBarTitle({ title: '修改个人信息' })  
+    wx.setNavigationBarTitle({ title: '修改个人信息' }) ;
+    this.setData({
+      imgsrc:app.globalData.user.portrait,
+    })
   },
 
   /**
