@@ -31,7 +31,6 @@ Page({
       data: {
         id: 1,
         isLike: 1,
-        pageId: 1
       },
       method: 'POST',
       header: {
@@ -55,7 +54,6 @@ Page({
       data: {
         id: 1,
         isLike: -1,
-        pageId: 1
       },
       method: 'POST',
       header: {
@@ -79,7 +77,6 @@ Page({
       data: {
         id: 1,
         isLike: 1,
-        pageId: 1
       },
       method: 'POST',
       header: {
@@ -103,7 +100,6 @@ Page({
       data: {
         id: 1,
         isLike: -1,
-        pageId: 1
       },
       method: 'POST',
       header: {
