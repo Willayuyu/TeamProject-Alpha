@@ -1,7 +1,7 @@
 <van-tabs>
   <van-tab title="二手物品" name="goods">
-    <van-card  price="{{item.price}}" origin-price="{{item.originalPrice}}" thumb="{{item.picturesLink}}" thumb-link="{{goodsDetailsURL}}" class="card" wx:for="{{goodsList}}" wx:key="index">
-        <view slot="title" class="title" bindtap="clickGoodsCard">
+    <van-card  price="{{item.price}}" origin-price="{{item.originalPrice}}" thumb="{{item.picturesLink}}" click-thumb="clickGoodsCard" class="card" wx:for="{{goodsList}}" wx:key="index" data-index="{{index}}">
+      <view slot="title" class="title" bindtap="clickGoodsCard">
         <text>{{item.title}}</text>
       </view>
       <view slot="tags" class="tagList">
