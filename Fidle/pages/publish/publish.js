@@ -1,11 +1,16 @@
 // pages/publish/publish.js
 
-
+//console.log("返回成功的数据:" + JSON.stringify(res.data)) //这样就可以愉快的看到后台的数据啦
 Page({
     data: {
         url: "",
         fileList: [],
 
+        tempFilePaths: [],
+
+        max_upload: 3,
+
+        goods_add_img: false,
         goods_title: "",
         goods_price: "",
         goods_originalPrice: "",
@@ -25,7 +30,7 @@ Page({
         task_message: "",
         task_tag: "",
         task_class_list: [],
-        task_label_list: ["高数"],
+        task_label_list: [],
         task_class_list_idx: "",
 
         isPickerRender: false,
@@ -47,10 +52,150 @@ Page({
         activity_tag: "",
         activity_fileList: [],
         activity_class_list: [],
-        activity_label_list: ["五四活动"],
+        activity_label_list: [],
         activity_class_list_idx: "",
         activity_uploadUrl: "http://47.106.241.182:8082/publish/uploadActivityImage",
     },
+
+    /**
+     * 上传图片方法
+     */
+    upload: function() {
+        let that = this;
+        wx.chooseImage({
+            count: 9, // 默认9
+            sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+            sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+            success: res => {
+                wx.showToast({
+                        title: '正在上传...',
+                        icon: 'loading',
+                        mask: true,
+                        duration: 1000
+                    })
+                    // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+
+                let tempFilePaths = that.data.tempFilePaths;
+
+                for (var i = 0; i < res.tempFilePaths.length; i++) {
+                    if (tempFilePaths.length < that.data.max_upload)
+                        tempFilePaths.push(res.tempFilePaths[i]);
+                    else {
+                        wx.showModal({
+                            title: '提示',
+                            content: '图片最多上传三张',
+                        })
+                        break;
+                    }
+                }
+
+                if (tempFilePaths.length == that.data.max_upload) {
+                    that.setData({
+                        goods_add_img: true,
+                    })
+                }
+                /**
+                 * 上传完成后把文件上传到服务器
+                 */
+                var count = 0;
+                for (var i = 0, h = tempFilePaths.length; i < h; i++) {
+                    console.log(tempFilePaths[i]);
+                    //上传文件
+                    wx.uploadFile({
+                        url: "http://47.106.241.182:8082/publish/uploadGoodsImage",
+                        filePath: tempFilePaths[i],
+
+                        name: 'image',
+                        header: {
+                            "Content-Type": "multipart/form-data"
+                        },
+                        success: function(res) {
+                            let imageFile = [];
+                            count++;
+                            //如果是最后一张,则隐藏等待中  
+                            if (count == tempFilePaths.length) {
+                                wx.hideToast();
+                            }
+                            let image = {
+                                id: "",
+                                imageLink: ""
+                            }
+                            const data = JSON.parse(res.data)
+                            image.id = data.data.id;
+                            image.imageLink = data.data.imageLink;
+                            imageFile.push(image);
+                            console.log(data.data.id);
+                            console.log(image);
+                            console.log(data.data.imageLink);
+                            that.setData({
+                                tempFilePaths: imageFile,
+                            })
+                            console.log(that.data.tempFilePaths)
+                        },
+                        fail: function(res) {
+                            wx.hideToast();
+                            wx.showModal({
+                                title: '错误提示',
+                                content: '上传图片失败',
+                                showCancel: false,
+                                success: function(res) {}
+                            })
+                        }
+                    });
+                }
+
+            }
+        })
+    },
+    /**
+     * 预览图片方法
+     */
+    listenerButtonPreviewImage: function(e) {
+        let index = e.target.dataset.index;
+        let that = this;
+        console.log(that.data.tempFilePaths[index]);
+        console.log(that.data.tempFilePaths);
+        wx.previewImage({
+            current: that.data.tempFilePaths[index],
+            urls: that.data.tempFilePaths,
+            //这根本就不走
+            success: function(res) {
+                //console.log(res);
+            },
+            //也根本不走
+            fail: function() {
+                //console.log('fail')
+            }
+        })
+    },
+    /**
+     * 长按删除图片
+     */
+    deleteImage: function(e) {
+        var that = this;
+        var tempFilePaths = that.data.tempFilePaths;
+        var index = e.currentTarget.dataset.index; //获取当前长按图片下标
+        wx.showModal({
+            title: '提示',
+            content: '确定要删除此图片吗？',
+            success: function(res) {
+                if (res.confirm) {
+                    console.log('确定');
+                    tempFilePaths.splice(index, 1);
+                    that.setData({
+                        goods_add_img: false,
+                    })
+                } else if (res.cancel) {
+                    console.log('取消');
+                    return false;
+                }
+                that.setData({
+                    tempFilePaths
+                });
+            }
+        })
+    },
+
 
     pickerShow() {
         this.setData({
@@ -143,11 +288,11 @@ Page({
     //上传活动信息图片
     activity_afterRead(event) {
         this.setData({
-            url: this.data.activity_uploadUrl
+            url: activity_uploadUrl
         })
         this.afterRead(event);
         this.setData({
-            activity_fileList: this.data.fileList
+            activity_fileList: fileList
         })
     },
 
@@ -248,20 +393,15 @@ Page({
             method: 'GET', // 声明GET请求  
             // header: {}, // 设置请求的 header，GET请求可以不填  
             success: function(res) {
-                console.log("返回成功的数据:" + JSON.stringify(res.data)) //这样就可以愉快的看到后台的数据啦
                 let activity_list = new Array();
 
                 res.data.data.forEach(function(e) {
-                    console.log(e.categoryDesignation);
-                    console.log(e.categoryId);
-
                     let activity = {
                         categoryId: "",
                         categoryDesignation: ""
                     }
                     activity.categoryId = e.categoryId;
                     activity.categoryDesignation = e.categoryDesignation;
-                    console.log(activity);
                     activity_list.push(activity);
                 });
 
@@ -288,20 +428,15 @@ Page({
             method: 'GET', // 声明GET请求  
             // header: {}, // 设置请求的 header，GET请求可以不填  
             success: function(res) {
-                console.log("返回成功的数据:" + JSON.stringify(res.data)) //这样就可以愉快的看到后台的数据啦
                 let task_list = new Array();
 
                 res.data.data.forEach(function(e) {
-                    console.log(e.categoryDesignation);
-                    console.log(e.categoryId);
-
                     let task = {
                         categoryId: "",
                         categoryDesignation: ""
                     }
                     task.categoryId = e.categoryId;
                     task.categoryDesignation = e.categoryDesignation;
-                    console.log(task);
                     task_list.push(task);
                 });
 
@@ -327,20 +462,15 @@ Page({
             method: 'GET', // 声明GET请求  
             // header: {}, // 设置请求的 header，GET请求可以不填  
             success: function(res) {
-                console.log("返回成功的数据:" + JSON.stringify(res.data)) //这样就可以愉快的看到后台的数据啦
                 let goods_list = new Array();
 
                 res.data.data.forEach(function(e) {
-                    console.log(e.categoryDesignation);
-                    console.log(e.categoryId);
-
                     let good = {
                         categoryId: "",
                         categoryDesignation: ""
                     }
                     good.categoryId = e.categoryId;
                     good.categoryDesignation = e.categoryDesignation;
-                    console.log(good);
                     goods_list.push(good);
                 });
 
