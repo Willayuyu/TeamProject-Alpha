@@ -15,7 +15,7 @@ mybatis:
     mapper-locations: classpath*:com/example/fidledemo/dao/*.xml
 
 server:
-    port: 8082
+    port: 8083
 imageHost:
     url: http://47.106.241.182:8083/fidle/
     path: /usr/local/apache-tomcat-9.0.44/webapps/fidle/

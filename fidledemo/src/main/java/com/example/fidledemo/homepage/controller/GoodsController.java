@@ -13,6 +13,7 @@ import com.example.fidledemo.homepage.service.GoodsCategoryServiceImpl;
 import com.example.fidledemo.homepage.service.GoodsEnshrineServiceImpl;
 import com.example.fidledemo.homepage.service.GoodsInfoServiceImpl;
 import com.example.fidledemo.homepage.utils.DateUtils;
+import com.example.fidledemo.homepage.utils.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -63,9 +64,9 @@ public class GoodsController {
             int condition=Integer.parseInt(request.getParameter("condition"));
             int pageid=Integer.parseInt(request.getParameter("pageid"));
 
-            goodsInfoDO.setLimit(Boolean.TRUE);
+            /*goodsInfoDO.setLimit(Boolean.TRUE);
             goodsInfoDO.setBegin((pageid-1)*size);
-            goodsInfoDO.setSize(size);
+            goodsInfoDO.setSize(size);*/
             goodsInfoDO.setDistinct(Boolean.TRUE);
 
             if(categoryId!=0){
@@ -99,7 +100,12 @@ public class GoodsController {
                     goodsItemVO.setCollectState(GoodsItemVO.DISCOLLECT);
                 }
             }
-            return JSON.toJSONString(Result.successResult(goodsItemVOS));
+
+            PageHelper<GoodsItemVO> pageHelper = new PageHelper<>(goodsItemVOS,size);
+            List<GoodsItemVO> itemVOList = pageHelper.getPageByNum(pageid);
+
+
+            return JSON.toJSONString(Result.successResult(itemVOList));
         }catch (Exception e){
             e.printStackTrace();
             return JSON.toJSONString(Result.failureResult(ResultCode.RESOURCE_EMPTY));
