@@ -355,15 +355,16 @@ public class PublishController {
     /**
      * 删除二手物品图片
      *
-     * @param id
+     * @param request
      * @return
      */
     @GetMapping("/deleteGoodsImage/{id}")
     @UserLoginToken
-    public String deleteGoodsImage(@PathVariable("id") Long id) {
+    public String deleteGoodsImage(HttpServletRequest request) {
         ImageBO imageBO = new ImageBO();
         imageBO.setType(ImageBO.GOODS);
-        imageBO.setId(id);
+        String id = request.getParameter("id");
+        imageBO.setId(Long.parseLong(id));
         publishService.deleteImage(imageBO);
         return JSON.toJSONString(Result.successResult());
     }
@@ -376,22 +377,24 @@ public class PublishController {
      */
     @GetMapping("/deleteActivityImage/{id}")
     @UserLoginToken
-    public String deleteActivityImage(@PathVariable("id") Long id) {
+    public String deleteActivityImage(HttpServletRequest request) {
         ImageBO imageBO = new ImageBO();
         imageBO.setType(ImageBO.ACTIVITY);
-        imageBO.setId(id);
+        String id = request.getParameter("id");
+        imageBO.setId(Long.parseLong(id));
         publishService.deleteImage(imageBO);
         return JSON.toJSONString(Result.successResult());
     }
 
     /**
      * 根据链接返回活动图片id
+     *
      * @param request
      * @return
      */
     @PostMapping("/getActivityImageIdByLink")
     @UserLoginToken
-    public String getActivityImageIdByLink(HttpServletRequest request){
+    public String getActivityImageIdByLink(HttpServletRequest request) {
         String imageLink = request.getParameter("imageLink");
         ImageBO imageBO = new ImageBO();
         imageBO.setImageLink(imageLink);
@@ -401,12 +404,13 @@ public class PublishController {
 
     /**
      * 根据链接返回二手图片id
+     *
      * @param request
      * @return
      */
     @PostMapping("/getGoodsImageIdByLink")
     @UserLoginToken
-    public String getGoodsImageIdByLink(HttpServletRequest request){
+    public String getGoodsImageIdByLink(HttpServletRequest request) {
         String imageLink = request.getParameter("imageLink");
         ImageBO imageBO = new ImageBO();
         imageBO.setImageLink(imageLink);
