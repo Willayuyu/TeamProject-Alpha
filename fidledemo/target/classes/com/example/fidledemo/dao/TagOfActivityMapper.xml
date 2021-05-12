@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.fidledemo.dao.TagOfActivityDAO">
+
+    <resultMap id="TagMap" type="com.example.fidledemo.BO.TagBO">
+        <result property="id" column="id"/>
+        <result property="content" column="content"/>
+        <result property="type" column="type"/>
+        <association property="gmtInfo" javaType="com.example.fidledemo.BO.GmtInfo">
+            <result property="gmtCreate" column="gmt_create"/>
+            <result property="gmtModified" column="gmt_modified"/>
+        </association>
+    </resultMap>
+
+    <insert id="insertTagOfActivity" useGeneratedKeys="true" keyProperty="id" parameterType="com.example.fidledemo.DO.TagOfActivityDO" >
+        INSERT INTO tag_of_activity
+        VALUES (#{id},#{content},now(),now())
+    </insert>
+
+    <select id="getTagOfActivity" parameterType="Long" resultMap="TagMap">
+        SELECT id,content,3 AS `type`,gmt_create,gmt_modified
+        FROM tag_of_activity
+        WHERE id = #{id}
+    </select>
+
+    <update id="updateTagOfActivity" parameterType="com.example.fidledemo.DO.TagOfActivityDO">
+        UPDATE tag_of_activity
+        <set>
+            <if test="content !=null and content !=''">content=#{content},</if>
+            gmt_modified=now()
+        </set>
+        WHERE id=#{id}
+    </update>
+
+    <delete id="deleteTagOfActivity" parameterType="Long">
+        DELETE FROM tag_of_activity
+        WHERE id=#{id}
+    </delete>
+
+    <select id="listTagOfActivity" parameterType="Long" resultMap="TagMap">
+        SELECT a.id,content,3 AS `type`,a.gmt_create,a.gmt_modified
+        FROM tag_of_activity AS a,activity_tag AS b
+        WHERE a.id = b.tag_id AND b.activity_id =#{id};
+    </select>
+
+    <select id="checkActivityTag" resultType="Long">
+         select id from tag_of_activity
+         where content = #{content}
+     </select>
+
+</mapper>

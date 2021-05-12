@@ -59,4 +59,10 @@
         where image_link=#{image_link}
     </select>
 
+    <select id="getActivityImageById" resultType="String">
+        select image_link
+        from activity_image
+        where id=#{id}
+    </select>
+
 </mapper>

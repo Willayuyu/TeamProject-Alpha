@@ -58,4 +58,13 @@ public interface GoodsImageDAO {
      * @return
      */
     Long getGoodsImageByLink(String image_link);
+
+    /**
+     * 根据id返回对应链接
+     *
+     * @param id
+     * @return
+     */
+    String getGoodsImageById(Long id);
+
 }

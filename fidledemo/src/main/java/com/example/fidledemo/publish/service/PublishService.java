@@ -74,4 +74,5 @@ public interface PublishService {
      * @return
      */
     Long getImageIdByLink(ImageBO imageBO);
+
 }
