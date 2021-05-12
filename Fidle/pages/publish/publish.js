@@ -75,10 +75,12 @@ Page({
                     })
                     // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
 
-                let tempFilePaths = that.data.tempFilePaths;
+                let tempFilePaths = [];
+                let init = that.data.tempFilePaths.length;
+
 
                 for (var i = 0; i < res.tempFilePaths.length; i++) {
-                    if (tempFilePaths.length < that.data.max_upload)
+                    if (init + i < that.data.max_upload)
                         tempFilePaths.push(res.tempFilePaths[i]);
                     else {
                         wx.showModal({
@@ -89,17 +91,21 @@ Page({
                     }
                 }
 
-                if (tempFilePaths.length == that.data.max_upload) {
+
+                if (tempFilePaths.length + init == that.data.max_upload) {
                     that.setData({
                         goods_add_img: true,
                     })
                 }
+
+
                 /**
                  * 上传完成后把文件上传到服务器
                  */
-                var count = 0;
+
                 for (var i = 0, h = tempFilePaths.length; i < h; i++) {
                     console.log(tempFilePaths[i]);
+
                     //上传文件
                     wx.uploadFile({
                         url: "http://47.106.241.182:8082/publish/uploadGoodsImage",
@@ -110,10 +116,10 @@ Page({
                             "Content-Type": "multipart/form-data"
                         },
                         success: function(res) {
-                            let imageFile = [];
-                            count++;
+                            let imageFile = that.data.tempFilePaths;
+
                             //如果是最后一张,则隐藏等待中  
-                            if (count == tempFilePaths.length) {
+                            if (i == tempFilePaths.length) {
                                 wx.hideToast();
                             }
                             let image = {
@@ -127,10 +133,10 @@ Page({
                             console.log(data.data.id);
                             console.log(image);
                             console.log(data.data.imageLink);
+                            console.log(that.data.tempFilePaths)
                             that.setData({
                                 tempFilePaths: imageFile,
                             })
-                            console.log(that.data.tempFilePaths)
                         },
                         fail: function(res) {
                             wx.hideToast();
@@ -182,6 +188,7 @@ Page({
                 if (res.confirm) {
                     console.log('确定');
                     tempFilePaths.splice(index, 1);
+                    console.log(index);
                     that.setData({
                         goods_add_img: false,
                     })
