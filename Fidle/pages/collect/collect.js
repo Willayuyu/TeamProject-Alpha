@@ -209,7 +209,41 @@ Page({
         console.log(id);
         console.log(pubId);
           wx.redirectTo({ 
-              url: '/pages/contact/contact?pubID='+pubId
+              url: '/pages/contact/contact?pubId='+pubId
+           }) 
+
+      },
+      fail: (err) => {
+        wx.showToast({ title: '系统错误' })
+      },
+    })
+  },
+  taskConnect: function(event){
+    let index = event.currentTarget.dataset.index;
+    let id;
+    let pubId;
+    wx.request({
+      url: 'http://47.106.241.182:8082/collection/listCollectibleTaskByPageid/1',
+      method: 'GET',
+      dataType: 'json',
+      data: {
+        'id': id,
+        'pubId': pubId
+      },
+      headers: {
+        'Content-Type': 'application/json',
+        'Cookie': wx.getStorageSync('sessionid')
+      },
+      success: (res) => {
+        console.log(index);
+        let dataList = res.data.data[index];
+        console.log(dataList);
+        id = dataList.id;
+        pubId = dataList.pubId;
+        console.log(id);
+        console.log(pubId);
+          wx.redirectTo({ 
+              url: '/pages/contact/contact?pubId='+pubId
            }) 
 
       },
