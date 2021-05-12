@@ -68,4 +68,10 @@ public interface PublishService {
      * @return
      */
     void deleteImage(ImageBO imageBO);
+
+    /**
+     * @param imageBO
+     * @return
+     */
+    Long getImageIdByLink(ImageBO imageBO);
 }

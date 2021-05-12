@@ -139,4 +139,13 @@ public class PublishServiceImpl implements PublishService {
             goodsImageDAO.deleteGoodsImage(imageBO.getId());
         }
     }
+
+    @Override
+    public Long getImageIdByLink(ImageBO imageBO) {
+        if (imageBO.getType().equals(ImageBO.GOODS)){
+            return goodsImageDAO.getGoodsImageByLink(imageBO.getImageLink());
+        }else{
+            return activityImageDAO.getActivityImageByLink(imageBO.getImageLink());
+        }
+    }
 }

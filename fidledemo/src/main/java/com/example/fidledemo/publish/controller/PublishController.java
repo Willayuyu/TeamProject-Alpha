@@ -384,4 +384,34 @@ public class PublishController {
         return JSON.toJSONString(Result.successResult());
     }
 
+    /**
+     * 根据链接返回活动图片id
+     * @param request
+     * @return
+     */
+    @PostMapping("/getActivityImageIdByLink")
+    @UserLoginToken
+    public String getActivityImageIdByLink(HttpServletRequest request){
+        String imageLink = request.getParameter("imageLink");
+        ImageBO imageBO = new ImageBO();
+        imageBO.setImageLink(imageLink);
+        imageBO.setType(ImageBO.ACTIVITY);
+        return JSON.toJSONString(Result.successResult(publishService.getImageIdByLink(imageBO)));
+    }
+
+    /**
+     * 根据链接返回二手图片id
+     * @param request
+     * @return
+     */
+    @PostMapping("/getGoodsImageIdByLink")
+    @UserLoginToken
+    public String getGoodsImageIdByLink(HttpServletRequest request){
+        String imageLink = request.getParameter("imageLink");
+        ImageBO imageBO = new ImageBO();
+        imageBO.setImageLink(imageLink);
+        imageBO.setType(ImageBO.GOODS);
+        return JSON.toJSONString(Result.successResult(publishService.getImageIdByLink(imageBO)));
+    }
+
 }
