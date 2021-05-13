@@ -87,12 +87,72 @@ Page({
   /**
    * 点击标题跳转详情页
    */
-  clickTaskCard(event){
-    wx.navigateTo({
-      url: '/pages/taskDetailsPage/taskDetailsPage',
+  clickPublishTaskCard(event) {
+    let index = event.currentTarget.dataset.index;
+    let id;
+    let pubId;
+    wx.request({
+      url: 'http://120.77.210.142:8080/myTask/listTaskPublishedByPageid/1',
+      method: 'GET',
+      dataType: 'json',
+      data: {
+        'id': id,
+        'pubId': pubId
+      },
+      headers: {
+        'Content-Type': 'application/json',
+        'Cookie': wx.getStorageSync('sessionid')
+      },
+      success: (res) => {
+        console.log(index);
+        let dataList = res.data.data[index];
+        console.log(dataList);
+        id = dataList.id;
+        pubId = dataList.pub_Id;
+        console.log(id);
+        console.log(pubId);
+        wx.navigateTo({
+          url: '/pages/taskDetailsPage/taskDetailsPage?id='+id,
+        })
+      },
+      fail: (err) => {
+        wx.showToast({ title: '系统错误' })
+      },
     })
   },
-
+  clickAcceptTaskCard(event) {
+    let index = event.currentTarget.dataset.index;
+    let id;
+    let pubId;
+    wx.request({
+      url: 'http://120.77.210.142:8080/myTask/listTaskPublishedByPageid/1',
+      method: 'GET',
+      dataType: 'json',
+      data: {
+        'id': id,
+        'pubId': pubId
+      },
+      headers: {
+        'Content-Type': 'application/json',
+        'Cookie': wx.getStorageSync('sessionid')
+      },
+      success: (res) => {
+        console.log(index);
+        let dataList = res.data.data[index];
+        console.log(dataList);
+        id = dataList.id;
+        pubId = dataList.pub_Id;
+        console.log(id);
+        console.log(pubId);
+        wx.navigateTo({
+          url: '/pages/taskDetailsPage/taskDetailsPage?id='+id,
+        })
+      },
+      fail: (err) => {
+        wx.showToast({ title: '系统错误' })
+      },
+    })
+  },
   /**
    * 点击图标跳转修改页
    */

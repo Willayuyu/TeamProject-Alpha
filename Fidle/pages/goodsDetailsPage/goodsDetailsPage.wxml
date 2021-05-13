@@ -3,7 +3,7 @@
     <swiper autoplay indicator-dots circular>
       <view wx:for="{{swiperList}}">
         <swiper-item bindtap="preview" data-index="{{index}}">
-          <image mode="widthFix" src="{{item}}"></image>
+          <image mode="heightFix" src="{{item}}"></image>
         </swiper-item>
       </view>
     </swiper>
@@ -30,8 +30,7 @@
       <view class="tag">
         <text decode="true">新旧程度:</text>
         <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
-        <van-tag color="#f3f4f4" text-color="#323232" wx:if="{{condition != '全新'}}">{{condition}}成新</van-tag>
-        <van-tag color="#f3f4f4" text-color="#323232" wx:else="{{condition == '全新'}}">{{condition}}</van-tag>
+        <van-tag color="#f3f4f4" text-color="#323232" wx:if="{{condition != '全新'}}">{{condition}}</van-tag>
       </view>
     </view>
     <view class="content">

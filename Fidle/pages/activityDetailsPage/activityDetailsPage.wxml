@@ -3,7 +3,7 @@
     <swiper autoplay indicator-dots circular>
       <view wx:for="{{swiperList}}">
         <swiper-item bindtap="preview" data-index="{{index}}">
-          <image mode="widthFix" src="{{item}}"></image>
+          <image mode="heightFix" src="{{item}}"></image>
         </swiper-item>
       </view>
     </swiper>
