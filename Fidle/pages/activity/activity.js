@@ -196,15 +196,10 @@ Page({
     // 传递的参数
     let id = e.currentTarget.dataset['index'];
     console.log("修改id为"+id+"的活动");
-    //之后再改
-    // wx.navigateTo({
-    //   // url: '/pages/historyTodayDetail/historyTodayDetail?e_id=${id}'
-    //   url: '/pages/publish/publish?id=' + id,
-    // })
-    //修改页写好了改
-    wx.switchTab({
-      url: '/pages/publish/publish?id='+id,
+    wx.navigateTo({
+      url: '/pages/changeActivity/changeActivity?id=' + id,
     })
+    //修改页写好了改
 
     /**
      * 跳转页面中参数的获取

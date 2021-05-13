@@ -159,7 +159,6 @@ public class PublishServiceImpl implements PublishService {
     public void deleteFile(String url){
         String[] split = url.split("/");
         String fileName=split[4];
-        System.out.println(path+fileName);
         File file=new File(path+fileName);
         if(file.exists()){
             file.delete();
