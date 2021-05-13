@@ -38,6 +38,10 @@ Page({
       
     ],//活动类别名称
 
+    goodsPage: 1,
+    taskPage: 1,
+    activityPage: 1,
+
     goodsList: [ {
       "category":"鞋子",
       "collectState":0,
@@ -172,6 +176,9 @@ Page({
         if(res.data.code == 200){
           var list = res.data.data;//json中的data数组
           console.log(list);
+          if(pageid != 1) {
+            list = that.data.goodsList.concat(list);
+          }
           that.setData({
             goodsList: list
           })
@@ -200,6 +207,9 @@ Page({
         if(res.data.code == 200){
           var list = res.data.data;//json中的data数组
           console.log(list);
+          if(pageid != 1) {
+            list = that.data.taskList.concat(list);
+          }
           that.setData({
             taskList: list
           })
@@ -228,6 +238,9 @@ Page({
         if(res.data.code == 200){
           var list = res.data.data;//json中的data数组
           console.log(list);
+          if(pageid != 1) {
+            list = that.data.activityList.concat(list);
+          }
           that.setData({
             activityList: list
           })
@@ -286,8 +299,8 @@ Page({
     return condition;
   },
 
-  //搜索
-  search: function() {
+  //初始搜索函数（只查第一页）
+  searchOne: function() {
     console.log(this.data.searchInput);
     var keyWord = this.data.searchInput;
     switch(this.data.tabIndex) {
@@ -307,7 +320,7 @@ Page({
         console.log(this.data.secSort);
         var condition = this.getDegree(this.data.secDegree);
         console.log(condition);
-        this.search_Sec(days, secSortId, condition, keyWord, 1);
+        this.search_Sec(days, secSortId, condition, keyWord, this.data.goodsPage);
         break;
       case 1:
         console.log(this.data.taskSort);
@@ -324,7 +337,7 @@ Page({
         }
         console.log(taskSortId);
         console.log(this.data.taskSort);
-        this.search_Task(days, taskSortId, keyWord, 1);
+        this.search_Task(days, taskSortId, keyWord, this.data.taskPage);
         break;
       case 2:
         console.log(this.data.activityTime);
@@ -342,9 +355,86 @@ Page({
         }
         console.log(activitySortId);
         console.log(this.data.activitySort);
-        this.search_Act(days, activitySortId, keyWord, 1);
+        this.search_Act(days, activitySortId, keyWord, this.data.activityPage);
         break;
     }
+  },
+
+
+  //搜索功能
+  search: function() {
+    this.setData({
+      goodsPage: 1,
+      taskPage: 1,
+      activityPage: 1
+    })
+    this.searchOne();
+  },
+
+  //上拉刷新
+  searchPre: function() {
+    let pageid;
+    switch(this.data.tabIndex) {
+      case 0:
+        pageid = this.data.goodsPage;
+        if(pageid > 1)
+          pageid--;
+        this.setData({
+          goodsPage: pageid
+        })
+        break;
+      case 1:
+        pageid = this.data.taskPage;
+        if(pageid > 1)
+          pageid--;
+        this.setData({
+          taskPage: pageid
+        })
+        break;
+      case 2:
+        pageid = this.data.activityPage;
+        if(pageid > 1)
+          pageid--;
+        this.setData({
+          activityPage: pageid
+        })
+        break;
+    }
+    this.searchOne();
+    console.log(pageid);
+  },
+
+  //下拉刷新
+  searchNext: function() {
+    let pageid;
+    switch(this.data.tabIndex) {
+      case 0:
+        pageid = this.data.goodsPage;
+        if(pageid < 10)
+          pageid++;
+        this.setData({
+          goodsPage: pageid
+        })
+        break;
+      case 1:
+        pageid = this.data.taskPage;
+        if(pageid < 10)
+          pageid++;
+        this.setData({
+          taskPage: pageid
+        })
+        break;
+      case 2:
+        pageid = this.data.activityPage;
+        if(pageid < 10)
+          pageid++;
+        this.setData({
+          activityPage: pageid
+        })
+        break;
+    }
+    console.log(pageid);
+    this.searchOne();
   },
 
   //联系卖家、委托人
@@ -765,7 +855,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
   },
 
   /**
@@ -779,7 +868,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    
   },
 
   /**
@@ -792,7 +881,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    this.searchNext();
   },
 
   /**

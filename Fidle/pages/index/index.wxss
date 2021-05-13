@@ -23,12 +23,12 @@ c-select {
 .input_box {
   border-radius: 10rpx;
   background: #eee;
-  width: 420rpx;
+  width: 470rpx;
   height: 70rpx;
   font-size: 0.8rem;
   line-height: 70rpx;
   display: inline-block;
-  margin: 30rpx 0 0 150rpx;
+  margin: 30rpx 0 0 60rpx;
   padding: 0 0 0 20rpx;
 }
 
