@@ -76,101 +76,38 @@ Page({
    */
   clickSaleGoodsCard(event){
     let index = event.currentTarget.dataset.index;
-    let id;
-    let pubId;
-    wx.request({
-      url: 'http://120.77.210.142:8080/myGoods/listGoodsOnSaleByPageid/1',
-      method: 'GET',
-      dataType: 'json',
-      data: {
-        'id': id,
-        'pubId': pubId
-      },
-      headers: {
-        'Content-Type': 'application/json',
-        'Cookie': wx.getStorageSync('sessionid')
-      },
-      success: (res) => {
-        console.log(index);
-        let dataList = res.data.data[index];
-        console.log(dataList);
-        id = dataList.id;
-        pubId = dataList.pubId;
-        console.log(id);
-        console.log(pubId);
-        wx.navigateTo({
-          url: '/pages/goodsDetailsPage/goodsDetailsPage?id='+id,
-        })
-      },
-      fail: (err) => {
-        wx.showToast({ title: '系统错误' })
-      },
+    console.log(index);
+    let that = this;
+    let dataList = that.data.goodsOnSale[index];
+    console.log(dataList);
+    let id = dataList.id;
+    console.log(id);
+    wx.navigateTo({
+      url: '/pages/goodsDetailsPage/goodsDetailsPage?id=' + id
     })
   },
   clickSoldGoodsCard(event){
     let index = event.currentTarget.dataset.index;
-    let id;
-    let pubId;
-    wx.request({
-      url: 'http://120.77.210.142:8080/myGoods/listGoodsSoldByPageid/1',
-      method: 'GET',
-      dataType: 'json',
-      data: {
-        'id': id,
-        'pubId': pubId
-      },
-      headers: {
-        'Content-Type': 'application/json',
-        'Cookie': wx.getStorageSync('sessionid')
-      },
-      success: (res) => {
-        console.log(index);
-        let dataList = res.data.data[index];
-        console.log(dataList);
-        id = dataList.id;
-        pubId = dataList.pubId;
-        console.log(id);
-        console.log(pubId);
-        wx.navigateTo({
-          url: '/pages/goodsDetailsPage/goodsDetailsPage?id='+id,
-        })
-      },
-      fail: (err) => {
-        wx.showToast({ title: '系统错误' })
-      },
+    console.log(index);
+    let that = this;
+    let dataList = that.data.goodsSold[index];
+    console.log(dataList);
+    let id = dataList.id;
+    console.log(id);
+    wx.navigateTo({
+      url: '/pages/goodsDetailsPage/goodsDetailsPage?id=' + id
     })
   },
   clickBuyingGoodsCard(event){
     let index = event.currentTarget.dataset.index;
-    let id;
-    let pubId;
-    wx.request({
-      url: 'http://120.77.210.142:8080/myGoods/listGoodsBuyingByPageid/1',
-      method: 'GET',
-      dataType: 'json',
-      data: {
-        'id': id,
-        'pubId': pubId
-      },
-      headers: {
-        'Content-Type': 'application/json',
-        'Cookie': wx.getStorageSync('sessionid')
-      },
-      success: (res) => {
-        console.log(index);
-        let dataList = res.data.data[index];
-        console.log(dataList);
-        id = dataList.id;
-        pubId = dataList.pubId;
-        console.log(id);
-        console.log(pubId);
-        wx.navigateTo({
-          url: '/pages/goodsDetailsPage/goodsDetailsPage?id='+id,
-        })
-      },
-      fail: (err) => {
-        wx.showToast({ title: '系统错误' })
-      },
+    console.log(index);
+    let that = this;
+    let dataList = that.data.goodsBuy[index];
+    console.log(dataList);
+    let id = dataList.id;
+    console.log(id);
+    wx.navigateTo({
+      url: '/pages/goodsDetailsPage/goodsDetailsPage?id=' + id
     })
   },
   showOnSale() {
