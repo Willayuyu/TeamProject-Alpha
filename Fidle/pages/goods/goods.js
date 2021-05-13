@@ -6,6 +6,8 @@ Page({
    */
   data: {
     show: false,
+    indexOnsale:0,
+    input:null,
     goodsOnSale: [],
     goodsSold:[],
     goodsBuy:[]
@@ -229,7 +231,7 @@ Page({
   showBuy() {
     return new Promise(function (resolve, reject) {
       wx.request({
-        url: 'http://120.77.210.142:8080/myGoods/listGoodsBuyingByPageid//1',
+        url: 'http://120.77.210.142:8080/myGoods/listGoodsBuyingByPageid/1',
         method: 'GET',
         dataType: 'json',
         headers: {
@@ -271,8 +273,9 @@ Page({
       });
   },
 
-  showOverlap: function(){
+  showOverlap: function(event){
     this.setData({ show: true });
+    this.setData({indexOnsale: event.currentTarget.dataset.index});
   },
 
   onClickHide() {
@@ -280,5 +283,63 @@ Page({
   },
 
   noop() {},
+
+  change:function(event){
+    this.setData({
+      buyerId: event.detail.value
+    })
+  },
+
+  confirm: function(event){
+    let that = this;
+    let index = that.data.indexOnsale;
+    console.log(index);
+    let goodsList = that.data.goodsOnSale;
+    let goodsData = goodsList[index];
+    console.log(goodsData);
+    let id = goodsData.id;
+    console.log(id);
+    let buyerId = that.data.buyerId;
+    console.log(buyerId);
+    // wx.request({
+    //   url: 'http://120.77.210.142:8080/myGoods/generateOrder/'+id,
+    //   headers: {
+    //     'Content-Type': 'application/x-www-form-urlencoded'
+    //   },
+    //   data:{
+    //     id: id,
+    //     buyerId: buyerId
+    //   }
+
+    // })
+  },
+
+  deleteGoods: function(event){
+    let that = this;
+    let index = event.currentTarget.dataset.index;
+    console.log(index);
+    let goodsList = that.data.goodsOnSale;
+    let goodsData = goodsList[index];
+    console.log(goodsData);
+    let id = goodsData.id;
+    console.log(id);
+    wx.request({
+      url: 'http://120.77.210.142:8080/myGoods/withdrawGoodsById/'+ id,
+      method: 'GET',
+      dataType: 'json',
+      headers: {
+        'Content-Type': 'application/json',
+        'Cookie': wx.getStorageSync('sessionid')
+      },
+      success(res){
+        console.log(res.data);
+        console.log("下架物品");
+        that.onLoad();
+      }
+    })
+
+  }
+  
+  
 
 })
