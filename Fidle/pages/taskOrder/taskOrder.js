@@ -11,6 +11,7 @@ Page({
     reward: 1,
     tagList: [],
     category:'',
+    acc_id:'',
     // buyerId: ''
  // taskPrice: '1',
     // imageLink: '1',
@@ -118,7 +119,7 @@ Page({
 
   change: function (event) {
     this.setData({
-      buyerId: event.detail.value
+      acc_id: event.detail.value
     })
   },
 
@@ -126,8 +127,15 @@ Page({
     let that = this;
     let id = that.data.id;
     console.log(id);
-    let buyerId = that.data.buyerId;
-    console.log(buyerId);
+    let acc_id = that.data.acc_id;
+    console.log(acc_id);
+    let str = acc_id.replace(/(^\s*)|(\s*$)/g, '');
+    if (str == '' || str == undefined || str == null) {
+      wx.showToast({
+        title: 'id不可为空',
+      })
+      console.log('空')
+    } else {
     wx.showModal({
       content: '确认生成当前订单吗？',
       success: function (res) {
@@ -135,14 +143,14 @@ Page({
         if (res.confirm) {
           console.log('用户点击确定');
           wx.request({
-            url: 'http://120.77.210.142:8080/myGoods/generateOrder/',
+            url: 'http://120.77.210.142:8080/myTask/conductTask/',
             header: {
               'Content-Type': 'application/x-www-form-urlencoded',
               'Cookie': wx.getStorageSync('sessionid')
             },
             data: {
               id: id,
-              buyerId: buyerId
+              acc_id: acc_id
             },
             method: 'POST',
             dataType: 'json',
@@ -150,7 +158,7 @@ Page({
               console.log(res.data.code);
               console.log("生成订单成功");
               wx.redirectTo({
-                url: '/pages/goods/goods',
+                url: '/pages/task/task',
               })
             },
             fail(err) {
@@ -163,5 +171,6 @@ Page({
         }
       }
     })
+  }
   },
 })

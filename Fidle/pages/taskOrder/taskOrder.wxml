@@ -25,7 +25,7 @@
 </van-card>
 
 <van-cell-group class="group">
-  <van-field value="{{buyerId}}" placeholder="请输入对方id" border="{{ false }}" catchblur="change" class="field" />
+  <van-field value="{{acc_id}}" placeholder="请输入对方id" border="{{ false }}" catchblur="change" class="field" />
 </van-cell-group>
 <view class="panelBtns">
   <van-button class="panelBtn" catchtap="confirm" hover-stop-propagation='true'>确认</van-button>
