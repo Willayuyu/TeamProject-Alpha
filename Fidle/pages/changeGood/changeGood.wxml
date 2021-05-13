@@ -75,7 +75,7 @@
                 </view>                     
         </van-col>    
         </van-row>
-        <van-button class="release" type="info" color="#7DB5EE" size="normal" bind:click="goodsRelease">修改</van-button>                                                       
+        <van-button class="release" type="info" color="#7DB5EE" size="normal" bind:click="goodModify">修改</van-button>                                                       
     </view>                                 
     </view>                 
 </van-cell-group>

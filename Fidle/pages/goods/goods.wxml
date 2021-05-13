@@ -3,7 +3,7 @@
     <van-card price="{{item.price}}" origin-price="{{item.originalPrice}}" thumb="{{item.imageLink}}" bindtap="clickSaleGoodsCard" class="card" wx:for="{{goodsOnSale}}" wx:key="index" data-index="{{index}}">
       <view slot="title" class="title">
         <text>{{item.title}}</text>
-        <view class="modifyTag" catchtap=" " hover-stop-propagation='true'>
+        <view class="modifyTag" catchtap="gotoAlterGoodsPage" hover-stop-propagation='true' data-index="{{index}}">
           <image class="modify" mode="widthFix" src="../../icons/modify.png"></image>
         </view>
       </view>
@@ -39,9 +39,6 @@
       bindtap="clickSoldGoodsCard" class="card" wx:for="{{goodsSold}}" wx:key="index" data-index="{{index}}">
       <view slot="title" class="title">
         <text>{{item.title}}</text>
-        <view class="modifyTag" catchtap=" " hover-stop-propagation='true'>
-          <image class="modify" mode="widthFix" src="../../icons/modify.png"></image>
-        </view>
       </view>
       <view slot="tags" class="tagList">
         <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
@@ -60,9 +57,6 @@
       bindtap="clickBuyingGoodsCard" class="card" wx:for="{{goodsBuy}}" wx:key="index" data-index="{{index}}">
       <view slot="title" class="title">
         <text>{{item.title}}</text>
-        <view class="modifyTag" catchtap=" " hover-stop-propagation='true'>
-          <image class="modify" mode="widthFix" src="../../icons/modify.png"></image>
-        </view>
       </view>
       <view slot="tags" class="tagList">
         <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
