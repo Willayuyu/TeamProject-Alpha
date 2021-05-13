@@ -31,7 +31,7 @@ Page({
     console.log(title);
     let price = options.price;
     console.log(price);
-    let  originalPrice = options.originalPrice;
+    let originalPrice = options.originalPrice;
     let imageLink = options.imageLink;
     let condition = options.condition;
     let category = options.category;
@@ -40,7 +40,7 @@ Page({
       id: id,
       price: price,
       title: title,
-      originalPrice:  originalPrice,
+      originalPrice: originalPrice,
       imageLink: imageLink,
       condition: condition,
       category: category,
@@ -109,40 +109,48 @@ Page({
     console.log(id);
     let buyerId = that.data.buyerId;
     console.log(buyerId);
-    wx.showModal({
-      content: '确认生成当前订单吗？',
-      success: function (res) {
-        //进行退出登录操作：把Storage中的flag置为false
-        if (res.confirm) {
-          console.log('用户点击确定');
-          wx.request({
-            url: 'http://120.77.210.142:8080/myGoods/generateOrder/',
-            header: {
-              'Content-Type': 'application/x-www-form-urlencoded',
-              'Cookie': wx.getStorageSync('sessionid')
-            },
-            data: {
-              id: id,
-              buyerId: buyerId
-            },
-            method: 'POST',
-            dataType: 'json',
-            success(res) {
-              console.log(res.data.code);
-              console.log("生成订单成功");
-              wx.redirectTo({
-                url: '/pages/goods/goods',
-              })
-            },
-            fail(err) {
-              reject(err);
-              wx.showToast({ title: '系统错误' })
-            },
-          })
-        } else if (res.cancel) {
-          console.log('用户点击取消');
+    let str = buyerId.replace(/(^\s*)|(\s*$)/g, '');
+    if (str == '' || str == undefined || str == null) {
+      wx.showToast({
+        title: 'id不可为空',
+      })
+      console.log('空')
+    } else {
+      wx.showModal({
+        content: '确认生成当前订单吗？',
+        success: function (res) {
+          //进行退出登录操作：把Storage中的flag置为false
+          if (res.confirm) {
+            console.log('用户点击确定');
+            wx.request({
+              url: 'http://120.77.210.142:8080/myGoods/generateOrder/',
+              header: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Cookie': wx.getStorageSync('sessionid')
+              },
+              data: {
+                id: id,
+                buyerId: buyerId
+              },
+              method: 'POST',
+              dataType: 'json',
+              success(res) {
+                console.log(res.data.code);
+                console.log("生成订单成功");
+                wx.redirectTo({
+                  url: '/pages/goods/goods',
+                })
+              },
+              fail(err) {
+                reject(err);
+                wx.showToast({ title: '系统错误' })
+              },
+            })
+          } else if (res.cancel) {
+            console.log('用户点击取消');
+          }
         }
-      }
-    })
+      })
+    }
   },
 })
