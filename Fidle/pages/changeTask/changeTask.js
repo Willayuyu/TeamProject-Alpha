@@ -158,7 +158,6 @@ Page({
         })
     },
 
-
     getCurrentTime() {
         var date = new Date(); //当前时间
         var month = this.zeroFill(date.getMonth() + 1); //月
@@ -196,6 +195,19 @@ Page({
         } else {
             return i;
         }
+    },
+
+    //删除任务委托标签
+    taskDeleteLabel: function(e) {
+        var task_label_list = this.data.task_label_list;
+
+        var index = e.currentTarget.dataset.id; //获取当前长按图片下标
+        console.log(index);
+        task_label_list.splice(index, 1);
+
+        this.setData({
+            task_label_list: task_label_list,
+        })
     },
 
     taskTagInput(e) {

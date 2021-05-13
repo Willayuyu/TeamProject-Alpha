@@ -31,7 +31,7 @@ Page({
         activity_class_list: [{ categoryId: "", categoryDesignation: "" }],
         history_category: "",
         activity_label_list: [],
-        history_label_list: [{content: "",id: 0}],
+        history_label_list: [{ content: "", id: 0 }],
         activity_class_list_idx: 0,
         activity_uploadUrl: "http://47.106.241.182:8082/publish/uploadActivityImage",
         activity_deleteUrl: "http://47.106.241.182:8082/publish/deleteActivityImage/id?id=",
@@ -41,18 +41,18 @@ Page({
     /**
      * 获取活动历史记录
      */
-    getHistoryActivityList(){
-        let that=this;
+    getHistoryActivityList() {
+        let that = this;
         var session_id = wx.getStorageSync('sessionid');
         var token = wx.getStorageSync('token');
-        var header = {'content-type': 'application/json', 'Cookie': session_id };
+        var header = { 'content-type': 'application/json', 'Cookie': session_id };
         wx.request({
             url: 'http://47.106.241.182:8082/activity/getActivityDetailById/' + that.data.id,
             method: "GET",
             header: header,
-            success(res){
+            success(res) {
                 console.log(res.data);
-                if(res.data.code===200){
+                if (res.data.code === 200) {
                     that.setData({
                         history_fileList: res.data.data.picturesLink,
                         activity_title: res.data.data.title,
@@ -62,14 +62,14 @@ Page({
                         history_label_list: res.data.data.tagList,
                         activity_message: res.data.data.description,
                         history_category: res.data.data.category,
-                        id:res.data.data.id,
+                        id: res.data.data.id,
                     })
                     that.setLabelList();
                     that.setCategoryIndex();
                     that.setPictureList();
                 }
             },
-            fail(err){
+            fail(err) {
                 console.log(err);
             }
         })
@@ -77,7 +77,7 @@ Page({
     /**
      * 图片转化
      */
-    setPictureList(){
+    setPictureList() {
         let that = this;
         let list = that.data.history_fileList;
         let activity_List = [];
@@ -85,23 +85,23 @@ Page({
         let pictureID = [];
         var session_id = wx.getStorageSync('sessionid');
         var token = wx.getStorageSync('token');
-        var header = {'content-type': 'application/x-www-form-urlencoded', 'Cookie': session_id };
-        for(i = 0;i < list.length;i++){
+        var header = { 'content-type': 'application/x-www-form-urlencoded', 'Cookie': session_id };
+        for (i = 0; i < list.length; i++) {
             wx.request({
                 url: 'http://47.106.241.182:8082/publish/getActivityImageIdByLink',
-                data: {imageLink: list[i]},
+                data: { imageLink: list[i] },
                 method: "POST",
                 header: header,
-                success(res){
+                success(res) {
                     console.log(res.data.data);
-                    if(res.data.code===200){
+                    if (res.data.code === 200) {
                         pictureID[i] = res.data.data;
                     }
                 }
             })
         }
-        for(i = 0;i < list.length;i++){
-            activity_List[i] = { id : pictureID[i], imageLink:list[i]};
+        for (i = 0; i < list.length; i++) {
+            activity_List[i] = { id: pictureID[i], imageLink: list[i] };
         }
         that.setData({
             activity_fileList: activity_List
@@ -110,14 +110,14 @@ Page({
     /**
      * 类别转化
      */
-    setCategoryIndex(){
+    setCategoryIndex() {
         let that = this;
         let list = that.data.activity_class_list;
         let category = that.data.history_category;
         let i = 0;
         let categoryID;
-        for(i = 0;i < list.length;i++){
-            if(category == list[i].categoryDesignation){
+        for (i = 0; i < list.length; i++) {
+            if (category == list[i].categoryDesignation) {
                 categoryID = i;
             }
         }
@@ -128,11 +128,11 @@ Page({
     /**
      * 标签转化
      */
-    setLabelList(){
+    setLabelList() {
         let that = this;
-        let list =[];
-        let i=0;
-        for(i=0;i<that.data.history_label_list.length;i++){
+        let list = [];
+        let i = 0;
+        for (i = 0; i < that.data.history_label_list.length; i++) {
             list[i] = that.data.history_label_list[i].content;
         }
         console.log(list)
@@ -490,6 +490,19 @@ Page({
         }
     },
 
+    //删除活动信息标签
+    activityDeleteLabel: function(e) {
+        var activity_label_list = this.data.activity_label_list;
+
+        var index = e.currentTarget.dataset.id; //获取当前长按图片下标
+        console.log(index);
+        activity_label_list.splice(index, 1);
+
+        this.setData({
+            activity_label_list: activity_label_list,
+        })
+    },
+
     activityTagInput(e) {
         this.setData({
             activity_tag: e.detail.value
@@ -514,7 +527,7 @@ Page({
         })
         this.getActivityClassList();
         this.getHistoryActivityList();
-        
+
     },
 
     /**

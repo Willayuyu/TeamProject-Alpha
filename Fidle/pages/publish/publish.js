@@ -374,7 +374,7 @@ Page({
     },
 
     //删除二手交易标签
-    goodsDeleteLabel: function(e) {
+    goodsDeleteLabel(e) {
         var goods_label_list = this.data.goods_label_list;
 
         var index = e.currentTarget.dataset.id; //获取当前长按图片下标

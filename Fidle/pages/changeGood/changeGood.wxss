@@ -164,3 +164,8 @@
     width: 50rpx;
     height: 50rpx;
 }
+
+.closeLabel {
+    width: 20rpx;
+    height: 20rpx;
+}

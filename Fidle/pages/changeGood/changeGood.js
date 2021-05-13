@@ -297,6 +297,19 @@ Page({
         })
     },
 
+    //删除二手交易标签
+    goodsDeleteLabel(e) {
+        var goods_label_list = this.data.goods_label_list;
+
+        var index = e.currentTarget.dataset.id; //获取当前长按图片下标
+        console.log(index);
+        goods_label_list.splice(index, 1);
+
+        this.setData({
+            goods_label_list: goods_label_list,
+        })
+    },
+
     goodsTagInput(e) {
         this.setData({
             goods_tag: e.detail.value

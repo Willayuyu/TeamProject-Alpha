@@ -130,16 +130,13 @@
                   <image src="../../icons/label.png" mode="widthFix" class="img"></image>
                 </van-col>
                 <van-col span="22" >
-                  <view>                                
-                    <view>                        
+                  <view>                                                                       
                     <view wx:for="{{task_label_list}}" data-id="{{index}}" wx:key="unique" class="tag">{{item}}
-                    <image class="closeLabel" src="../../icons/delete.png" catchtap="taskDeleteLabel" data-id="{{index}}"></image>
-                    
+                    <image class="closeLabel" src="../../icons/delete.png" catchtap="taskDeleteLabel" data-id="{{index}}"></image>       
                     </view>
                     <input class="tag tag-create" bindinput="taskTagInput" value="{{task_tag}}" placeholder="新增标签"></input>
                     <van-icon name="add-o" class="icon" size="35rpx" bind:click="TagCreate"></van-icon>
-                  </view>
-                  </view>                  
+                  </view>                   
                 </van-col>              
               </van-row>
               <van-button class="release" type="info" color="#7DB5EE" size="normal" bind:click="taskRelease">发布</van-button>                                                       
@@ -207,15 +204,13 @@
                   <image src="../../icons/label.png" mode="widthFix" class="img"></image>
                 </van-col>
                 <van-col span="22" >
-                  <view>                                
-                   <view>                        
+                  <view>                        
                     <view wx:for="{{activity_label_list}}" data-id="{{index}}" wx:key="unique" class="tag">{{item}}
                     <image class="closeLabel" src="../../icons/delete.png" catchtap="activityDeleteLabel" data-id="{{index}}"></image>
                     </view>
                     <input class="tag tag-create" bindinput="activityTagInput" value="{{activity_tag}}" placeholder="新增标签"></input>
                     <van-icon name="add-o" class="icon" size="35rpx" bind:click="TagCreate"></van-icon>
-                  </view>  
-                  </view>                 
+                  </view>                      
                 </van-col>              
               </van-row>
               <van-button class="release" type="info" color="#7DB5EE" size="normal" bind:click="activityRelease">发布</van-button>                                                       
