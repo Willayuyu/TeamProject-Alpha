@@ -121,101 +121,38 @@ Page({
    */
   clickGoodsCard(event) {
     let index = event.currentTarget.dataset.index;
-    let id;
-    let pubId;
-    wx.request({
-      url: 'http://47.106.241.182:8082/collection/listCollectibleGoodsByPageid/1',
-      method: 'GET',
-      dataType: 'json',
-      data: {
-        'id': id,
-        'pubId': pubId
-      },
-      headers: {
-        'Content-Type': 'application/json',
-        'Cookie': wx.getStorageSync('sessionid')
-      },
-      success: (res) => {
-        console.log(index);
-        let dataList = res.data.data[index];
-        console.log(dataList);
-        id = dataList.id;
-        pubId = dataList.pubId;
-        console.log(id);
-        console.log(pubId);
-        wx.navigateTo({
-          url: '/pages/goodsDetailsPage/goodsDetailsPage?id=' + id,
-        })
-      },
-      fail: (err) => {
-        wx.showToast({ title: '系统错误' })
-      },
+    console.log(index);
+    let that = this;
+    let dataList = that.data.goodsList[index];
+    console.log(dataList);
+    let id = dataList.id;
+    console.log(id);
+    wx.navigateTo({
+      url: '/pages/goodsDetailsPage/goodsDetailsPage?id=' + id
     })
   },
   clickTaskCard(event) {
     let index = event.currentTarget.dataset.index;
-    let id;
-    let pubId;
-    wx.request({
-      url: 'http://47.106.241.182:8082/collection/listCollectibleTaskByPageid/1',
-      method: 'GET',
-      dataType: 'json',
-      data: {
-        'id': id,
-        'pubId': pubId
-      },
-      headers: {
-        'Content-Type': 'application/json',
-        'Cookie': wx.getStorageSync('sessionid')
-      },
-      success: (res) => {
-        console.log(index);
-        let dataList = res.data.data[index];
-        console.log(dataList);
-        id = dataList.id;
-        pubId = dataList.pubId;
-        console.log(id);
-        console.log(pubId);
-        wx.navigateTo({
-          url: '/pages/taskDetailsPage/taskDetailsPage?id=' + id,
-        })
-      },
-      fail: (err) => {
-        wx.showToast({ title: '系统错误' })
-      },
+    console.log(index);
+    let that = this;
+    let dataList = that.data.taskList[index];
+    console.log(dataList);
+    let id = dataList.id;
+    console.log(id);
+    wx.navigateTo({
+      url: '/pages/taskDetailsPage/taskDetailsPage?id=' + id
     })
   },
   clickActivityCard(event) {
     let index = event.currentTarget.dataset.index;
-    let id;
-    let pubId;
-    wx.request({
-      url: 'http://47.106.241.182:8082/collection/listCollectibleActivityByPageid/1',
-      method: 'GET',
-      dataType: 'json',
-      data: {
-        'id': id,
-        'pubId': pubId
-      },
-      headers: {
-        'Content-Type': 'application/json',
-        'Cookie': wx.getStorageSync('sessionid')
-      },
-      success: (res) => {
-        console.log(index);
-        let dataList = res.data.data[index];
-        console.log(dataList);
-        id = dataList.id;
-        pubId = dataList.pubId;
-        console.log(id);
-        console.log(pubId);
-        wx.navigateTo({
-          url: '/pages/activityDetailsPage/activityDetailsPage?id=' + id,
-        })
-      },
-      fail: (err) => {
-        wx.showToast({ title: '系统错误' })
-      },
+    console.log(index);
+    let that = this;
+    let dataList = that.data.activityList[index];
+    console.log(dataList);
+    let id = dataList.id;
+    console.log(id);
+    wx.navigateTo({
+      url: '/pages/activityDetailsPage/activityDetailsPage?id=' + id
     })
   },
 
@@ -330,7 +267,7 @@ Page({
     console.log(dataList);
     let pubId = dataList.pubId;
     console.log(pubId);
-    wx.redirectTo({
+    wx.navigateTo({
       url: '/pages/contact/contact?pubId=' + pubId
     })
   },
@@ -343,7 +280,7 @@ Page({
     console.log(dataList);
     let pubId = dataList.pubId;
     console.log(pubId);
-    wx.redirectTo({
+    wx.navigateTo({
       url: '/pages/contact/contact?pubId=' + pubId
     }) 
   },
