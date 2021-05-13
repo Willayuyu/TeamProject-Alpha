@@ -1,7 +1,7 @@
 <van-tabs>
   <van-tab title="二手物品" name="goods">
     <van-card  price="{{item.price}}" origin-price="{{item.originalPrice}}" bindtap="clickGoodsCard"
-    thumb="{{item.picturesLink}}" class="card" wx:for="{{goodsList}}" wx:key="index" data-index="{{index}}">
+    thumb="{{item.picturesLink}}" class="card" wx:for="{{goodsList}}" wx:key="index" data-index="{{index}}" wx:if="{{item.collectState == 1}}">
       <view slot="title" class="title">
         <text>{{item.title}}</text>
       </view>
@@ -13,12 +13,12 @@
       </view>
       <view slot="footer" class="btns">
         <van-button  class="btn" catchtap="goodsConnect" hover-stop-propagation='true' data-index="{{index}}">联系卖家</van-button>
-        <van-button  class="btn" catchtap="goodsCollect" hover-stop-propagation='true'>取消收藏</van-button>
+        <van-button  class="btn" catchtap="goodsCollect" hover-stop-propagation='true' data-index="{{index}}">取消收藏</van-button>
       </view>
     </van-card>
   </van-tab>
   <van-tab title="任务委托" name="task">
-    <van-card class="card" wx:for="{{taskList}}" bindtap="clickTaskCard" wx:key="index" data-index="{{index}}">
+    <van-card class="card" wx:for="{{taskList}}" bindtap="clickTaskCard" wx:key="index" data-index="{{index}}" wx:if="{{item.collectState == 1}}">
       <view slot="price" class="price">
         <text class="sign">￥</text>
         <text class="priceText">{{item.reward}}</text>
@@ -28,17 +28,18 @@
       </view>
       <view slot="tags" class="tagTask">
         <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
+        <van-tag class="tagItem" color="#dbdbdb" text-color="#394044">{{item.category}}</van-tag>
         <van-tag wx:for="{{item.tagList}}" wx:key="index" class="tagItem" color="#dbdbdb" text-color="#394044">{{item.content}}</van-tag>
         <view class="taskBtns">
         <van-button  class="btn" catchtap="taskConnect" hover-stop-propagation='true' data-index="{{index}}">联系委托人</van-button>
-        <van-button  class="btn" catchtap="taskCollect" hover-stop-propagation='true'>取消收藏</van-button>
+        <van-button  class="btn" catchtap="taskCollect" hover-stop-propagation='true' data-index="{{index}}" >取消收藏</van-button>
       </view>
       </view>
     </van-card>
   </van-tab>
   <van-tab title="活动信息" name="activity">
     <van-card  thumb="{{item.picturesLink}}" bindtap="clickActivityCard" class="card" 
-    wx:for="{{activityList}}" wx:key="index" data-index="{{index}}">
+    wx:for="{{activityList}}" wx:key="index" data-index="{{index}}" wx:if="{{item.collectState == 1}}">
       <view slot="title" class="title">
         <text>{{item.title}}</text>
       </view>
@@ -55,7 +56,7 @@
         <van-tag wx:for="{{item.tagList}}" wx:key="index" class="tagItem" color="#dbdbdb" text-color="#394044">{{item.content}}</van-tag>
       </view>
       <view slot="footer" class="activityBtns">
-        <van-button  class="btn" catchtap="activityConnect" hover-stop-propagation='true'>取消收藏</van-button>
+        <van-button  class="btn" catchtap="activityCollect" hover-stop-propagation='true' data-index="{{index}}">取消收藏</van-button>
       </view>
     </van-card>
   </van-tab>

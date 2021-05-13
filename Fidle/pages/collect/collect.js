@@ -5,6 +5,60 @@ Page({
    * 页面的初始数据
    */
   data: {
+    goodsList: [
+      // {
+      // "collectState": 1,
+      // "condition": 3,
+      // "description": "旧了",
+      // "id": 3,
+      // "originalPrice": 111,
+      // "picturesLink": [
+      //   "http://47.106.241.182:8083/fidle/20210511150926_1.png",
+      //   "http://47.106.241.182:8083/fidle/20210512124904_47JJ9unTBvE745195903c2d9fb1ffdf08f784d987671.png"],
+      // "price": 11,
+      // "pubId": 3,
+      // "tagList": [{
+      //   "content":
+      //     "标签1",
+      //   "id": 1
+      // }],
+      // "title": "衣服"
+      // }
+    ],
+    taskList: [
+    //   {
+    //   "category": "做高数",
+    //   "collectState": 1,
+    //   "description": "打死不给钱",
+    //   "endTime": "2021-05-26 16:55:08",
+    //   "id": 3, "pubId": 3,
+    //   "reward": 2,
+    //   "startTime": "2021-05-25 16:55:02",
+    //   "tagList": [{
+    //     "content": "标签3",
+    //     "id": 3
+    //   }],
+    //   "title": "要饭"
+    // }
+    ],
+    activityList: [
+      // { 
+      // "category": "班级活动", 
+      // "collectState": 1, 
+      // "description": "班级活动描述1", 
+      // "endTime": "2021-05-20 21:35:59", 
+      // "id": 4, 
+      // "picturesLink": ["http://47.106.241.182:8083/fidle/20210512214558_jWaJvl9wFX51872eac70d631b1fd32ca4fb9d395b5b1.png"], 
+      // "pubId": 2, 
+      // "startTime": "2021-05-10 21:35:59", 
+      // "tagList": [{ 
+      //   "content": "有志愿时长", 
+      //   "id": 1 }, 
+      //   { "content": "有德育", 
+      //   "id": 3 }], 
+      //   "title": "班级活动1" 
+      // }
+    ]
   },
 
   /**
@@ -53,7 +107,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    this.showPromise();
   },
 
   /**
@@ -90,7 +144,7 @@ Page({
         console.log(id);
         console.log(pubId);
         wx.navigateTo({
-          url: '/pages/goodsDetailsPage/goodsDetailsPage?id='+id,
+          url: '/pages/goodsDetailsPage/goodsDetailsPage?id=' + id,
         })
       },
       fail: (err) => {
@@ -123,7 +177,7 @@ Page({
         console.log(id);
         console.log(pubId);
         wx.navigateTo({
-          url: '/pages/taskDetailsPage/taskDetailsPage?id='+id,
+          url: '/pages/taskDetailsPage/taskDetailsPage?id=' + id,
         })
       },
       fail: (err) => {
@@ -156,7 +210,7 @@ Page({
         console.log(id);
         console.log(pubId);
         wx.navigateTo({
-          url: '/pages/activityDetailsPage/activityDetailsPage?id='+id,
+          url: '/pages/activityDetailsPage/activityDetailsPage?id=' + id,
         })
       },
       fail: (err) => {
@@ -268,72 +322,110 @@ Page({
       });
   },
 
-  goodsConnect: function(event){
+  goodsConnect: function (event) {
     let index = event.currentTarget.dataset.index;
-    let id;
-    let pubId;
-    wx.request({
-      url: 'http://47.106.241.182:8082/collection/listCollectibleGoodsByPageid/1',
-      method: 'GET',
-      dataType: 'json',
-      data: {
-        'id': id,
-        'pubId': pubId
-      },
-      headers: {
-        'Content-Type': 'application/json',
-        'Cookie': wx.getStorageSync('sessionid')
-      },
-      success: (res) => {
-        console.log(index);
-        let dataList = res.data.data[index];
-        console.log(dataList);
-        id = dataList.id;
-        pubId = dataList.pubId;
-        console.log(id);
-        console.log(pubId);
-        wx.redirectTo({ 
-          url: '/pages/contact/contact?pubId='+pubId
-        }) 
-      },
-      fail: (err) => {
-        wx.showToast({ title: '系统错误' })
-      },
+    console.log(index);
+    let that = this;
+    let dataList = that.data.goodsList[index];
+    console.log(dataList);
+    let pubId = dataList.pubId;
+    console.log(pubId);
+    wx.redirectTo({
+      url: '/pages/contact/contact?pubId=' + pubId
     })
   },
 
-  taskConnect: function(event){
+  taskConnect: function (event) {
     let index = event.currentTarget.dataset.index;
-    let id;
-    let pubId;
-    wx.request({
-      url: 'http://47.106.241.182:8082/collection/listCollectibleTaskByPageid/1',
-      method: 'GET',
-      dataType: 'json',
-      data: {
-        'id': id,
-        'pubId': pubId
-      },
-      headers: {
-        'Content-Type': 'application/json',
-        'Cookie': wx.getStorageSync('sessionid')
-      },
-      success: (res) => {
-        console.log(index);
-        let dataList = res.data.data[index];
-        console.log(dataList);
-        id = dataList.id;
-        pubId = dataList.pubId;
-        console.log(id);
-        console.log(pubId);
-          wx.redirectTo({ 
-              url: '/pages/contact/contact?pubId='+pubId
-           }) 
+    console.log(index);
+    let that = this;
+    let dataList = that.data.taskList[index];
+    console.log(dataList);
+    let pubId = dataList.pubId;
+    console.log(pubId);
+    wx.redirectTo({
+      url: '/pages/contact/contact?pubId=' + pubId
+    }) 
+  },
 
+  goodsCollect: function(event){
+    let index = event.currentTarget.dataset.index;
+    console.log(index);
+    let that = this;
+    let list = that.data.goodsList;
+    let dataList = that.data.goodsList[index];
+    console.log(dataList);
+    let id = dataList.id;
+    console.log(id);
+    dataList.collectState = -1;
+    wx.request({
+      url: 'http://47.106.241.182:8082/goods/cancelCollectGoods/' + id,
+      headers: {
+        'Content-Type': 'application/json'
       },
-      fail: (err) => {
-        wx.showToast({ title: '系统错误' })
+      method: "GET",
+      success(res){
+        if(res.data.code == 200){
+          console.log("收藏状态修改成功");  
+        }
+      }
+    })
+    this.setData({
+      goodsList: list
+    })
+  },
+
+  taskCollect: function(event){
+    let index = event.currentTarget.dataset.index;
+    console.log(index);
+    let that = this;
+    let list = that.data.taskList;
+    let dataList = that.data.taskList[index];
+    console.log(dataList);
+    let id = dataList.id;
+    console.log(id);
+    dataList.collectState = -1;
+    wx.request({
+      url: 'http://47.106.241.182:8082/task/cancelCollectTask/' + id,
+      headers: {
+        'Content-Type': 'application/json'
       },
+      method: "GET",
+      success(res){
+        if(res.data.code == 200){
+          console.log("收藏状态修改成功");
+        }
+      }
+    })
+    this.setData({
+      taskList: list
+    })
+  },
+
+  activityCollect: function(event){
+    let index = event.currentTarget.dataset.index;
+    console.log(index);
+    let that = this;
+    let list = that.data.activityList
+    let dataList = that.data.activityList[index];
+    console.log(dataList);
+    let id = dataList.id;
+    console.log(id);
+    dataList.collectState = -1;
+    wx.request({
+      url: 'http://47.106.241.182:8082/activity/cancelCollectActivity/' + id,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      method: "GET",
+      success(res){
+        if(res.data.code == 200){
+          console.log("收藏状态修改成功");
+        }
+      }
+    })
+    this.setData({
+     activityList: list
     })
   }
 })
