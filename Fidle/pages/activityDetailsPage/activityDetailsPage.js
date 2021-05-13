@@ -10,7 +10,6 @@ Page({
     tagsList: [],
     category: "",
     title: "",
-    organizer: "",
     address: "",
     beginTime: "",
     endTime: "",
