@@ -5,9 +5,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    show: false,
-    indexOnsale:0,
-    input:null,
+    // show: false,
+    // indexOnsale:0,
+    // input:null,
     goodsOnSale: [],
     goodsSold:[],
     goodsBuy:[]
@@ -260,7 +260,7 @@ Page({
     Promise.all(
       [that.showOnSale(), that.showSold(), that.showBuy()]).then((res) => {
         //三个方法回来后的数据
-        console.log(res.data);
+        console.log(res);
         const [res1, res2, res3] = res;
         console.log(res1.data.data);
         console.log(res2.data.data);
@@ -274,8 +274,29 @@ Page({
   },
 
   showOverlap: function(event){
-    this.setData({ show: true });
-    this.setData({indexOnsale: event.currentTarget.dataset.index});
+    // this.setData({ show: true });
+    // this.setData({indexOnsale: event.currentTarget.dataset.index});
+    let that = this;
+    let index = event.currentTarget.dataset.index;
+    console.log(index);
+    let goodsList = that.data.goodsOnSale;
+    let goodsData = goodsList[index];
+    console.log(goodsData);
+    let id = goodsData.id;
+    console.log(id);
+    let title = goodsData.title;
+    console.log(title);
+    let price = goodsData.price;
+    console.log(price);
+    let originalPrice = goodsData.originalPrice;
+    let imageLink = goodsData.imageLink;
+    let condition = goodsData.condition;
+    let category = goodsData.category;
+    let tagList = goodsData.tagList;
+    wx.navigateTo({
+      url: '/pages/order/order?id='+id+'&title='+title+'&price='+price+'&originalPrice='+originalPrice+'&imageLink='+imageLink+'&condition='+condition+'&category='+category+'&tagList='+tagList,
+    })
+    
   },
 
   onClickHide() {
@@ -339,7 +360,4 @@ Page({
     })
 
   }
-  
-  
-
 })

@@ -18,10 +18,9 @@
         <van-button class="btn" catchtap="showOverlap" hover-stop-propagation='true' data-index="{{index}}">生成订单
         </van-button>
         <van-button class="btn" catchtap="deleteGoods" hover-stop-propagation='true' data-index="{{index}}">下架</van-button>
-        <van-overlay show="{{ show }}">
+        <!-- <van-overlay show="{{ show }}">
             <view class="wrapper">
             <van-panel title="生成订单"  use-footer-slot>
-              <input value="{{buyerId}}"placeholder="请输入买家id" border="{{ false }}" catchblur="change" />
               <van-cell-group>
                 <van-field value="{{buyerId}}" placeholder="请输入买家id" border="{{ false }}" catchblur="change"/>
               </van-cell-group>
@@ -31,7 +30,7 @@
               </view>
             </van-panel>
           </view>
-          </van-overlay>
+          </van-overlay> -->
       </view>
     </van-card>
   </van-tab>

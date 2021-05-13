@@ -1,0 +1,21 @@
+<view class="wrapper">
+  <van-card price="{{price}}" origin-price="{{originalPrice}}" thumb="{{imageLink}}"
+    bindtap="clickSaleGoodsCard" class="card">
+    <view slot="title" class="title">
+      <text>{{title}}</text>
+    </view>
+    <view slot="tags" class="tagList">
+      <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
+      <van-tag class="tagItem" color="#dbdbdb" text-color="#394044">{{condition}}</van-tag>
+      <van-tag class="tagItem" color="#dbdbdb" text-color="#394044">{{category}}</van-tag>
+      <van-tag wx:for="{{tagList}}" wx:key="index" class="tagItem" color="#dbdbdb" text-color="#394044">
+        {{item.content}}</van-tag>
+    </view>
+  </van-card>
+    <van-cell-group class="group">
+      <van-field value="{{buyerId}}" placeholder="请输入对方id" border="{{ false }}" catchblur="change" class="field" />
+    </van-cell-group>
+    <view class="panelBtns">
+      <van-button class="panelBtn" catchtap="confirm" hover-stop-propagation='true'>确认</van-button>
+    </view>
+</view>
