@@ -36,7 +36,7 @@
             limit #{begin},#{size}
         </if>
     </select>
-    <insert id="insertAdmin" parameterType="com.example.fidledemo.DO.AdminDO">
+    <insert id="insertAdmin" parameterType="com.example.fidledemo.DO.AdminDO" useGeneratedKeys="true" keyProperty="id">
         insert into  admin(account,password,salt,gmt_create,gmt_modified)
         values (#{account},#{password},#{salt},now(),now());
     </insert>

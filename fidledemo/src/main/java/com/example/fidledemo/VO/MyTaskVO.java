@@ -35,11 +35,11 @@ public class MyTaskVO {
 
         if (state.equals(new Integer(-1))) {
             this.setTaskState("已取消");
-        } else if (state.equals(new Integer(0))) {
-            this.setTaskState("未接收");
         } else if (state.equals(new Integer(1))) {
-            this.setTaskState("进行中");
+            this.setTaskState("未接收");
         } else if (state.equals(new Integer(2))) {
+            this.setTaskState("进行中");
+        } else if (state.equals(new Integer(3))) {
             this.setTaskState("已完成");
         }
     }

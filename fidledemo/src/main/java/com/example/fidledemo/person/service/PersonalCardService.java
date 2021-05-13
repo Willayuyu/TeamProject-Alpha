@@ -1,6 +1,8 @@
 package com.example.fidledemo.person.service;
 
-import com.example.fidledemo.VO.*;
+import com.example.fidledemo.VO.GoodsEvaluationVO;
+import com.example.fidledemo.VO.PersonVO;
+import com.example.fidledemo.VO.TaskEvaluationVO;
 
 import java.util.List;
 
@@ -19,17 +21,16 @@ public interface PersonalCardService {
      * 根据好评或差评来筛选二手物品评价列表
      * @param id
      * @param isLike
-     * @param pageid
      * @return
      */
-    List<GoodsEvaluationVO> getGoodsEvaluationByLike(Long id,Integer isLike,Integer pageid);
+    List<GoodsEvaluationVO> getGoodsEvaluationByLike(Long id, Integer isLike);
 
     /**
      * 根据好评或差评来筛选任务评价列表
      * @param id
      * @param isLike
-     * @param pageid
      * @return
      */
-    List<TaskEvaluationVO> getTaskEvaluationByLike(Long id,Integer isLike,Integer pageid);
+    List<TaskEvaluationVO> getTaskEvaluationByLike(Long id, Integer isLike);
 }
+
