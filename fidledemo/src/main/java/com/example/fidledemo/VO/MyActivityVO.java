@@ -4,9 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigInteger;
-import java.util.Date;
 import java.util.List;
+
 /**
  * @author zyf
  */
@@ -22,4 +21,10 @@ public class MyActivityVO {
     private String category;
 
     private List<ActivityTagVO> tagList;
+
+    private String imageLink;
+
+    private String startTime;
+
+    private String endTime;
 }
