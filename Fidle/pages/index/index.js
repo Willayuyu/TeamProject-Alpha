@@ -836,12 +836,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getGoodsCategory();//渲染二手类别下拉框
-    this.getTaskCategory();//渲染任务类别下拉框
-    this.getActivityCategory();//渲染活动类别下拉框
-    this.getGoodsList(0,0,0,1);//初始二手列表
-    this.getTaskList(0,0,1);//初始任务列表
-    this.getActivityList(0,0,1);//初始活动列表
+    // this.getGoodsCategory();//渲染二手类别下拉框
+    // this.getTaskCategory();//渲染任务类别下拉框
+    // this.getActivityCategory();//渲染活动类别下拉框
+    // this.getGoodsList(0,0,0,1);//初始二手列表
+    // this.getTaskList(0,0,1);//初始任务列表
+    // this.getActivityList(0,0,1);//初始活动列表
   },
 
   /**
@@ -855,6 +855,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    this.getGoodsCategory();//渲染二手类别下拉框
+    this.getTaskCategory();//渲染任务类别下拉框
+    this.getActivityCategory();//渲染活动类别下拉框
+    this.getGoodsList(0,0,0,1);//初始二手列表
+    this.getTaskList(0,0,1);//初始任务列表
+    this.getActivityList(0,0,1);//初始活动列表
   },
 
   /**
