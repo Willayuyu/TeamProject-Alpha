@@ -15,7 +15,6 @@ Page({
       "团立项",
       "五四活动"
     ],
-    activityDetailsURL: "/pages/activityDetailsPage/activityDetailsPage",
   },
 
   /**
@@ -80,9 +79,16 @@ Page({
   /**
    * 点击标题跳转详情页
    */
-  clickActivityCard(event){
+  clickActivityCard(event) {
+    let index = event.currentTarget.dataset.index;
+    console.log(index);
+    let that = this;
+    let dataList = that.data.publishedActivityList[index];
+    console.log(dataList);
+    let id = dataList.id;
+    console.log(id);
     wx.navigateTo({
-      url: '/pages/activityDetailsPage/activityDetailsPage',
+      url: '/pages/activityDetailsPage/activityDetailsPage?id=' + id
     })
   },
 

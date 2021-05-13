@@ -5,7 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-      id:''
+      id:'',
+      dataList:[]
   },
 
   comments: function (options) {
@@ -18,16 +19,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let id;
     let that = this;
-    let dataList;
     wx.setNavigationBarTitle({ title: '对方信息' })  
-    that.setData({
-      id: options.pubId
-    }),
+    let id = options.pubId;
     console.log(options.pubId);
     wx.request({
-      url: 'http://47.106.241.182:8082/homePage/getPublisherBusinessCard/'+ options.pubId,
+      url: 'http://47.106.241.182:8082/homePage/getPublisherBusinessCard/'+ id,
       method: 'GET',
       dataType: 'json',
       headers: {

@@ -117,7 +117,7 @@ Page({
     let that = this;
     let pubId = that.data.pubId;
     console.log(pubId);
-    wx.redirectTo({ 
+    wx.navigateTo({ 
       url: '/pages/contact/contact?pubId='+ pubId
     }) 
   },
