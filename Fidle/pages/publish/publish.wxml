@@ -15,11 +15,11 @@
 
             <view class="img_box">
               <view class="upload_img" wx:for="{{goods_fileList}}" wx:key="index">
-                <image src='{{item.imageLink}}' class="imgs" bindlongpress="deleteImage" bindtap="goodsListenerButtonPreviewImage" data-index="{{index}}" mode='widthFix' />
-                <image class="closeImv" src="../../icons/delete.png" mode="scaleToFill" catchtap="deleteImage" data-id="{{index}}"></image>
+                <image src='{{item.imageLink}}' class="imgs" bindlongpress="goodsDeleteImage" bindtap="goodsListenerButtonPreviewImage" data-index="{{index}}" mode='widthFix' />
+                <image class="closeImv" src="../../icons/delete.png" mode="scaleToFill" catchtap="goodsDeleteImage" data-id="{{index}}"></image>
               </view>
               <view class="upload_img" hidden="{{goods_add_img}}">
-                <view bindtap="goods_upload">
+                <view bindtap="goodsUpload">
                   <image src="../../icons/add_img.png" class="upload_img" mode='widthFix' />
                 </view>
               </view>
@@ -160,8 +160,18 @@
           <view>
            <van-cell>
             <text class="label">图片上传</text> 
-            <van-uploader class="img-input" file-list="{{activity_fileList}}" bind:after-read="activity_afterRead" bind:delete="activity_deleteImg" multiple="{{true}}" max-count="3"  preview-image></van-uploader>
-           </van-cell>      
+              <view class="img_box">
+                <view class="upload_img" wx:for="{{activity_fileList}}" wx:key="index">
+                  <image src='{{item.imageLink}}' class="imgs" bindlongpress="activityDeleteImage" bindtap="activityListenerButtonPreviewImage" data-index="{{index}}" mode='widthFix' />
+                  <image class="closeImv" src="../../icons/delete.png" mode="scaleToFill" catchtap="activityDeleteImage" data-id="{{index}}"></image>
+                </view>
+                <view class="upload_img" hidden="{{activity_add_img}}">
+                  <view bindtap="activityUpload">
+                    <image src="../../icons/add_img.png" class="upload_img" mode='widthFix' />
+                  </view>
+                </view>
+            </view>
+           </van-cell>     
           </view>         
           <view>
             <view class="display">
