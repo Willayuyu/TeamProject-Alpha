@@ -1,2 +1,53 @@
-<!--pages/changeTask/changeTask.wxml-->
-<text>pages/changeTask/changeTask.wxml</text>
+
+<van-cell-group>   
+    <van-field value="{{task_title}}" clearable label="标题" placeholder="请输入标题" bind:input="taskTitleInput"></van-field>
+    <van-field value="{{task_remuneration}}" clearable label="酬劳" placeholder="请输入酬劳" type="digit" bind:input="taskRemunerationInput"></van-field>
+    
+    <van-field value="{{startTime}}" clearable label="开始时间" bind:click-input="pickerShow" readonly placeholder="请选择开始时间"></van-field>
+    <van-field value="{{endTime}}" clearable label="结束时间" bind:click-input="pickerShow" readonly placeholder="请选择结束时间"></van-field>
+
+    <time-picker pickerShow="{{isPickerShow}}" id="picker" wx:if="{{isPickerRender}}" bind:hidePicker="pickerHide" bind:setPickerTime="setPickerTime"
+        config="{{pickerConfig}}" ></time-picker>
+    <view class="border">
+    <van-field value="{{task_message}}" label="任务详情" input-class="message" type="textarea" placeholder="请输入任务的详细描述" autosize
+                border="{{false}}" maxlength="200" show-word-limit bind:input="taskMessageInput"></van-field>
+    </view>        
+    <view>
+    <view class="display">
+        <view>
+        <text class="label">类别(点击选择)</text> 
+        </view>               
+        <van-row>
+        <van-col span="2">
+            <image src="../../icons/label.png" mode="widthFix" class="img"></image>
+        </van-col>
+        <van-col span="22" >
+            <view>    
+            <view wx:for="{{task_class_list}}" data-id="{{index}}" 
+            class="tag {{task_class_list_idx==index?'selected':''}}" wx:key="unique" bindtap="taskClassListSelectApply">{{item.categoryDesignation}}</view>                                                
+            </view>        
+        </van-col>
+        </van-row>                                                          
+    </view>                      
+    </view>   
+    <view>
+    <view class="display">
+        <view>
+        <text class="label">标签</text> 
+        </view>   
+        <van-row>
+        <van-col span="2">
+            <image src="../../icons/label.png" mode="widthFix" class="img"></image>
+        </van-col>
+        <van-col span="22" >
+            <view>                                
+            <view wx:for="{{task_label_list}}" data-id="{{index}}" wx:key="unique" class="tag">{{item}}</view>
+            <input class="tag tag-create" bindinput="taskTagInput" value="{{task_tag}}" placeholder="新增标签"></input>
+            <van-icon name="add-o" class="icon" size="35rpx" bind:click="TagCreate"></van-icon>
+            </view>                  
+        </van-col>              
+        </van-row>
+        <van-button class="release" type="info" color="#7DB5EE" size="normal" bind:click="taskRelease">修改</van-button>                                                       
+    </view>                                 
+    </view>                 
+</van-cell-group>

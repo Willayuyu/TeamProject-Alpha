@@ -424,7 +424,15 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function() {
+        let initstart = this.getCurrentTime();
+        let initend = this.getInitEnd();
+        let tempPickerConfig = this.data.pickerConfig;
+        tempPickerConfig.initStartTime = initstart;
+        tempPickerConfig.initEndTime = initend;
 
+        this.setData({
+            pickerConfig: tempPickerConfig,
+        })
     },
 
     /**
