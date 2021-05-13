@@ -786,7 +786,6 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
   },
 
   /**
@@ -811,7 +810,7 @@ Page({
     console.log(dataList);
     let sellerId =  dataList.sellerId;
     console.log(sellerId);
-    wx.redirectTo({ 
+    wx.navigateTo({ 
       url: '/pages/contact/contact?pubId='+ sellerId
     }) 
   },
@@ -824,8 +823,8 @@ Page({
     console.log(dataList);
     let  pulisherId =  dataList. pulisherId;
     console.log( pulisherId);
-    wx.redirectTo({ 
-      url: '/pages/contact/contact?pubId='+  pulisherId
-    }) 
+    wx.navigateTo({
+      url: '/pages/contact/contact?pubId='+  pulisherId,
+    })
   }
 })

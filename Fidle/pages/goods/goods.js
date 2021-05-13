@@ -6,6 +6,10 @@ Page({
    */
   data: {
     show: false,
+    goodsOnSale: [],
+    goodsSold:[],
+    goodsBuy:[]
+  
   },
 
   /**
@@ -251,9 +255,6 @@ Page({
   },
   showPromise() {
     let that = this;
-    let goodsOnSale;
-    let goodsSold;
-    let goodsBuy;
     Promise.all(
       [that.showOnSale(), that.showSold(), that.showBuy()]).then((res) => {
         //三个方法回来后的数据
