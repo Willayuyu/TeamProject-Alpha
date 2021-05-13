@@ -5,6 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    publishedTaskList: [],
+    acceptedTaskList: [],
     taskPrice: "30",
     taskTitle: "找人拿快递 3小件 送到41号楼",
     taskTagsList: [
@@ -16,7 +18,7 @@ Page({
       "进行中",
       "已完成"
     ],
-    show: false
+    
   },
 
   /**
@@ -24,15 +26,15 @@ Page({
    */
   onLoad: function (options) {
     wx.setNavigationBarTitle({ title: '我的任务' });
-    // this.getPublishedTaskList();
-    // this.getAcceptedTaskList();   
+    this.getPublishedTaskList();
+    this.getAcceptedTaskList();   
     // this.doConductTask();
     // this.doDeleteTask();
     // this.doFinishTask();
     // this.doCancelTask();
     // this.doAlterTask();
     // this.doEvaluateTaskPublisher();
-    this.doEvaluateTaskAccepter();
+    // this.doEvaluateTaskAccepter();
   },
 
   /**
@@ -153,6 +155,7 @@ Page({
       },
     })
   },
+
   /**
    * 点击图标跳转修改页
    */
@@ -167,7 +170,8 @@ Page({
    */
   getPublishedTaskList(){
     let session_id = wx.getStorageSync('sessionid');
-    console.log(session_id);      
+    console.log(session_id); 
+    let that = this;     
     wx.request({
       url: 'http://120.77.210.142:8080/myTask/listTaskPublishedByPageid/1',
       header: { 'content-type': 'application/json',
@@ -176,6 +180,14 @@ Page({
       success(res){
         console.log("获取已发布任务记录列表")
         console.log(res.data.data)
+        if(res.data.code == 200) {
+          that.setData({
+            publishedTaskList: res.data.data
+          })
+          console.log("publishedTaskList=")
+          console.log(that.data.publishedTaskList)
+          // console.log(that.data.publishedTaskList[0].tagList)
+        }
       }
     })
   },
@@ -185,15 +197,23 @@ Page({
    */
   getAcceptedTaskList(){
     let session_id = wx.getStorageSync('sessionid');
-    console.log(session_id);      
+    console.log(session_id);  
+    let that = this;        
     wx.request({
       url: 'http://120.77.210.142:8080/myTask/listTaskAcceptedByPageid/1',
       header: { 'content-type': 'application/json',
        'Cookie': session_id ,
       },
       success(res){
-        console.log("获取已发布任务记录列表");
+        console.log("获取已接受任务记录列表");
         console.log(res.data.data);
+        if(res.data.code == 200) {
+          that.setData({
+            acceptedTaskList: res.data.data
+          })
+          console.log("acceptedTaskList=")
+          console.log(that.data.acceptedTaskList)
+        }
       }
     })
   },
@@ -204,10 +224,13 @@ Page({
    * id	任务委托id
    * acc_id 接收方id 
    */
-  doConductTask(){
+  doConductTask(e) {
+    // 传递的参数
+    let id = e.currentTarget.dataset['index'];
     let session_id = wx.getStorageSync('sessionid');
     console.log(session_id); 
-     
+    console.log("进行id为"+id+"的任务");
+    let that = this;
     wx.request({
       url: 'http://120.77.210.142:8080/myTask/conductTask',
       method: 'POST',
@@ -221,6 +244,7 @@ Page({
       success(res){
         console.log("进行任务");
         console.log(res.data);
+        // that.onLoad();
       }
     })
   },
@@ -228,17 +252,25 @@ Page({
   /**
    * 删除任务
    */
-  doDeleteTask(){
+  doDeleteTask(e){
+    // 传递的参数
+    let id = e.currentTarget.dataset['index'];
     let session_id = wx.getStorageSync('sessionid');
-    console.log(session_id);      
+    console.log(session_id);   
+    console.log("删除id为"+id+"的任务"); 
+    let that = this;   
     wx.request({
-      url: 'http://120.77.210.142:8080/myTask/deleteTaskById/1',
+      url: 'http://120.77.210.142:8080/myTask/deleteTaskById/'+id,
       header: { 'content-type': 'application/json',
        'Cookie': session_id ,
       },
       success(res){
-        console.log("删除任务");
-        console.log(res.data);
+        if(res.data.code==200) {
+          console.log("删除任务");
+          console.log(res.data);
+          // that.getPublishedTaskList();
+          that.onLoad();
+        }
       }
     })
   },
@@ -246,17 +278,25 @@ Page({
   /**
    * 完成任务
    */
-  doFinishTask(){
+  doFinishTask(e) {
+    // 传递的参数
+    let id = e.currentTarget.dataset['index'];
     let session_id = wx.getStorageSync('sessionid');
-    console.log(session_id);      
+    console.log(session_id); 
+    console.log("完成id为"+id+"的任务");   
+    let that = this;   
     wx.request({
-      url: 'http://120.77.210.142:8080/myTask/finishTaskById/1',
+      url: 'http://120.77.210.142:8080/myTask/finishTaskById/'+id,
       header: { 'content-type': 'application/json',
        'Cookie': session_id ,
       },
       success(res){
-        console.log("完成任务");
-        console.log(res.data);
+        if(res.data.code==200) {
+          console.log("完成任务");
+          console.log(res.data);
+          // that.getPublishedTaskList();
+          that.onLoad();
+        }
       }
     })
   },
@@ -264,17 +304,26 @@ Page({
    /**
    * 取消任务
    */
-  doCancelTask(){
+  doCancelTask(e){
+    // 传递的参数
+    let id = e.currentTarget.dataset['index'];
     let session_id = wx.getStorageSync('sessionid');
     console.log(session_id);      
+    console.log("取消id为"+id+"的任务");
+    let that = this; 
     wx.request({
-      url: 'http://120.77.210.142:8080/myTask/cancelTaskById/1',
+      url: 'http://120.77.210.142:8080/myTask/cancelTaskById/'+id,
       header: { 'content-type': 'application/json',
        'Cookie': session_id ,
       },
       success(res){
-        console.log("取消任务");
         console.log(res.data);
+        if(res.data.code==200) {
+          console.log("取消任务");
+          console.log(res.data);
+          // that.getPublishedTaskList();
+          that.onLoad();
+        }
       }
     })
   },
@@ -381,15 +430,59 @@ Page({
     })
   },
 
-  showOverlap: function(){
-    this.setData({ show: true });
+  showOverlap: function(event){
+    this.setData({indexOnsale: event.currentTarget.dataset.index});
+    console.log("showOverlap");
+    // this.setData({ show: true });
+    // this.setData({indexOnsale: event.currentTarget.dataset.index});
+    let that = this;
+    //获得下标
+    let index = event.currentTarget.dataset.index;
+    console.log(index);
+    console.log('that.data.publishedTaskList');
+    
+    let taskList = that.data.publishedTaskList;
+    console.log(taskList);
+    let task = taskList[index];
+    console.log('task');
+    console.log(task);
+    console.log('tagList=');
+    console.log(task.tagList);
+    console.log(task.category)
+    console.log('url='+'/pages/taskOrder/taskOrder?id='+task.id+'&title='+task.title+
+    '&reward='+task.reward+'tagList'+task.tagList);
+    wx.navigateTo({
+      url: '/pages/taskOrder/taskOrder?id='+task.id+'&title='+task.title+
+      '&reward='+task.reward+'&tagList='+task.tagList+'&category='+task.category,
+      // ?i
+      // d='+id+'&title='+title+'&price='+price+'&originalPrice='+originalPrice+'&imageLink='+imageLink+'&condition='+condition+'&category='+category+'&tagList='+tagList,
+    })
+    
   },
 
-  onClickHide() {
-    this.setData({ show: false });
-  },
+  /**
+   * 跳转到修改活动页
+   */
+  gotoAlterActivityPage(e) {
+    // 传递的参数
+    let id = e.currentTarget.dataset['index'];
+    console.log("修改id为"+id+"的活动");
+    wx.navigateTo({
+      url: '/pages/changeActivity/changeActivity?id=' + id,
+    })
+    //修改页写好了改
 
-  noop() {},
+    /**
+     * 跳转页面中参数的获取
+      js
+
+      // 生命周期函数--监听页面加载
+        onLoad: function (options) {
+          console.log(options.e_id) // 即上一个界面传过来的值
+        },
+     */
+  }
+
 
 
 

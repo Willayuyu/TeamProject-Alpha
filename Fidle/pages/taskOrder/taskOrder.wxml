@@ -1,0 +1,32 @@
+
+<van-card class="card">
+  <view slot="title" class="title">
+    <!-- <view class="modifyTag">
+      <view>
+        <image class="state" mode="widthFix" src="../../icons/circle (2).png"></image>
+        <text class="stateText">{{state[2]}}</text>
+      </view>
+      <image class="modify" mode="widthFix" src="../../icons/modify.png"></image>
+    </view> -->
+    <view class="secondLine">
+      <text>{{taskTitle}}</text>
+      <view class="price">
+        <text class="sign">￥</text>
+        <text class="priceText">{{reward}}</text>
+      </view>
+    </view>
+  </view>
+  <view slot="tags" class="tagTask">
+    <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
+    <van-tag class="tagItem" color="#dbdbdb" text-color="#394044">{{category}}</van-tag>
+    <van-tag wx:for="{{tagList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">
+      {{item.content}}</van-tag>
+  </view>
+</van-card>
+
+<van-cell-group class="group">
+  <van-field value="{{acc_id}}" placeholder="请输入对方id" border="{{ false }}" catchblur="change" class="field" />
+</van-cell-group>
+<view class="panelBtns">
+  <van-button class="panelBtn" catchtap="confirm" hover-stop-propagation='true'>确认</van-button>
+</view>
