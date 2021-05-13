@@ -299,7 +299,7 @@ public class PublishController {
         }
         ImageBO imageBO = new ImageBO(null, image_link, ImageBO.GOODS);
         imageBO.setId(publishService.insertImage(imageBO));
-        GoodsImageVO goodsImageVO = new GoodsImageVO(imageBO.getId(),imageBO.getImageLink());
+        GoodsImageVO goodsImageVO = new GoodsImageVO(imageBO.getId(), imageBO.getImageLink());
         return JSON.toJSONString(Result.successResult(goodsImageVO));
     }
 
@@ -357,22 +357,22 @@ public class PublishController {
         }
         ImageBO imageBO = new ImageBO(null, image_link, ImageBO.ACTIVITY);
         imageBO.setId(publishService.insertImage(imageBO));
-        ActivityImageVO activityImageVO = new ActivityImageVO(imageBO.getId(),imageBO.getImageLink());
+        ActivityImageVO activityImageVO = new ActivityImageVO(imageBO.getId(), imageBO.getImageLink());
         return JSON.toJSONString(Result.successResult(activityImageVO));
     }
 
     /**
      * 删除二手物品图片
      *
-     * @param request
+     * @param id
      * @return
      */
     @GetMapping("/deleteGoodsImage/{id}")
     @UserLoginToken
-    public String deleteGoodsImage(HttpServletRequest request) {
+    public String deleteGoodsImage(@PathVariable("id") String id) {
         ImageBO imageBO = new ImageBO();
         imageBO.setType(ImageBO.GOODS);
-        String id = request.getParameter("id");
+        System.out.println(id);
         imageBO.setId(Long.parseLong(id));
         publishService.deleteImage(imageBO);
         return JSON.toJSONString(Result.successResult());
@@ -381,15 +381,14 @@ public class PublishController {
     /**
      * 删除活动信息图片
      *
-     * @param request
-     * @return
+     * @param id
+     * @return id
      */
     @GetMapping("/deleteActivityImage/{id}")
     @UserLoginToken
-    public String deleteActivityImage(HttpServletRequest request) {
+    public String deleteActivityImage(@PathVariable("id") String id) {
         ImageBO imageBO = new ImageBO();
         imageBO.setType(ImageBO.ACTIVITY);
-        String id = request.getParameter("id");
         imageBO.setId(Long.parseLong(id));
         publishService.deleteImage(imageBO);
         return JSON.toJSONString(Result.successResult());
