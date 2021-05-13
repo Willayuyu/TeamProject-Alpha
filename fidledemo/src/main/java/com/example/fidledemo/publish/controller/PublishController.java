@@ -187,12 +187,17 @@ public class PublishController {
         //获得Session中的用户信息
         UserBO userBO = (UserBO) session.getAttribute("user");
         activityInfoBO.setPubId(userBO.getId());
+        System.out.println(userBO.getId());
 
         activityInfoBO.setTitle(request.getParameter("title"));
         activityInfoBO.setAddress(request.getParameter("address"));
 
         //String转Datetime
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        System.out.println(request.getParameter("start_time"));////
+        System.out.println(request.getParameter("start_time"));////
+        System.out.println(formatter.parse(request.getParameter("start_time")));////
+        System.out.println(formatter.parse(request.getParameter("end_time")));////
         activityInfoBO.setStartTime(formatter.parse(request.getParameter("start_time")));
         activityInfoBO.setEndTime(formatter.parse(request.getParameter("end_time")));
 
@@ -235,6 +240,7 @@ public class PublishController {
             tagBOS.add(tagBO);
         }
         activityInfoBO.setTagList(tagBOS);
+
 
         publishService.insertActivity(activityInfoBO);
         return JSON.toJSONString(Result.successResult());
