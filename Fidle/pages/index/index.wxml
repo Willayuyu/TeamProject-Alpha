@@ -29,7 +29,7 @@
           <van-tag wx:for="{{item.tagList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">{{item.content}}</van-tag>
         </view>
         <view slot="footer" class="btns">
-          <van-button class="btn" catchtap="contact" hover-stop-propagation='true'>联系卖家</van-button>
+          <van-button class="btn" catchtap="goodsConnect" hover-stop-propagation='true' data-index="{{index}}">联系卖家</van-button>
           <van-button data-index="{{index}}" wx:if="{{item.collectState == -1}}" class="btn" catchtap='storeGoods_collected' hover-stop-propagation='true'>
             <text decode>&nbsp;收&nbsp;&nbsp;藏&nbsp;</text>
           </van-button>
@@ -66,7 +66,7 @@
           <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
           <van-tag wx:for="{{item.tagList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">{{item.content}}</van-tag>
           <view class="taskBtns">
-            <van-button class="btn" catchtap="contact" hover-stop-propagation='true'>联系委托人</van-button>
+            <van-button class="btn" catchtap="contact" hover-stop-propagation='true' data-index="{{index}}" catchtap="taskConnect">联系委托人</van-button>
             <van-button data-index="{{index}}" wx:if="{{item.collectState == -1}}" class="btn" catchtap="storeTask_collected"
             hover-stop-propagation='true'>
             <text decode>&nbsp;收&nbsp;&nbsp;藏&nbsp;</text>

@@ -608,6 +608,8 @@ Page({
       fail: (err) => {
         wx.showToast({ title: '系统错误' })
       },
+
+
     })
   },
   
@@ -859,5 +861,31 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  goodsConnect: function(event){
+    let index = event.currentTarget.dataset.index;
+    console.log(index);
+    let that = this;
+    let dataList = that.data.goodsList[index];
+    console.log(dataList);
+    let sellerId =  dataList.sellerId;
+    console.log(sellerId);
+    wx.redirectTo({ 
+      url: '/pages/contact/contact?pubId='+ sellerId
+    }) 
+  },
+
+  taskConnect: function(event){
+    let index = event.currentTarget.dataset.index;
+    console.log(index);
+    let that = this;
+    let dataList = that.data.taskList[index];
+    console.log(dataList);
+    let  pulisherId =  dataList. pulisherId;
+    console.log( pulisherId);
+    wx.redirectTo({ 
+      url: '/pages/contact/contact?pubId='+  pulisherId
+    }) 
   }
 })

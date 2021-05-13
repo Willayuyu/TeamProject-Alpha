@@ -113,11 +113,13 @@ Page({
   /**
    * 点击联系委托人跳转
    */
-  contact: function() {
+  taskConnect: function(event){
     let that = this;
-    wx.navigateTo({
-      url: '/pages/contact/contact?pubId=' + that.data.pubId,
-    })
+    let pubId = that.data.pubId;
+    console.log(pubId);
+    wx.redirectTo({ 
+      url: '/pages/contact/contact?pubId='+ pubId
+    }) 
   },
   /**
    * 生命周期函数--监听页面加载

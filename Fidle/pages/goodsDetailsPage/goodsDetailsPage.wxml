@@ -44,7 +44,7 @@
     <van-icon name="star-o" size="50rpx" bind:click="onClickStar" wx:if="{{collectState == -1}}"/>
     <van-icon name="star" size="50rpx" bind:click="onClickStar" wx:else="{{collectState == 1}}"/>
     <image class="tagsIcon" mode="widthFix" src="../../icons/jubao.png"></image>
-    <button class="contact" type="primary" style="width: 330rpx; background-color: #7db5ee;" bindtap="contact">联系卖家</button>
+    <button class="contact" type="primary" style="width: 330rpx; background-color: #7db5ee;" bindtap="goodsConnect">联系卖家</button>
   </view>
   <van-toast id="van-toast"/>
 </view>
