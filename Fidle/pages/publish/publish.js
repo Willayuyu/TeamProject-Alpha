@@ -92,7 +92,7 @@ Page({
         })
     },
 
-    //二手发布功能
+    //二手物品信息发布功能
     goodsRelease() {
         let that = this;
         let goods_title = that.data.goods_title;

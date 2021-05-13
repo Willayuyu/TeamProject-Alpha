@@ -1,0 +1,79 @@
+<van-cell-group>
+    <van-field value="{{goods_title}}" clearable label="标题" placeholder="请输入标题" bind:input="goodsTitleInput"></van-field>
+    <van-field value="{{goods_price}}" clearable label="价格" placeholder="请输入价格" type="digit" bind:input="goodsPriceInput"></van-field>
+    <van-field value="{{goods_originalPrice}}" clearable label="原价" placeholder="请输入原价" type="digit" bind:input="goodsOriginalPriceInput"></van-field>  
+    <view class="border">
+    <van-field value="{{goods_message}}" label="详细描述" input-class="message" type="textarea" placeholder="请输入商品的详细描述" maxlength="200" show-word-limit bind:input="goodsMessageInput"></van-field>
+    </view>
+    <view>
+    <van-cell>
+    <text class="label">图片上传</text> 
+
+    <view class="img_box">
+        <view class="upload_img" wx:for="{{goods_fileList}}" wx:key="index">
+        <image src='{{item.imageLink}}' class="imgs" bindlongpress="goodsDeleteImage" bindtap="goodsListenerButtonPreviewImage" data-index="{{index}}" mode='widthFix' />
+        <image class="closeImv" src="../../icons/delete.png" mode="scaleToFill" catchtap="goodsDeleteImage" data-id="{{index}}"></image>
+        </view>
+        <view class="upload_img" hidden="{{goods_add_img}}">
+        <view bindtap="goodsUpload">
+            <image src="../../icons/add_img.png" class="upload_img" mode='widthFix' />
+        </view>
+        </view>
+    </view>
+    </van-cell>      
+    </view>          
+    <view>
+    <view class="display">
+        <view>
+        <text class="label">新旧程度(点击选择)</text> 
+        </view> 
+        <van-row>
+        <van-col span="2">
+            <image src="../../icons/label.png" mode="widthFix" class="img"></image>
+        </van-col>
+        <van-col span="22" >
+            <view>     
+            <view wx:for="{{goods_old_new_list}}" data-id="{{index}}" class="tag {{goods_old_new_list_idx==index?'selected':''}}" wx:key="unique" bindtap="goodsOldNewListSelectApply">{{item}}</view>                       
+            </view>        
+        </van-col>
+        </van-row>             
+    </view>                      
+    </view>      
+    <view>
+    <view class="display">
+        <view>
+        <text class="label">类别(点击选择)</text> 
+        </view>               
+        <van-row>
+        <van-col span="2">
+            <image src="../../icons/label.png" mode="widthFix" class="img"></image>
+        </van-col>
+        <van-col span="22" >
+            <view>    
+            <view wx:for="{{goods_class_list}}" data-id="{{index}}" class="tag {{goods_class_list_idx==index?'selected':''}}" wx:key="unique" bindtap="goodsClassListSelectApply">{{item.categoryDesignation}}</view>                                             
+            </view>        
+        </van-col>
+        </van-row>                                                          
+    </view>                      
+    </view>   
+    <view>
+    <view class="display">
+        <view>
+        <text class="label">标签</text> 
+        </view>   
+        <van-row>
+        <van-col span="2">
+            <image src="../../icons/label.png" mode="widthFix" class="img"></image>
+        </van-col>
+        <van-col span="22" >
+            <view>                                
+            <view wx:for="{{goods_label_list}}" data-id="{{index}}" wx:key="unique" class="tag">{{item}}</view>
+            <input class="tag tag-create" bindinput="goodsTagInput" value="{{goods_tag}}" placeholder="新增标签"></input>
+            <van-icon name="add-o" class="icon" size="35rpx" bind:click="TagCreate"></van-icon>
+            </view>                   
+        </van-col>    
+        </van-row>
+        <van-button class="release" type="info" color="#7DB5EE" size="normal" bind:click="goodsChange">修改</van-button>                                                       
+    </view>                                 
+    </view>                 
+</van-cell-group>

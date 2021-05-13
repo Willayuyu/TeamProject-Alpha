@@ -4,6 +4,10 @@
     "pages/login/login",
     "pages/contact/contact",
     "pages/change/change",
+    "pages/changeGood/changeGood",
+    "pages/changeTask/changeTask",
+    "pages/changeActivity/changeActivity",
+
     "pages/changeInf/changeInf",
     "pages/aboutus/aboutus",
     "pages/comments/comments",
