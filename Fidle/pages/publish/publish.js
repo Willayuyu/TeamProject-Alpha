@@ -33,10 +33,11 @@ Page({
         task_remuneration: "",
         task_message: "",
         task_tag: "",
-        task_class_list: [],
+        task_class_list: [{ categoryId: "", categoryDesignation: "" }],
         task_label_list: [],
-        task_class_list_idx: "",
+        task_class_list_idx: 0,
         task_classListUrl: "http://47.106.241.182:8082/task/listTaskCategory",
+        task_releaseUrl: "http://47.106.241.182:8082/publish/task",
 
         isPickerRender: false,
         isPickerShow: false,
@@ -223,8 +224,6 @@ Page({
         })
     },
 
-
-
     //预览二手交易图片方法
     goodsListenerButtonPreviewImage(e) {
         let index = e.target.dataset.index;
@@ -357,8 +356,6 @@ Page({
         });
     },
 
-
-
     //设置选择时间
     setPickerTime(val) {
         let data = val.detail;
@@ -412,6 +409,63 @@ Page({
         })
     },
 
+    //任务委托标题
+    taskTitleInput(e) {
+        this.setData({
+            task_title: e.detail,
+        })
+    },
+
+    //任务委托酬劳
+    taskRemunerationInput(e) {
+        this.setData({
+            task_remuneration: e.detail,
+        })
+    },
+
+    //任务委托详情
+    taskMessageInput(e) {
+        this.setData({
+            task_message: e.detail,
+        })
+    },
+
+    //任务委托发布功能
+    taskRelease() {
+        let that = this;
+        let task_title = that.data.task_title;
+        let task_remuneration = that.data.task_remuneration;
+        let task_message = that.data.task_message;
+        let task_startTime = that.data.startTime;
+        let task_endTime = that.data.endTime;
+        let task_category = that.data.task_class_list[that.data.task_class_list_idx].categoryId;
+        let task_tags = that.data.task_label_list;
+
+        wx.request({      
+            url: that.data.task_releaseUrl,
+            header: {         "Content-Type": "application/x-www-form-urlencoded"       },
+            method: "POST",
+            data: {
+                title: task_title,
+                reward: task_remuneration,
+                start_time: task_startTime,
+                end_time: task_endTime,
+                description: task_message,
+                category: task_category,
+                tags: task_tags,
+            },
+
+            complete: function(res) {              
+                if (res == null || res.data == null) {           console.error('网络请求失败');           return;         } else {
+                    wx.showModal({
+                        title: "提示",
+                        content: "任务委托信息发布成功",
+                    })
+                }      
+            }    
+        })
+    },
+
     //活动信息类别选择
     activity_class_list_selectApply(e) {
         let id = e.target.dataset.id
@@ -425,7 +479,6 @@ Page({
         this.setData({
             activity_title: e.detail,
         })
-
     },
 
     //活动信息地点输入
@@ -699,15 +752,6 @@ Page({
 
     //生命周期函数--监听页面加载
     onLoad: function(options) {
-        let initstart = this.getCurrentTime();
-        let initend = this.getInitEnd();
-        let tempPickerConfig = this.data.pickerConfig;
-        tempPickerConfig.initStartTime = initstart;
-        tempPickerConfig.initEndTime = initend;
-
-        this.setData({
-            pickerConfig: tempPickerConfig,
-        })
 
         this.getGoodsClassList();
         this.getTaskClassList();
@@ -852,7 +896,15 @@ Page({
 
     // 生命周期函数--监听页面显示
     onShow: function() {
+        let initstart = this.getCurrentTime();
+        let initend = this.getInitEnd();
+        let tempPickerConfig = this.data.pickerConfig;
+        tempPickerConfig.initStartTime = initstart;
+        tempPickerConfig.initEndTime = initend;
 
+        this.setData({
+            pickerConfig: tempPickerConfig,
+        })
     },
 
     // 生命周期函数--监听页面隐藏
