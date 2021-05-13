@@ -67,6 +67,7 @@ public class GoodsController {
             /*goodsInfoDO.setLimit(Boolean.TRUE);
             goodsInfoDO.setBegin((pageid-1)*size);
             goodsInfoDO.setSize(size);*/
+
             goodsInfoDO.setDistinct(Boolean.TRUE);
 
             if(categoryId!=0){
@@ -131,9 +132,10 @@ public class GoodsController {
             String keyWord=request.getParameter("keyWord");
             int pageid=Integer.parseInt(request.getParameter("pageid"));
 
-            goodsInfoDO.setLimit(Boolean.TRUE);
+            /*goodsInfoDO.setLimit(Boolean.TRUE);
             goodsInfoDO.setBegin((pageid-1)*size);
-            goodsInfoDO.setSize(size);
+            goodsInfoDO.setSize(size);*/
+
             goodsInfoDO.setDistinct(Boolean.TRUE);
             goodsInfoDO.setTitle(keyWord);
             goodsInfoDO.setTitleLike(Boolean.TRUE);
@@ -172,7 +174,12 @@ public class GoodsController {
                     goodsItemVO.setCollectState(GoodsItemVO.DISCOLLECT);
                 }
             }
-            return JSON.toJSONString(Result.successResult(goodsItemVOS));
+
+            PageHelper<GoodsItemVO> pageHelper = new PageHelper<>(goodsItemVOS,size);
+            List<GoodsItemVO> itemVOList = pageHelper.getPageByNum(pageid);
+
+
+            return JSON.toJSONString(Result.successResult(itemVOList));
         }catch (Exception e){
             e.printStackTrace();
             return JSON.toJSONString(Result.failureResult(ResultCode.RESOURCE_EMPTY));

@@ -15,6 +15,7 @@ import com.example.fidledemo.homepage.service.ActivityCategoryServiceImpl;
 import com.example.fidledemo.homepage.service.ActivityEnshrineServiceImpl;
 import com.example.fidledemo.homepage.service.ActivityInfoServiceImpl;
 import com.example.fidledemo.homepage.utils.DateUtils;
+import com.example.fidledemo.homepage.utils.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -62,9 +63,11 @@ public class ActivityController {
             int days=Integer.parseInt(request.getParameter("days"));
             Long categoryId=Long.parseLong(request.getParameter("categoryId"));
             int pageid=Integer.parseInt(request.getParameter("pageid"));
-            activityInfoDO.setLimit(Boolean.TRUE);
+
+            /*activityInfoDO.setLimit(Boolean.TRUE);
             activityInfoDO.setBegin((pageid-1)*size);
-            activityInfoDO.setSize(size);
+            activityInfoDO.setSize(size);*/
+
             activityInfoDO.setDistinct(Boolean.TRUE);
 
             if (categoryId!=0){
@@ -91,7 +94,11 @@ public class ActivityController {
                     activityItemVO.setCollectState(ActivityItemVO.DISCOLLECT);
                 }
             }
-            return JSON.toJSONString(Result.successResult(activityItemVOS));
+
+            PageHelper<ActivityItemVO> pageHelper = new PageHelper<>(activityItemVOS,size);
+            List<ActivityItemVO> itemVOList = pageHelper.getPageByNum(pageid);
+
+            return JSON.toJSONString(Result.successResult(itemVOList));
         }catch (Exception e){
             e.printStackTrace();
             return JSON.toJSONString(Result.failureResult(ResultCode.RESOURCE_EMPTY));
@@ -115,9 +122,10 @@ public class ActivityController {
             int pageid=Integer.parseInt(request.getParameter("pageid"));
             String keyWord=request.getParameter("keyWord");
 
-            activityInfoDO.setLimit(Boolean.TRUE);
+            /*activityInfoDO.setLimit(Boolean.TRUE);
             activityInfoDO.setBegin((pageid-1)*size);
-            activityInfoDO.setSize(size);
+            activityInfoDO.setSize(size);*/
+
             activityInfoDO.setDistinct(Boolean.TRUE);
 
             if(categoryId!=0){
@@ -155,7 +163,10 @@ public class ActivityController {
                 }
             }
 
-            return JSON.toJSONString(Result.successResult(activityItemVOS));
+            PageHelper<ActivityItemVO> pageHelper = new PageHelper<>(activityItemVOS,size);
+            List<ActivityItemVO> itemVOList = pageHelper.getPageByNum(pageid);
+
+            return JSON.toJSONString(Result.successResult(itemVOList));
         }catch (Exception e){
             e.printStackTrace();
             return JSON.toJSONString(Result.failureResult(ResultCode.RESOURCE_EMPTY));

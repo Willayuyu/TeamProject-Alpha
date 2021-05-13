@@ -5,6 +5,7 @@ import com.example.fidledemo.BO.*;
 import com.example.fidledemo.DO.UserDO;
 import com.example.fidledemo.VO.*;
 import com.example.fidledemo.collection.service.CollectionService;
+import com.example.fidledemo.collection.utils.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -45,10 +46,10 @@ public class CollectionController {
         UserDO userDO = new UserDO();
         userDO.setId(userBO.getId());
 
-        //设置分页信息
+        /*//设置分页信息
         userDO.setLimit(Boolean.FALSE);
         userDO.setBegin((pageId - 1) * size);
-        userDO.setSize(size);
+        userDO.setSize(size);*/
 
         List<ActivityInfoBO> activityInfoBOS = collectionService.listActivityEnshrineByUserDO(userDO);
         List<ActivityVO> activityVOS = new ArrayList<>();
@@ -85,7 +86,11 @@ public class CollectionController {
             activityVO.setPicturesLink(picturesLink);
             activityVOS.add(activityVO);
         }
-        return JSON.toJSONString(Result.successResult(activityVOS));
+
+        PageHelper<ActivityVO> pageHelper = new PageHelper<>(activityVOS,size);
+        List<ActivityVO> voList = pageHelper.getPageByNum(pageId);
+
+        return JSON.toJSONString(Result.successResult(voList));
     }
 
     /**
@@ -103,10 +108,10 @@ public class CollectionController {
         UserDO userDO = new UserDO();
         userDO.setId(userBO.getId());
 
-        //设置分页信息
+        /*//设置分页信息
         userDO.setLimit(Boolean.FALSE);
         userDO.setBegin((pageId - 1) * size);
-        userDO.setSize(size);
+        userDO.setSize(size);*/
 
         List<TaskInfoBO> taskInfoBOS = collectionService.listTaskEnshrineByUserDO(userDO);
         List<TaskVO> taskVOS = new ArrayList<>();
@@ -135,7 +140,11 @@ public class CollectionController {
             taskVO.setEndTime(taskInfoBO.getEndTime());
             taskVOS.add(taskVO);
         }
-        return JSON.toJSONString(Result.successResult(taskVOS));
+
+        PageHelper<TaskVO> pageHelper = new PageHelper<>(taskVOS,size);
+        List<TaskVO> voList = pageHelper.getPageByNum(pageId);
+
+        return JSON.toJSONString(Result.successResult(voList));
     }
 
     /**
@@ -153,10 +162,10 @@ public class CollectionController {
         UserDO userDO = new UserDO();
         userDO.setId(userBO.getId());
 
-        //设置分页信息
+        /*//设置分页信息
         userDO.setLimit(Boolean.FALSE);
         userDO.setBegin((pageId - 1) * size);
-        userDO.setSize(size);
+        userDO.setSize(size);*/
 
         List<GoodsInfoBO> goodsInfoBOS = collectionService.listGoodsEnshrineByUserDO(userDO);
         List<GoodsVO> goodsVOS = new ArrayList<>();
@@ -193,6 +202,9 @@ public class CollectionController {
             goodsVO.setCollectState(GoodsVO.COLLECT);
             goodsVOS.add(goodsVO);
         }
-        return JSON.toJSONString(Result.successResult(goodsVOS));
+        PageHelper<GoodsVO> pageHelper = new PageHelper<>(goodsVOS,size);
+        List<GoodsVO> voList = pageHelper.getPageByNum(pageId);
+
+        return JSON.toJSONString(Result.successResult(voList));
     }
 }
