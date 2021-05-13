@@ -4,6 +4,10 @@
     "van-tabs": "../../components/dist/tabs/index",
     "van-card": "../../components/dist/card/index",
     "van-tag": "../../components/dist/tag/index",
-    "van-circle": "../../components/dist/circle/index"
+    "van-circle": "../../components/dist/circle/index",
+    "van-overlay": "../../components//dist/overlay/index",
+    "van-popup": "../../components/dist/popup/index",
+    "van-panel": "../../components/dist/panel/index",
+    "van-field": "../../components/dist/field/index"
   }
 }

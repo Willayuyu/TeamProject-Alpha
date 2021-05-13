@@ -112,7 +112,6 @@ public class ActivityController {
 
             int days=Integer.parseInt(request.getParameter("days"));
             Long categoryId=Long.parseLong(request.getParameter("categoryId"));
-            System.out.println(categoryId);
             int pageid=Integer.parseInt(request.getParameter("pageid"));
             String keyWord=request.getParameter("keyWord");
 

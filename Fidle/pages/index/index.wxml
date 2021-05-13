@@ -20,8 +20,8 @@
         <c-select initSelect="{{secDegree}}" prop-array='{{secDegreeArray}}'  bind:select='select_Sec_Degree'/>
       </view>
       <view wx:for="{{goodsList}}" wx:key="{{index}}">
-        <van-card  price="{{item.price}}" origin-price="{{item.originalPrice}}" thumb="{{item.imageLink}}" thumb-link="{{goodsDetialsURL}}" class="card">
-        <view slot="title" class="title" bindtap="clickGoodsCard">
+        <van-card  price="{{item.price}}" origin-price="{{item.originalPrice}}" thumb="{{item.imageLink}}" thumb-link="{{goodsDetialsURL}}" class="card" bindtap="clickGoodsCard">
+        <view slot="title" class="title">
           <text>{{item.title}}</text>
         </view>
         <view slot="tags" class="tagList">
@@ -30,10 +30,10 @@
         </view>
         <view slot="footer" class="btns">
           <van-button class="btn" bindtap="contact">联系卖家</van-button>
-          <van-button wx:if="{{item.collectState == -1}}" class="btn" bindtap="storeGoods">
+          <van-button data-index="{{index}}" wx:if="{{item.collectState == -1}}" class="btn" catchtap='storeGoods_collected' hover-stop-propagation='true'>
             <text decode>&nbsp;收&nbsp;&nbsp;藏&nbsp;</text>
           </van-button>
-          <van-button wx:if="{{item.collectState == 1}}" class="btn" bindtap="storeGoods">
+          <van-button data-index="{{index}}" wx:if="{{item.collectState == 1}}" class="btn" catchtap='storeGoods_uncollected' hover-stop-propagation='true'>
             <text decode>已收藏</text>
           </van-button>
         </view>
@@ -54,8 +54,8 @@
         <c-select initSelect="{{taskSort}}" prop-array='{{taskSortArray}}'  bind:select='select_Task_Sort'/>
       </view>
       <view wx:for="{{taskList}}" wx:key="{{index}}">
-        <van-card class="card">
-        <view slot="title" class="title" bindtap="clickTaskCard">
+        <van-card class="card" bindtap="clickTaskCard">
+        <view slot="title" class="title">
           <text>{{item.title}}</text>
           <view class="price">
           <text class="sign">￥</text>
@@ -67,10 +67,12 @@
           <van-tag wx:for="{{item.tagList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">{{item.content}}</van-tag>
           <view class="taskBtns">
             <van-button class="btn" bindtap="contact">联系委托人</van-button>
-            <van-button wx:if="{{item.collectState == -1}}" class="btn" bindtap="storeTask">
+            <van-button data-index="{{index}}" wx:if="{{item.collectState == -1}}" class="btn" catchtap="storeTask_collected"
+            hover-stop-propagation='true'>
             <text decode>&nbsp;收&nbsp;&nbsp;藏&nbsp;</text>
             </van-button>
-            <van-button wx:if="{{item.collectState == 1}}" class="btn" bindtap="storeTask">
+            <van-button data-index="{{index}}" wx:if="{{item.collectState == 1}}" class="btn" catchtap="storeTask_uncollected"
+            hover-stop-propagation='true'>
             <text decode>已收藏</text>
             </van-button>
           </view>
@@ -88,8 +90,8 @@
         <c-select initSelect="{{activitySort}}" prop-array='{{activitySortArray}}'  bind:select='select_Act_Sort'/>
       </view>
       <view wx:for="{{activityList}}" wx:key="{{index}}">
-        <van-card  thumb="{{item.imageLink}}" thumb-link="{{activityDetialsURL}}" class="card">
-        <view slot="title" class="title" bindtap="clickActivityCard">
+        <van-card  thumb="{{item.imageLink}}" thumb-link="{{activityDetialsURL}}" class="card" bindtap="clickActivityCard">
+        <view slot="title" class="title">
           <text>{{item.title}}</text>
         </view>
         <view slot="tags" class="tagTask">
@@ -97,10 +99,12 @@
           <van-tag wx:for="{{item.tagList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">{{item.content}}</van-tag>
         </view>
         <view slot="footer" class="activityBtns">
-          <van-button wx:if="{{item.collectState == -1}}" class="btn" bindtap="storeActivity">
+          <van-button data-index="{{index}}" wx:if="{{item.collectState == -1}}" class="btn" catchtap="storeAct_collected"
+          hover-stop-propagation='true'>
             <text decode>&nbsp;收&nbsp;&nbsp;藏&nbsp;</text>
           </van-button>
-          <van-button wx:if="{{item.collectState == 1}}" class="btn" bindtap="storeActivity">
+          <van-button data-index="{{index}}" wx:if="{{item.collectState == 1}}" class="btn" catchtap="storeAct_uncollected"
+          hover-stop-propagation='true'>
             <text decode>已收藏</text>
           </van-button>
         </view>

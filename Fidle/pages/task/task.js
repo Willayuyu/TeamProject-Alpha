@@ -15,7 +15,8 @@ Page({
       "未接收",
       "进行中",
       "已完成"
-    ]
+    ],
+    show: false
   },
 
   /**
@@ -319,6 +320,16 @@ Page({
       }
     })
   },
+
+  showOverlap: function(){
+    this.setData({ show: true });
+  },
+
+  onClickHide() {
+    this.setData({ show: false });
+  },
+
+  noop() {},
 
 
 

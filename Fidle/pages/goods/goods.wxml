@@ -1,53 +1,78 @@
 <van-tabs>
   <van-tab title="在售" name="sell">
-    <van-card  price="{{goodsPrice}}" origin-price="{{goodsOriginPrice}}" thumb="{{goodsImageURL}}" thumb-link="{{goodsDetailsURL}}" class="card">
+    <van-card price="{{item.price}}" origin-price="{{item.originalPrice}}" thumb="{{item.imageLink}}"
+      thumb-link="{{goodsDetailsURL}}" class="card" wx:for="{{goodsOnSale}}" wx:key="index">
       <view slot="title" class="title" bindtap="clickGoodsCard">
-        <text>{{goodsTitle}}</text>
-      </view>
-      <view slot="num" class="modifyTag">
-        <image class="modify" mode="widthFix" src="../../icons/modify.png"></image>
+        <text>{{item.title}}</text>
+        <view class="modifyTag">
+          <image class="modify" mode="widthFix" src="../../icons/modify.png"></image>
+        </view>
       </view>
       <view slot="tags" class="tagList">
         <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
-        <van-tag wx:for="{{goodsTagsList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">{{item}}</van-tag>
+        <van-tag class="tagItem" color="#dbdbdb" text-color="#394044">{{item.condition}}</van-tag>
+        <van-tag class="tagItem" color="#dbdbdb" text-color="#394044">{{item.category}}</van-tag>
+        <van-tag wx:for="{{item.tagList}}" wx:key="index" class="tagItem" color="#dbdbdb" text-color="#394044">
+          {{item.content}}</van-tag>
       </view>
       <view slot="footer" class="btns">
-        <van-button  class="btn">生成订单</van-button>
-        <van-button  class="btn">下架</van-button>
+        <van-button class="btn" bindtap="showOverlap">生成订单</van-button>
+        <van-button class="btn">下架</van-button>
+          <van-overlay show="{{ show }}">
+            <view class="wrapper">
+            <van-panel title="生成订单" use-footer-slot>
+              <van-cell-group>
+                <van-field value="{{ value }}" placeholder="请输入买家id" border="{{ false }}" />
+              </van-cell-group>
+              <view slot="footer" class="panelBtns">
+                <van-button class="panelBtn">确认</van-button>
+                <van-button class="panelBtn" bindtap="onClickHide">取消</van-button>
+              </view>
+            </van-panel>
+          </view>
+          </van-overlay>
       </view>
     </van-card>
   </van-tab>
   <van-tab title="售出" name="sold">
-    <van-card  price="{{goodsPrice}}" origin-price="{{goodsOriginPrice}}" thumb="{{goodsImageURL}}" thumb-link="{{goodsDetailsURL}}" class="card">
+    <van-card price="{{item.price}}" origin-price="{{item.originalPrice}}" thumb="{{item.imageLink}}"
+      thumb-link="{{goodsDetailsURL}}" class="card" wx:for="{{goodsSold}}" wx:key="index">
       <view slot="title" class="title" bindtap="clickGoodsCard">
-        <text>{{goodsTitle}}</text>
-      </view>
-      <view slot="num" class="modifyTag">
-        <image class="modify" mode="widthFix" src="../../icons/modify.png"></image>
+        <text>{{item.title}}</text>
+        <view class="modifyTag">
+          <image class="modify" mode="widthFix" src="../../icons/modify.png"></image>
+        </view>
       </view>
       <view slot="tags" class="tagList">
         <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
-        <van-tag wx:for="{{goodsTagsList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">{{item}}</van-tag>
+        <van-tag class="tagItem" color="#dbdbdb" text-color="#394044">{{item.condition}}</van-tag>
+        <van-tag class="tagItem" color="#dbdbdb" text-color="#394044">{{item.category}}</van-tag>
+        <van-tag wx:for="{{item.tagList}}" wx:key="index" class="tagItem" color="#dbdbdb" text-color="#394044">
+          {{item.content}}</van-tag>
       </view>
       <view slot="footer" class="btns">
-        <van-button  class="btn">评价买方</van-button>
+        <van-button class="btn">评价买方</van-button>
       </view>
     </van-card>
   </van-tab>
   <van-tab title="买入" name="buy">
-    <van-card  price="{{goodsPrice}}" origin-price="{{goodsOriginPrice}}" thumb="{{goodsImageURL}}" thumb-link="{{goodsDetailsURL}}" class="card">
+    <van-card price="{{item.price}}" origin-price="{{item.originalPrice}}" thumb="{{item.imageLink}}"
+      thumb-link="{{goodsDetailsURL}}" class="card" wx:for="{{goodsBuy}}" wx:key="index">
       <view slot="title" class="title" bindtap="clickGoodsCard">
-        <text>{{goodsTitle}}</text>
-      </view>
-      <view slot="num" class="modifyTag">
-        <image class="modify" mode="widthFix" src="../../icons/modify.png"></image>
+        <text>{{item.title}}</text>
+        <view class="modifyTag">
+          <image class="modify" mode="widthFix" src="../../icons/modify.png"></image>
+        </view>
       </view>
       <view slot="tags" class="tagList">
         <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
-        <van-tag wx:for="{{goodsTagsList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">{{item}}</van-tag>
+        <van-tag class="tagItem" color="#dbdbdb" text-color="#394044">{{item.condition}}</van-tag>
+        <van-tag class="tagItem" color="#dbdbdb" text-color="#394044">{{item.category}}</van-tag>
+        <van-tag wx:for="{{item.tagList}}" wx:key="index" class="tagItem" color="#dbdbdb" text-color="#394044">
+          {{item.content}}</van-tag>
       </view>
       <view slot="footer" class="btns">
-        <van-button  class="btn">评价卖方</van-button>
+        <van-button class="btn">评价卖方</van-button>
       </view>
     </van-card>
   </van-tab>

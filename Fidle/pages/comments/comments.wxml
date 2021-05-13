@@ -8,22 +8,20 @@
             <view class="topmsg">
               <image class="photo" src="{{item.portrait}}"></image>
               <text class="name">{{item.username}}</text>
-              <text class="icon iconfont icon-cc-thumbs-up"></text>
-              <text class="time">{{item.createTime}}</text>
+              <text class="time">{{item.timeString}}</text>
             </view>
             <view class="comment">
-              <view class="content">{{item.reason}}</view>
+              <view class="content"><text class="icon iconfont icon-cc-thumbs-up" decode="{{true}}">&ensp;</text>{{item.reason}}</view>
             </view>
           </view>
           <view class="itembg" wx:for="{{bad_secondhand_cmt}}" wx:for-item="item" wx:key="key">
             <view class="topmsg">
               <image class="photo" src="{{item.portrait}}"></image>
               <text class="name">{{item.username}}</text>
-              <text class="icon iconfont icon-cc-thumbs-down"></text>
-              <text class="time">{{item.createTime}}</text>
+              <text class="time">{{item.timeString}}</text>
             </view>
             <view class="comment">
-              <view class="content">{{item.reason}}</view>
+              <view class="content"><text class="icon iconfont icon-cc-thumbs-down" decode="{{true}}">&ensp;</text>{{item.reason}}</view>
             </view>
           </view>
         </view>
@@ -34,11 +32,10 @@
             <view class="topmsg">
               <image class="photo" src="{{item.portrait}}"></image>
               <text class="name">{{item.username}}</text>
-              <text class="icon iconfont icon-cc-thumbs-up"></text>
-              <text class="time">{{item.createTime}}</text>
+              <text class="time">{{item.timeString}}</text>
             </view>
             <view class="comment">
-              <view class="content">{{item.reason}}</view>
+              <view class="content"><text class="icon iconfont icon-cc-thumbs-up" decode="{{true}}">&ensp;</text>{{item.reason}}</view>
             </view>
           </view>
         </view>
@@ -49,11 +46,10 @@
             <view class="topmsg">
               <image class="photo" src="{{item.portrait}}"></image>
               <text class="name">{{item.username}}</text>
-              <text class="icon iconfont icon-cc-thumbs-down"></text>
-              <text class="time">{{item.createTime}}</text>
+              <text class="time">{{item.timeString}}</text>
             </view>
             <view class="comment">
-              <view class="content">{{item.reason}}</view>
+              <view class="content"><text class="icon iconfont icon-cc-thumbs-down" decode="{{true}}">&ensp;</text>{{item.reason}}</view>
             </view>
           </view>
         </view>
@@ -69,22 +65,20 @@
             <view class="topmsg">
               <image class="photo" src="{{item.portrait}}"></image>
               <text class="name">{{item.username}}</text>
-              <text class="icon iconfont icon-cc-thumbs-up"></text>
-              <text class="time">{{item.createTime}}</text>
+              <text class="time">{{item.timeString}}</text>
             </view>
             <view class="comment">
-              <view class="content">{{item.reason}}</view>
+              <view class="content"><text class="icon iconfont icon-cc-thumbs-up" decode="{{true}}">&ensp;</text>{{item.reason}}</view>
             </view>
           </view>
           <view class="itembg" wx:for="{{bad_mission_cmt}}" wx:for-item="item" wx:key="key">
             <view class="topmsg">
               <image class="photo" src="{{item.portrait}}"></image>
               <text class="name">{{item.username}}</text>
-              <text class="icon iconfont icon-cc-thumbs-down"></text>
-              <text class="time">{{item.createTime}}</text>
+              <text class="time">{{item.timeString}}</text>
             </view>
             <view class="comment">
-              <view class="content">{{item.reason}}</view>
+              <view class="content"><text class="icon iconfont icon-cc-thumbs-down" decode="{{true}}">&ensp;</text>{{item.reason}}</view>
             </view>
           </view>
         </view>
@@ -95,11 +89,10 @@
             <view class="topmsg">
               <image class="photo" src="{{item.portrait}}"></image>
               <text class="name">{{item.username}}</text>
-              <text class="icon iconfont icon-cc-thumbs-up"></text>
-              <text class="time">{{item.createTime}}</text>
+              <text class="time">{{item.timeString}}</text>
             </view>
             <view class="comment">
-              <view class="content">{{item.reason}}</view>
+              <view class="content"><text class="icon iconfont icon-cc-thumbs-up" decode="{{true}}">&ensp;</text>{{item.reason}}</view>
             </view>
           </view>
         </view>
@@ -110,11 +103,10 @@
             <view class="topmsg">
               <image class="photo" src="{{item.portrait}}"></image>
               <text class="name">{{item.username}}</text>
-              <text class="icon iconfont icon-cc-thumbs-down"></text>
-              <text class="time">{{item.createTime}}</text>
+              <text class="time">{{item.timeString}}</text>
             </view>
             <view class="comment">
-              <view class="content">{{item.reason}}</view>
+              <view class="content"><text class="icon iconfont icon-cc-thumbs-down" decode="{{true}}">&ensp;</text>{{item.reason}}</view>
             </view>
           </view>
         </view>

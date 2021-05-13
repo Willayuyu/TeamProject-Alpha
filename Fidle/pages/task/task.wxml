@@ -1,26 +1,43 @@
 <van-tabs>
   <van-tab title="已发布" name="publish">
     <van-card class="card">
-      <view slot="price" class="price">
-        <text class="sign">￥</text>
-        <text class="priceText">{{taskPrice}}</text>
-      </view>
       <view slot="title" class="title" bindtap="clickTaskCard">
-        <text>{{taskTitle}}</text>
-      </view>
-      <view slot="num" class="modifyTag">
-        <image class="state" mode="widthFix" src="../../icons/circle.png"></image>
-        <text class="stateText">{{state[0]}}</text>
-        <image class="modify" mode="widthFix" src="../../icons/modify.png"></image>
+        <view class="modifyTag">
+          <view>
+            <image class="state" mode="widthFix" src="../../icons/circle.png"></image>
+            <text class="stateText">{{state[0]}}</text>
+          </view>
+          <image class="modify" mode="widthFix" src="../../icons/modify.png"></image>
+        </view>
+        <view class="secondLine">
+          <text>{{taskTitle}}</text>
+          <view class="price">
+            <text class="sign">￥</text>
+            <text class="priceText">{{taskPrice}}</text>
+          </view>
+        </view>
       </view>
       <view slot="tags" class="tagTask">
         <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
         <van-tag wx:for="{{taskTagsList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">
           {{item}}</van-tag>
         <view class="taskBtns">
-        <van-button class="btn">进行</van-button>
-        <van-button class="btn">删除</van-button>
-      </view>
+          <van-button class="btn" bindtap="showOverlap">进行</van-button>
+          <van-button class="btn">删除</van-button>
+          <van-overlay show="{{ show }}">
+            <view class="wrapper">
+            <van-panel title="生成订单"use-footer-slot>
+              <van-cell-group>
+                <van-field value="{{ value }}" placeholder="请输入接受人id" border="{{ false }}" />
+              </van-cell-group>
+              <view slot="footer" class="panelBtns">
+                <van-button class="panelBtn">确认</van-button>
+                <van-button class="panelBtn" bindtap="onClickHide">取消</van-button>
+              </view>
+            </van-panel>
+          </view>
+          </van-overlay>
+        </view>
       </view>
     </van-card>
     <van-card class="card">
@@ -29,21 +46,23 @@
         <text class="priceText">{{taskPrice}}</text>
       </view>
       <view slot="title" class="title" bindtap="clickTaskCard">
+        <view class="modifyTag">
+          <view>
+            <image class="state" mode="widthFix" src="../../icons/circle (1).png"></image>
+            <text class="stateText">{{state[1]}}</text>
+          </view>
+          <image class="modify" mode="widthFix" src="../../icons/modify.png"></image>
+        </view>
         <text>{{taskTitle}}</text>
-      </view>
-      <view slot="num" class="modifyTag">
-        <image class="state" mode="widthFix" src="../../icons/circle (1).png"></image>
-        <text class="stateText">{{state[1]}}</text>
-        <image class="modify" mode="widthFix" src="../../icons/modify.png"></image>
       </view>
       <view slot="tags" class="tagTask">
         <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
         <van-tag wx:for="{{taskTagsList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">
           {{item}}</van-tag>
         <view class="taskBtns">
-        <van-button class="btn">取消</van-button>
-        <van-button class="btn">完成</van-button>
-      </view>
+          <van-button class="btn">取消</van-button>
+          <van-button class="btn">完成</van-button>
+        </view>
       </view>
     </van-card>
     <van-card class="card">
@@ -63,8 +82,8 @@
         <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
         <van-tag wx:for="{{taskTagsList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">
           {{item}}</van-tag>
-        <view  class="taskBtns">
-        <van-button class="btn">评价</van-button>
+        <view class="taskBtns">
+          <van-button class="btn">评价</van-button>
         </view>
       </view>
     </van-card>
@@ -88,8 +107,8 @@
         <van-tag wx:for="{{taskTagsList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">
           {{item}}</van-tag>
         <view class="taskBtns">
-        <van-button class="btn">取消</van-button>
-      </view>
+          <van-button class="btn">取消</van-button>
+        </view>
       </view>
     </van-card>
     <van-card class="card">
@@ -103,15 +122,15 @@
       <view slot="num" class="modifyTag">
         <image class="state" mode="widthFix" src="../../icons/circle (2).png"></image>
         <text class="stateText">{{state[2]}}</text>
-        <image class="modify" mode="widthFix" src="../../icons/modify.png" ></image>
+        <image class="modify" mode="widthFix" src="../../icons/modify.png"></image>
       </view>
       <view slot="tags" class="tagTask">
         <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
         <van-tag wx:for="{{taskTagsList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">
           {{item}}</van-tag>
-          <view class="taskBtns">
-        <van-button class="btn">评价</van-button>
-      </view>
+        <view class="taskBtns">
+          <van-button class="btn">评价</van-button>
+        </view>
       </view>
     </van-card>
   </van-tab>
