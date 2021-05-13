@@ -3,6 +3,8 @@
 //console.log("返回成功的数据:" + JSON.stringify(res.data)) //这样就可以愉快的看到后台的数据啦
 Page({
     data: {
+        test: [],
+
         url: "",
         fileList: [],
 
@@ -48,16 +50,19 @@ Page({
             limitEndTime: "2099-12-31 23:59:59"
         },
 
+
         activity_title: "",
         activity_place: "",
         activity_message: "",
         activity_tag: "",
         activity_fileList: [],
-        activity_class_list: [],
+        activity_class_list: [{ categoryId: "", categoryDesignation: "" }],
         activity_label_list: [],
-        activity_class_list_idx: "",
+        activity_class_list_idx: 0,
         activity_uploadUrl: "http://47.106.241.182:8082/publish/uploadActivityImage",
         activity_deleteUrl: "http://47.106.241.182:8082/publish/deleteActivityImage/id?id=",
+        activity_releaseUrl: "http://47.106.241.182:8082/publish/activity",
+
     },
 
     goodsTitleInput(e) {
@@ -416,11 +421,98 @@ Page({
         })
     },
 
-
+    //活动信息类别选择
     activity_class_list_selectApply(e) {
         let id = e.target.dataset.id
         this.setData({
             activity_class_list_idx: id
+        })
+    },
+
+    //活动信息标题输入
+    activityTitleInput(e) {
+        this.setData({
+            activity_title: e.detail,
+        })
+
+    },
+
+    //活动信息地点输入
+    activityPlaceInput(e) {
+        this.setData({
+            activity_place: e.detail,
+        })
+    },
+
+    //活动信息活动形式输入
+    activityMessageInput(e) {
+        this.setData({
+            activity_message: e.detail,
+        })
+    },
+
+    //活动信息发布功能
+    activityRelease() {
+        let that = this;
+        let activity_title = that.data.activity_title;
+        let activity_place = that.data.activity_place;
+        let activity_message = that.data.activity_message;
+        let activity_startTime = that.stringToDate(that.data.startTime);
+        let activity_endTime = that.stringToDate(that.data.endTime);
+
+        let imageList = [];
+        for (var i = 0; i < that.data.activity_fileList.length; i++)
+            imageList.push(that.data.activity_fileList[i].imageLink);
+
+        let activity_category = that.data.activity_class_list[that.data.activity_class_list_idx].categoryId;
+        let activity_tags = that.data.activity_label_list;
+
+
+        // 测试
+        // that.setData({
+        //     test: [{
+        //         title: activity_title,
+        //         address: activity_place,
+        //         start_time: activity_startTime,
+        //         end_time: activity_endTime,
+        //         description: activity_message,
+        //         image_links: imageList,
+        //         category: activity_category,
+        //         tags: activity_tags,
+        //     }],
+        // })
+
+        // console.log(that.data.test);
+
+        // console.log(activity_startTime);
+        // console.log(activity_endTime);
+        // console.log(that.dateToString(activity_endTime));
+
+        wx.request({      
+            url: that.data.activity_releaseUrl,
+            header: {         "Content-Type": "application/x-www-form-urlencoded"       },
+            method: "POST",
+            data: {
+                title: activity_title,
+                address: activity_place,
+                start_time: activity_startTime,
+                end_time: activity_endTime,
+                description: activity_message,
+                image_links: imageList,
+                category: activity_category,
+                tags: activity_tags,
+            },
+
+            //       data: Util.json2Form( { cityname: "上海", key: "1430ec127e097e1113259c5e1be1ba70" }),
+
+            complete: function(res) {              
+                if (res == null || res.data == null) {           console.error('网络请求失败');           return;         } else {
+                    wx.showModal({
+                        title: "提示",
+                        content: "活动信息发布成功",
+                    })
+                }      
+            }    
         })
     },
 
@@ -706,6 +798,44 @@ Page({
         }
 
 
+    },
+
+    //字符串转日期格式，strDate要转为日期格式的字符串
+    stringToDate(strDate) {
+        var st = strDate;
+        var a = st.split(" ");
+        var b = a[0].split("-");
+        var c = a[1].split(":");
+        var date = new Date(b[0], b[1] - 1, b[2], c[0], c[1], c[2])
+        return date;
+    },
+
+    //日期转字符串格式
+    　dateToString(date) {
+        var year = date.getFullYear();
+        var month = (date.getMonth() + 1).toString();
+        var day = (date.getDate()).toString();
+        var hour = (date.getHours()).toString();
+        var minute = (date.getMinutes()).toString();
+        var second = (date.getSeconds()).toString();
+
+        if (month.length == 1) {
+            month = "0" + month;
+        }
+        if (day.length == 1) {
+            day = "0" + day;
+        }
+        if (hour.length == 1) {
+            hour = "0" + hour;
+        }
+        if (minute.length == 1) {
+            minute = "0" + minute;
+        }
+        if (second.length == 1) {
+            second = "0" + second;
+        }
+        var dateTime = year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
+        return dateTime;
     },
 
     // 生命周期函数--监听页面显示
