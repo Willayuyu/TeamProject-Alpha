@@ -1,10 +1,10 @@
 com\example\fidledemo\VO\TaskTagVO.class
 com\example\fidledemo\VO\MyTaskVO.class
 com\example\fidledemo\DO\TaskDelegateDO.class
+com\example\fidledemo\collection\utils\PageHelper.class
 com\example\fidledemo\BO\BaseInformation.class
 com\example\fidledemo\VO\MyGoodsVO.class
 com\example\fidledemo\DO\TagOfActivityDO.class
-com\example\fidledemo\person\service\PersonalCarServiceImpl.class
 com\example\fidledemo\VO\TaskImageVO.class
 com\example\fidledemo\dao\GoodsTagDAO.class
 com\example\fidledemo\homepage\service\ActivityCategoryService.class
@@ -27,10 +27,10 @@ com\example\fidledemo\BO\BaseMessage.class
 com\example\fidledemo\BO\EnshrineInformation.class
 com\example\fidledemo\DO\GoodsInfoDO.class
 com\example\fidledemo\DO\ActivityCategoryDO.class
-com\example\fidledemo\moudle10\service\UserServiceImpl.class
 com\example\fidledemo\dao\GoodsCategoryDAO.class
 com\example\fidledemo\moudle10\service\MyGoodsService.class
 com\example\fidledemo\DO\TaskEvaluationDO.class
+com\example\fidledemo\homepage\utils\PageHelper.class
 com\example\fidledemo\BO\InformationList.class
 com\example\fidledemo\VO\TaskEvaluationVO.class
 com\example\fidledemo\dao\ActivityCategoryDAO.class
@@ -58,7 +58,6 @@ com\example\fidledemo\homepage\service\GoodsEnshrineService.class
 com\example\fidledemo\BO\UserBO.class
 com\example\fidledemo\homepage\controller\TaskController.class
 com\example\fidledemo\config\XssHttpServletRequest.class
-com\example\fidledemo\moudle10\service\UserService.class
 com\example\fidledemo\homepage\controller\ActivityController.class
 com\example\fidledemo\config\XssFilter.class
 com\example\fidledemo\BO\BaseOrder.class
@@ -68,7 +67,6 @@ com\example\fidledemo\DO\TaskTagDO.class
 com\example\fidledemo\BO\IndexList.class
 com\example\fidledemo\homepage\service\TaskEnshrineServiceImpl.class
 com\example\fidledemo\DO\TagOfTaskDO.class
-com\example\fidledemo\moudle10\controller\PersonInfoController.class
 com\example\fidledemo\dao\ActivityEnshrineDAO.class
 com\example\fidledemo\dao\CreditDAO.class
 com\example\fidledemo\DO\GoodsEnshrineDO.class
@@ -142,7 +140,6 @@ com\example\fidledemo\dao\GoodsIndentDAO.class
 com\example\fidledemo\homepage\service\TaskCategoryService.class
 com\example\fidledemo\login\util\LoginUtil.class
 com\example\fidledemo\dao\TagOfTaskDAO.class
-com\example\fidledemo\person\controller\PersonalCardController.class
 com\example\fidledemo\config\CorsConfig.class
 com\example\fidledemo\dao\TaskDelegateDAO.class
 com\example\fidledemo\BO\GmtInfo.class

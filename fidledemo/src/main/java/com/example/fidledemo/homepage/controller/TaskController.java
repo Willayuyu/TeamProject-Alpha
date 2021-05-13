@@ -12,6 +12,7 @@ import com.example.fidledemo.homepage.service.TaskCategoryServiceImpl;
 import com.example.fidledemo.homepage.service.TaskEnshrineServiceImpl;
 import com.example.fidledemo.homepage.service.TaskInfoServiceImpl;
 import com.example.fidledemo.homepage.utils.DateUtils;
+import com.example.fidledemo.homepage.utils.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -59,9 +60,10 @@ public class TaskController {
             Long categoryId=Long.parseLong(request.getParameter("categoryId"));
             int pageid=Integer.parseInt(request.getParameter("pageid"));
 
-            taskInformationDO.setLimit(Boolean.TRUE);
+            /*taskInformationDO.setLimit(Boolean.TRUE);
             taskInformationDO.setBegin((pageid-1)*size);
-            taskInformationDO.setSize(size);
+            taskInformationDO.setSize(size);*/
+
             taskInformationDO.setDistinct(Boolean.TRUE);
 
             if (categoryId!=0){
@@ -88,7 +90,11 @@ public class TaskController {
                     taskItemVO.setCollectState(TaskItemVO.DISCOLLECT);
                 }
             }
-            return JSON.toJSONString(Result.successResult(taskItemVOS));
+
+            PageHelper<TaskItemVO> pageHelper = new PageHelper<>(taskItemVOS,size);
+            List<TaskItemVO> itemVOList = pageHelper.getPageByNum(pageid);
+
+            return JSON.toJSONString(Result.successResult(itemVOList));
         }catch (Exception e){
             e.printStackTrace();
             return JSON.toJSONString(Result.failureResult(ResultCode.RESOURCE_EMPTY));
@@ -111,9 +117,10 @@ public class TaskController {
             String keyWord=request.getParameter("keyWord");
             int pageid=Integer.parseInt(request.getParameter("pageid"));
 
-            taskInformationDO.setLimit(Boolean.TRUE);
+            /*taskInformationDO.setLimit(Boolean.TRUE);
             taskInformationDO.setBegin((pageid-1)*size);
-            taskInformationDO.setSize(size);
+            taskInformationDO.setSize(size);*/
+
             taskInformationDO.setDistinct(Boolean.TRUE);
 
             if (categoryId!=0){
@@ -146,7 +153,11 @@ public class TaskController {
                     taskItemVO.setCollectState(TaskItemVO.DISCOLLECT);
                 }
             }
-            return JSON.toJSONString(Result.successResult(taskItemVOS));
+
+            PageHelper<TaskItemVO> pageHelper = new PageHelper<>(taskItemVOS,size);
+            List<TaskItemVO> itemVOList = pageHelper.getPageByNum(pageid);
+
+            return JSON.toJSONString(Result.successResult(itemVOList));
         }catch (Exception e){
             e.printStackTrace();
             return JSON.toJSONString(Result.failureResult(ResultCode.RESOURCE_EMPTY));
