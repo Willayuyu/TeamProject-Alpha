@@ -24,7 +24,7 @@ App({
     credit:"104",
     goodcmt:5,
     badcmt:1,
-    phonenum:"15728051975",
-    qqnum:"3113937807",
+    phonenum:"此项为空",
+    qqnum:"此项为空",
   }
 })

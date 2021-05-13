@@ -42,10 +42,32 @@ Page({
     wx.setNavigationBarTitle({ title: '个人信息' });
     this.setData({
       imgsrc:app.globalData.user.portrait,
-      username:app.globalData.username,
-      phonenum:app.globalData.phonenum,
-      qqnum:app.globalData.qqnum,
-    })
+      username:app.globalData.user.username,
+    });
+    let that=this;
+    wx.request({
+      url: 'http://120.77.210.142:8080/personalPage/getHomePageById/'+app.globalData.user.id,
+      method: 'GET',
+      header: {
+        "Content-Type": "application/json",
+        'Cookie': wx.getStorageSync('sessionid')
+      },
+      success: function(res){
+        console.log(res);
+        that.setData({
+          //onload装载页面要显示的信息
+          imgsrc:res.data.data.portrait,
+          username:res.data.data.username,
+          phonenum:res.data.data.tel,
+          qqnum:res.data.data.qq
+        })
+        app.globalData.phonenum=res.data.data.tel;
+        app.globalData.qqnum=res.data.data.qq;
+      },
+      fail: function(res){
+        console.log("根据id获取个人信息失败")
+      }
+    })    
   },
 
   /**
@@ -60,7 +82,7 @@ Page({
    */
   onShow: function () {
     this.setData({
-      username:app.globalData.username,
+      username:app.globalData.user.username,
       phonenum:app.globalData.phonenum,
       qqnum:app.globalData.qqnum,
     })
