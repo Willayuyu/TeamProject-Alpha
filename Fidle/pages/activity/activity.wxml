@@ -1,23 +1,28 @@
+<!-- thumb-link="{{activityDetailsURL}}"  -->
+<!-- bindtap="clickActivityCard" -->
 <van-tabs>
   <van-tab title="已发布" name="publish">
-    <van-card  thumb="{{activityImageURL}}" thumb-link="{{activityDetailsURL}}" class="card" >
-      <view slot="title" class="title" bindtap="clickActivityCard">
-        <text>{{activityTitle}}</text>
+    <van-card wx:for="{{publishedActivityList}}" wx:key="{{index}}"
+     thumb="{{item.imageLink}}" class="card" >
+      <view slot="title" class="title">
+        <text>{{item.title}}</text>
         <view class="modifyTag">
-        <image class="modify" mode="widthFix" src="../../icons/modify.png"></image>
+        <image class="modify" data-index="{{item.id}}" bindtap="gotoAlterActivityPage"
+        mode="widthFix" src="../../icons/modify.png"></image>
       </view>
       </view>
       <view slot="desc">
-        <text>{{date + address}}</text>
+        <text>{{'开始时间：'+ item.startTime}}</text>
         <text>{{'\n'}}</text>
-        <text>{{'主办方：'+ oganizer}}</text>
+        <text>{{'结束时间：'+ item.endTime}}</text>
       </view>
       <view slot="tags" class="tagTask">
         <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
-        <van-tag wx:for="{{activityTagsList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">{{item}}</van-tag>
+        <van-tag wx:for="{{item.tagList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">{{item.content}}</van-tag>
       </view>
       <view slot="footer" class="activityBtns">
-        <van-button  class="btn">删除</van-button>
+        <van-button data-index="{{item.id}}" bindtap="doDeleteActivity"
+        class="btn">删除</van-button>
       </view>
     </van-card>
   </van-tab>

@@ -5,6 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    publishedActivityList: [],
     activityImageURL: "http://5b0988e595225.cdn.sohucs.com/images/20190311/ab66040c529445778cf31ced4ba24657.jpeg",
     activityTitle: "百米画卷",
     address: "青春广场",
@@ -22,9 +23,9 @@ Page({
    */
   onLoad: function (options) {
     wx.setNavigationBarTitle({ title: '我的活动' }); 
-    // this.getPublishedActivityList(); 
+    this.getPublishedActivityList(); 
     // this.doDeleteActivity();
-    this.doAlterActivity();
+    // this.doAlterActivity();
   },
 
   /**
@@ -90,7 +91,8 @@ Page({
    */
   getPublishedActivityList(){
     let session_id = wx.getStorageSync('sessionid');
-    console.log(session_id);      
+    console.log(session_id);  
+    let that = this;    
     wx.request({
       url: 'http://120.77.210.142:8080/myActivity/listActivityPublishedByPageid/1',
       header: { 'content-type': 'application/json',
@@ -98,7 +100,18 @@ Page({
       },
       success(res){
         console.log("获取已发布活动记录列表")
+        let list = res.data.data;
         console.log(res.data.data)
+        if(res.data.code == 200) {
+          that.setData({
+            publishedActivityList: list
+          })
+          console.log("publishedActivityList=")
+          console.log(that.data.publishedActivityList)
+          console.log(that.data.publishedActivityList[0].tagList)
+
+          
+        }
       }
     })
   },
@@ -106,17 +119,24 @@ Page({
   /**
    * 删除活动
    */
-  doDeleteActivity(){
+  doDeleteActivity(e){
+    // 传递的参数
+    let id = e.currentTarget.dataset['index'];
     let session_id = wx.getStorageSync('sessionid');
     console.log(session_id);      
+    console.log("删除id为"+id+"的活动")
+    let that = this;
     wx.request({
-      url: 'http://120.77.210.142:8080/myActivity/deleteActivityById/1',
+      url: 'http://120.77.210.142:8080/myActivity/deleteActivityById/'+id,
       header: { 'content-type': 'application/json',
        'Cookie': session_id ,
       },
       success(res){
-        console.log("删除活动");
-        console.log(res.data);
+        if(res.data.code==200) {
+          console.log("删除活动");
+          console.log(res.data);
+          that.onLoad();
+        }
       }
     })
   },
@@ -162,4 +182,32 @@ Page({
       }
     })
   },
+
+  /**
+   * 跳转到修改活动页
+   */
+  gotoAlterActivityPage(e) {
+    // 传递的参数
+    let id = e.currentTarget.dataset['index'];
+    console.log("修改id为"+id+"的活动");
+    //之后再改
+    // wx.navigateTo({
+    //   // url: '/pages/historyTodayDetail/historyTodayDetail?e_id=${id}'
+    //   url: '/pages/publish/publish?id=' + id,
+    // })
+    //修改页写好了改
+    wx.switchTab({
+      url: '/pages/publish/publish?id='+id,
+    })
+
+    /**
+     * 跳转页面中参数的获取
+      js
+
+      // 生命周期函数--监听页面加载
+        onLoad: function (options) {
+          console.log(options.e_id) // 即上一个界面传过来的值
+        },
+     */
+  }
 })
