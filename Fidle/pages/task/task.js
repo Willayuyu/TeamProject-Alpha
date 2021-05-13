@@ -448,11 +448,12 @@ Page({
     console.log(task);
     console.log('tagList=');
     console.log(task.tagList);
+    console.log(task.category)
     console.log('url='+'/pages/taskOrder/taskOrder?id='+task.id+'&title='+task.title+
     '&reward='+task.reward+'tagList'+task.tagList);
     wx.navigateTo({
       url: '/pages/taskOrder/taskOrder?id='+task.id+'&title='+task.title+
-      '&reward='+task.reward+'&tagList='+task.tagList,
+      '&reward='+task.reward+'&tagList='+task.tagList+'&category='+task.category,
       // ?i
       // d='+id+'&title='+title+'&price='+price+'&originalPrice='+originalPrice+'&imageLink='+imageLink+'&condition='+condition+'&category='+category+'&tagList='+tagList,
     })

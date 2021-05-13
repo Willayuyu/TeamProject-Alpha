@@ -10,6 +10,7 @@ Page({
     taskTitle: '任务标题',
     reward: 1,
     tagList: [],
+    category:'',
     // buyerId: ''
  // taskPrice: '1',
     // imageLink: '1',
@@ -31,14 +32,17 @@ Page({
     // id: '1',
     // taskTitle: '任务标题',
     // reward: 1,
-    // tagList: [],
-    this.data.id = options.id;
-    this.data.taskTitle = options.title;
-    this.data.reward = options.reward;
-    // this.data.tagList = options.tagList;
-    this.data.tagList = ["b1","b2"];
-
-
+    // tagList: [], 
+    let id = options.id;
+    let taskTitle = options.title;
+    let reward = options.reward;
+    let tagList = options.tagList;
+    let category = options.category;
+    console.log(id);
+    console.log(taskTitle);
+    console.log(reward);
+    console.log(tagList);
+    console.log(category);
     // url: '/pages/taskOrder/taskOrder?id='+task.id+'&title='+task.title+
       // '&reward='+task.reward+'tagList'+task.tagList,
       
@@ -55,10 +59,11 @@ Page({
     // // let category = options.category;
     // // let tagList = options.tagList;
     that.setData({
-      id: options.id,
-      taskTitle: options.title,
-      reward: options.reward,
-      tagList: options.tagList,
+      id: id,
+      taskTitle: taskTitle,
+      reward: reward,
+      tagList: tagList,
+      category:category,
     })
   },
 

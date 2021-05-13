@@ -18,11 +18,9 @@
   </view>
   <view slot="tags" class="tagTask">
     <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
+    <van-tag class="tagItem" color="#dbdbdb" text-color="#394044">{{category}}</van-tag>
     <van-tag wx:for="{{tagList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">
-      {{item}}</van-tag>
-    <view class="taskBtns">
-      <van-button class="btn">评价</van-button>
-    </view>
+      {{item.content}}</van-tag>
   </view>
 </van-card>
 

@@ -98,17 +98,14 @@
 }
 
 .panelBtns{
-  display: flex;
-  justify-content: space-between;
+  text-align: center;
 }
 
 .panelBtn{
-  width: 50rpx;
-  height: 20rpx; 
-  padding: 20rpx;
+  padding: 20rpx 150rpx 20rpx;
   background-color: #7db5ee;
   color: #F3F4F4;
-  font-size: 22rpx;
+  font-size: 25rpx;
   border-radius: 5rpx;
 }
 
