@@ -90,8 +90,8 @@
     <view>
       <van-tab title="任务委托" name="task">
         <van-cell-group>   
-          <van-field value="{{task_title}}" clearable label="标题" placeholder="请输入标题"></van-field>
-          <van-field value="{{task_remuneration}}" clearable label="酬劳" placeholder="请输入酬劳" type="digit"></van-field>
+          <van-field value="{{task_title}}" clearable label="标题" placeholder="请输入标题" bind:input="taskTitleInput"></van-field>
+          <van-field value="{{task_remuneration}}" clearable label="酬劳" placeholder="请输入酬劳" type="digit" bind:input="taskRemunerationInput"></van-field>
           
           <van-field value="{{startTime}}" clearable label="开始时间" bind:click-input="pickerShow" readonly placeholder="请选择开始时间"></van-field>
           <van-field value="{{endTime}}" clearable label="结束时间" bind:click-input="pickerShow" readonly placeholder="请选择结束时间"></van-field>
@@ -99,7 +99,8 @@
           <time-picker pickerShow="{{isPickerShow}}" id="picker" wx:if="{{isPickerRender}}" bind:hidePicker="pickerHide" bind:setPickerTime="setPickerTime"
               config="{{pickerConfig}}" ></time-picker>
           <view class="border">
-            <van-field value="{{task_message}}" label="任务详情" input-class="message" type="textarea" placeholder="请输入任务的详细描述" autosize border="{{false}}" maxlength="200" show-word-limit></van-field>
+            <van-field value="{{task_message}}" label="任务详情" input-class="message" type="textarea" placeholder="请输入任务的详细描述" autosize
+                        border="{{false}}" maxlength="200" show-word-limit bind:input="taskMessageInput"></van-field>
           </view>        
           <view>
             <view class="display">
@@ -136,7 +137,7 @@
                   </view>                  
                 </van-col>              
               </van-row>
-              <van-button class="release" type="info" color="#7DB5EE" size="normal">发布</van-button>                                                       
+              <van-button class="release" type="info" color="#7DB5EE" size="normal" bind:click="taskRelease">发布</van-button>                                                       
             </view>                                 
           </view>                 
         </van-cell-group>
