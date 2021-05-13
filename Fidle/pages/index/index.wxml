@@ -26,6 +26,11 @@
         </view>
         <view slot="tags" class="tagList">
           <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
+          <van-tag wx:if="{{item.condition == 1}}" class="tagItem" color="#dbdbdb" text-color="#394044">全新</van-tag>
+          <van-tag wx:if="{{item.condition == 2}}" class="tagItem" color="#dbdbdb" text-color="#394044">九成新</van-tag>
+          <van-tag wx:if="{{item.condition == 3}}" class="tagItem" color="#dbdbdb" text-color="#394044">八成新</van-tag>
+          <van-tag wx:if="{{item.condition == 4}}" class="tagItem" color="#dbdbdb" text-color="#394044">八成新以下</van-tag>
+          <van-tag class="tagItem" color="#dbdbdb" text-color="#394044">{{item.category}}</van-tag>
           <van-tag wx:for="{{item.tagList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">{{item.content}}</van-tag>
         </view>
         <view slot="footer" class="btns">
@@ -64,6 +69,7 @@
         </view>
         <view slot="tags" class="tagTask">
           <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
+          <van-tag class="tagItem" color="#dbdbdb" text-color="#394044">{{item.category}}</van-tag>
           <van-tag wx:for="{{item.tagList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">{{item.content}}</van-tag>
           <view class="taskBtns">
             <van-button class="btn" catchtap="contact" hover-stop-propagation='true' data-index="{{index}}" catchtap="taskConnect">联系委托人</van-button>
@@ -96,6 +102,7 @@
         </view>
         <view slot="tags" class="tagTask">
           <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
+          <van-tag class="tagItem" color="#dbdbdb" text-color="#394044">{{item.category}}</van-tag>
           <van-tag wx:for="{{item.tagList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">{{item.content}}</van-tag>
         </view>
         <view slot="footer" class="activityBtns">
