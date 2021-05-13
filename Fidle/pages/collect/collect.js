@@ -162,7 +162,7 @@ Page({
         url: 'http://47.106.241.182:8082/collection/listCollectibleGoodsByPageid/1',
         method: 'GET',
         dataType: 'json',
-        headers: {
+        header: {
           'Content-Type': 'application/json',
           'Cookie': wx.getStorageSync('sessionid')
         },
@@ -189,7 +189,7 @@ Page({
         url: 'http://47.106.241.182:8082/collection/listCollectibleTaskByPageid/1',
         method: 'GET',
         dataType: 'json',
-        headers: {
+        header: {
           'Content-Type': 'application/json',
           'Cookie': wx.getStorageSync('sessionid')
         },
@@ -217,7 +217,7 @@ Page({
         url: 'http://47.106.241.182:8082/collection/listCollectibleActivityByPageid/1',
         method: 'GET',
         dataType: 'json',
-        headers: {
+        header: {
           'Content-Type': 'application/json',
           'Cookie': wx.getStorageSync('sessionid')
         },
@@ -297,7 +297,7 @@ Page({
     dataList.collectState = -1;
     wx.request({
       url: 'http://47.106.241.182:8082/goods/cancelCollectGoods/' + id,
-      headers: {
+      header: {
         'Content-Type': 'application/json'
       },
       method: "GET",
@@ -324,7 +324,7 @@ Page({
     dataList.collectState = -1;
     wx.request({
       url: 'http://47.106.241.182:8082/task/cancelCollectTask/' + id,
-      headers: {
+      header: {
         'Content-Type': 'application/json'
       },
       method: "GET",
@@ -351,7 +351,7 @@ Page({
     dataList.collectState = -1;
     wx.request({
       url: 'http://47.106.241.182:8082/activity/cancelCollectActivity/' + id,
-      headers: {
+      header: {
         'Content-Type': 'application/json'
       },
       method: "GET",

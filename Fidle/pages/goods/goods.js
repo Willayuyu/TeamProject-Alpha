@@ -9,16 +9,16 @@ Page({
     // indexOnsale:0,
     // input:null,
     goodsOnSale: [],
-    goodsSold:[],
-    goodsBuy:[]
-  
+    goodsSold: [],
+    goodsBuy: [],
+    goodsCondition:["全新", "九成新", "八成新", "八成以下"],
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.setNavigationBarTitle({ title: '我的二手' });  
+    wx.setNavigationBarTitle({ title: '我的二手' });
     this.showPromise();
   },
 
@@ -74,7 +74,7 @@ Page({
   /**
    * 点击标题跳转详情页
    */
-  clickSaleGoodsCard(event){
+  clickSaleGoodsCard(event) {
     let index = event.currentTarget.dataset.index;
     console.log(index);
     let that = this;
@@ -86,7 +86,7 @@ Page({
       url: '/pages/goodsDetailsPage/goodsDetailsPage?id=' + id
     })
   },
-  clickSoldGoodsCard(event){
+  clickSoldGoodsCard(event) {
     let index = event.currentTarget.dataset.index;
     console.log(index);
     let that = this;
@@ -98,7 +98,7 @@ Page({
       url: '/pages/goodsDetailsPage/goodsDetailsPage?id=' + id
     })
   },
-  clickBuyingGoodsCard(event){
+  clickBuyingGoodsCard(event) {
     let index = event.currentTarget.dataset.index;
     console.log(index);
     let that = this;
@@ -116,7 +116,7 @@ Page({
         url: 'http://120.77.210.142:8080/myGoods/listGoodsOnSaleByPageid/1',
         method: 'GET',
         dataType: 'json',
-        headers: {
+        header: {
           'Content-Type': 'application/json',
           'Cookie': wx.getStorageSync('sessionid')
         },
@@ -143,7 +143,7 @@ Page({
         url: 'http://120.77.210.142:8080/myGoods/listGoodsSoldByPageid/1',
         method: 'GET',
         dataType: 'json',
-        headers: {
+        header: {
           'Content-Type': 'application/json',
           'Cookie': wx.getStorageSync('sessionid')
         },
@@ -171,7 +171,7 @@ Page({
         url: 'http://120.77.210.142:8080/myGoods/listGoodsBuyingByPageid/1',
         method: 'GET',
         dataType: 'json',
-        headers: {
+        header: {
           'Content-Type': 'application/json',
           'Cookie': wx.getStorageSync('sessionid')
         },
@@ -210,7 +210,7 @@ Page({
       });
   },
 
-  showOverlap: function(event){
+  showOverlap: function (event) {
     // this.setData({ show: true });
     // this.setData({indexOnsale: event.currentTarget.dataset.index});
     let that = this;
@@ -231,24 +231,24 @@ Page({
     let category = goodsData.category;
     let tagList = goodsData.tagList;
     wx.navigateTo({
-      url: '/pages/order/order?id='+id+'&title='+title+'&price='+price+'&originalPrice='+originalPrice+'&imageLink='+imageLink+'&condition='+condition+'&category='+category+'&tagList='+tagList,
+      url: '/pages/order/order?id=' + id + '&title=' + title + '&price=' + price + '&originalPrice=' + originalPrice + '&imageLink=' + imageLink + '&condition=' + condition + '&category=' + category + '&tagList=' + tagList,
     })
-    
+
   },
 
   onClickHide() {
     this.setData({ show: false });
   },
 
-  noop() {},
+  noop() { },
 
-  change:function(event){
+  change: function (event) {
     this.setData({
       buyerId: event.detail.value
     })
   },
 
-  confirm: function(event){
+  confirm: function (event) {
     let that = this;
     let index = that.data.indexOnsale;
     console.log(index);
@@ -272,7 +272,7 @@ Page({
     // })
   },
 
-  deleteGoods: function(event){
+  deleteGoods: function (event) {
     let that = this;
     let index = event.currentTarget.dataset.index;
     console.log(index);
@@ -282,19 +282,32 @@ Page({
     let id = goodsData.id;
     console.log(id);
     wx.request({
-      url: 'http://120.77.210.142:8080/myGoods/withdrawGoodsById/'+ id,
+      url: 'http://120.77.210.142:8080/myGoods/withdrawGoodsById/' + id,
       method: 'GET',
       dataType: 'json',
-      headers: {
+      header: {
         'Content-Type': 'application/json',
         'Cookie': wx.getStorageSync('sessionid')
       },
-      success(res){
+      success(res) {
         console.log(res.data);
         console.log("下架物品");
         that.onLoad();
       }
     })
+  },
 
+  gotoAlterGoodsPage: function (event) {
+    let that = this;
+    let index = event.currentTarget.dataset.index;
+    console.log(index);
+    let goodsList = that.data.goodsOnSale;
+    let goodsData = goodsList[index];
+    console.log(goodsData);
+    let id = goodsData.id;
+    console.log(id);
+    wx.navigateTo({
+      url: '/pages/changeGood/changeGood?id='+id,
+    })
   }
 })

@@ -116,6 +116,8 @@ Page({
         let category = that.data.history_category;
         let i = 0;
         let categoryID;
+        console.log(list);
+        console.log(categoryID);
         for (i = 0; i < list.length; i++) {
             if (category == list[i].categoryDesignation) {
                 categoryID = i;
