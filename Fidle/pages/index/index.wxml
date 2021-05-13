@@ -19,8 +19,8 @@
         <c-select initSelect="{{secSort}}" prop-array='{{secSortArray}}'  bind:select='select_Sec_Sort'/>
         <c-select initSelect="{{secDegree}}" prop-array='{{secDegreeArray}}'  bind:select='select_Sec_Degree'/>
       </view>
-      <view wx:for="{{goodsList}}" wx:key="{{index}}">
-        <van-card  price="{{item.price}}" origin-price="{{item.originalPrice}}" thumb="{{item.imageLink}}" thumb-link="{{goodsDetialsURL}}" class="card" bindtap="clickGoodsCard">
+      <view wx:for="{{goodsList}}" wx:key="{{index}}" bindtap="clickGoodsCard" data-index="{{index}}">
+        <van-card  price="{{item.price}}" origin-price="{{item.originalPrice}}" thumb="{{item.imageLink}}" class="card" >
         <view slot="title" class="title">
           <text>{{item.title}}</text>
         </view>
@@ -29,7 +29,7 @@
           <van-tag wx:for="{{item.tagList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">{{item.content}}</van-tag>
         </view>
         <view slot="footer" class="btns">
-          <van-button class="btn" bindtap="contact">联系卖家</van-button>
+          <van-button class="btn" catchtap="contact" hover-stop-propagation='true'>联系卖家</van-button>
           <van-button data-index="{{index}}" wx:if="{{item.collectState == -1}}" class="btn" catchtap='storeGoods_collected' hover-stop-propagation='true'>
             <text decode>&nbsp;收&nbsp;&nbsp;藏&nbsp;</text>
           </van-button>
@@ -53,8 +53,8 @@
         <c-select initSelect="{{taskTime}}" prop-array='{{taskTimeArray}}'  bind:select='select_Task_Time'/>
         <c-select initSelect="{{taskSort}}" prop-array='{{taskSortArray}}'  bind:select='select_Task_Sort'/>
       </view>
-      <view wx:for="{{taskList}}" wx:key="{{index}}">
-        <van-card class="card" bindtap="clickTaskCard">
+      <view wx:for="{{taskList}}" wx:key="{{index}}" bindtap="clickTaskCard" data-index="{{index}}">
+        <van-card class="card">
         <view slot="title" class="title">
           <text>{{item.title}}</text>
           <view class="price">
@@ -66,7 +66,7 @@
           <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
           <van-tag wx:for="{{item.tagList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">{{item.content}}</van-tag>
           <view class="taskBtns">
-            <van-button class="btn" bindtap="contact">联系委托人</van-button>
+            <van-button class="btn" catchtap="contact" hover-stop-propagation='true'>联系委托人</van-button>
             <van-button data-index="{{index}}" wx:if="{{item.collectState == -1}}" class="btn" catchtap="storeTask_collected"
             hover-stop-propagation='true'>
             <text decode>&nbsp;收&nbsp;&nbsp;藏&nbsp;</text>
@@ -89,8 +89,8 @@
         <c-select initSelect="{{activityTime}}" prop-array='{{activityTimeArray}}'  bind:select='select_Act_Time'/>
         <c-select initSelect="{{activitySort}}" prop-array='{{activitySortArray}}'  bind:select='select_Act_Sort'/>
       </view>
-      <view wx:for="{{activityList}}" wx:key="{{index}}">
-        <van-card  thumb="{{item.imageLink}}" thumb-link="{{activityDetialsURL}}" class="card" bindtap="clickActivityCard">
+      <view wx:for="{{activityList}}" wx:key="{{index}}" bindtap="clickActivityCard" data-index="{{index}}">
+        <van-card  thumb="{{item.imageLink}}" class="card">
         <view slot="title" class="title">
           <text>{{item.title}}</text>
         </view>

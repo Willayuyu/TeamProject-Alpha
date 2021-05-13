@@ -1,13 +1,14 @@
 <van-tabs>
   <van-tab title="已发布" name="publish">
-    <van-card class="card">
-      <view slot="title" class="title" bindtap="clickTaskCard">
+    <van-card class="card" bindtap="clickPublishTaskCard" data-index="{{index}}">
+      <view slot="title" class="title">
         <view class="modifyTag">
           <view>
             <image class="state" mode="widthFix" src="../../icons/circle.png"></image>
             <text class="stateText">{{state[0]}}</text>
           </view>
-          <image class="modify" mode="widthFix" src="../../icons/modify.png"></image>
+          <image class="modify" mode="widthFix" catchtap="" hover-stop-propagation='true' 
+          data-index="{{index}}" src="../../icons/modify.png"></image>
         </view>
         <view class="secondLine">
           <text>{{taskTitle}}</text>
@@ -22,8 +23,8 @@
         <van-tag wx:for="{{taskTagsList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">
           {{item}}</van-tag>
         <view class="taskBtns">
-          <van-button class="btn" bindtap="showOverlap">进行</van-button>
-          <van-button class="btn">删除</van-button>
+          <van-button class="btn" catchtap="showOverlap" hover-stop-propagation='true' data-index="{{index}}">进行</van-button>
+          <van-button class="btn" catchtap="" hover-stop-propagation='true' data-index="{{index}}">删除</van-button>
           <van-overlay show="{{ show }}">
             <view class="wrapper">
               <van-panel title="生成订单" use-footer-slot>
@@ -31,8 +32,8 @@
                   <van-field value="{{ value }}" placeholder="请输入接受人id" border="{{ false }}" />
                 </van-cell-group>
                 <view slot="footer" class="panelBtns">
-                  <van-button class="panelBtn">确认</van-button>
-                  <van-button class="panelBtn" bindtap="onClickHide">取消</van-button>
+                  <van-button class="panelBtn" catchtap="" hover-stop-propagation='true'>确认</van-button>
+                  <van-button class="panelBtn" catchtap="onClickHide" hover-stop-propagation='true'>取消</van-button>
                 </view>
               </van-panel>
             </view>
@@ -96,13 +97,13 @@
   </van-tab>
   <van-tab title="已接受" name="recept">
     <van-card class="card">
-      <view slot="title" class="title" bindtap="clickTaskCard">
+      <view slot="title" class="title" bindtap="clickAcceptTaskCard">
         <view class="modifyTag">
           <view>
             <image class="state" mode="widthFix" src="../../icons/circle (1).png"></image>
             <text class="stateText">{{state[1]}}</text>
           </view>
-          <image class="modify" mode="widthFix" src="../../icons/modify.png"></image>
+          <image class="modify" mode="widthFix" catchtap="" hover-stop-propagation='true' src="../../icons/modify.png"></image>
         </view>
         <view class="secondLine">
           <text>{{taskTitle}}</text>
@@ -117,7 +118,7 @@
         <van-tag wx:for="{{taskTagsList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">
           {{item}}</van-tag>
         <view class="taskBtns">
-          <van-button class="btn">取消</van-button>
+          <van-button class="btn" catchtap="" hover-stop-propagation='true'>取消</van-button>
         </view>
       </view>
     </van-card>

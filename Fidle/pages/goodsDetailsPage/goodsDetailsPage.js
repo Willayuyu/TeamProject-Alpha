@@ -6,7 +6,7 @@ Page({
    */
   data: {
     swiperList: [],
-    ChineseNum: ['零','一','二','三','四','五','六','七','八','九','全新'],
+    ChineseNum: ['','全新','九成新','八成新','八成新以下'],
     collectState: -1,
     category: "",
     condition: "",
