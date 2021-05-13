@@ -3,13 +3,7 @@
 //console.log("返回成功的数据:" + JSON.stringify(res.data)) //这样就可以愉快的看到后台的数据啦
 Page({
     data: {
-        test: [],
-
-        url: "",
-        fileList: [],
-
         tempFilePaths: [],
-
         max_upload: 3,
 
         goods_add_img: false,
@@ -367,7 +361,7 @@ Page({
     },
 
     //选择任务委托类别
-    task_class_list_selectApply(e) {
+    taskClassListSelectApply(e) {
         let id = e.target.dataset.id
         this.setData({
             task_class_list_idx: id
@@ -467,7 +461,7 @@ Page({
     },
 
     //活动信息类别选择
-    activity_class_list_selectApply(e) {
+    activityClassListSelectApply(e) {
         let id = e.target.dataset.id
         this.setData({
             activity_class_list_idx: id

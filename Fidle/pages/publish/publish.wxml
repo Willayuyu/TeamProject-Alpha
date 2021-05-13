@@ -112,7 +112,7 @@
                 <van-col span="22" >
                   <view>    
                     <view wx:for="{{task_class_list}}" data-id="{{index}}" 
-                    class="tag {{task_class_list_idx==index?'selected':''}}" wx:key="unique" bindtap="task_class_list_selectApply">{{item.categoryDesignation}}</view>                                                
+                    class="tag {{task_class_list_idx==index?'selected':''}}" wx:key="unique" bindtap="taskClassListSelectApply">{{item.categoryDesignation}}</view>                                                
                   </view>        
                 </van-col>
               </van-row>                                                          
@@ -184,7 +184,7 @@
                 </van-col>
                 <van-col span="22" >
                   <view >    
-                    <view wx:for="{{activity_class_list}}" data-id="{{index}}" class="tag {{activity_class_list_idx==index?'selected':''}}" wx:key="unique" bindtap="activity_class_list_selectApply">{{item.categoryDesignation}}</view>                                             
+                    <view wx:for="{{activity_class_list}}" data-id="{{index}}" class="tag {{activity_class_list_idx==index?'selected':''}}" wx:key="unique" bindtap="activityClassListSelectApply">{{item.categoryDesignation}}</view>                                             
                   </view>        
                 </van-col>
               </van-row>                                                          

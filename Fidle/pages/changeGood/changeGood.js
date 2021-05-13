@@ -5,13 +5,7 @@ Page({
      * 页面的初始数据
      */
     data: {
-        test: [],
-
-        url: "",
-        fileList: [],
-
         tempFilePaths: [],
-
         max_upload: 3,
 
         goods_add_img: false,
@@ -301,6 +295,20 @@ Page({
                 // 这里是请求以后返回的所以信息，请求方法同上，把res改一下就行了  
             }
         })
+    },
+
+    goodsTagInput(e) {
+        this.setData({
+            goods_tag: e.detail.value
+        })
+    },
+
+    TagCreate(e) {
+        this.onReady();
+    },
+
+    unique(arr) {
+        return Array.from(new Set(arr))
     },
 
     /**

@@ -1,2 +1,67 @@
-<!--pages/changeActivity/changeActivity.wxml-->
-<text>pages/changeActivity/changeActivity.wxml</text>
+<van-cell-group>   
+          <van-field value="{{activity_title}}" clearable label="活动名称" placeholder="请输入活动名称" bind:input="activityTitleInput"></van-field>
+          <van-field value="{{activity_place}}" clearable label="活动地点" placeholder="请输入活动地点" type="digit" bind:input="activityPlaceInput"></van-field>
+          
+          <van-field value="{{startTime}}" clearable label="开始时间" bind:click-input="pickerShow" readonly placeholder="请选择开始时间"></van-field>
+          <van-field value="{{endTime}}" clearable label="结束时间" bind:click-input="pickerShow" readonly placeholder="请选择结束时间"></van-field>
+
+          <time-picker pickerShow="{{isPickerShow}}" id="picker" wx:if="{{isPickerRender}}"             bind:hidePicker="pickerHide" bind:setPickerTime="setPickerTime"
+              config="{{pickerConfig}}" ></time-picker>
+          <view class="border">
+            <van-field value="{{activity_message}}" label="活动形式" input-class="message" type="textarea" placeholder="请输入活动的详细描述" placeholder-style="placeholder" 
+                        autosize border="{{false}}" maxlength="200" show-word-limit bind:input="activityMessageInput"></van-field>
+          </view>  
+          <view>
+           <van-cell>
+            <text class="label">图片上传</text> 
+              <view class="img_box">
+                <view class="upload_img" wx:for="{{activity_fileList}}" wx:key="index">
+                  <image src='{{item.imageLink}}' class="imgs" bindlongpress="activityDeleteImage" bindtap="activityListenerButtonPreviewImage" data-index="{{index}}" mode='widthFix' />
+                  <image class="closeImv" src="../../icons/delete.png" mode="scaleToFill" catchtap="activityDeleteImage" data-id="{{index}}"></image>
+                </view>
+                <view class="upload_img" hidden="{{activity_add_img}}">
+                  <view bindtap="activityUpload">
+                    <image src="../../icons/add_img.png" class="upload_img" mode='widthFix' />
+                  </view>
+                </view>
+            </view>
+           </van-cell>     
+          </view>         
+          <view>
+            <view class="display">
+              <view>
+                <text class="label">类别(点击选择)</text> 
+              </view>               
+              <van-row>
+                <van-col span="2">
+                  <image src="../../icons/label.png" mode="widthFix" class="img"></image>
+                </van-col>
+                <van-col span="22" >
+                  <view >    
+                    <view wx:for="{{activity_class_list}}" data-id="{{index}}" class="tag {{activity_class_list_idx==index?'selected':''}}" wx:key="unique" bindtap="activityClassListSelectApply">{{item.categoryDesignation}}</view>                                             
+                  </view>        
+                </van-col>
+              </van-row>                                                          
+            </view>                      
+          </view>   
+          <view>
+            <view class="display">
+              <view>
+                <text class="label">标签</text> 
+              </view>   
+              <van-row>
+                <van-col span="2">
+                  <image src="../../icons/label.png" mode="widthFix" class="img"></image>
+                </van-col>
+                <van-col span="22" >
+                  <view>                                
+                    <view wx:for="{{activity_label_list}}" data-id="{{index}}" wx:key="unique" class="tag">{{item}}</view>
+                    <input class="tag tag-create" bindinput="activityTagInput" value="{{activity_tag}}" placeholder="新增标签"></input>
+                    <van-icon name="add-o" class="icon" size="35rpx" bind:click="TagCreate"></van-icon>
+                  </view>                   
+                </van-col>              
+              </van-row>
+              <van-button class="release" type="info" color="#7DB5EE" size="normal" bind:click="activityChange">修改</van-button>                                                       
+            </view>                                 
+          </view>                 
+        </van-cell-group> 

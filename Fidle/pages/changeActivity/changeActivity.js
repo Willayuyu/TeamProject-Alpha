@@ -1,66 +1,464 @@
 // pages/changeActivity/changeActivity.js
 Page({
 
-  /**
-   * 页面的初始数据
-   */
-  data: {
+    /**
+     * 页面的初始数据
+     */
+    data: {
+        tempFilePaths: [],
+        max_upload: 3,
 
-  },
+        isPickerRender: false,
+        isPickerShow: false,
+        startTime: "",
+        endTime: "",
+        pickerConfig: {
+            endDate: true,
+            column: "second",
+            dateLimit: true,
+            initStartTime: "",
+            initEndTime: "",
+            limitEndTime: "2099-12-31 23:59:59"
+        },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
+        activity_title: "",
+        activity_place: "",
+        activity_message: "",
+        activity_tag: "",
+        activity_fileList: [],
+        activity_class_list: [{ categoryId: "", categoryDesignation: "" }],
+        activity_label_list: [],
+        activity_class_list_idx: 0,
+        activity_uploadUrl: "http://47.106.241.182:8082/publish/uploadActivityImage",
+        activity_deleteUrl: "http://47.106.241.182:8082/publish/deleteActivityImage/id?id=",
+        activity_releaseUrl: "http://47.106.241.182:8082/publish/activity",
+    },
 
-  },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
+    //时间选择器显示
+    pickerShow() {
+        this.setData({
+            isPickerShow: true,
+            isPickerRender: true,
+            chartHide: true
+        });
+    },
 
-  },
+    //时间选择器隐藏
+    pickerHide() {
+        this.setData({
+            isPickerShow: false,
+            chartHide: false
+        });
+    },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
+    //设置选择时间
+    setPickerTime(val) {
+        let data = val.detail;
+        this.setData({
+            startTime: data.startTime,
+            endTime: data.endTime
+        });
 
-  },
+    },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
+    //活动信息类别选择
+    activityClassListSelectApply(e) {
+        let id = e.target.dataset.id
+        this.setData({
+            activity_class_list_idx: id
+        })
+    },
 
-  },
+    //活动信息标题输入
+    activityTitleInput(e) {
+        this.setData({
+            activity_title: e.detail,
+        })
+    },
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
+    //活动信息地点输入
+    activityPlaceInput(e) {
+        this.setData({
+            activity_place: e.detail,
+        })
+    },
 
-  },
+    //活动信息活动形式输入
+    activityMessageInput(e) {
+        this.setData({
+            activity_message: e.detail,
+        })
+    },
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
+    //活动信息发布功能
+    activityRelease() {
+        let that = this;
+        let activity_title = that.data.activity_title;
+        let activity_place = that.data.activity_place;
+        let activity_message = that.data.activity_message;
+        let activity_startTime = that.data.startTime;
+        let activity_endTime = that.data.endTime;
 
-  },
+        let imageList = [];
+        for (var i = 0; i < that.data.activity_fileList.length; i++)
+            imageList.push(that.data.activity_fileList[i].imageLink);
 
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
+        let activity_category = that.data.activity_class_list[that.data.activity_class_list_idx].categoryId;
+        let activity_tags = that.data.activity_label_list;
 
-  },
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
+        // 测试
+        // that.setData({
+        //     test: [{
+        //         title: activity_title,
+        //         address: activity_place,
+        //         start_time: activity_startTime,
+        //         end_time: activity_endTime,
+        //         description: activity_message,
+        //         image_links: imageList,
+        //         category: activity_category,
+        //         tags: activity_tags,
+        //     }],
+        // })
 
-  }
+        // console.log(that.data.test);
+
+        // console.log(activity_startTime);
+        // console.log(activity_endTime);
+        // console.log(that.dateToString(activity_endTime));
+
+        wx.request({      
+            url: that.data.activity_releaseUrl,
+            header: {         "Content-Type": "application/x-www-form-urlencoded"       },
+            method: "POST",
+            data: {
+                title: activity_title,
+                address: activity_place,
+                start_time: activity_startTime,
+                end_time: activity_endTime,
+                description: activity_message,
+                image_links: imageList,
+                category: activity_category,
+                tags: activity_tags,
+            },
+
+            //       data: Util.json2Form( { cityname: "上海", key: "1430ec127e097e1113259c5e1be1ba70" }),
+
+            complete: function(res) {              
+                if (res == null || res.data == null) {           console.error('网络请求失败');           return;         } else {
+                    wx.showModal({
+                        title: "提示",
+                        content: "活动信息发布成功",
+                    })
+                }      
+            }    
+        })
+    },
+
+    //活动信息上传图片方法
+    activityUpload() {
+        let that = this;
+        wx.chooseImage({
+            sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+            sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+            success: function(res) {
+                wx.showToast({
+                        title: '正在上传...',
+                        icon: 'loading',
+                        mask: true,
+                        duration: 1000
+                    })
+                    // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+
+                let tempFilePaths = [];
+                let init = that.data.activity_fileList.length;
+
+
+                for (var i = 0; i < res.tempFilePaths.length; i++) {
+                    if (init + i < that.data.max_upload)
+                        tempFilePaths.push(res.tempFilePaths[i]);
+                    else {
+                        wx.showModal({
+                            title: '提示',
+                            content: '图片最多上传三张',
+                        })
+                        break;
+                    }
+                }
+
+
+                if (tempFilePaths.length + init == that.data.max_upload) {
+                    that.setData({
+                        activity_add_img: true,
+                    })
+                }
+
+                //上传完成后把文件上传到服务器
+                for (var i = 0, h = tempFilePaths.length; i < h; i++) {
+                    console.log(tempFilePaths[i]);
+
+                    //上传文件
+                    wx.uploadFile({
+                        url: that.data.activity_uploadUrl,
+                        filePath: tempFilePaths[i],
+                        name: 'image',
+                        header: {
+                            "Content-Type": "multipart/form-data"
+                        },
+                        success: function(res) {
+                            let imageFile = that.data.activity_fileList;
+                            //如果是最后一张,则隐藏等待中  
+                            if (i == tempFilePaths.length) {
+                                wx.hideToast();
+                            }
+                            let image = {
+                                id: "",
+                                imageLink: ""
+                            };
+
+                            const data = JSON.parse(res.data)
+
+                            image.id = data.data.id;
+                            image.imageLink = data.data.imageLink;
+
+                            imageFile.push(image);
+                            console.log(imageFile);
+
+
+                            that.setData({
+                                activity_fileList: imageFile,
+                            })
+                        },
+                        fail: function(res) {
+                            wx.hideToast();
+                            wx.showModal({
+                                title: '错误提示',
+                                content: '上传图片失败',
+                                showCancel: false,
+                                success: function(res) {}
+                            })
+                        }
+                    });
+                }
+
+            }
+        })
+    },
+
+    // 预览活动信息图片方法
+    activityListenerButtonPreviewImage(e) {
+        let index = e.target.dataset.index;
+        let that = this;
+        console.log(that.data.activity_fileList[index].imageLink);
+        let imageList = [];
+        for (var i = 0; i < that.data.activity_fileList.length; i++)
+            imageList.push(that.data.activity_fileList[i].imageLink)
+
+        wx.previewImage({
+            current: that.data.activity_fileList[index].imageLink,
+            urls: imageList,
+            //这根本就不走
+            success: function(res) {
+                //console.log(res);
+            },
+            //也根本不走
+            fail: function() {
+                //console.log('fail')
+            }
+        })
+    },
+
+    // 删除活动信息图片
+    activityDeleteImage: function(e) {
+        var that = this;
+        var tempFilePaths = that.data.activity_fileList;
+
+        var index = e.currentTarget.dataset.id; //获取当前长按图片下标
+        console.log(index);
+        var tempId = tempFilePaths[index].id;
+        wx.showModal({
+            title: '提示',
+            content: '确定要删除此图片吗？',
+            success: function(res) {
+                if (res.confirm) {
+                    wx.request({
+                        url: that.data.activity_deleteUrl + tempId,
+                        header: {
+                            'content-type': 'application/json' // 默认值
+
+                        },
+                        success: function(res) {
+                            console.log("删除成功");
+                            console.log(tempId);
+                        }
+
+                    })
+
+                    tempFilePaths.splice(index, 1);
+
+                    that.setData({
+                        activity_add_img: false,
+                    })
+                } else if (res.cancel) {
+                    console.log('取消');
+                    return false;
+                }
+                that.setData({
+                    activity_fileList: that.data.tempFilePaths,
+                });
+            }
+        })
+    },
+
+    //从服务器上获取活动信息的类别列表并展示
+    getActivityClassList() {
+        let that = this;
+
+        wx.request({
+            url: "http://47.106.241.182:8082/activity/listActivityCategory", //这里''里面填写你的服务器API接口的路径  
+            //data: {},  //这里是可以填写服务器需要的参数  
+            method: 'GET', // 声明GET请求  
+            // header: {}, // 设置请求的 header，GET请求可以不填  
+            success: function(res) {
+                let activity_list = new Array();
+
+                res.data.data.forEach(function(e) {
+                    let activity = {
+                        categoryId: "",
+                        categoryDesignation: ""
+                    }
+                    activity.categoryId = e.categoryId;
+                    activity.categoryDesignation = e.categoryDesignation;
+                    activity_list.push(activity);
+                });
+
+                that.setData({
+                    activity_class_list: activity_list,
+                })
+            },
+            fail: function(fail) {
+                // 这里是失败的回调，取值方法同上,把res改一下就行了  
+            },
+            complete: function(arr) {
+                // 这里是请求以后返回的所以信息，请求方法同上，把res改一下就行了  
+            }
+        })
+    },
+
+    getCurrentTime() {
+        var date = new Date(); //当前时间
+        var month = this.zeroFill(date.getMonth() + 1); //月
+        var day = this.zeroFill(date.getDate()); //日
+        var hour = this.zeroFill(date.getHours()); //时
+        var minute = this.zeroFill(date.getMinutes()); //分
+        var second = this.zeroFill(date.getSeconds()); //秒
+
+        //当前时间
+        var curTime = date.getFullYear() + "-" + month + "-" + day +
+            " " + hour + ":" + minute + ":" + second;
+
+        return curTime;
+    },
+
+    getInitEnd() {
+        var date = new Date(); //当前时间
+        date.setTime(date.getTime() + 15 * 60 * 1000);
+        var month = this.zeroFill(date.getMonth() + 1); //月
+        var day = this.zeroFill(date.getDate()); //日
+        var hour = this.zeroFill(date.getHours()); //时
+        var minute = this.zeroFill(date.getMinutes()); //分
+        var second = this.zeroFill(date.getSeconds()); //秒
+
+        //当前时间
+        var curTime = date.getFullYear() + "-" + month + "-" + day +
+            " " + hour + ":" + minute + ":" + second;
+
+        return curTime;
+    },
+
+    zeroFill(i) {
+        if (i >= 0 && i <= 9) {
+            return "0" + i;
+        } else {
+            return i;
+        }
+    },
+
+    activityTagInput(e) {
+        this.setData({
+            activity_tag: e.detail.value
+        })
+    },
+
+    TagCreate(e) {
+        this.onReady();
+    },
+
+    unique(arr) {
+        return Array.from(new Set(arr))
+    },
+
+    /**
+     * 生命周期函数--监听页面加载
+     */
+    onLoad: function(options) {
+        this.getActivityClassList();
+    },
+
+    /**
+     * 生命周期函数--监听页面初次渲染完成
+     */
+    onReady: function() {
+        if (this.data.activity_tag) {
+            this.data.activity_label_list.push(this.data.activity_tag.replaceAll(" ", ""));
+            this.setData({
+                activity_label_list: this.unique(this.data.activity_label_list),
+                activity_tag: "",
+
+            })
+        }
+    },
+
+    /**
+     * 生命周期函数--监听页面显示
+     */
+    onShow: function() {
+
+    },
+
+    /**
+     * 生命周期函数--监听页面隐藏
+     */
+    onHide: function() {
+
+    },
+
+    /**
+     * 生命周期函数--监听页面卸载
+     */
+    onUnload: function() {
+
+    },
+
+    /**
+     * 页面相关事件处理函数--监听用户下拉动作
+     */
+    onPullDownRefresh: function() {
+
+    },
+
+    /**
+     * 页面上拉触底事件的处理函数
+     */
+    onReachBottom: function() {
+
+    },
+
+    /**
+     * 用户点击右上角分享
+     */
+    onShareAppMessage: function() {
+
+    }
 })
