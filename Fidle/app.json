@@ -20,6 +20,7 @@
     "pages/task/task",
     "pages/activity/activity",
     "pages/collect/collect",
+    "pages/order/order",
     "pages/logs/logs"
   ],
   "window": {
