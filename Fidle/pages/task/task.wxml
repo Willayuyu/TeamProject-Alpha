@@ -57,7 +57,7 @@
     <van-card wx:for="{{acceptedTaskList}}" wx:key="{{index}}"
     class="card" bindtap="clickPublishTaskCard" data-index="{{index}}">
       <view slot="title" class="title">
-        <!-- <view class="modifyTag">
+        <view class="modifyTag">
           <view>
             <image wx:if="{{item.taskState=='未接收'}}" class="state" mode="widthFix" src="../../icons/circle.png"></image>
             <image wx:if="{{item.taskState=='进行中'}}"class="state" mode="widthFix" src="../../icons/circle (1).png"></image>
@@ -66,7 +66,7 @@
           </view>
           <image class="modify" mode="widthFix" catchtap="" hover-stop-propagation='true' 
           data-index="{{index}}" src="../../icons/modify.png"></image>
-        </view> -->
+        </view>
         <view class="secondLine">
           <text>{{item.title}}</text>
           <view class="price">
