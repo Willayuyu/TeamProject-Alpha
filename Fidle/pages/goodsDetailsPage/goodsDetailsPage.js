@@ -1,12 +1,12 @@
 // pages/goodsDetailsPage/goodsDetailsPage.js
 import Toast from '../../components/lib/toast/toast';
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
     swiperList: [],
+    ChineseNum: ['零','一','二','三','四','五','六','七','八','九','全新'],
     collectState: -1,
     category: "",
     condition: "",
@@ -17,6 +17,19 @@ Page({
     description:" ",
     pubId: 0,
     id: 0,
+  },
+
+  /**
+   * 将新旧程度数字转化为中文数字
+   */
+  changeNum:function(){
+    let that = this;
+    let condition = that.data.condition;
+    condition = Number(condition);
+    let ChineseNum = that.data.ChineseNum[condition];
+    that.setData({
+      condition:ChineseNum
+    })
   },
 
   /**
@@ -45,7 +58,8 @@ Page({
             category: res.data.data.category,
             pubId: res.data.data.pubId,
             id:res.data.data.id,
-          })
+          });
+          that.changeNum();
         }
       },
       fail(err){
@@ -137,9 +151,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.setNavigationBarTitle({ title: '二手物品详情页' });
     let goodsID = options.id;
     this.setData({
-      id: goodsID
+      id: goodsID,
     })
     this.getGoodsDetail();
   },
