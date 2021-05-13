@@ -36,6 +36,7 @@ Page({
         task_class_list: [],
         task_label_list: [],
         task_class_list_idx: "",
+        task_classListUrl: "http://47.106.241.182:8082/task/listTaskCategory",
 
         isPickerRender: false,
         isPickerShow: false,
@@ -224,7 +225,7 @@ Page({
 
 
 
-    // 预览二手交易图片方法
+    //预览二手交易图片方法
     goodsListenerButtonPreviewImage(e) {
         let index = e.target.dataset.index;
         let that = this;
@@ -247,7 +248,7 @@ Page({
         })
     },
 
-    // 删除二手交易图片
+    //删除二手交易图片
     goodsDeleteImage: function(e) {
         var that = this;
         var tempFilePaths = that.data.goods_fileList;
@@ -339,7 +340,7 @@ Page({
         })
     },
 
-    //任务委托时间选择器
+    //时间选择器显示
     pickerShow() {
         this.setData({
             isPickerShow: true,
@@ -347,6 +348,8 @@ Page({
             chartHide: true
         });
     },
+
+    //时间选择器隐藏
     pickerHide() {
         this.setData({
             isPickerShow: false,
@@ -354,31 +357,19 @@ Page({
         });
     },
 
-    bindPickerChange(e) {
-        // console.log("picker发送选择改变，携带值为", e.detail.value);
-        // console.log(this.data.sensorList);
 
-        this.getData(this.data.sensorList[e.detail.value].id);
-        // let startDate = util.formatTime(new Date(new Date().getTime() - 24 * 60 * 60 * 1000 * 7));
-        // let endDate = util.formatTime(new Date());
-        this.setData({
-            index: e.detail.value,
-            sensorId: this.data.sensorList[e.detail.value].id
-                // startDate,
-                // endDate
-        });
-    },
+
+    //设置选择时间
     setPickerTime(val) {
-        // console.log(val);
         let data = val.detail;
         this.setData({
             startTime: data.startTime,
             endTime: data.endTime
         });
+
     },
 
-
-
+    //选择任务委托类别
     task_class_list_selectApply(e) {
         let id = e.target.dataset.id
         this.setData({
@@ -391,7 +382,7 @@ Page({
         let that = this;
 
         wx.request({
-            url: "http://47.106.241.182:8082/task/listTaskCategory", //这里''里面填写你的服务器API接口的路径  
+            url: that.data.task_classListUrl, //这里''里面填写你的服务器API接口的路径  
             //data: {},  //这里是可以填写服务器需要的参数  
             method: 'GET', // 声明GET请求  
             // header: {}, // 设置请求的 header，GET请求可以不填  
@@ -457,8 +448,8 @@ Page({
         let activity_title = that.data.activity_title;
         let activity_place = that.data.activity_place;
         let activity_message = that.data.activity_message;
-        let activity_startTime = that.stringToDate(that.data.startTime);
-        let activity_endTime = that.stringToDate(that.data.endTime);
+        let activity_startTime = that.data.startTime;
+        let activity_endTime = that.data.endTime;
 
         let imageList = [];
         for (var i = 0; i < that.data.activity_fileList.length; i++)
@@ -708,9 +699,14 @@ Page({
 
     //生命周期函数--监听页面加载
     onLoad: function(options) {
-        let time = this.getCurrentTime();
+        let initstart = this.getCurrentTime();
+        let initend = this.getInitEnd();
+        let tempPickerConfig = this.data.pickerConfig;
+        tempPickerConfig.initStartTime = initstart;
+        tempPickerConfig.initEndTime = initend;
+
         this.setData({
-            initStartTime: time,
+            pickerConfig: tempPickerConfig,
         })
 
         this.getGoodsClassList();
@@ -721,6 +717,22 @@ Page({
 
     getCurrentTime() {
         var date = new Date(); //当前时间
+        var month = this.zeroFill(date.getMonth() + 1); //月
+        var day = this.zeroFill(date.getDate()); //日
+        var hour = this.zeroFill(date.getHours()); //时
+        var minute = this.zeroFill(date.getMinutes()); //分
+        var second = this.zeroFill(date.getSeconds()); //秒
+
+        //当前时间
+        var curTime = date.getFullYear() + "-" + month + "-" + day +
+            " " + hour + ":" + minute + ":" + second;
+
+        return curTime;
+    },
+
+    getInitEnd() {
+        var date = new Date(); //当前时间
+        date.setTime(date.getTime() + 15 * 60 * 1000);
         var month = this.zeroFill(date.getMonth() + 1); //月
         var day = this.zeroFill(date.getDate()); //日
         var hour = this.zeroFill(date.getHours()); //时
