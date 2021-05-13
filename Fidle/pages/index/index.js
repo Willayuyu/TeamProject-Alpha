@@ -522,94 +522,34 @@ Page({
   clickGoodsCard(event) {
     let index = event.currentTarget.dataset.index;
     let id;
-    wx.request({
-      url: 'http://47.106.241.182:8082/goods/listGoods',
-      header: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      data: {
-        days: 0,
-        categoryId: 0,
-        condition: 0,
-        pageid: 1
-      },
-      method: "POST",
-      success(res){
-        console.log(res);
-        if(res.data.code == 200){
-          var list = res.data.data[index];//json中的data数组
-          console.log(list);
-          id = list.id;
-        }
-        wx.navigateTo({
-          url: '/pages/goodsDetailsPage/goodsDetailsPage?id='+id,
-        })
-      },
-      fail: (err) => {
-        wx.showToast({ title: '系统错误' })
-      },
+    let that = this;
+    var list = that.data.goodsList[index];//json中的data数组
+    console.log(list);
+    id = list.id;
+    wx.navigateTo({
+      url: '/pages/goodsDetailsPage/goodsDetailsPage?id='+id,
     })
   },
   clickTaskCard(event) {
     let index = event.currentTarget.dataset.index;
     let id;
-    wx.request({
-      url: 'http://47.106.241.182:8082/task/listTask',
-      header: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      data: {
-        days: 0,
-        categoryId: 0,
-        pageid: 1
-      },
-      method: "POST",
-      success(res){
-        console.log(res);
-        if(res.data.code == 200){
-          var list = res.data.data[index];//json中的data数组
-          console.log(list);
-          id = list.id;
-        }
-        wx.navigateTo({
-          url: '/pages/taskDetailsPage/taskDetailsPage?id='+id,
-        })
-      },
-      fail: (err) => {
-        wx.showToast({ title: '系统错误' })
-      },
+    let that = this;
+    var list = that.data.taskList[index];//json中的data数组
+    console.log(list);
+    id = list.id;
+    wx.navigateTo({
+      url: '/pages/taskDetailsPage/taskDetailsPage?id='+id,
     })
   },
   clickActivityCard(event) {
     let index = event.currentTarget.dataset.index;
     let id;
-    wx.request({
-      url: 'http://47.106.241.182:8082/activity/listActivity',
-      header: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      data: {
-        days: 0,
-        categoryId: 0,
-        pageid: 1
-      },
-      method: "POST",
-      success(res){
-        console.log(res);
-        if(res.data.code == 200){
-          var list = res.data.data[index];//json中的data数组
-          console.log(list);
-          id = list.id;
-        }
-        wx.navigateTo({
-          url: '/pages/activityDetailsPage/activityDetailsPage?id='+id,
-        })
-      },
-      fail: (err) => {
-        wx.showToast({ title: '系统错误' })
-      },
-
-
+    let that = this;
+    var list = that.data.activityList[index];//json中的data数组
+    console.log(list);
+    id = list.id;
+    wx.navigateTo({
+      url: '/pages/activityDetailsPage/activityDetailsPage?id='+id,
     })
   },
   
