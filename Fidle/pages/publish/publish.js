@@ -19,7 +19,7 @@ Page({
         goods_old_new_list_idx: 0,
         goods_class_list_idx: 0,
         goods_uploadUrl: "http://47.106.241.182:8082/publish/uploadGoodsImage",
-        goods_deleteUrl: "http://47.106.241.182:8082/publish/deleteGoodsImage/id?id=",
+        goods_deleteUrl: "http://47.106.241.182:8082/publish/deleteGoodsImage/",
         goods_releaseUrl: "http://47.106.241.182:8082/publish/goods",
 
 
@@ -56,7 +56,7 @@ Page({
         activity_label_list: [],
         activity_class_list_idx: 0,
         activity_uploadUrl: "http://47.106.241.182:8082/publish/uploadActivityImage",
-        activity_deleteUrl: "http://47.106.241.182:8082/publish/deleteActivityImage/id?id=",
+        activity_deleteUrl: "http://47.106.241.182:8082/publish/deleteActivityImage/",
         activity_releaseUrl: "http://47.106.241.182:8082/publish/activity",
 
     },
@@ -88,6 +88,7 @@ Page({
 
     //二手物品信息发布功能
     goodsRelease() {
+        let flag = false;
         let that = this;
         let goods_title = that.data.goods_title;
         let goods_price = that.data.goods_price;
@@ -100,31 +101,120 @@ Page({
         let goods_category = that.data.goods_class_list[that.data.goods_class_list_idx].categoryId;
         let goods_tags = that.data.goods_label_list;
 
-        wx.request({      
-            url: that.data.goods_releaseUrl,
-            header: {         "Content-Type": "application/x-www-form-urlencoded"       },
-            method: "POST",
-            data: {
-                title: goods_title,
-                price: goods_price,
-                original_price: goods_original_price,
-                description: goods_description,
-                image_links: imageList,
-                condition: goods_condition,
-                category: goods_category,
-                tags: goods_tags,
+        if (goods_title.trim() == "")
+            wx.showToast({
+                icon: "none",
+                title: "输入标题不能为空",
+            })
+        else if (goods_price.trim() == "")
+            wx.showToast({
+                icon: "none",
+                title: "输入价格不能为空",
+            })
+        else if (goods_original_price.trim() == "")
+            wx.showToast({
+                icon: "none",
+                title: "输入原价不能为空",
+            })
+        else if (goods_description.trim() == "") {
+            wx.showToast({
+                icon: "none",
+                title: "输入详细描述不能为空",
+            })
+        } else {
+            flag = true;
+        }
+
+        if (flag)
+            wx.request({      
+                url: that.data.goods_releaseUrl,
+                header: {         "Content-Type": "application/x-www-form-urlencoded"       },
+                method: "POST",
+                data: {
+                    title: goods_title,
+                    price: goods_price,
+                    original_price: goods_original_price,
+                    description: goods_description,
+                    image_links: imageList,
+                    condition: goods_condition,
+                    category: goods_category,
+                    tags: goods_tags,
+                },
+
+                //       data: Util.json2Form( { cityname: "上海", key: "1430ec127e097e1113259c5e1be1ba70" }),
+
+                complete: function(res) {              
+                    if (res == null || res.data == null) {          
+                        console.error('网络请求失败');       
+                        return;        
+                    } else {
+                        that.clean();
+                        wx.showModal({
+                            title: "提示",
+                            content: "二手物品信息发布成功",
+                        })
+                    }      
+                }    
+            })
+    },
+
+    //恢复初始化数据
+    clean() {
+        this.setData({
+            tempFilePaths: [],
+
+            goods_add_img: false,
+            goods_title: "",
+            goods_price: "",
+            goods_originalPrice: "",
+            goods_message: "",
+            goods_tag: "",
+            goods_fileList: [],
+            goods_class_list: [{ categoryId: "", categoryDesignation: "" }],
+            goods_label_list: [],
+            goods_old_new_list_idx: 0,
+            goods_class_list_idx: 0,
+
+            task_title: "",
+            task_remuneration: "",
+            task_message: "",
+            task_tag: "",
+            task_class_list: [{ categoryId: "", categoryDesignation: "" }],
+            task_label_list: [],
+            task_class_list_idx: 0,
+
+            isPickerRender: false,
+            isPickerShow: false,
+            startTime: "",
+            endTime: "",
+            pickerConfig: {
+                endDate: true,
+                column: "second",
+                dateLimit: true,
+                initStartTime: "",
+                initEndTime: "",
+                limitEndTime: "2099-12-31 23:59:59"
             },
 
-            //       data: Util.json2Form( { cityname: "上海", key: "1430ec127e097e1113259c5e1be1ba70" }),
 
-            complete: function(res) {              
-                if (res == null || res.data == null) {           console.error('网络请求失败');           return;         } else {
-                    wx.showModal({
-                        title: "提示",
-                        content: "二手物品信息发布成功",
-                    })
-                }      
-            }    
+            activity_title: "",
+            activity_place: "",
+            activity_message: "",
+            activity_tag: "",
+            activity_fileList: [],
+            activity_class_list: [{ categoryId: "", categoryDesignation: "" }],
+            activity_label_list: [],
+            activity_class_list_idx: 0,
+        })
+
+        let initstart = this.getCurrentTime();
+        let initend = this.getInitEnd();
+        let tempPickerConfig = this.data.pickerConfig;
+        tempPickerConfig.initStartTime = initstart;
+        tempPickerConfig.initEndTime = initend;
+
+        this.setData({
+            pickerConfig: tempPickerConfig,
         })
     },
 
@@ -283,6 +373,19 @@ Page({
         })
     },
 
+    //删除二手交易标签
+    goodsDeleteLabel: function(e) {
+        var goods_label_list = this.data.goods_label_list;
+
+        var index = e.currentTarget.dataset.id; //获取当前长按图片下标
+        console.log(index);
+        goods_label_list.splice(index, 1);
+
+        this.setData({
+            goods_label_list: goods_label_list,
+        })
+    },
+
     //新旧程度单选功能
     goodsOldNewListSelectApply(e) {
         let id = e.target.dataset.id
@@ -427,6 +530,7 @@ Page({
     //任务委托发布功能
     taskRelease() {
         let that = this;
+        let flag = false;
         let task_title = that.data.task_title;
         let task_remuneration = that.data.task_remuneration;
         let task_message = that.data.task_message;
@@ -435,28 +539,70 @@ Page({
         let task_category = that.data.task_class_list[that.data.task_class_list_idx].categoryId;
         let task_tags = that.data.task_label_list;
 
-        wx.request({      
-            url: that.data.task_releaseUrl,
-            header: {         "Content-Type": "application/x-www-form-urlencoded"       },
-            method: "POST",
-            data: {
-                title: task_title,
-                reward: task_remuneration,
-                start_time: task_startTime,
-                end_time: task_endTime,
-                description: task_message,
-                category: task_category,
-                tags: task_tags,
-            },
+        if (task_title.trim() == "")
+            wx.showToast({
+                icon: "none",
+                title: "输入标题不能为空",
+            })
+        else if (task_remuneration.trim() == "")
+            wx.showToast({
+                icon: "none",
+                title: "输入报酬不能为空",
+            })
+        else if (task_message.trim() == "")
+            wx.showToast({
+                icon: "none",
+                title: "输入任务详情不能为空",
+            })
+        else if (task_startTime.trim() == "") {
+            wx.showToast({
+                icon: "none",
+                title: "输入时间信息不能为空",
+            })
+        } else {
+            flag = true;
+        }
 
-            complete: function(res) {              
-                if (res == null || res.data == null) {           console.error('网络请求失败');           return;         } else {
-                    wx.showModal({
-                        title: "提示",
-                        content: "任务委托信息发布成功",
-                    })
-                }      
-            }    
+        if (flag)
+            wx.request({      
+                url: that.data.task_releaseUrl,
+                header: {         "Content-Type": "application/x-www-form-urlencoded"       },
+                method: "POST",
+                data: {
+                    title: task_title,
+                    reward: task_remuneration,
+                    start_time: task_startTime,
+                    end_time: task_endTime,
+                    description: task_message,
+                    category: task_category,
+                    tags: task_tags,
+                },
+
+                complete: function(res) {              
+                    if (res == null || res.data == null) {          
+                        console.error('网络请求失败');          
+                        return;        
+                    } else {
+                        that.clean();
+                        wx.showModal({
+                            title: "提示",
+                            content: "任务委托信息发布成功",
+                        })
+                    }      
+                }    
+            })
+    },
+
+    //删除任务委托标签
+    taskDeleteLabel: function(e) {
+        var task_label_list = this.data.task_label_list;
+
+        var index = e.currentTarget.dataset.id; //获取当前长按图片下标
+        console.log(index);
+        task_label_list.splice(index, 1);
+
+        this.setData({
+            task_label_list: task_label_list,
         })
     },
 
@@ -492,6 +638,7 @@ Page({
     //活动信息发布功能
     activityRelease() {
         let that = this;
+        let flag = false;
         let activity_title = that.data.activity_title;
         let activity_place = that.data.activity_place;
         let activity_message = that.data.activity_message;
@@ -505,53 +652,61 @@ Page({
         let activity_category = that.data.activity_class_list[that.data.activity_class_list_idx].categoryId;
         let activity_tags = that.data.activity_label_list;
 
+        if (activity_title.trim() == "")
+            wx.showToast({
+                icon: "none",
+                title: "输入活动名称不能为空",
+            })
+        else if (activity_place.trim() == "")
+            wx.showToast({
+                icon: "none",
+                title: "输入活动地点不能为空",
+            })
+        else if (activity_message.trim() == "")
+            wx.showToast({
+                icon: "none",
+                title: "输入活动形式不能为空",
+            })
+        else if (activity_startTime.trim() == "") {
+            wx.showToast({
+                icon: "none",
+                title: "输入时间信息不能为空",
+            })
+        } else {
+            flag = true;
+        }
 
-        // 测试
-        // that.setData({
-        //     test: [{
-        //         title: activity_title,
-        //         address: activity_place,
-        //         start_time: activity_startTime,
-        //         end_time: activity_endTime,
-        //         description: activity_message,
-        //         image_links: imageList,
-        //         category: activity_category,
-        //         tags: activity_tags,
-        //     }],
-        // })
+        if (flag)
+            wx.request({      
+                url: that.data.activity_releaseUrl,
+                header: {         "Content-Type": "application/x-www-form-urlencoded"       },
+                method: "POST",
+                data: {
+                    title: activity_title,
+                    address: activity_place,
+                    start_time: activity_startTime,
+                    end_time: activity_endTime,
+                    description: activity_message,
+                    image_links: imageList,
+                    category: activity_category,
+                    tags: activity_tags,
+                },
 
-        // console.log(that.data.test);
+                //       data: Util.json2Form( { cityname: "上海", key: "1430ec127e097e1113259c5e1be1ba70" }),
 
-        // console.log(activity_startTime);
-        // console.log(activity_endTime);
-        // console.log(that.dateToString(activity_endTime));
-
-        wx.request({      
-            url: that.data.activity_releaseUrl,
-            header: {         "Content-Type": "application/x-www-form-urlencoded"       },
-            method: "POST",
-            data: {
-                title: activity_title,
-                address: activity_place,
-                start_time: activity_startTime,
-                end_time: activity_endTime,
-                description: activity_message,
-                image_links: imageList,
-                category: activity_category,
-                tags: activity_tags,
-            },
-
-            //       data: Util.json2Form( { cityname: "上海", key: "1430ec127e097e1113259c5e1be1ba70" }),
-
-            complete: function(res) {              
-                if (res == null || res.data == null) {           console.error('网络请求失败');           return;         } else {
-                    wx.showModal({
-                        title: "提示",
-                        content: "活动信息发布成功",
-                    })
-                }      
-            }    
-        })
+                complete: function(res) {              
+                    if (res == null || res.data == null) {          
+                        console.error('网络请求失败');          
+                        return;        
+                    } else {
+                        that.clean();
+                        wx.showModal({
+                            title: "提示",
+                            content: "活动信息发布成功",
+                        })
+                    }      
+                }    
+            })
     },
 
     //活动信息上传图片方法
@@ -616,7 +771,7 @@ Page({
                             };
 
                             const data = JSON.parse(res.data)
-
+                            console.log(data);
                             image.id = data.data.id;
                             image.imageLink = data.data.imageLink;
 
@@ -706,6 +861,19 @@ Page({
                     activity_fileList: that.data.tempFilePaths,
                 });
             }
+        })
+    },
+
+    //删除活动信息标签
+    activityDeleteLabel: function(e) {
+        var activity_label_list = this.data.activity_label_list;
+
+        var index = e.currentTarget.dataset.id; //获取当前长按图片下标
+        console.log(index);
+        activity_label_list.splice(index, 1);
+
+        this.setData({
+            activity_label_list: activity_label_list,
         })
     },
 
