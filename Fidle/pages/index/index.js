@@ -6,15 +6,15 @@ Page({
   data: {
     searchInput: "",//搜索框内容
     tabIndex: 0,//标签页下标
-    secTime: "近三天",//二手-时间筛选
+    secTime: "时间",//二手-时间筛选
     secSort: "类别",//二手-类别筛选
     secDegree: "新旧程度",//二手-新旧筛选
-    taskTime: "近三天",//任务-时间筛选
+    taskTime: "时间",//任务-时间筛选
     taskSort: "类别",//任务-类别筛选
-    activityTime: "近七天",//活动-时间筛选
+    activityTime: "时间",//活动-时间筛选
     activitySort: "类别",//活动-类别筛选
     secTimeArray: [
-      "近三天","近一天","近七天","近一个月","近三个月"
+      "时间","近三天","近一天","近七天","近一个月","近三个月"
     ],
     secSortMap: new Map(),//二手类别键值对
     secSortArray: [
@@ -24,14 +24,14 @@ Page({
       "新旧程度","全新","九成新","八成新","八成新以下"
     ],
     taskTimeArray: [
-      "近三天","近一天","近七天","近一个月"
+      "时间","近三天","近一天","近七天","近一个月"
     ],
     taskSortMap: new Map(),//任务类别键值对
     taskSortArray: [
       
     ],//任务类别名称
     activityTimeArray: [
-      "近七天","近一天","近三天","近一个月","近三个月"
+      "时间","近七天","近一天","近三天","近一个月","近三个月"
     ],
     activitySortMap: new Map(),//活动类别键值对
     activitySortArray: [
@@ -154,12 +154,149 @@ Page({
     this.data.tabIndex = e.detail.index;
   },
 
+  //搜索二手物品
+  search_Sec: function(days, categoryId, condition, keyWord, pageid) {
+    let that=this;
+    wx.request({
+      url: 'http://47.106.241.182:8082/goods/listGoodsByKeyword',
+      header: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        days: days,
+        categoryId: categoryId,
+        condition: condition,
+        keyWord: keyWord,
+        pageid: pageid
+      },
+      method: "POST",
+      success(res){
+        console.log(res);
+        if(res.data.code == 200){
+          var list = res.data.data;//json中的data数组
+          console.log(list);
+          that.setData({
+            goodsList: list
+          })
+        }
+      }
+    })
+  },
+
+  //搜索任务委托
+  search_Task: function(days, categoryId, keyWord, pageid) {
+    let that=this;
+    wx.request({
+      url: 'http://47.106.241.182:8082/task/listTaskByKeyword',
+      header: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        days: days,
+        categoryId: categoryId,
+        keyWord: keyWord,
+        pageid: pageid
+      },
+      method: "POST",
+      success(res){
+        console.log(res);
+        if(res.data.code == 200){
+          var list = res.data.data;//json中的data数组
+          console.log(list);
+          that.setData({
+            taskList: list
+          })
+        }
+      }
+    })
+  },
+
+  //搜索活动
+  search_Act: function(days, categoryId, keyWord, pageid) {
+    let that=this;
+    wx.request({
+      url: 'http://47.106.241.182:8082/activity/listActivityByKeyword',
+      header: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        days: days,
+        categoryId: categoryId,
+        keyWord: keyWord,
+        pageid: pageid
+      },
+      method: "POST",
+      success(res){
+        console.log(res);
+        if(res.data.code == 200){
+          var list = res.data.data;//json中的data数组
+          console.log(list);
+          that.setData({
+            activityList: list
+          })
+        }
+      }
+    })
+  },
+
+  //获取下拉框的天数
+  getDays: function(secTime) {
+    var days;
+    switch(secTime) {
+      case "近三天":
+        days = 3;
+        break;
+      case "近一天":
+        days = 1;
+        break;
+      case "近七天":
+        days = 7;
+        break;
+      case "近一个月":
+        days = 30;
+        break;
+      case "近三个月":
+        days = 90;
+        break;
+      default:
+        days = 30;
+    }
+    return days;
+  },
+
+  //获取新旧程度值
+  getDegree: function(degree) {
+    var condition;
+    switch(degree) {
+      case "新旧程度":
+        condition = 0;
+        break;
+      case "全新":
+        condition = 1;
+        break;
+      case "九成新":
+        condition = 2;
+        break;
+      case "八成新":
+        condition = 3;
+        break;
+      case "八成新以下":
+        condition = 4;
+        break;
+      default:
+        condition = 0;
+    }
+    return condition;
+  },
+
   //搜索
   search: function() {
     console.log(this.data.searchInput);
+    var keyWord = this.data.searchInput;
     switch(this.data.tabIndex) {
       case 0:
-        console.log(this.data.secTime);
+        var days = this.getDays(this.data.secTime);
+        console.log(days);
         console.log(this.data.secSortArray);
         var map = this.data.secSortMap;
         var secSortId = 0;
@@ -171,15 +308,44 @@ Page({
         }
         console.log(secSortId);
         console.log(this.data.secSort);
-        console.log(this.data.secDegree);
+        var condition = this.getDegree(this.data.secDegree);
+        console.log(condition);
+        this.search_Sec(days, secSortId, condition, keyWord, 1);
         break;
       case 1:
-        console.log(this.data.taskTime);
         console.log(this.data.taskSort);
+        var days = this.getDays((this.data.taskTime));
+        console.log(days);
+        console.log(this.data.taskSortArray);
+        var map = this.data.taskSortMap;
+        var taskSortId = 0;
+        var taskSort = this.data.taskSort;
+        for(let item of map.entries()) {
+          if(item[1] == taskSort) {
+            taskSortId = item[0];
+          }//从map中找到类别对应的数据库Id
+        }
+        console.log(taskSortId);
+        console.log(this.data.taskSort);
+        this.search_Task(days, taskSortId, keyWord, 1);
         break;
       case 2:
         console.log(this.data.activityTime);
         console.log(this.data.activitySort);
+        var days = this.getDays((this.data.activityTime));
+        console.log(days);
+        console.log(this.data.activitySortArray);
+        var map = this.data.activitySortMap;
+        var activitySortId = 0;
+        var activitySort = this.data.activitySort;
+        for(let item of map.entries()) {
+          if(item[1] == activitySort) {
+            activitySortId = item[0];
+          }//从map中找到类别对应的数据库Id
+        }
+        console.log(activitySortId);
+        console.log(this.data.activitySort);
+        this.search_Act(days, activitySortId, keyWord, 1);
         break;
     }
   },
@@ -191,44 +357,168 @@ Page({
     })
   },
 
-  //二手物品收藏、取消收藏
-  storeGoods: function() {
-    var nowStore = this.data.goodsStore;
-    if(nowStore == "&nbsp;收&nbsp;&nbsp;藏&nbsp;")
-      nowStore = "已收藏";
-    else
-      nowStore = "&nbsp;收&nbsp;&nbsp;藏&nbsp;";
-    this.setData({
-      goodsStore: nowStore
+  //二手物品收藏
+  storeGoods_collected: function(e) {
+    var index = e.currentTarget.dataset.index;
+    console.log(index);
+    var list = this.data.goodsList;
+    var id = list[index].id;
+    console.log(id);
+    list[index].collectState = 1;
+    wx.request({
+      url: 'http://47.106.241.182:8082/goods/collectGoods/' + id,
+      header: {
+        'Content-Type': 'application/json'
+      },
+      data: {
+      },
+      method: "GET",
+      success(res){
+        if(res.data.code == 200){
+          console.log("收藏状态修改成功");
+        }
+      }
     })
-    console.log(this.data.goodsStore);
+    this.setData({
+      goodsList: list
+    })
   },
 
-  //任务收藏、取消收藏
-  storeTask: function() {
-    var nowStore = this.data.taskStore;
-    if(nowStore == "&nbsp;收&nbsp;&nbsp;藏&nbsp;")
-      nowStore = "已收藏";
-    else
-      nowStore = "&nbsp;收&nbsp;&nbsp;藏&nbsp;";
-    this.setData({
-      taskStore: nowStore
+  //二手物品取消收藏
+  storeGoods_uncollected: function(e) {
+    var index = e.currentTarget.dataset.index;
+    console.log(index);
+    var list = this.data.goodsList;
+    var id = list[index].id;
+    console.log(id);
+    list[index].collectState = -1;
+    wx.request({
+      url: 'http://47.106.241.182:8082/goods/cancelCollectGoods/' + id,
+      header: {
+        'Content-Type': 'application/json'
+      },
+      data: {
+      },
+      method: "GET",
+      success(res){
+        if(res.data.code == 200){
+          console.log("收藏状态修改成功");
+        }
+      }
     })
-    console.log(this.data.taskStore);
+    this.setData({
+      goodsList: list
+    })
   },
 
-  //活动收藏、取消收藏
-  storeActivity: function() {
-    var nowStore = this.data.activityStore;
-    if(nowStore == "&nbsp;收&nbsp;&nbsp;藏&nbsp;")
-      nowStore = "已收藏";
-    else
-      nowStore = "&nbsp;收&nbsp;&nbsp;藏&nbsp;";
-    this.setData({
-      activityStore: nowStore
+  //任务收藏
+  storeTask_collected: function(e) {
+    var index = e.currentTarget.dataset.index;
+    console.log(index);
+    var list = this.data.taskList;
+    var id = list[index].id;
+    console.log(id);
+    list[index].collectState = 1;
+    wx.request({
+      url: 'http://47.106.241.182:8082/task/collectTask/' + id,
+      header: {
+        'Content-Type': 'application/json'
+      },
+      data: {
+      },
+      method: "GET",
+      success(res){
+        if(res.data.code == 200){
+          console.log("收藏状态修改成功");
+        }
+      }
     })
-    console.log(this.data.activityStore);
+    this.setData({
+      taskList: list
+    })
   },
+
+  //任务取消收藏
+  storeTask_uncollected: function(e) {
+    var index = e.currentTarget.dataset.index;
+    console.log(index);
+    var list = this.data.taskList;
+    var id = list[index].id;
+    console.log(id);
+    list[index].collectState = -1;
+    wx.request({
+      url: 'http://47.106.241.182:8082/task/cancelCollectTask/' + id,
+      header: {
+        'Content-Type': 'application/json'
+      },
+      data: {
+      },
+      method: "GET",
+      success(res){
+        if(res.data.code == 200){
+          console.log("收藏状态修改成功");
+        }
+      }
+    })
+    this.setData({
+      taskList: list
+    })
+  },
+
+  //活动收藏
+  storeAct_collected: function(e) {
+    var index = e.currentTarget.dataset.index;
+    console.log(index);
+    var list = this.data.activityList;
+    var id = list[index].id;
+    console.log(id);
+    list[index].collectState = 1;
+    wx.request({
+      url: 'http://47.106.241.182:8082/activity/collectActivity/' + id,
+      header: {
+        'Content-Type': 'application/json'
+      },
+      data: {
+      },
+      method: "GET",
+      success(res){
+        if(res.data.code == 200){
+          console.log("收藏状态修改成功");
+        }
+      }
+    })
+    this.setData({
+      activityList: list
+    })
+  },
+
+  //活动取消收藏
+  storeAct_uncollected: function(e) {
+    var index = e.currentTarget.dataset.index;
+    console.log(index);
+    var list = this.data.activityList;
+    var id = list[index].id;
+    console.log(id);
+    list[index].collectState = -1;
+    wx.request({
+      url: 'http://47.106.241.182:8082/activity/cancelCollectActivity/' + id,
+      header: {
+        'Content-Type': 'application/json'
+      },
+      data: {
+      },
+      method: "GET",
+      success(res){
+        if(res.data.code == 200){
+          console.log("收藏状态修改成功");
+        }
+      }
+    })
+    this.setData({
+      activityList: list
+    })
+  },
+
   /**
    * 点击标题跳转详情页
    */
@@ -444,10 +734,9 @@ Page({
     this.getGoodsCategory();//渲染二手类别下拉框
     this.getTaskCategory();//渲染任务类别下拉框
     this.getActivityCategory();//渲染活动类别下拉框
-    this.getGoodsList(3,1,9,1);//初始二手列表
-    this.getTaskList(3,1,1);//初始任务列表
-    this.getActivityList(7,1,1);//初始活动列表
-    console.log(this.data.goodsList);
+    this.getGoodsList(0,0,0,1);//初始二手列表
+    this.getTaskList(0,0,1);//初始任务列表
+    this.getActivityList(0,0,1);//初始活动列表
   },
 
   /**

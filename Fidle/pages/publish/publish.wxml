@@ -3,11 +3,11 @@
     <view>
       <van-tab title="二手物品" name="goods">
         <van-cell-group>
-          <van-field value="{{goods_title}}" clearable label="标题" placeholder="请输入标题"></van-field>
-          <van-field value="{{goods_price}}" clearable label="价格" placeholder="请输入价格" type="digit"></van-field>
-          <van-field value="{{goods_originalPrice}}" clearable label="原价" placeholder="请输入原价" type="digit"></van-field>  
+          <van-field value="{{goods_title}}" clearable label="标题" placeholder="请输入标题" bind:input="goodsTitleInput"></van-field>
+          <van-field value="{{goods_price}}" clearable label="价格" placeholder="请输入价格" type="digit" bind:input="goodsPriceInput"></van-field>
+          <van-field value="{{goods_originalPrice}}" clearable label="原价" placeholder="请输入原价" type="digit" bind:input="goodsOriginalPriceInput"></van-field>  
           <view class="border">
-            <van-field value="{{goods_message}}" label="详细描述" input-class="message" type="textarea" placeholder="请输入商品的详细描述" maxlength="200" show-word-limit></van-field>
+            <van-field value="{{goods_message}}" label="详细描述" input-class="message" type="textarea" placeholder="请输入商品的详细描述" maxlength="200" show-word-limit bind:input="goodsMessageInput"></van-field>
           </view>
           <view>
            <van-cell>
@@ -15,11 +15,11 @@
 
             <view class="img_box">
               <view class="upload_img" wx:for="{{goods_fileList}}" wx:key="index">
-                <image src='{{item.imageLink}}' class="imgs" bindlongpress="deleteImage" bindtap="goodsListenerButtonPreviewImage" data-index="{{index}}" mode='widthFix' />
-                <image class="closeImv" src="../../icons/delete.png" mode="scaleToFill" catchtap="deleteImage" data-id="{{index}}"></image>
+                <image src='{{item.imageLink}}' class="imgs" bindlongpress="goodsDeleteImage" bindtap="goodsListenerButtonPreviewImage" data-index="{{index}}" mode='widthFix' />
+                <image class="closeImv" src="../../icons/delete.png" mode="scaleToFill" catchtap="goodsDeleteImage" data-id="{{index}}"></image>
               </view>
               <view class="upload_img" hidden="{{goods_add_img}}">
-                <view bindtap="goods_upload">
+                <view bindtap="goodsUpload">
                   <image src="../../icons/add_img.png" class="upload_img" mode='widthFix' />
                 </view>
               </view>
@@ -39,7 +39,7 @@
                 </van-col>
                 <van-col span="22" >
                   <view>     
-                    <view wx:for="{{goods_old_new_list}}" data-id="{{index}}" class="tag {{goods_old_new_list_idx==index?'selected':''}}" wx:key="unique" bindtap="goods_old_new_list_selectApply">{{item}}</view>                       
+                    <view wx:for="{{goods_old_new_list}}" data-id="{{index}}" class="tag {{goods_old_new_list_idx==index?'selected':''}}" wx:key="unique" bindtap="goodsOldNewListSelectApply">{{item}}</view>                       
                   </view>        
                 </van-col>
               </van-row>             
@@ -56,7 +56,7 @@
                 </van-col>
                 <van-col span="22" >
                   <view>    
-                    <view wx:for="{{goods_class_list}}" data-id="{{index}}" class="tag {{goods_class_list_idx==index?'selected':''}}" wx:key="unique" bindtap="goods_class_list_selectApply">{{item.categoryDesignation}}</view>                                             
+                    <view wx:for="{{goods_class_list}}" data-id="{{index}}" class="tag {{goods_class_list_idx==index?'selected':''}}" wx:key="unique" bindtap="goodsClassListSelectApply">{{item.categoryDesignation}}</view>                                             
                   </view>        
                 </van-col>
               </van-row>                                                          
@@ -80,7 +80,7 @@
                 </van-col>
                 
               </van-row>
-                <van-button class="release" type="info" color="#7DB5EE" size="normal">发布</van-button>                                                       
+                <van-button class="release" type="info" color="#7DB5EE" size="normal" bind:click="goodsRelease">发布</van-button>                                                       
             </view>                                 
           </view>                 
         </van-cell-group>
@@ -160,8 +160,18 @@
           <view>
            <van-cell>
             <text class="label">图片上传</text> 
-            <van-uploader class="img-input" file-list="{{activity_fileList}}" bind:after-read="activity_afterRead" bind:delete="activity_deleteImg" multiple="{{true}}" max-count="3"  preview-image></van-uploader>
-           </van-cell>      
+              <view class="img_box">
+                <view class="upload_img" wx:for="{{activity_fileList}}" wx:key="index">
+                  <image src='{{item.imageLink}}' class="imgs" bindlongpress="activityDeleteImage" bindtap="activityListenerButtonPreviewImage" data-index="{{index}}" mode='widthFix' />
+                  <image class="closeImv" src="../../icons/delete.png" mode="scaleToFill" catchtap="activityDeleteImage" data-id="{{index}}"></image>
+                </view>
+                <view class="upload_img" hidden="{{activity_add_img}}">
+                  <view bindtap="activityUpload">
+                    <image src="../../icons/add_img.png" class="upload_img" mode='widthFix' />
+                  </view>
+                </view>
+            </view>
+           </van-cell>     
           </view>         
           <view>
             <view class="display">

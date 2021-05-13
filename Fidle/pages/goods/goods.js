@@ -5,17 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    goodsPrice: "30",
-    goodsOriginPrice: "75",
-    goodsTitle: "软件工程 第八版 全新未拆封 好价速来！",
-    goodsImageURL: "/images/book.png",
-    goodsTagsList: [
-      "全新",
-      "教材",
-      "大三",
-      "软件工程"
-    ],
-    goodsDetailsURL: "/pages/goodsDetailsPage/goodsDetailsPage",
+    show: false,
   },
 
   /**
@@ -185,5 +175,15 @@ Page({
         })
       });
   },
+
+  showOverlap: function(){
+    this.setData({ show: true });
+  },
+
+  onClickHide() {
+    this.setData({ show: false });
+  },
+
+  noop() {},
 
 })
