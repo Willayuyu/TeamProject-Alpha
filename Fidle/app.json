@@ -21,7 +21,8 @@
     "pages/activity/activity",
     "pages/collect/collect",
     "pages/order/order",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/taskOrder/taskOrder"
   ],
   "window": {
     "enablePullDownRefresh": true,
