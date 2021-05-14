@@ -23,6 +23,5 @@ public class TestPublish {
         TagOfTaskDO tagOfTaskDO = new TagOfTaskDO();
         tagOfTaskDO.setContent("111111");
         tagOfTaskDAO.insertTagOfTask(tagOfTaskDO);
-        System.out.println(tagOfTaskDO);
     }
 }

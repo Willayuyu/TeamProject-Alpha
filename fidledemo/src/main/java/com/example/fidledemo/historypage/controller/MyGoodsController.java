@@ -77,9 +77,6 @@ public class MyGoodsController {
         UserBO user = (UserBO) session.getAttribute("user");
         Long id = Long.valueOf(request.getParameter("id"));
         Long buyerId = Long.valueOf(request.getParameter("buyerId"));
-        System.out.println(request.getParameter("id"));
-        System.out.println(request.getParameter("buyerId"));
-        System.out.println(id);
         myGoodsService.generateOrder(id,buyerId,user.getId());
         return JSON.toJSONString(Result.successResult());
     }
