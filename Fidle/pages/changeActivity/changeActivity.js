@@ -87,7 +87,7 @@ Page({
         var session_id = wx.getStorageSync('sessionid');
         var token = wx.getStorageSync('token');
         var header = { 'content-type': 'application/x-www-form-urlencoded', 'Cookie': session_id };
-        if(list[0] != null){
+        if (list[0] != null) {
             for (i = 0; i < list.length; i++) {
                 wx.request({
                     url: 'http://47.106.241.182:8082/publish/getActivityImageIdByLink',
@@ -202,7 +202,7 @@ Page({
             activity_message: e.detail,
         })
     },
-    
+
     //活动信息发布功能
     activityRelease() {
         let that = this;
@@ -247,12 +247,12 @@ Page({
         } else {
             flag = true;
         }
-        if(flag == true){
+        if (flag == true) {
             wx.request({
                 url: 'http://120.77.210.142:8080/myActivity/alterActivity',
                 header: { "Content-Type": "application/x-www-form-urlencoded" },
                 method: "POST",
-                dataType:'json',
+                dataType: 'json',
                 data: {
                     id: id,
                     title: activity_title,
@@ -264,38 +264,38 @@ Page({
                     images: imageList,
                     tags: activity_tags,
                 },
-                success(res){
+                success(res) {
                     console.log(res.data.code);
                     console.log(res.data.message);
                     wx.redirectTo({
                         url: '/pages/activity/activity',
                     })
                 },
-                fail(err){
+                fail(err) {
                     wx.showToast({ title: '系统错误' })
                 }
             })
         }
-        
-       //测试
-       /**
-        * that.setData({
-           test: [{
-            id: id,
-            title: activity_title,
-            address: activity_place,
-            start_time: activity_startTime,
-            end_time: activity_endTime,
-            description: activity_message,
-            images: imageList,
-            category: activity_category,
-            tags: activity_tags,
-             }],
-        })
 
-         console.log(that.data.test);
-        */
-        
+        //测试
+        /**
+         * that.setData({
+            test: [{
+             id: id,
+             title: activity_title,
+             address: activity_place,
+             start_time: activity_startTime,
+             end_time: activity_endTime,
+             description: activity_message,
+             images: imageList,
+             category: activity_category,
+             tags: activity_tags,
+              }],
+         })
+
+          console.log(that.data.test);
+         */
+
     },
 
     //活动信息上传图片方法

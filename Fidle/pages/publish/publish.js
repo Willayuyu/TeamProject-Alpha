@@ -1,5 +1,5 @@
 // pages/publish/publish.js
-
+var app = getApp();
 //console.log("返回成功的数据:" + JSON.stringify(res.data)) //这样就可以愉快的看到后台的数据啦
 Page({
     data: {
@@ -148,7 +148,11 @@ Page({
         if (flag)
             wx.request({      
                 url: that.data.goods_releaseUrl,
-                header: {         "Content-Type": "application/x-www-form-urlencoded"       },
+                header: {        
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    'Cookie': wx.getStorageSync('sessionid'),
+                    'token': app.globalData.token      
+                },
                 method: "POST",
                 data: {
                     title: goods_title,
@@ -287,7 +291,9 @@ Page({
                         filePath: tempFilePaths[i],
                         name: 'image',
                         header: {
-                            "Content-Type": "multipart/form-data"
+                            "Content-Type": "multipart/form-data",
+                            'Cookie': wx.getStorageSync('sessionid'),
+                            'token': app.globalData.token
                         },
                         success: function(res) {
                             let imageFile = that.data.goods_fileList;
@@ -371,8 +377,9 @@ Page({
                     wx.request({
                         url: that.data.goods_deleteUrl + tempId,
                         header: {
-                            'content-type': 'application/json' // 默认值
-
+                            'content-type': 'application/json', // 默认值
+                            'Cookie': wx.getStorageSync('sessionid'),
+                            'token': app.globalData.token
                         },
                         success: function(res) {
                             console.log("删除成功");
@@ -441,7 +448,11 @@ Page({
             url: "http://47.106.241.182:8082/goods/listGoodsCategory", //这里''里面填写你的服务器API接口的路径  
             //data: {},  //这里是可以填写服务器需要的参数  
             method: 'GET', // 声明GET请求  
-            // header: {}, // 设置请求的 header，GET请求可以不填  
+            header: {
+                'content-type': 'application/json', // 默认值
+                'Cookie': wx.getStorageSync('sessionid'),
+                'token': app.globalData.token
+            },
             success: function(res) {
                 let goods_list = new Array();
 
@@ -521,7 +532,11 @@ Page({
             url: that.data.task_classListUrl, //这里''里面填写你的服务器API接口的路径  
             //data: {},  //这里是可以填写服务器需要的参数  
             method: 'GET', // 声明GET请求  
-            // header: {}, // 设置请求的 header，GET请求可以不填  
+            header: {
+                'content-type': 'application/json', // 默认值
+                'Cookie': wx.getStorageSync('sessionid'),
+                'token': app.globalData.token
+            },
             success: function(res) {
                 let task_list = new Array();
 
@@ -616,7 +631,11 @@ Page({
         if (flag)
             wx.request({      
                 url: that.data.task_releaseUrl,
-                header: {         "Content-Type": "application/x-www-form-urlencoded"       },
+                header: {        
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    'Cookie': wx.getStorageSync('sessionid'),
+                    'token': app.globalData.token      
+                },
                 method: "POST",
                 data: {
                     title: task_title,
@@ -741,7 +760,11 @@ Page({
         if (flag)
             wx.request({      
                 url: that.data.activity_releaseUrl,
-                header: {         "Content-Type": "application/x-www-form-urlencoded"       },
+                header: {        
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    'Cookie': wx.getStorageSync('sessionid'),
+                    'token': app.globalData.token      
+                },
                 method: "POST",
                 data: {
                     title: activity_title,
@@ -821,7 +844,9 @@ Page({
                         filePath: tempFilePaths[i],
                         name: 'image',
                         header: {
-                            "Content-Type": "multipart/form-data"
+                            "Content-Type": "multipart/form-data",
+                            'Cookie': wx.getStorageSync('sessionid'),
+                            'token': app.globalData.token
                         },
                         success: function(res) {
                             let imageFile = that.data.activity_fileList;
@@ -906,8 +931,9 @@ Page({
                     wx.request({
                         url: that.data.activity_deleteUrl + tempId,
                         header: {
-                            'content-type': 'application/json' // 默认值
-
+                            'content-type': 'application/json', // 默认值
+                            'Cookie': wx.getStorageSync('sessionid'),
+                            'token': app.globalData.token
                         },
                         success: function(res) {
                             console.log("删除成功");
@@ -957,7 +983,11 @@ Page({
             url: "http://47.106.241.182:8082/activity/listActivityCategory", //这里''里面填写你的服务器API接口的路径  
             //data: {},  //这里是可以填写服务器需要的参数  
             method: 'GET', // 声明GET请求  
-            // header: {}, // 设置请求的 header，GET请求可以不填  
+            header: {
+                'content-type': 'application/json', // 默认值
+                'Cookie': wx.getStorageSync('sessionid'),
+                'token': app.globalData.token
+            },
             success: function(res) {
                 let activity_list = new Array();
 

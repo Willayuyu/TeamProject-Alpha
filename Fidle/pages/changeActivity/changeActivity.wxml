@@ -1,6 +1,6 @@
 <van-cell-group>   
           <van-field value="{{activity_title}}" clearable label="活动名称" placeholder="请输入活动名称" bind:input="activityTitleInput"></van-field>
-          <van-field value="{{activity_place}}" clearable label="活动地点" placeholder="请输入活动地点" type="digit" bind:input="activityPlaceInput"></van-field>
+          <van-field value="{{activity_place}}" clearable label="活动地点" placeholder="请输入活动地点" bind:input="activityPlaceInput"></van-field>
           
           <van-field value="{{startTime}}" clearable label="开始时间" bind:click-input="pickerShow" readonly placeholder="请选择开始时间"></van-field>
           <van-field value="{{endTime}}" clearable label="结束时间" bind:click-input="pickerShow" readonly placeholder="请选择结束时间"></van-field>
