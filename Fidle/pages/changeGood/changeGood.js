@@ -22,7 +22,7 @@ Page({
         goods_old_new_list_idx: 0,
         goods_class_list_idx: 0,
         goods_uploadUrl: "http://47.106.241.182:8082/publish/uploadGoodsImage",
-        goods_deleteUrl: "http://47.106.241.182:8082/publish/deleteGoodsImage/id?id=",
+        goods_deleteUrl: "http://47.106.241.182:8082/publish/deleteGoodsImage/",
         goods_releaseUrl: "http://47.106.241.182:8082/publish/goods",
         history_fileList: [],
         history_condition: "",
@@ -43,7 +43,7 @@ Page({
             method: "GET",
             header: header,
             success(res) {
-                console.log(res.data);
+                console.log(res.data.data);
                 if (res.data.code === 200) {
                     that.setData({
                         history_fileList: res.data.data.picturesLink,
@@ -56,6 +56,17 @@ Page({
                         history_condition: res.data.data.condition,
                         id: res.data.data.id,
                     })
+                    console.log(that.data.history_fileList);
+                    if (that.data.history_fileList[0] == null) {
+                        that.setData({
+                            history_fileList: [],
+                        })
+                    }
+                    if (res.data.data.tagList[0] == null) {
+                        that.setData({
+                            history_label_list: [],
+                        })
+                    }
 
                     that.setLabelList();
                     that.setCategoryIndex();
@@ -186,6 +197,7 @@ Page({
         let goods_price = that.data.goods_price;
         let goods_original_price = that.data.goods_originalPrice;
         let goods_description = that.data.goods_message;
+
         let imageList = [];
         for (var i = 0; i < that.data.goods_fileList.length; i++)
             imageList.push(that.data.goods_fileList[i].imageLink);
@@ -193,6 +205,8 @@ Page({
         let goods_condition = that.data.goods_old_new_list_idx + 1;
         let goods_category = that.data.goods_class_list[that.data.goods_class_list_idx].categoryId;
         let goods_tags = that.data.goods_label_list;
+
+        console.log(goods_tags);
 
         wx.request({
             url: 'http://120.77.210.142:8080/myGoods/alterGoods/',
@@ -221,9 +235,9 @@ Page({
                 wx.showToast({ title: '系统错误' })
             }
         })
-        // that.setData({
-        //     goods_fileList: imageList
-        // })
+        that.setData({
+            goods_fileList: imageList
+        })
     },
     //二手物品信息发布功能
     goodsRelease() {
@@ -384,7 +398,7 @@ Page({
     goodsDeleteImage: function(e) {
         var that = this;
         var tempFilePaths = that.data.goods_fileList;
-        
+
         var index = e.currentTarget.dataset.id; //获取当前长按图片下标
         console.log(index);
         var tempId = tempFilePaths[index].id;
