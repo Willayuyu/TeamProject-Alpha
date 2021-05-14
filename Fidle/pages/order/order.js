@@ -1,4 +1,5 @@
 // pages/order/order.js
+let app = getApp();
 Page({
 
   /**
@@ -35,7 +36,7 @@ Page({
     let imageLink = options.imageLink;
     let condition = options.condition;
     let category = options.category;
-    let tagList = options.tagList;
+    let tagList = JSON.parse(options.tagList);
     that.setData({
       id: id,
       price: price,
@@ -125,7 +126,8 @@ Page({
               url: 'http://120.77.210.142:8080/myGoods/generateOrder/',
               header: {
                 'Content-Type': 'application/x-www-form-urlencoded',
-                'Cookie': wx.getStorageSync('sessionid')
+                'Cookie': wx.getStorageSync('sessionid'),
+                'token': app.globalData.token
               },
               data: {
                 id: id,

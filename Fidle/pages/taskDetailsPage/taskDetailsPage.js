@@ -1,6 +1,6 @@
 // pages/taskDetailsPage/taskDetailsPage.js
-let app = getApp();
 import Toast from '../../components/lib/toast/toast';
+let app = getApp();
 Page({
 
   /**
@@ -24,12 +24,14 @@ Page({
    */
   getTaskDetail: function () {
     let that = this;
-    var session_id = wx.getStorageSync('sessionid');
-    var header = {'content-type': 'application/json', 'Cookie': session_id };
     wx.request({
       url: 'http://47.106.241.182:8082/task/getTaskDetailById/' + that.data.id,
       method: "GET",
-      header: header,
+      header: {
+        'content-type': 'application/json',
+        'Cookie': wx.getStorageSync('sessionid'),
+        'token': app.globalData.token
+      },
       success(res) {
         console.log(res.data);
         if (res.data.code === 200) {
@@ -64,7 +66,6 @@ Page({
    * 点击收藏变色
    */
   onClickStar(event) {
-    let app = getApp();
     let that = this;
     if (that.data.collectState == -1) {
       wx.request({

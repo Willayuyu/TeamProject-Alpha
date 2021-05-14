@@ -1,4 +1,5 @@
 // pages/taskOrder/taskOrder.js
+let app = getApp();
 Page({
 
   /**
@@ -104,7 +105,6 @@ Page({
   },
 
   confirm: function (event) {
-    let app = getApp();
     let that = this;
     let id = that.data.id;
     console.log(id);

@@ -1,6 +1,6 @@
 // pages/goodsDetailsPage/goodsDetailsPage.js
-let app =getApp();
 import Toast from '../../components/lib/toast/toast';
+let app = getApp();
 Page({
   /**
    * 页面的初始数据

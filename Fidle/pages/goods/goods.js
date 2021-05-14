@@ -367,7 +367,7 @@ Page({
     let category = goodsData.category;
     let tagList = goodsData.tagList;
     wx.navigateTo({
-      url: '/pages/order/order?id=' + id + '&title=' + title + '&price=' + price + '&originalPrice=' + originalPrice + '&imageLink=' + imageLink + '&condition=' + condition + '&category=' + category + '&tagList=' + tagList,
+      url: '/pages/order/order?id=' + id + '&title=' + title + '&price=' + price + '&originalPrice=' + originalPrice + '&imageLink=' + imageLink + '&condition=' + condition + '&category=' + category + '&tagList=' + JSON.stringify(tagList),
     })
 
   },
