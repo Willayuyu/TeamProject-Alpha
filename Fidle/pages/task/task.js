@@ -5,6 +5,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+    tabIndex: 0,
+    publishPage: 1,
+    acceptPage: 1,
     publishedTaskList: [],
     acceptedTaskList: [],
     taskPrice: "30",
@@ -26,8 +29,8 @@ Page({
    */
   onLoad: function (options) {
     wx.setNavigationBarTitle({ title: '我的任务' });
-    this.getPublishedTaskList();
-    this.getAcceptedTaskList();   
+    this.getPublishedTaskList(1);
+    this.getAcceptedTaskList(1);   
     // this.doConductTask();
     // this.doDeleteTask();
     // this.doFinishTask();
@@ -48,7 +51,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.getPublishedTaskList(1);
+    this.getAcceptedTaskList(1);
+    this.setData({
+      publishPage: 1
+    });
+    this.setData({
+      acceptPage: 1
+    });
   },
 
   /**
@@ -76,7 +86,27 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    let pageid;
+    switch(this.data.tabIndex) {
+      case 0:
+        pageid = this.data.publishPage;
+        pageid++;
+        console.log(pageid);
+        this.setData({
+          publishPage: pageid
+        })
+        this.getPublishedTaskList(pageid);
+        break;
+      case 1:
+        pageid = this.data.acceptPage;
+        pageid++;
+        console.log(pageid);
+        this.setData({
+          acceptPage: pageid
+        })
+        this.getAcceptedTaskList(pageid);
+        break;
+    }
   },
 
   /**
@@ -84,6 +114,13 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  /**
+   * 标签点击/切换事件
+   */
+  tab_Click: function(e) {
+    this.data.tabIndex = e.detail.index;
   },
 
   /**
@@ -166,9 +203,17 @@ Page({
   },
 
   /**
+   * 
+   * @param {*} pageid 
+   */
+  Refresh(pageid) {
+    this.getPublishedTaskList(pageid);
+  },
+
+  /**
    * 获取已发布任务记录列表
    */
-  getPublishedTaskList(){
+  getPublishedTaskList(pageid){
     let session_id = wx.getStorageSync('sessionid');
     console.log(session_id); 
     let that = this;     
@@ -179,10 +224,14 @@ Page({
       },
       success(res){
         console.log("获取已发布任务记录列表")
-        console.log(res.data.data)
+        console.log(res.data.data);
+        let list = res.data.data;
         if(res.data.code == 200) {
+          if(pageid > 1) {
+            list = that.data.publishedTaskList.concat(list);
+          }
           that.setData({
-            publishedTaskList: res.data.data
+            publishedTaskList: list
           })
           console.log("publishedTaskList=")
           console.log(that.data.publishedTaskList)
@@ -424,7 +473,7 @@ Page({
     // 传递的参数
     let id = e.currentTarget.dataset['index'];
     console.log("修改id为"+id+"的活动");
-    wx.navigateTo({
+    wx.redirectTo({
       url: '/pages/changeTask/changeTask?id=' + id,
     })
     //修改页写好了改

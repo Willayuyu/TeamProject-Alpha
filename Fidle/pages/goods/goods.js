@@ -33,7 +33,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.showPromise();
   },
 
   /**
@@ -294,7 +294,7 @@ Page({
     console.log(goodsData);
     let id = goodsData.id;
     console.log(id);
-    wx.navigateTo({
+    wx.redirectTo({
       url: '/pages/changeGood/changeGood?id='+id,
     })
   }

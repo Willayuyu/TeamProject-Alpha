@@ -5,7 +5,16 @@ Page({
    * 页面的初始数据
    */
   data: {
-    publishedActivityList: [],
+    publishPage: 1,
+    publishedActivityList: [
+      {category: "团立项",
+      endTime: "2021-05-13 22:12:37",
+      id: 33,
+      startTime: "2021-05-13 22:12:37",
+      tagList: [{content: "2", id: 29}],
+      title: "hhh",
+      }
+  ],
     activityImageURL: "http://5b0988e595225.cdn.sohucs.com/images/20190311/ab66040c529445778cf31ced4ba24657.jpeg",
     activityTitle: "百米画卷",
     address: "青春广场",
@@ -22,7 +31,7 @@ Page({
    */
   onLoad: function (options) {
     wx.setNavigationBarTitle({ title: '我的活动' }); 
-    this.getPublishedActivityList(); 
+    this.getPublishedActivityList(1); 
     // this.doDeleteActivity();
     // this.doAlterActivity();
   },
@@ -38,7 +47,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.getPublishedActivityList();
+    this.getPublishedActivityList(1);
+    this.setData({
+      publishPage: 1
+    })
   },
 
   /**
@@ -59,14 +71,20 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    let pageid = this.data.publishPage;
+    pageid++;
+    console.log(pageid);
+    this.setData({
+      publishPage: pageid
+    })
+    this.getPublishedActivityList(pageid);
   },
 
   /**
@@ -93,14 +111,22 @@ Page({
   },
 
   /**
+   * 下拉刷新
+   * @param {*} pageid 
+   */
+  Refresh(pageid) {
+    this.getPublishedActivityList(pageid);
+  },
+
+  /**
    * 获取已发布活动记录列表
    */
-  getPublishedActivityList(){
+  getPublishedActivityList(pageid){
     let session_id = wx.getStorageSync('sessionid');
     console.log(session_id);  
     let that = this;    
     wx.request({
-      url: 'http://120.77.210.142:8080/myActivity/listActivityPublishedByPageid/1',
+      url: 'http://120.77.210.142:8080/myActivity/listActivityPublishedByPageid/' + pageid,
       header: { 'content-type': 'application/json',
        'Cookie': session_id ,
       },
@@ -109,6 +135,9 @@ Page({
         let list = res.data.data;
         console.log(res.data.data)
         if(res.data.code == 200) {
+          if(pageid > 1) {
+            list = that.data.publishedActivityList.concat(list);
+          }
           that.setData({
             publishedActivityList: list
           })
@@ -196,7 +225,7 @@ Page({
     // 传递的参数
     let id = e.currentTarget.dataset['index'];
     console.log("修改id为"+id+"的活动");
-    wx.navigateTo({
+    wx.redirectTo({
       url: '/pages/changeActivity/changeActivity?id=' + id,
     })
     //修改页写好了改
