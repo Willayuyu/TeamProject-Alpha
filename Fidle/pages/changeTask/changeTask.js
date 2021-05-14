@@ -176,9 +176,13 @@ Page({
         this.setData({
             task_label_list: task_label_list,
         })
+        console.log('删除任务委托标签');
+        console.log(task_label_list);
     },
 
     taskTagInput(e) {
+        console.log('e.detail.value');
+        console.log(e.detail.value);
         this.setData({
             task_tag: e.detail.value
         })
@@ -186,6 +190,8 @@ Page({
 
     TagCreate(e) {
         this.onReady();
+        console.log('TagCreate');
+        console.log(this.data.task_label_list);
     },
 
     unique(arr) {
@@ -286,6 +292,7 @@ Page({
                 let data = res.data.data;
                 console.log(res.data);
                 if (res.data.code === 200) {
+
                     that.setData({
                         task_title: data.title,
                         task_remuneration: data.reward,
@@ -309,6 +316,14 @@ Page({
                         },
 
                     })
+                    console.log('res.data.data.tagList[0]');
+                    console.log(res.data.data.tagList[0]);
+                    console.log(res.data.data.tagList[0].content == null);
+                    if(res.data.data.tagList[0].content == null) {
+                        that.setData({
+                            history_label_list: [],
+                        })
+                    }
                     that.setLabelList();
                     that.setCategoryIndex();
                     // that.setPictureList();
@@ -348,8 +363,11 @@ Page({
         let that = this;
         let list =[];
         let i=0;
-        for(i=0;i<that.data.task_label_list.length;i++){
-            list[i] = that.data.task_label_list[i].content;
+        console.log('history_label_list=');
+        console.log(that.data.history_label_list);
+
+        for(i=0;i<that.data.history_label_list.length;i++){
+            list[i] = that.data.history_label_list[i].content;
         }
         console.log(list)
         that.setData({
@@ -381,7 +399,9 @@ Page({
     let task_startTime = that.data.startTime;
     let task_endTime = that.data.endTime;
     let task_category = that.data.task_class_list[that.data.task_class_list_idx].categoryId;
+    console.log('task_tags=');
     let task_tags = that.data.task_label_list;
+    console.log(task_tags);
 
     let session_id = wx.getStorageSync('sessionid');
     console.log(session_id); 
