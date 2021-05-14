@@ -119,7 +119,6 @@ Page({
       wx.showModal({
         content: '确认生成当前订单吗？',
         success: function (res) {
-          //进行退出登录操作：把Storage中的flag置为false
           if (res.confirm) {
             console.log('用户点击确定');
             wx.request({
