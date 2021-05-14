@@ -2,11 +2,7 @@
 let app=getApp();
 Page({
   onClick(e) {
-    if(app.globalData.click==1)
-    {
-      this.selectComponent('#tabs').resize();
-      app.globalData.click=0;
-    }
+    this.selectComponent('#tabs').resize();
   },
 
   /**
@@ -17,6 +13,10 @@ Page({
     bad_secondhand_cmt:[],
     good_mission_cmt:[],
     bad_mission_cmt:[],
+    goodsecnum:0,
+    badsecnum:0,
+    goodminum:0,
+    badminum:0,
   },
 
   /**
@@ -29,7 +29,7 @@ Page({
       //请求获得该用户的二手好评信息
       url: 'http://120.77.210.142:8080/personalCard/getGoodsEvaluationByLike',
       data: {
-        id: 1,
+        id: app.globalData.user.id,
         isLike: 1,
       },
       method: 'POST',
@@ -39,8 +39,10 @@ Page({
       },
       success: function(res){
         console.log(res);
+        console.log(res.data.data.length);
         that.setData({
-          good_secondhand_cmt:res.data.data
+          good_secondhand_cmt:res.data.data,
+          goodsecnum:res.data.data.length
         })
       },
       fail: function(res){
@@ -52,7 +54,7 @@ Page({
       //请求获得该用户的二手差评信息
       url: 'http://120.77.210.142:8080/personalCard/getGoodsEvaluationByLike',
       data: {
-        id: 1,
+        id: app.globalData.user.id,
         isLike: -1,
       },
       method: 'POST',
@@ -62,8 +64,10 @@ Page({
       },
       success: function(res){
         console.log(res);
+        console.log(res.data.data.length);
         that.setData({
-          bad_secondhand_cmt:res.data.data
+          bad_secondhand_cmt:res.data.data,
+          badsecnum:res.data.data.length
         })
       },
       fail: function(res){
@@ -75,7 +79,7 @@ Page({
       //请求获得该用户的任务好评信息
       url: 'http://120.77.210.142:8080/personalCard/getTaskEvaluationByLike',
       data: {
-        id: 1,
+        id: app.globalData.user.id,
         isLike: 1,
       },
       method: 'POST',
@@ -85,8 +89,10 @@ Page({
       },
       success: function(res){
         console.log(res);
+        console.log(res.data.data.length);
         that.setData({
-          good_mission_cmt:res.data.data
+          good_mission_cmt:res.data.data,
+          goodminum:res.data.data.length
         })
       },
       fail: function(res){
@@ -98,7 +104,7 @@ Page({
       //请求获得该用户的二手差评信息
       url: 'http://120.77.210.142:8080/personalCard/getTaskEvaluationByLike',
       data: {
-        id: 1,
+        id: app.globalData.user.id,
         isLike: -1,
       },
       method: 'POST',
@@ -108,8 +114,10 @@ Page({
       },
       success: function(res){
         console.log(res);
+        console.log(res.data.data.length);
         that.setData({
-          bad_mission_cmt:res.data.data
+          bad_mission_cmt:res.data.data,
+          badminum:res.data.data.length
         })
       },
       fail: function(res){

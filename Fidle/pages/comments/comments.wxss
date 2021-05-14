@@ -24,6 +24,10 @@
   margin-top: 30rpx;
 }
 
+.none {
+  margin-top: 100rpx;
+}
+
 .name {
   position: absolute;
   left: 0;

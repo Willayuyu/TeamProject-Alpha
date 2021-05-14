@@ -1,55 +1,70 @@
 <!--pages/comments/comments.wxml-->
 <van-tabs bindtap="onClick" name="comment" active="{{secondhand}}" >
   <van-tab title="二手交易" name="secondhand">
-    <van-tabs active="{{all}}" swipeable>
+    <van-tabs active="{{all}}" name="secondhand" swipeable>
       <van-tab title="全部" name="all">
-        <view class="container">
-          <view class="itembg" wx:for="{{good_secondhand_cmt}}" wx:for-item="item" wx:key="key">
-            <view class="topmsg">
-              <image class="photo" src="{{item.portrait}}"></image>
-              <text class="name">{{item.username}}</text>
-              <text class="time">{{item.timeString}}</text>
+        <view class="container" wx:if="{{goodsecnum==0 && badsecnum==0}}">
+          <text class="none">暂无评价</text>
+        </view>
+        <view wx:else>
+          <view class="container">
+            <view class="itembg" wx:for="{{good_secondhand_cmt}}" wx:for-item="item" wx:key="key">
+              <view class="topmsg">
+                <image class="photo" src="{{item.portrait}}"></image>
+                <text class="name">{{item.username}}</text>
+                <text class="time">{{item.timeString}}</text>
+              </view>
+              <view class="comment">
+                <view class="content"><text class="icon iconfont icon-cc-thumbs-up" decode="{{true}}">&ensp;</text>{{item.reason}}</view>
+              </view>
             </view>
-            <view class="comment">
-              <view class="content"><text class="icon iconfont icon-cc-thumbs-up" decode="{{true}}">&ensp;</text>{{item.reason}}</view>
-            </view>
-          </view>
-          <view class="itembg" wx:for="{{bad_secondhand_cmt}}" wx:for-item="item" wx:key="key">
-            <view class="topmsg">
-              <image class="photo" src="{{item.portrait}}"></image>
-              <text class="name">{{item.username}}</text>
-              <text class="time">{{item.timeString}}</text>
-            </view>
-            <view class="comment">
-              <view class="content"><text class="icon iconfont icon-cc-thumbs-down" decode="{{true}}">&ensp;</text>{{item.reason}}</view>
+            <view class="itembg" wx:for="{{bad_secondhand_cmt}}" wx:for-item="item" wx:key="key">
+              <view class="topmsg">
+                <image class="photo" src="{{item.portrait}}"></image>
+                <text class="name">{{item.username}}</text>
+                <text class="time">{{item.timeString}}</text>
+              </view>
+              <view class="comment">
+                <view class="content"><text class="icon iconfont icon-cc-thumbs-down" decode="{{true}}">&ensp;</text>{{item.reason}}</view>
+              </view>
             </view>
           </view>
         </view>
       </van-tab>
       <van-tab title="好评" name="good">
-        <view class="container">
-          <view class="itembg" wx:for="{{good_secondhand_cmt}}" wx:for-item="item" wx:key="key">
-            <view class="topmsg">
-              <image class="photo" src="{{item.portrait}}"></image>
-              <text class="name">{{item.username}}</text>
-              <text class="time">{{item.timeString}}</text>
-            </view>
-            <view class="comment">
-              <view class="content"><text class="icon iconfont icon-cc-thumbs-up" decode="{{true}}">&ensp;</text>{{item.reason}}</view>
+        <view class="container" wx:if="{{goodsecnum==0}}">
+          <text class="none">暂无好评</text>
+        </view>
+        <view wx:else>
+          <view class="container">
+            <view class="itembg" wx:for="{{good_secondhand_cmt}}" wx:for-item="item" wx:key="key">
+              <view class="topmsg">
+                <image class="photo" src="{{item.portrait}}"></image>
+                <text class="name">{{item.username}}</text>
+                <text class="time">{{item.timeString}}</text>
+              </view>
+              <view class="comment">
+                <view class="content"><text class="icon iconfont icon-cc-thumbs-up" decode="{{true}}">&ensp;</text>{{item.reason}}</view>
+              </view>
             </view>
           </view>
         </view>
       </van-tab>
       <van-tab title="差评" name="bad">
-        <view class="container">
-          <view class="itembg" wx:for="{{bad_secondhand_cmt}}" wx:for-item="item" wx:key="key">
-            <view class="topmsg">
-              <image class="photo" src="{{item.portrait}}"></image>
-              <text class="name">{{item.username}}</text>
-              <text class="time">{{item.timeString}}</text>
-            </view>
-            <view class="comment">
-              <view class="content"><text class="icon iconfont icon-cc-thumbs-down" decode="{{true}}">&ensp;</text>{{item.reason}}</view>
+        <view class="container" wx:if="{{badsecnum==0}}">
+          <text class="none">暂无差评</text>
+        </view>
+        <view wx:else>
+          <view class="container">
+            <view class="itembg" wx:for="{{bad_secondhand_cmt}}" wx:for-item="item" wx:key="key">
+              <view class="topmsg">
+                <image class="photo" src="{{item.portrait}}"></image>
+                <text class="name">{{item.username}}</text>
+                <text class="time">{{item.timeString}}</text>
+              </view>
+              <view class="comment">
+                <view class="content"><text class="icon iconfont icon-cc-thumbs-down" decode="{{true}}">&ensp;</text>{{item.reason}}</view>
+              </view>
             </view>
           </view>
         </view>
@@ -58,55 +73,70 @@
   </van-tab>
 
   <van-tab title="任务委托" name="mission" >
-    <van-tabs id="tabs" swipeable>
+    <van-tabs id="tabs" name="mission" swipeable>
       <van-tab title="全部" name="allcmt">
-        <view class="container">
-          <view class="itembg" wx:for="{{good_mission_cmt}}" wx:for-item="item" wx:key="key">
-            <view class="topmsg">
-              <image class="photo" src="{{item.portrait}}"></image>
-              <text class="name">{{item.username}}</text>
-              <text class="time">{{item.timeString}}</text>
+        <view class="container" wx:if="{{goodminum==0 && badminum==0}}">
+          <text class="none">暂无评价</text>
+        </view>
+        <view wx:else>
+          <view class="container">
+            <view class="itembg" wx:for="{{good_mission_cmt}}" wx:for-item="item" wx:key="key">
+              <view class="topmsg">
+                <image class="photo" src="{{item.portrait}}"></image>
+                <text class="name">{{item.username}}</text>
+                <text class="time">{{item.timeString}}</text>
+              </view>
+              <view class="comment">
+                <view class="content"><text class="icon iconfont icon-cc-thumbs-up" decode="{{true}}">&ensp;</text>{{item.reason}}</view>
+              </view>
             </view>
-            <view class="comment">
-              <view class="content"><text class="icon iconfont icon-cc-thumbs-up" decode="{{true}}">&ensp;</text>{{item.reason}}</view>
-            </view>
-          </view>
-          <view class="itembg" wx:for="{{bad_mission_cmt}}" wx:for-item="item" wx:key="key">
-            <view class="topmsg">
-              <image class="photo" src="{{item.portrait}}"></image>
-              <text class="name">{{item.username}}</text>
-              <text class="time">{{item.timeString}}</text>
-            </view>
-            <view class="comment">
-              <view class="content"><text class="icon iconfont icon-cc-thumbs-down" decode="{{true}}">&ensp;</text>{{item.reason}}</view>
+            <view class="itembg" wx:for="{{bad_mission_cmt}}" wx:for-item="item" wx:key="key">
+              <view class="topmsg">
+                <image class="photo" src="{{item.portrait}}"></image>
+                <text class="name">{{item.username}}</text>
+                <text class="time">{{item.timeString}}</text>
+              </view>
+              <view class="comment">
+                <view class="content"><text class="icon iconfont icon-cc-thumbs-down" decode="{{true}}">&ensp;</text>{{item.reason}}</view>
+              </view>
             </view>
           </view>
         </view>
       </van-tab>
       <van-tab title="好评" name="good">
-        <view class="container">
-          <view class="itembg" wx:for="{{good_mission_cmt}}" wx:for-item="item" wx:key="key">
-            <view class="topmsg">
-              <image class="photo" src="{{item.portrait}}"></image>
-              <text class="name">{{item.username}}</text>
-              <text class="time">{{item.timeString}}</text>
-            </view>
-            <view class="comment">
-              <view class="content"><text class="icon iconfont icon-cc-thumbs-up" decode="{{true}}">&ensp;</text>{{item.reason}}</view>
+        <view class="container" wx:if="{{goodminum==0}}">
+          <text class="none">暂无好评</text>
+        </view>
+        <view wx:else>
+          <view class="container">
+            <view class="itembg" wx:for="{{good_mission_cmt}}" wx:for-item="item" wx:key="key">
+              <view class="topmsg">
+                <image class="photo" src="{{item.portrait}}"></image>
+                <text class="name">{{item.username}}</text>
+                <text class="time">{{item.timeString}}</text>
+              </view>
+              <view class="comment">
+                <view class="content"><text class="icon iconfont icon-cc-thumbs-up" decode="{{true}}">&ensp;</text>{{item.reason}}</view>
+              </view>
             </view>
           </view>
         </view>
       </van-tab>
       <van-tab title="差评" name="bad">
-        <view class="container">
-          <view class="itembg" wx:for="{{bad_mission_cmt}}" wx:for-item="item" wx:key="key">
-            <view class="topmsg">
-              <image class="photo" src="{{item.portrait}}"></image>
-              <text class="name">{{item.username}}</text>
-              <text class="time">{{item.timeString}}</text>
-            </view>
-            <view class="comment">
-              <view class="content"><text class="icon iconfont icon-cc-thumbs-down" decode="{{true}}">&ensp;</text>{{item.reason}}</view>
+        <view class="container" wx:if="{{badminum==0}}">
+          <text class="none">暂无差评</text>
+        </view>
+        <view wx:else>
+          <view class="container">
+            <view class="itembg" wx:for="{{bad_mission_cmt}}" wx:for-item="item" wx:key="key">
+              <view class="topmsg">
+                <image class="photo" src="{{item.portrait}}"></image>
+                <text class="name">{{item.username}}</text>
+                <text class="time">{{item.timeString}}</text>
+              </view>
+              <view class="comment">
+                <view class="content"><text class="icon iconfont icon-cc-thumbs-down" decode="{{true}}">&ensp;</text>{{item.reason}}</view>
+              </view>
             </view>
           </view>
         </view>
