@@ -123,7 +123,7 @@ Page({
           if (res.confirm) {
             console.log('用户点击确定');
             wx.request({
-              url: 'http://120.77.210.142:8080/myGoods/generateOrder/',
+              url: 'http://47.106.241.182:8080/myGoods/generateOrder/',
               header: {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'Cookie': wx.getStorageSync('sessionid'),

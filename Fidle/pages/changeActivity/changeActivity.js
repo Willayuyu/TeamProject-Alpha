@@ -35,9 +35,9 @@ Page({
         activity_label_list: [],
         history_label_list: [{ content: "", id: 0 }],
         activity_class_list_idx: 0,
-        activity_uploadUrl: "http://47.106.241.182:8082/publish/uploadActivityImage",
-        activity_deleteUrl: "http://47.106.241.182:8082/publish/deleteActivityImage/",
-        activity_releaseUrl: "http://47.106.241.182:8082/publish/activity",
+        activity_uploadUrl: "http://47.106.241.182:8080/publish/uploadActivityImage",
+        activity_deleteUrl: "http://47.106.241.182:8080/publish/deleteActivityImage/",
+        activity_releaseUrl: "http://47.106.241.182:8080/publish/activity",
     },
 
     /**
@@ -50,7 +50,7 @@ Page({
         var header = { 'content-type': 'application/json', 'Cookie': session_id, 'token': app.globalData.token };
         console.log(that.data.id);
         wx.request({
-            url: 'http://47.106.241.182:8082/activity/getActivityDetailById/' + that.data.id,
+            url: 'http://47.106.241.182:8080/activity/getActivityDetailById/' + that.data.id,
             method: "GET",
             header: header,
             success(res) {
@@ -131,9 +131,11 @@ Page({
 
         if (flag)
             wx.request({
-                url: 'http://120.77.210.142:8080/myActivity/alterActivity/',
+                url: 'http://47.106.241.182:8080/myActivity/alterActivity/',
                 header: {
                     "Content-Type": "application/x-www-form-urlencoded",
+                    'Cookie': wx.getStorageSync('sessionid'),
+                    'token': app.globalData.token
                 },
                 method: "POST",
                 dataType: 'json',
@@ -180,7 +182,7 @@ Page({
         if (list[0] != null) {
             for (i = 0; i < list.length; i++) {
                 wx.request({
-                    url: 'http://47.106.241.182:8082/publish/getActivityImageIdByLink',
+                    url: 'http://47.106.241.182:8080/publish/getActivityImageIdByLink',
                     data: { imageLink: list[i] },
                     method: "POST",
                     header: header,
@@ -339,7 +341,7 @@ Page({
         }
         if (flag == true) {
             wx.request({
-                url: 'http://120.77.210.142:8080/myActivity/alterActivity',
+                url: 'http://47.106.241.182:8080/myActivity/alterActivity',
                 header: { "Content-Type": "application/x-www-form-urlencoded", 'token': app.globalData.token },
                 method: "POST",
                 dataType: 'json',
@@ -437,7 +439,9 @@ Page({
                         filePath: tempFilePaths[i],
                         name: 'image',
                         header: {
-                            "Content-Type": "multipart/form-data"
+                            "Content-Type": "multipart/form-data",
+                            'Cookie': wx.getStorageSync('sessionid'),
+                            'token': app.globalData.token
                         },
                         success: function(res) {
                             let imageFile = that.data.activity_fileList;
@@ -550,7 +554,7 @@ Page({
         let that = this;
 
         wx.request({
-            url: "http://47.106.241.182:8082/activity/listActivityCategory", //这里''里面填写你的服务器API接口的路径  
+            url: "http://47.106.241.182:8080/activity/listActivityCategory", //这里''里面填写你的服务器API接口的路径  
             //data: {},  //这里是可以填写服务器需要的参数  
             method: 'GET', // 声明GET请求  
             header: {

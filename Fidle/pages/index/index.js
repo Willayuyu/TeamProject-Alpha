@@ -1,4 +1,5 @@
 // pages/test/test.js
+var app = getApp()
 Page({
   /**
    * 页面的初始数据
@@ -179,9 +180,11 @@ Page({
   search_Sec: function(days, categoryId, condition, keyWord, pageid) {
     let that=this;
     wx.request({
-      url: 'http://47.106.241.182:8082/goods/listGoodsByKeyword',
+      url: 'http://47.106.241.182:8080/goods/listGoodsByKeyword',
       header: {
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Cookie': wx.getStorageSync('sessionid'),
+        'token': app.globalData.token
       },
       data: {
         days: days,
@@ -213,9 +216,11 @@ Page({
   search_Task: function(days, categoryId, keyWord, pageid) {
     let that=this;
     wx.request({
-      url: 'http://47.106.241.182:8082/task/listTaskByKeyword',
+      url: 'http://47.106.241.182:8080/task/listTaskByKeyword',
       header: {
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Cookie': wx.getStorageSync('sessionid'),
+        'token': app.globalData.token
       },
       data: {
         days: days,
@@ -246,9 +251,11 @@ Page({
   search_Act: function(days, categoryId, keyWord, pageid) {
     let that=this;
     wx.request({
-      url: 'http://47.106.241.182:8082/activity/listActivityByKeyword',
+      url: 'http://47.106.241.182:8080/activity/listActivityByKeyword',
       header: {
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Cookie': wx.getStorageSync('sessionid'),
+        'token': app.globalData.token
       },
       data: {
         days: days,
@@ -493,9 +500,11 @@ Page({
     console.log(id);
     list[index].collectState = 1;
     wx.request({
-      url: 'http://47.106.241.182:8082/goods/collectGoods/' + id,
+      url: 'http://47.106.241.182:8080/goods/collectGoods/' + id,
       header: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Cookie': wx.getStorageSync('sessionid'),
+        'token': app.globalData.token
       },
       data: {
       },
@@ -522,9 +531,11 @@ Page({
     console.log(id);
     list[index].collectState = -1;
     wx.request({
-      url: 'http://47.106.241.182:8082/goods/cancelCollectGoods/' + id,
+      url: 'http://47.106.241.182:8080/goods/cancelCollectGoods/' + id,
       header: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Cookie': wx.getStorageSync('sessionid'),
+        'token': app.globalData.token
       },
       data: {
       },
@@ -551,9 +562,11 @@ Page({
     console.log(id);
     list[index].collectState = 1;
     wx.request({
-      url: 'http://47.106.241.182:8082/task/collectTask/' + id,
+      url: 'http://47.106.241.182:8080/task/collectTask/' + id,
       header: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Cookie': wx.getStorageSync('sessionid'),
+        'token': app.globalData.token
       },
       data: {
       },
@@ -580,9 +593,11 @@ Page({
     console.log(id);
     list[index].collectState = -1;
     wx.request({
-      url: 'http://47.106.241.182:8082/task/cancelCollectTask/' + id,
+      url: 'http://47.106.241.182:8080/task/cancelCollectTask/' + id,
       header: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Cookie': wx.getStorageSync('sessionid'),
+        'token': app.globalData.token
       },
       data: {
       },
@@ -609,9 +624,11 @@ Page({
     console.log(id);
     list[index].collectState = 1;
     wx.request({
-      url: 'http://47.106.241.182:8082/activity/collectActivity/' + id,
+      url: 'http://47.106.241.182:8080/activity/collectActivity/' + id,
       header: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Cookie': wx.getStorageSync('sessionid'),
+        'token': app.globalData.token
       },
       data: {
       },
@@ -638,9 +655,11 @@ Page({
     console.log(id);
     list[index].collectState = -1;
     wx.request({
-      url: 'http://47.106.241.182:8082/activity/cancelCollectActivity/' + id,
+      url: 'http://47.106.241.182:8080/activity/cancelCollectActivity/' + id,
       header: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Cookie': wx.getStorageSync('sessionid'),
+        'token': app.globalData.token
       },
       data: {
       },
@@ -712,9 +731,11 @@ Page({
   getGoodsCategory: function() {
     let that=this;
     wx.request({
-      url: 'http://47.106.241.182:8082/goods/listGoodsCategory',
+      url: 'http://47.106.241.182:8080/goods/listGoodsCategory',
       header: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Cookie': wx.getStorageSync('sessionid'),
+        'token': app.globalData.token
       },
       data: {
       },
@@ -746,9 +767,11 @@ Page({
   getTaskCategory: function() {
     let that=this;
     wx.request({
-      url: 'http://47.106.241.182:8082/task/listTaskCategory',
+      url: 'http://47.106.241.182:8080/task/listTaskCategory',
       header: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Cookie': wx.getStorageSync('sessionid'),
+        'token': app.globalData.token
       },
       data: {
       },
@@ -780,9 +803,11 @@ Page({
   getActivityCategory: function() {
     let that=this;
     wx.request({
-      url: 'http://47.106.241.182:8082/activity/listActivityCategory',
+      url: 'http://47.106.241.182:8080/activity/listActivityCategory',
       header: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Cookie': wx.getStorageSync('sessionid'),
+        'token': app.globalData.token
       },
       data: {
       },
@@ -814,9 +839,11 @@ Page({
   getGoodsList: function(days, categoryId, condition, pageid) {
     let that = this;
     wx.request({
-      url: 'http://47.106.241.182:8082/goods/listGoods',
+      url: 'http://47.106.241.182:8080/goods/listGoods',
       header: {
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Cookie': wx.getStorageSync('sessionid'),
+        'token': app.globalData.token
       },
       data: {
         days: days,
@@ -844,9 +871,11 @@ Page({
   getTaskList: function(days, categoryId, pageid) {
     let that = this;
     wx.request({
-      url: 'http://47.106.241.182:8082/task/listTask',
+      url: 'http://47.106.241.182:8080/task/listTask',
       header: {
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Cookie': wx.getStorageSync('sessionid'),
+        'token': app.globalData.token
       },
       data: {
         days: days,
@@ -873,9 +902,11 @@ Page({
   getActivityList: function(days, categoryId, pageid) {
     let that = this;
     wx.request({
-      url: 'http://47.106.241.182:8082/activity/listActivity',
+      url: 'http://47.106.241.182:8080/activity/listActivity',
       header: {
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Cookie': wx.getStorageSync('sessionid'),
+        'token': app.globalData.token
       },
       data: {
         days: days,

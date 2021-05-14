@@ -24,7 +24,7 @@ Page({
     let id = options.pubId;
     console.log(options.pubId);
     wx.request({
-      url: 'http://47.106.241.182:8082/homePage/getPublisherBusinessCard/'+ id,
+      url: 'http://47.106.241.182:8080/homePage/getPublisherBusinessCard/'+ id,
       method: 'GET',
       dataType: 'json',
       header: {

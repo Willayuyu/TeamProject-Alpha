@@ -127,7 +127,7 @@ Page({
     console.log(session_id);  
     let that = this;    
     wx.request({
-      url: 'http://120.77.210.142:8080/myActivity/listActivityPublishedByPageid/' + pageid,
+      url: 'http://47.106.241.182:8080/myActivity/listActivityPublishedByPageid/' + pageid,
       header: { 'content-type': 'application/json',
        'Cookie': session_id ,
        'token': app.globalData.token
@@ -164,7 +164,7 @@ Page({
     console.log("删除id为"+id+"的活动")
     let that = this;
     wx.request({
-      url: 'http://120.77.210.142:8080/myActivity/deleteActivityById/'+id,
+      url: 'http://47.106.241.182:8080/myActivity/deleteActivityById/'+id,
       header: { 'content-type': 'application/json',
        'Cookie': session_id ,
        'token': app.globalData.token,
@@ -198,7 +198,7 @@ Page({
     console.log(session_id); 
      
     wx.request({
-      url: 'http://120.77.210.142:8080/myActivity/alterActivity',
+      url: 'http://47.106.241.182:8080/myActivity/alterActivity',
       method: 'POST',
       header: { 'content-type': 'application/x-www-form-urlencoded',
        'Cookie': session_id ,

@@ -25,7 +25,7 @@ Page({
   getTaskDetail: function () {
     let that = this;
     wx.request({
-      url: 'http://47.106.241.182:8082/task/getTaskDetailById/' + that.data.id,
+      url: 'http://47.106.241.182:8080/task/getTaskDetailById/' + that.data.id,
       method: "GET",
       header: {
         'content-type': 'application/json',
@@ -69,7 +69,7 @@ Page({
     let that = this;
     if (that.data.collectState == -1) {
       wx.request({
-        url: 'http://47.106.241.182:8082/task/collectTask/' + that.data.id,
+        url: 'http://47.106.241.182:8080/task/collectTask/' + that.data.id,
         method: 'GET',
         header: {
           'content-type': 'application/json',
@@ -94,7 +94,7 @@ Page({
       })
     } else if (that.data.collectState == 1) {
       wx.request({
-        url: 'http://47.106.241.182:8082/task/cancelCollectTask/' + that.data.id,
+        url: 'http://47.106.241.182:8080/task/cancelCollectTask/' + that.data.id,
         method: 'GET',
         header: {
           'content-type': 'application/json',

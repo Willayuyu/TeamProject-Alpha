@@ -1,4 +1,5 @@
 // pages/aboutus/aboutus.js
+var app = getApp()
 Page({
 
   /**

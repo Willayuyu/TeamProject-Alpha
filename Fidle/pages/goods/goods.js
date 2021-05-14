@@ -165,7 +165,7 @@ Page({
   showOnSale(pageid) {
     let that = this;     
     wx.request({
-      url: 'http://47.106.241.182:8082/myGoods/listGoodsOnSaleByPageid/' + pageid,
+      url: 'http://47.106.241.182:8080/myGoods/listGoodsOnSaleByPageid/' + pageid,
       header: {
         'content-type': 'application/json',
         'Cookie': wx.getStorageSync('sessionid'),
@@ -220,7 +220,7 @@ Page({
   showSold(pageid) {
     let that = this;     
     wx.request({
-      url: 'http://47.106.241.182:8082/myGoods/listGoodsSoldByPageid/' + pageid,
+      url: 'http://47.106.241.182:8080/myGoods/listGoodsSoldByPageid/' + pageid,
       header: {
         'content-type': 'application/json',
         'Cookie': wx.getStorageSync('sessionid'),
@@ -274,7 +274,7 @@ Page({
   showBuy(pageid) {
     let that = this;     
     wx.request({
-      url: 'http://120.77.210.142:8080/myGoods/listGoodsBuyingByPageid/' + pageid,
+      url: 'http://47.106.241.182:8080/myGoods/listGoodsBuyingByPageid/' + pageid,
       header: {
         'content-type': 'application/json',
         'Cookie': wx.getStorageSync('sessionid'),
@@ -385,7 +385,7 @@ Page({
     let id = goodsData.id;
     console.log(id);
     wx.request({
-      url: 'http://120.77.210.142:8080/myGoods/withdrawGoodsById/' + id,
+      url: 'http://47.106.241.182:8080/myGoods/withdrawGoodsById/' + id,
       method: 'GET',
       dataType: 'json',
       header: {
