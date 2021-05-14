@@ -8,6 +8,10 @@ Page({
     // show: false,
     // indexOnsale:0,
     // input:null,
+    tabIndex: 0,
+    salePage: 1,
+    soldPage: 1,
+    buyPage: 1,
     goodsOnSale: [],
     goodsSold: [],
     goodsBuy: [],
@@ -19,7 +23,7 @@ Page({
    */
   onLoad: function (options) {
     wx.setNavigationBarTitle({ title: '我的二手' });
-    this.showPromise();
+    // this.showPromise();
   },
 
   /**
@@ -33,7 +37,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.showPromise();
+    this.showOnSale(1);
+    this.showSold(1);
+    this.showBuy(1);
+    this.setData({
+      salePage: 1,
+      soldPage: 1,
+      buyPage: 1
+    });
   },
 
   /**
@@ -54,14 +65,43 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    this.showPromise();
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    let pageid;
+    switch(this.data.tabIndex) {
+      case 0:
+        pageid = this.data.salePage;
+        pageid++;
+        console.log(pageid);
+        this.setData({
+          salePage: pageid
+        })
+        this.showOnSale(pageid);
+        break;
+      case 1:
+        pageid = this.data.soldPage;
+        pageid++;
+        console.log(pageid);
+        this.setData({
+          soldPage: pageid
+        })
+        this.showSold(pageid);
+        break;
+      case 2:
+        pageid = this.data.buyPage;
+        pageid++;
+        console.log(pageid);
+        this.setData({
+          buyPage: pageid
+        })
+        this.showBuy(pageid);
+        break;
+    }
   },
 
   /**
@@ -112,118 +152,195 @@ Page({
   },
 
   /**
+   * 标签点击/切换事件
+   */
+  tab_Click: function(e) {
+    this.data.tabIndex = e.detail.index;
+  },
+
+  /**
    * 渲染在售页面
    */
-  showOnSale() {
-    return new Promise(function (resolve, reject) {
-      wx.request({
-        url: 'http://120.77.210.142:8080/myGoods/listGoodsOnSaleByPageid/1',
-        method: 'GET',
-        dataType: 'json',
-        header: {
-          'Content-Type': 'application/json',
-          'Cookie': wx.getStorageSync('sessionid')
-        },
-        success: (result) => {
-          resolve(result);
-          // console.log(res.data.code);
-          // console.log(res.data.data); 
-          // console.log(res.data.data[0]);
-          // that.setData({
-          //   dataList: res.data.data,
-          // });
-          // console.log(dataList);
-        },
-        fail: (err) => {
-          reject(err);
-          wx.showToast({ title: '系统错误' })
-        },
-      })
+  showOnSale(pageid) {
+    let session_id = wx.getStorageSync('sessionid');
+    console.log(session_id); 
+    let that = this;     
+    wx.request({
+      url: 'http://47.106.241.182:8082/myGoods/listGoodsOnSaleByPageid/' + pageid,
+      header: { 'content-type': 'application/json',
+       'Cookie': session_id ,
+      },
+      success(res){
+        console.log(res.data.data);
+        let list = res.data.data;
+        if(res.data.code == 200) {
+          if(pageid > 1) {
+            list = that.data.goodsOnSale.concat(list);
+          }
+          that.setData({
+            goodsOnSale: list
+          })
+          console.log("goodsOnSale=")
+          console.log(that.data.goodsOnSale)
+        }
+      }
     })
+    // return new Promise(function (resolve, reject) {
+    //   wx.request({
+    //     url: 'http://120.77.210.142:8080/myGoods/listGoodsOnSaleByPageid/' + this.data.salePage,
+    //     method: 'GET',
+    //     dataType: 'json',
+    //     header: {
+    //       'Content-Type': 'application/json',
+    //       'Cookie': wx.getStorageSync('sessionid')
+    //     },
+    //     success: (result) => {
+
+    //       resolve(result);
+    //       // console.log(res.data.code);
+    //       // console.log(res.data.data); 
+    //       // console.log(res.data.data[0]);
+    //       // that.setData({
+    //       //   dataList: res.data.data,
+    //       // });
+    //       // console.log(dataList);
+    //     },
+    //     fail: (err) => {
+    //       reject(err);
+    //       wx.showToast({ title: '系统错误' })
+    //     },
+    //   })
+    // })
   },
 
   /**
    * 渲染已售页面
    */
-  showSold() {
-    return new Promise(function (resolve, reject) {
-      wx.request({
-        url: 'http://120.77.210.142:8080/myGoods/listGoodsSoldByPageid/1',
-        method: 'GET',
-        dataType: 'json',
-        header: {
-          'Content-Type': 'application/json',
-          'Cookie': wx.getStorageSync('sessionid')
-        },
-        success: (result) => {
-          resolve(result);
-          // console.log(res.data.code);
-          // console.log(res.data.data); 
-          // console.log(res.data.data[0]);
-          // that.setData({
-          //   dataList: res.data.data,
-          // });
-          // console.log(dataList);
-        },
-        fail: (err) => {
-          reject(err);
-          wx.showToast({ title: '系统错误' })
-        },
-      })
+  showSold(pageid) {
+    let session_id = wx.getStorageSync('sessionid');
+    console.log(session_id); 
+    let that = this;     
+    wx.request({
+      url: 'http://47.106.241.182:8082/myGoods/listGoodsSoldByPageid/' + pageid,
+      header: { 'content-type': 'application/json',
+       'Cookie': session_id ,
+      },
+      success(res){
+        console.log(res.data.data);
+        let list = res.data.data;
+        if(res.data.code == 200) {
+          if(pageid > 1) {
+            list = that.data.goodsSold.concat(list);
+          }
+          that.setData({
+            goodsSold: list
+          })
+          console.log("goodsSold=")
+          console.log(that.data.goodsSold)
+        }
+      }
     })
+    // return new Promise(function (resolve, reject) {
+    //   wx.request({
+    //     url: 'http://120.77.210.142:8080/myGoods/listGoodsSoldByPageid/1',
+    //     method: 'GET',
+    //     dataType: 'json',
+    //     header: {
+    //       'Content-Type': 'application/json',
+    //       'Cookie': wx.getStorageSync('sessionid')
+    //     },
+    //     success: (result) => {
+    //       resolve(result);
+    //       // console.log(res.data.code);
+    //       // console.log(res.data.data); 
+    //       // console.log(res.data.data[0]);
+    //       // that.setData({
+    //       //   dataList: res.data.data,
+    //       // });
+    //       // console.log(dataList);
+    //     },
+    //     fail: (err) => {
+    //       reject(err);
+    //       wx.showToast({ title: '系统错误' })
+    //     },
+    //   })
+    // })
   },
 
   /**
    * 渲染买入界面
    */
-  showBuy() {
-    return new Promise(function (resolve, reject) {
-      wx.request({
-        url: 'http://120.77.210.142:8080/myGoods/listGoodsBuyingByPageid/1',
-        method: 'GET',
-        dataType: 'json',
-        header: {
-          'Content-Type': 'application/json',
-          'Cookie': wx.getStorageSync('sessionid')
-        },
-        success: (result) => {
-          resolve(result);
-          // console.log(res.data.code);
-          // console.log(res.data.data); 
-          // console.log(res.data.data[0]);
-          // that.setData({
-          //   dataList: res.data.data,
-          // });
-          // console.log(dataList);
-        },
-        fail: (err) => {
-          reject(err);
-          wx.showToast({ title: '系统错误' })
-        },
-      })
+  showBuy(pageid) {
+    let session_id = wx.getStorageSync('sessionid');
+    console.log(session_id); 
+    let that = this;     
+    wx.request({
+      url: 'http://120.77.210.142:8080/myGoods/listGoodsBuyingByPageid/' + pageid,
+      header: { 'content-type': 'application/json',
+       'Cookie': session_id ,
+      },
+      success(res){
+        console.log(res.data.data);
+        let list = res.data.data;
+        if(res.data.code == 200) {
+          if(pageid > 1) {
+            list = that.data.goodsBuy.concat(list);
+          }
+          that.setData({
+            goodsBuy: list
+          })
+          console.log("goodsBuy=")
+          console.log(that.data.goodsBuy)
+        }
+      }
     })
+    // return new Promise(function (resolve, reject) {
+    //   wx.request({
+    //     url: 'http://120.77.210.142:8080/myGoods/listGoodsBuyingByPageid/1',
+    //     method: 'GET',
+    //     dataType: 'json',
+    //     header: {
+    //       'Content-Type': 'application/json',
+    //       'Cookie': wx.getStorageSync('sessionid')
+    //     },
+    //     success: (result) => {
+    //       resolve(result);
+    //       // console.log(res.data.code);
+    //       // console.log(res.data.data); 
+    //       // console.log(res.data.data[0]);
+    //       // that.setData({
+    //       //   dataList: res.data.data,
+    //       // });
+    //       // console.log(dataList);
+    //     },
+    //     fail: (err) => {
+    //       reject(err);
+    //       wx.showToast({ title: '系统错误' })
+    //     },
+    //   })
+    // })
   },
 
   /**
    * 同步获取三个请求结果
    */
-  showPromise() {
-    let that = this;
-    Promise.all(
-      [that.showOnSale(), that.showSold(), that.showBuy()]).then((res) => {
-        //三个方法回来后的数据
-        console.log(res);
-        const [res1, res2, res3] = res;
-        console.log(res1.data.data);
-        console.log(res2.data.data);
-        console.log(res3.data.data);
-        that.setData({
-          goodsOnSale: res1.data.data,
-          goodsSold: res2.data.data,
-          goodsBuy: res3.data.data
-        })
-      });
-  },
+  // showPromise() {
+  //   let that = this;
+  //   Promise.all(
+  //     [that.showOnSale(), that.showSold(), that.showBuy()]).then((res) => {
+  //       //三个方法回来后的数据
+  //       console.log(res);
+  //       const [res1, res2, res3] = res;
+  //       console.log(res1.data.data);
+  //       console.log(res2.data.data);
+  //       console.log(res3.data.data);
+  //       that.setData({
+  //         goodsOnSale: res1.data.data,
+  //         goodsSold: res2.data.data,
+  //         goodsBuy: res3.data.data
+  //       })
+  //     });
+  // },
 
   /**
    * 生成订单传值跳转
