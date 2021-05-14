@@ -46,7 +46,7 @@ Page({
         let that = this;
         var session_id = wx.getStorageSync('sessionid');
         var token = wx.getStorageSync('token');
-        var header = { 'content-type': 'application/json', 'Cookie': session_id };
+        var header = { 'content-type': 'application/json', 'Cookie': session_id,'token': app.globalData.token };
         wx.request({
             url: 'http://47.106.241.182:8082/activity/getActivityDetailById/' + that.data.id,
             method: "GET",
@@ -86,7 +86,7 @@ Page({
         let pictureID = [];
         var session_id = wx.getStorageSync('sessionid');
         var token = wx.getStorageSync('token');
-        var header = { 'content-type': 'application/x-www-form-urlencoded', 'Cookie': session_id };
+        var header = { 'content-type': 'application/x-www-form-urlencoded', 'Cookie': session_id,'token': app.globalData.token };
         if(list[0] != null){
             for (i = 0; i < list.length; i++) {
                 wx.request({
@@ -250,7 +250,7 @@ Page({
         if(flag == true){
             wx.request({
                 url: 'http://120.77.210.142:8080/myActivity/alterActivity',
-                header: { "Content-Type": "application/x-www-form-urlencoded" },
+                header: { "Content-Type": "application/x-www-form-urlencoded",'token': app.globalData.token },
                 method: "POST",
                 dataType:'json',
                 data: {
@@ -427,8 +427,9 @@ Page({
                     wx.request({
                         url: that.data.activity_deleteUrl + tempId,
                         header: {
-                            'content-type': 'application/json' // 默认值
-
+                            'content-type': 'application/json', // 默认值
+                            'Cookie': wx.getStorageSync('sessionid'),
+                            'token': app.globalData.token
                         },
                         success: function(res) {
                             console.log("删除成功");
@@ -461,7 +462,11 @@ Page({
             url: "http://47.106.241.182:8082/activity/listActivityCategory", //这里''里面填写你的服务器API接口的路径  
             //data: {},  //这里是可以填写服务器需要的参数  
             method: 'GET', // 声明GET请求  
-            // header: {}, // 设置请求的 header，GET请求可以不填  
+            header: {
+                'content-type': 'application/json', // 默认值
+                'Cookie': wx.getStorageSync('sessionid'),
+                'token': app.globalData.token
+            },
             success: function(res) {
                 let activity_list = new Array();
 
