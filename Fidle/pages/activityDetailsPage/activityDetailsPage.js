@@ -83,7 +83,7 @@ Page({
     var header = {'content-type': 'application/json', 'Cookie': session_id };
     if(that.data.collectState == -1){
       wx.request({
-        url: 'http://47.106.241.182:8082/activity/collectActivity/' + 2,
+        url: 'http://47.106.241.182:8082/activity/collectActivity/' + that.data.id,
         method: 'GET',
         header: header,
         success(res){
@@ -104,7 +104,7 @@ Page({
       })
     } else if(that.data.collectState == 1) {
       wx.request({
-        url: 'http://47.106.241.182:8082/activity/cancelCollectActivity/' + 2,
+        url: 'http://47.106.241.182:8082/activity/cancelCollectActivity/' + that.data.id,
         method: 'GET',
         header: header,
         success(res){
