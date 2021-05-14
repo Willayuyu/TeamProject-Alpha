@@ -218,7 +218,7 @@ Page({
     console.log(session_id); 
     let that = this;     
     wx.request({
-      url: 'http://120.77.210.142:8080/myTask/listTaskPublishedByPageid/1',
+      url: 'http://120.77.210.142:8080/myTask/listTaskPublishedByPageid/'+ pageid,
       header: { 'content-type': 'application/json',
        'Cookie': session_id ,
       },
@@ -244,21 +244,25 @@ Page({
   /**
    * 获取已接受任务记录列表
    */
-  getAcceptedTaskList(){
+  getAcceptedTaskList(pageid){
     let session_id = wx.getStorageSync('sessionid');
     console.log(session_id);  
     let that = this;        
     wx.request({
-      url: 'http://120.77.210.142:8080/myTask/listTaskAcceptedByPageid/1',
+      url: 'http://120.77.210.142:8080/myTask/listTaskAcceptedByPageid/' + pageid,
       header: { 'content-type': 'application/json',
        'Cookie': session_id ,
       },
       success(res){
         console.log("获取已接受任务记录列表");
         console.log(res.data.data);
+        let list = res.data.data;
         if(res.data.code == 200) {
+          if(pageid > 1) {
+            list = that.data.acceptedTaskList.concat(list);
+          }
           that.setData({
-            acceptedTaskList: res.data.data
+            acceptedTaskList: list
           })
           console.log("acceptedTaskList=")
           console.log(that.data.acceptedTaskList)
