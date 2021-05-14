@@ -61,6 +61,10 @@ Page({
 
     },
 
+    /**
+     * 二手物品表单输入
+     * @param {*} e 
+     */
     goodsTitleInput(e) {
         this.setData({
             goods_title: e.detail,
@@ -68,25 +72,39 @@ Page({
 
     },
 
+    /**
+     * 二手物品价格输入
+     * @param {*} e 
+     */
     goodsPriceInput(e) {
         this.setData({
             goods_price: e.detail,
         })
     },
 
+    /**
+     * 二手物品原价输入
+     * @param {*} e 
+     */
     goodsOriginalPriceInput(e) {
         this.setData({
             goods_originalPrice: e.detail,
         })
     },
 
+    /**
+     * 二手物品详情输入
+     * @param {*} e 
+     */
     goodsMessageInput(e) {
         this.setData({
             goods_message: e.detail,
         })
     },
 
-    //二手物品信息发布功能
+    /**
+     * 二手物品信息发布功能
+     */
     goodsRelease() {
         let flag = false;
         let that = this;
@@ -125,6 +143,8 @@ Page({
             flag = true;
         }
 
+        console.log(imageList);
+        console.log(goods_tags);
         if (flag)
             wx.request({      
                 url: that.data.goods_releaseUrl,
@@ -158,7 +178,9 @@ Page({
             })
     },
 
-    //恢复初始化数据
+    /**
+     * 恢复初始化数据
+     */
     clean() {
         this.setData({
             tempFilePaths: [],
@@ -170,7 +192,6 @@ Page({
             goods_message: "",
             goods_tag: "",
             goods_fileList: [],
-            goods_class_list: [{ categoryId: "", categoryDesignation: "" }],
             goods_label_list: [],
             goods_old_new_list_idx: 0,
             goods_class_list_idx: 0,
@@ -179,7 +200,6 @@ Page({
             task_remuneration: "",
             task_message: "",
             task_tag: "",
-            task_class_list: [{ categoryId: "", categoryDesignation: "" }],
             task_label_list: [],
             task_class_list_idx: 0,
 
@@ -202,7 +222,6 @@ Page({
             activity_message: "",
             activity_tag: "",
             activity_fileList: [],
-            activity_class_list: [{ categoryId: "", categoryDesignation: "" }],
             activity_label_list: [],
             activity_class_list_idx: 0,
         })
@@ -218,7 +237,9 @@ Page({
         })
     },
 
-    //二手交易上传图片方法
+    /**
+     * 二手交易上传图片方法
+     */
     goodsUpload() {
         let that = this;
         wx.chooseImage({
@@ -307,7 +328,9 @@ Page({
         })
     },
 
-    //预览二手交易图片方法
+    /**
+     * 预览二手交易图片方法
+     */
     goodsListenerButtonPreviewImage(e) {
         let index = e.target.dataset.index;
         let that = this;
@@ -330,7 +353,9 @@ Page({
         })
     },
 
-    //删除二手交易图片
+    /**
+     * 删除二手交易图片
+     */
     goodsDeleteImage: function(e) {
         var that = this;
         var tempFilePaths = that.data.goods_fileList;
@@ -372,7 +397,9 @@ Page({
         })
     },
 
-    //删除二手交易标签
+    /**
+     * 删除二手交易标签
+     */
     goodsDeleteLabel(e) {
         var goods_label_list = this.data.goods_label_list;
 
@@ -385,7 +412,9 @@ Page({
         })
     },
 
-    //新旧程度单选功能
+    /**
+     * 新旧程度单选功能
+     */
     goodsOldNewListSelectApply(e) {
         let id = e.target.dataset.id
         this.setData({
@@ -393,7 +422,9 @@ Page({
         })
     },
 
-    //二手类别单选功能
+    /**
+     * 二手类别单选功能
+     */
     goodsClassListSelectApply(e) {
         let id = e.target.dataset.id
         this.setData({
@@ -401,7 +432,9 @@ Page({
         })
     },
 
-    //从服务器上获取二手交易的类别列表并展示
+    /**
+     * 从服务器上获取二手交易的类别列表并展示
+     */
     getGoodsClassList() {
         let that = this;
         wx.request({
@@ -435,7 +468,9 @@ Page({
         })
     },
 
-    //时间选择器显示
+    /**
+     * 时间选择器显示
+     */
     pickerShow() {
         this.setData({
             isPickerShow: true,
@@ -444,7 +479,9 @@ Page({
         });
     },
 
-    //时间选择器隐藏
+    /**
+     * 时间选择器隐藏
+     */
     pickerHide() {
         this.setData({
             isPickerShow: false,
@@ -452,7 +489,9 @@ Page({
         });
     },
 
-    //设置选择时间
+    /**
+     * 设置选择时间
+     */
     setPickerTime(val) {
         let data = val.detail;
         this.setData({
@@ -462,7 +501,9 @@ Page({
 
     },
 
-    //选择任务委托类别
+    /**
+     * 选择任务委托类别
+     */
     taskClassListSelectApply(e) {
         let id = e.target.dataset.id
         this.setData({
@@ -470,7 +511,9 @@ Page({
         })
     },
 
-    //从服务器上获取任务委托的类别列表并展示
+    /**
+     * 从服务器上获取任务委托的类别列表并展示
+     */
     getTaskClassList() {
         let that = this;
 
@@ -505,28 +548,36 @@ Page({
         })
     },
 
-    //任务委托标题
+    /**
+     * 任务委托标题
+     */
     taskTitleInput(e) {
         this.setData({
             task_title: e.detail,
         })
     },
 
-    //任务委托酬劳
+    /**
+     * 任务委托酬劳
+     */
     taskRemunerationInput(e) {
         this.setData({
             task_remuneration: e.detail,
         })
     },
 
-    //任务委托详情
+    /**
+     * 任务委托详情
+     */
     taskMessageInput(e) {
         this.setData({
             task_message: e.detail,
         })
     },
 
-    //任务委托发布功能
+    /**
+     * 任务委托发布功能
+     */
     taskRelease() {
         let that = this;
         let flag = false;
@@ -592,7 +643,9 @@ Page({
             })
     },
 
-    //删除任务委托标签
+    /**
+     * 删除任务委托标签
+     */
     taskDeleteLabel: function(e) {
         var task_label_list = this.data.task_label_list;
 
@@ -605,7 +658,9 @@ Page({
         })
     },
 
-    //活动信息类别选择
+    /**
+     * 活动信息类别选择
+     */
     activityClassListSelectApply(e) {
         let id = e.target.dataset.id
         this.setData({
@@ -613,28 +668,36 @@ Page({
         })
     },
 
-    //活动信息标题输入
+    /**
+     * 活动信息标题输入
+     */
     activityTitleInput(e) {
         this.setData({
             activity_title: e.detail,
         })
     },
 
-    //活动信息地点输入
+    /**
+     * 活动信息地点输入
+     */
     activityPlaceInput(e) {
         this.setData({
             activity_place: e.detail,
         })
     },
 
-    //活动信息活动形式输入
+    /**
+     * 活动信息活动形式输入
+     */
     activityMessageInput(e) {
         this.setData({
             activity_message: e.detail,
         })
     },
 
-    //活动信息发布功能
+    /**
+     * 活动信息发布功能
+     */
     activityRelease() {
         let that = this;
         let flag = false;
@@ -708,7 +771,9 @@ Page({
             })
     },
 
-    //活动信息上传图片方法
+    /**
+     * 活动信息上传图片方法
+     */
     activityUpload() {
         let that = this;
         wx.chooseImage({
@@ -798,7 +863,9 @@ Page({
         })
     },
 
-    // 预览活动信息图片方法
+    /**
+     * 预览活动信息图片方法
+     */
     activityListenerButtonPreviewImage(e) {
         let index = e.target.dataset.index;
         let that = this;
@@ -821,7 +888,9 @@ Page({
         })
     },
 
-    // 删除活动信息图片
+    /**
+     * 删除活动信息图片
+     */
     activityDeleteImage: function(e) {
         var that = this;
         var tempFilePaths = that.data.activity_fileList;
@@ -863,7 +932,9 @@ Page({
         })
     },
 
-    //删除活动信息标签
+    /**
+     * 删除活动信息标签
+     */
     activityDeleteLabel: function(e) {
         var activity_label_list = this.data.activity_label_list;
 
@@ -876,7 +947,9 @@ Page({
         })
     },
 
-    //从服务器上获取活动信息的类别列表并展示
+    /**
+     * 从服务器上获取活动信息的类别列表并展示
+     */
     getActivityClassList() {
         let that = this;
 
@@ -911,7 +984,9 @@ Page({
         })
     },
 
-    //生命周期函数--监听页面加载
+    /**
+     * 生命周期函数--监听页面加载
+     */
     onLoad: function(options) {
 
         this.getGoodsClassList();
@@ -919,7 +994,9 @@ Page({
         this.getActivityClassList();
     },
 
-
+    /**
+     * 获取初始化开始时间
+     */
     getCurrentTime() {
         var date = new Date(); //当前时间
         var month = this.zeroFill(date.getMonth() + 1); //月
@@ -935,6 +1012,9 @@ Page({
         return curTime;
     },
 
+    /**
+     * 获取初始化结束时间
+     */
     getInitEnd() {
         var date = new Date(); //当前时间
         date.setTime(date.getTime() + 15 * 60 * 1000);
@@ -951,6 +1031,9 @@ Page({
         return curTime;
     },
 
+    /**
+     * 补0函数
+     */
     zeroFill(i) {
         if (i >= 0 && i <= 9) {
             return "0" + i;
@@ -959,28 +1042,50 @@ Page({
         }
     },
 
+    /**
+     * 二手标签添加
+     * @param {*} e 
+     */
     goodsTagInput(e) {
         this.setData({
             goods_tag: e.detail.value
         })
     },
 
+    /**
+     * 任务标签添加
+     * @param {*} e 
+     */
     taskTagInput(e) {
         this.setData({
             task_tag: e.detail.value
         })
     },
 
+
+    /**
+     * 活动标签添加
+     * @param {*} e 
+     */
     activityTagInput(e) {
         this.setData({
             activity_tag: e.detail.value
         })
     },
 
+    /**
+     * 标签创建
+     * @param {*} e 
+     */
     TagCreate(e) {
         this.onReady();
     },
 
+    /**
+     * 标签唯一性判断
+     * @param {*} arr 
+     * @returns 
+     */
     unique(arr) {
         return Array.from(new Set(arr))
     },
