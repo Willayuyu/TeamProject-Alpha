@@ -33,7 +33,7 @@ public class XssFilter implements Filter
       throws IOException, ServletException
   {
     HttpServletRequest request=(HttpServletRequest) servletRequest;
-    request.getSession().setAttribute("user",userDAO.getUserById(1L));
+//    request.getSession().setAttribute("user",userDAO.getUserById(1L));
 
     //创建XSSHttpServletRequest实例，对表单输入的< > 进行转义
     XssHttpServletRequest req=new XssHttpServletRequest(request);
