@@ -270,6 +270,7 @@ Page({
                         },
                         success: function(res) {
                             let imageFile = that.data.goods_fileList;
+                            console.log(imageFile);
                             //如果是最后一张,则隐藏等待中  
                             if (i == tempFilePaths.length) {
                                 wx.hideToast();
@@ -286,8 +287,6 @@ Page({
 
                             imageFile.push(image);
                             console.log(imageFile);
-
-
                             that.setData({
                                 goods_fileList: imageFile,
                             })
@@ -367,7 +366,7 @@ Page({
                     return false;
                 }
                 that.setData({
-                    goods_fileList: that.data.tempFilePaths,
+                    goods_fileList: tempFilePaths,
                 });
             }
         })
@@ -858,7 +857,7 @@ Page({
                     return false;
                 }
                 that.setData({
-                    activity_fileList: that.data.tempFilePaths,
+                    activity_fileList: tempFilePaths,
                 });
             }
         })

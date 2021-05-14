@@ -16,6 +16,7 @@
   left: 0;
   right: 0;
   border-radius: 20rpx;
+  height:97%;
 }
 
 .img {

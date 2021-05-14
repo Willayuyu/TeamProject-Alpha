@@ -28,13 +28,14 @@ Page({
         activity_tag: "",
         activity_fileList: [],
         history_fileList: [],
+        activity_pictureID: [],
         activity_class_list: [{ categoryId: "", categoryDesignation: "" }],
         history_category: "",
         activity_label_list: [],
         history_label_list: [{ content: "", id: 0 }],
         activity_class_list_idx: 0,
         activity_uploadUrl: "http://47.106.241.182:8082/publish/uploadActivityImage",
-        activity_deleteUrl: "http://47.106.241.182:8082/publish/deleteActivityImage/id?id=",
+        activity_deleteUrl: "http://47.106.241.182:8082/publish/deleteActivityImage/",
         activity_releaseUrl: "http://47.106.241.182:8082/publish/activity",
     },
 
@@ -104,7 +105,8 @@ Page({
             activity_List[i] = { id: pictureID[i], imageLink: list[i] };
         }
         that.setData({
-            activity_fileList: activity_List
+            activity_fileList: activity_List,
+            activity_pictureID: pictureID
         })
     },
     /**
@@ -117,12 +119,12 @@ Page({
         let i = 0;
         let categoryID;
         console.log(list);
-        console.log(categoryID);
         for (i = 0; i < list.length; i++) {
             if (category == list[i].categoryDesignation) {
                 categoryID = i;
             }
         }
+        console.log(categoryID);
         that.setData({
             activity_class_list_idx: categoryID
         })
@@ -201,6 +203,8 @@ Page({
     //活动信息发布功能
     activityRelease() {
         let that = this;
+        let flag = false;
+        let id = that.data.id;
         let activity_title = that.data.activity_title;
         let activity_place = that.data.activity_place;
         let activity_message = that.data.activity_message;
@@ -210,11 +214,33 @@ Page({
         let imageList = [];
         for (var i = 0; i < that.data.activity_fileList.length; i++)
             imageList.push(that.data.activity_fileList[i].imageLink);
-
+        console.log(imageList)
         let activity_category = that.data.activity_class_list[that.data.activity_class_list_idx].categoryId;
         let activity_tags = that.data.activity_label_list;
 
-
+        if (activity_title.trim() == "")
+            wx.showToast({
+                icon: "none",
+                title: "输入活动名称不能为空",
+            })
+        else if (activity_place.trim() == "")
+            wx.showToast({
+                icon: "none",
+                title: "输入活动地点不能为空",
+            })
+        else if (activity_message.trim() == "")
+            wx.showToast({
+                icon: "none",
+                title: "输入活动形式不能为空",
+            })
+        else if (activity_startTime.trim() == "") {
+            wx.showToast({
+                icon: "none",
+                title: "输入时间信息不能为空",
+            })
+        } else {
+            flag = true;
+        }
         // 测试
         // that.setData({
         //     test: [{
@@ -234,33 +260,46 @@ Page({
         // console.log(activity_startTime);
         // console.log(activity_endTime);
         // console.log(that.dateToString(activity_endTime));
+        if(flag){
+            wx.request({      
+                url: 'http://120.77.210.142:8080/myActivity/alterActivity',
+                header: {         "Content-Type": "application/x-www-form-urlencoded"       },
+                method: "POST",
+                dataType:'json',
+                data: {
+                    id: id,
+                    title: activity_title,
+                    address: activity_place,
+                    start_time: activity_startTime,
+                    end_time: activity_endTime,
+                    description: activity_message,
+                    images: imageList,
+                    category: activity_category,
+                    tags: activity_tags,
+                },
 
-        wx.request({      
-            url: that.data.activity_releaseUrl,
-            header: {         "Content-Type": "application/x-www-form-urlencoded"       },
-            method: "POST",
-            data: {
-                title: activity_title,
-                address: activity_place,
-                start_time: activity_startTime,
-                end_time: activity_endTime,
-                description: activity_message,
-                image_links: imageList,
-                category: activity_category,
-                tags: activity_tags,
-            },
+                //       data: Util.json2Form( { cityname: "上海", key: "1430ec127e097e1113259c5e1be1ba70" }),
 
-            //       data: Util.json2Form( { cityname: "上海", key: "1430ec127e097e1113259c5e1be1ba70" }),
-
-            complete: function(res) {              
-                if (res == null || res.data == null) {           console.error('网络请求失败');           return;         } else {
-                    wx.showModal({
-                        title: "提示",
-                        content: "活动信息发布成功",
-                    })
-                }      
-            }    
-        })
+                success: function(res) {
+                    console.log("修改成功")
+                    console.log(res.data)              
+                    if (res == null || res.data == null) {           
+                        console.error('网络请求失败');           
+                        return;         
+                    } else {
+                        console.log(res.data)
+                        wx.showModal({
+                            title: "提示",
+                            content: "活动信息发布成功",
+                            
+                        })
+                        wx.redirectTo({
+                                url: '/pages/activity/activity',
+                              })
+                    }      
+                }    
+            })
+        } 
     },
 
     //活动信息上传图片方法
@@ -412,7 +451,7 @@ Page({
                     return false;
                 }
                 that.setData({
-                    activity_fileList: that.data.tempFilePaths,
+                    activity_fileList: tempFilePaths,
                 });
             }
         })
