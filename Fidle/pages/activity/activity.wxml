@@ -18,6 +18,7 @@
       </view>
       <view slot="tags" class="tagTask">
         <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
+        <van-tag class="tagItem" color="#dbdbdb" text-color="#394044">{{item.category}}</van-tag>
         <van-tag wx:for="{{item.tagList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">{{item.content}}</van-tag>
       </view>
       <view slot="footer" class="activityBtns">
