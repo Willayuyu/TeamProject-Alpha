@@ -1,4 +1,5 @@
 // pages/activity/activity.js
+var app = getApp();
 Page({
 
   /**
@@ -129,6 +130,7 @@ Page({
       url: 'http://120.77.210.142:8080/myActivity/listActivityPublishedByPageid/' + pageid,
       header: { 'content-type': 'application/json',
        'Cookie': session_id ,
+       'token': app.globalData.token
       },
       success(res){
         console.log("获取已发布活动记录列表")
@@ -165,6 +167,7 @@ Page({
       url: 'http://120.77.210.142:8080/myActivity/deleteActivityById/'+id,
       header: { 'content-type': 'application/json',
        'Cookie': session_id ,
+       'token': app.globalData.token,
       },
       success(res){
         if(res.data.code==200) {
@@ -199,6 +202,7 @@ Page({
       method: 'POST',
       header: { 'content-type': 'application/x-www-form-urlencoded',
        'Cookie': session_id ,
+       'token': app.globalData.token
       },
       data: {
         id: 1,

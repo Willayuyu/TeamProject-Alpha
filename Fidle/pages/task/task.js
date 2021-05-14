@@ -1,4 +1,5 @@
 // pages/task/task.js
+var app = getApp();
 Page({
 
   /**
@@ -30,7 +31,8 @@ Page({
   onLoad: function (options) {
     wx.setNavigationBarTitle({ title: '我的任务' });
     this.getPublishedTaskList(1);
-    this.getAcceptedTaskList(1);   
+    this.getAcceptedTaskList(1); 
+    console.log('token='+app.globalData.token);  
     // this.doConductTask();
     // this.doDeleteTask();
     // this.doFinishTask();
@@ -140,7 +142,8 @@ Page({
       },
       headers: {
         'Content-Type': 'application/json',
-        'Cookie': wx.getStorageSync('sessionid')
+        'Cookie': wx.getStorageSync('sessionid'),
+        'token': app.globalData.token
       },
       success: (res) => {
         console.log(index);
@@ -173,7 +176,8 @@ Page({
       },
       headers: {
         'Content-Type': 'application/json',
-        'Cookie': wx.getStorageSync('sessionid')
+        'Cookie': wx.getStorageSync('sessionid'),
+        'token': app.globalData.token
       },
       success: (res) => {
         console.log(index);
@@ -221,6 +225,7 @@ Page({
       url: 'http://120.77.210.142:8080/myTask/listTaskPublishedByPageid/'+ pageid,
       header: { 'content-type': 'application/json',
        'Cookie': session_id ,
+       'token': app.globalData.token
       },
       success(res){
         console.log("获取已发布任务记录列表")
@@ -252,6 +257,7 @@ Page({
       url: 'http://120.77.210.142:8080/myTask/listTaskAcceptedByPageid/' + pageid,
       header: { 'content-type': 'application/json',
        'Cookie': session_id ,
+       'token': app.globalData.token
       },
       success(res){
         console.log("获取已接受任务记录列表");
@@ -289,6 +295,7 @@ Page({
       method: 'POST',
       header: { 'content-type': 'application/x-www-form-urlencoded',
        'Cookie': session_id ,
+       'token': app.globalData.token
       },
       data: {
         id: 1,
@@ -316,6 +323,7 @@ Page({
       url: 'http://120.77.210.142:8080/myTask/deleteTaskById/'+id,
       header: { 'content-type': 'application/json',
        'Cookie': session_id ,
+       'token': app.globalData.token
       },
       success(res){
         if(res.data.code==200) {
@@ -342,6 +350,7 @@ Page({
       url: 'http://120.77.210.142:8080/myTask/finishTaskById/'+id,
       header: { 'content-type': 'application/json',
        'Cookie': session_id ,
+       'token': app.globalData.token
       },
       success(res){
         if(res.data.code==200) {
@@ -368,6 +377,7 @@ Page({
       url: 'http://120.77.210.142:8080/myTask/cancelTaskById/'+id,
       header: { 'content-type': 'application/json',
        'Cookie': session_id ,
+       'token': app.globalData.token
       },
       success(res){
         console.log(res.data);
@@ -398,6 +408,7 @@ Page({
       method: 'POST',
       header: { 'content-type': 'application/x-www-form-urlencoded',
        'Cookie': session_id ,
+       'token': app.globalData.token
       },
       data: {
         id: 1,
@@ -428,6 +439,7 @@ Page({
       method: 'POST',
       header: { 'content-type': 'application/x-www-form-urlencoded',
        'Cookie': session_id ,
+       'token': app.globalData.token
       },
       data: {
         id: 1,
@@ -459,11 +471,11 @@ Page({
     console.log(task);
     console.log('tagList=');
     console.log(task.tagList);
-    console.log('url='+'/pages/taskOrder/taskOrder?id='+task.id+'&title='+task.title+
-    '&reward='+task.reward+'tagList'+task.tagList);
+    console.log('/pages/taskOrder/taskOrder?id='+task.id+'&title='+task.title+
+    '&reward='+task.reward+'&tagList='+JSON.stringify(task.tagList)+'&category='+task.category);
     wx.navigateTo({
       url: '/pages/taskOrder/taskOrder?id='+task.id+'&title='+task.title+
-      '&reward='+task.reward+'&tagList='+task.tagList,
+      '&reward='+task.reward+'&tagList='+JSON.stringify(task.tagList)+'&category='+task.category,
       // ?i
       // d='+id+'&title='+title+'&price='+price+'&originalPrice='+originalPrice+'&imageLink='+imageLink+'&condition='+condition+'&category='+category+'&tagList='+tagList,
     })
@@ -492,8 +504,4 @@ Page({
         },
      */
   }
-
-
-
-
 })

@@ -29,36 +29,16 @@ Page({
   onLoad: function (options) {
     let that = this;
     wx.setNavigationBarTitle({ title: '生成订单' })
-
-    // id: '1',
-    // taskTitle: '任务标题',
-    // reward: 1,
-    // tagList: [], 
     let id = options.id;
     let taskTitle = options.title;
     let reward = options.reward;
-    let tagList = options.tagList;
+    let tagList = JSON.parse(options.tagList);
     let category = options.category;
     console.log(id);
     console.log(taskTitle);
     console.log(reward);
     console.log(tagList);
     console.log(category);
-    // url: '/pages/taskOrder/taskOrder?id='+task.id+'&title='+task.title+
-      // '&reward='+task.reward+'tagList'+task.tagList,
-      
-    // console.log(this.data.task);
-    // let id = options.id;
-    // // console.log(id);
-    // // let title = options.title;
-    // // console.log(title);
-    // // let price = options.price;
-    // // console.log(price);
-    // // let  originalPrice = options.originalPrice;
-    // // let imageLink = options.imageLink;
-    // // let condition = options.condition;
-    // // let category = options.category;
-    // // let tagList = options.tagList;
     that.setData({
       id: id,
       taskTitle: taskTitle,
