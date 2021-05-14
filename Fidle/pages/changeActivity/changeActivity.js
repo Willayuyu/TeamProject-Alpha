@@ -1,4 +1,5 @@
 // pages/changeActivity/changeActivity.js
+var app = getApp();
 Page({
 
     /**
@@ -47,12 +48,13 @@ Page({
         var session_id = wx.getStorageSync('sessionid');
         var token = wx.getStorageSync('token');
         var header = { 'content-type': 'application/json', 'Cookie': session_id, 'token': app.globalData.token };
+        console.log(that.data.id);
         wx.request({
             url: 'http://47.106.241.182:8082/activity/getActivityDetailById/' + that.data.id,
             method: "GET",
             header: header,
             success(res) {
-                console.log(res.data);
+                console.log(res.data.data);
                 if (res.data.code === 200) {
                     that.setData({
                         history_fileList: res.data.data.picturesLink,
@@ -75,6 +77,94 @@ Page({
             }
         })
     },
+
+    //活动信息修改功能
+    activityModify() {
+        let that = this;
+        let flag = false;
+        let id = that.data.id;
+        let activity_title = that.data.activity_title;
+        let activity_place = that.data.activity_place;
+        let activity_message = that.data.activity_message;
+        let activity_startTime = that.data.startTime;
+        let activity_endTime = that.data.endTime;
+
+        let imageList = [];
+        for (var i = 0; i < that.data.activity_fileList.length; i++)
+            imageList.push(that.data.activity_fileList[i].imageLink);
+
+        let activity_category = that.data.activity_class_list[that.data.activity_class_list_idx].categoryId;
+        let activity_tags = that.data.activity_label_list;
+
+        console.log(activity_title);
+        console.log(activity_place);
+        console.log(activity_message);
+        console.log(activity_startTime);
+        console.log(activity_endTime);
+        console.log(imageList);
+        console.log(activity_category);
+        console.log(activity_tags);
+
+        if (activity_title.trim() == "")
+            wx.showToast({
+                icon: "none",
+                title: "输入活动名称不能为空",
+            })
+        else if (activity_place.trim() == "")
+            wx.showToast({
+                icon: "none",
+                title: "输入活动地点不能为空",
+            })
+        else if (activity_message.trim() == "")
+            wx.showToast({
+                icon: "none",
+                title: "输入活动形式不能为空",
+            })
+        else if (activity_startTime.trim() == "") {
+            wx.showToast({
+                icon: "none",
+                title: "输入时间信息不能为空",
+            })
+        } else {
+            flag = true;
+        }
+
+        if (flag)
+            wx.request({
+                url: 'http://120.77.210.142:8080/myActivity/alterActivity/',
+                header: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                method: "POST",
+                dataType: 'json',
+                data: {
+                    id: id,
+                    title: activity_title,
+                    address: activity_place,
+                    start_time: activity_startTime,
+                    end_time: activity_endTime,
+                    description: activity_message,
+                    images: imageList,
+                    category: activity_category,
+                    tags: activity_tags,
+                },
+                success(res) {
+                    console.log(res.data.code);
+                    console.log(res.data.message);
+                    console.log("活动信息修改成功");
+                    wx.redirectTo({
+                        url: '/pages/activity/activity',
+                    })
+                },
+                fail(err) {
+                    wx.showToast({ title: '系统错误' })
+                }
+            })
+        that.setData({
+            activity_fileList: imageList
+        })
+    },
+
     /**
      * 图片转化
      */
@@ -298,6 +388,7 @@ Page({
 
     },
 
+
     //活动信息上传图片方法
     activityUpload() {
         let that = this;
@@ -469,6 +560,7 @@ Page({
             },
             success: function(res) {
                 let activity_list = new Array();
+                console.log(res.data.data);
 
                 res.data.data.forEach(function(e) {
                     let activity = {
@@ -485,7 +577,7 @@ Page({
                 })
             },
             fail: function(fail) {
-                // 这里是失败的回调，取值方法同上,把res改一下就行了  
+                console.log("失败") // 这里是失败的回调，取值方法同上,把res改一下就行了  
             },
             complete: function(arr) {
                 // 这里是请求以后返回的所以信息，请求方法同上，把res改一下就行了  
