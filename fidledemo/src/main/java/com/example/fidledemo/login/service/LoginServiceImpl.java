@@ -60,7 +60,12 @@ public class LoginServiceImpl implements LoginService
   {
     UserDO userDO=new UserDO();
     //插入用户授权后的信息
-    userDO.setUsername(wechatAccount);
+    UserBO user=userDAO.getUserById(id);
+
+    if("".equals(user.getUsername())||user.getUsername()==null)
+    {
+      userDO.setUsername(wechatAccount);
+    }
     userDO.setId(id);
     userDO.setWechatAccount(wechatAccount);
     userDO.setPortrait(portrait);
@@ -68,7 +73,7 @@ public class LoginServiceImpl implements LoginService
     userDAO.updateUser(userDO);
 
     //插入信誉信息
-    if(userDAO.getUserById(id).getCredit()==null)
+    if(user.getCredit()==null)
     {
       CreditBO creditBO=new CreditBO(id,500,0,0);
       creditDAO.insertCredit(creditBO.getCreditDO());
