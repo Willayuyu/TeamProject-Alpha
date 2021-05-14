@@ -41,7 +41,7 @@ public class MyGoodsServiceImpl implements MyGoodsService{
     GoodsImageDAO goodsImageDAO;
 
     @Override
-    public List<MyGoodsVO> listGoodsOnSale(Integer pageid, Long sellerId) {
+    public List<MyGoodsVO> listGoodsOnSale(Integer pageid,Long sellerId) {
 
         //根据二手物品状态和发布者id筛选二手物品信息
         GoodsInfoDO goodsInfoDO= new GoodsInfoDO();
@@ -229,7 +229,7 @@ public class MyGoodsServiceImpl implements MyGoodsService{
     }
 
     @Override
-    public void alertGoods(Long id, String title, BigDecimal price, BigDecimal originPrice, String description, Long category, Integer condition, String[] images, String[] tags) {
+    public void alertGoods(Long id,String title, BigDecimal price, BigDecimal originPrice, String description, Long category,Integer condition, String[] images,String[] tags) {
         //更新基本信息
         GoodsInfoDO goodsInfoDO = new GoodsInfoDO();
         goodsInfoDO.setCategory(category);
@@ -244,28 +244,31 @@ public class MyGoodsServiceImpl implements MyGoodsService{
         //删除所有标签关系
         goodsTagDAO.deleteGoodsTagById(id);
         //更新标签
-        for (int i = 0;i < tags.length;i++){
-            TagOfGoodsDO item = new TagOfGoodsDO();
-            item.setContent(tags[i]);
-            //检查是否存在改标签，没有则增加
-            if(tagOfGoodsDAO.checkGoodsTag(item.getContent()) == null){
-                tagOfGoodsDAO.insertTagOfGoods(item);
-            }
-            Long tagID =tagOfGoodsDAO.checkGoodsTag(item.getContent());
+        if (tags != null) {
+            for (int i = 0; i < tags.length; i++) {
+                TagOfGoodsDO item = new TagOfGoodsDO();
+                item.setContent(tags[i]);
+                //检查是否存在改标签，没有则增加
+                if (tagOfGoodsDAO.checkGoodsTag(item.getContent()) == null) {
+                    tagOfGoodsDAO.insertTagOfGoods(item);
+                }
+                Long tagID = tagOfGoodsDAO.checkGoodsTag(item.getContent());
 
-            //增加标签与任务委托的对应关系
-            GoodsTagDO goodsTagDO = new GoodsTagDO();
-            goodsTagDO.setGoodsId(id);
-            goodsTagDO.setTagId(tagID);
-            goodsTagDAO.insertGoodsTag(goodsTagDO);
+                //增加标签与任务委托的对应关系
+                GoodsTagDO goodsTagDO = new GoodsTagDO();
+                goodsTagDO.setGoodsId(id);
+                goodsTagDO.setTagId(tagID);
+                goodsTagDAO.insertGoodsTag(goodsTagDO);
+            }
         }
 
         //更新图片
-        for (int i = 0;i < images.length;i++){
-            GoodsImageDO item = new GoodsImageDO();
-            item.setImageLink(images[i]);
-            item.setGoodsId(id);
-            if (goodsImageDAO.getGoodsImageByLink(item.getImageLink()) == null){
+        if (images != null) {
+            goodsImageDAO.deleteGoodsImageById(id);
+            for (int i = 0; i < images.length; i++) {
+                GoodsImageDO item = new GoodsImageDO();
+                item.setImageLink(images[i]);
+                item.setGoodsId(id);
                 goodsImageDAO.insertGoodsImage(item);
             }
         }

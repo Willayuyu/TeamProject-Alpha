@@ -94,6 +94,7 @@ public class MyActivityServiceImpl implements MyActivityService {
     public void alterActivity(Long id, String title, String address, Date startTime, Date endTime, Long category, String description, String[] images, String[] tags) {
         //更新基本信息
         ActivityInfoDO activityInfoDO = new ActivityInfoDO();
+        activityInfoDO.setId(id);
         activityInfoDO.setCategory(category);
         activityInfoDO.setTitle(title);
         activityInfoDO.setAddress(address);
@@ -104,28 +105,31 @@ public class MyActivityServiceImpl implements MyActivityService {
         activityTagDAO.deleteActivityTagById(id);
 
         //更新标签
-        for (int i = 0;i < tags.length;i++){
-            TagOfActivityDO item = new TagOfActivityDO();
-            item.setContent(tags[i]);
-            //检查是否存在改标签，没有则增加
-            if(tagOfActivityDAO.checkActivityTag(item.getContent()) == null){
-                tagOfActivityDAO.insertTagOfActivity(item);
+        activityTagDAO.deleteActivityTagById(id);
+        if (tags != null) {
+            for (int i = 0; i < tags.length; i++) {
+                TagOfActivityDO item = new TagOfActivityDO();
+                item.setContent(tags[i]);
+                //检查是否存在改标签，没有则增加
+                if (tagOfActivityDAO.checkActivityTag(item.getContent()) == null) {
+                    tagOfActivityDAO.insertTagOfActivity(item);
+                }
+                Long tagID = tagOfActivityDAO.checkActivityTag(item.getContent());
+
+                //增加标签与任务委托的对应关系
+                ActivityTagDO activityTagDO = new ActivityTagDO();
+                activityTagDO.setActivityId(id);
+                activityTagDO.setTagId(tagID);
+                activityTagDAO.insertActivityTag(activityTagDO);
             }
-            Long tagID =tagOfActivityDAO.checkActivityTag(item.getContent());
-
-            //增加标签与任务委托的对应关系
-            ActivityTagDO activityTagDO = new ActivityTagDO();
-            activityTagDO.setActivityId(id);
-            activityTagDO.setTagId(tagID);
-            activityTagDAO.insertActivityTag(activityTagDO);
         }
-
         //更新图片
-        for (int i = 0;i < images.length;i++){
-            ActivityImageDO item = new ActivityImageDO();
-            item.setImageLink(images[i]);
-            item.setActivityId(id);
-            if (activityImageDAO.getActivityImageByLink(item.getImageLink()) == null){
+        if (images != null) {
+            activityImageDAO.deleteActivityImageById(id);
+            for (int i = 0; i < images.length; i++) {
+                ActivityImageDO item = new ActivityImageDO();
+                item.setImageLink(images[i]);
+                item.setActivityId(id);
                 activityImageDAO.insertActivityImage(item);
             }
         }

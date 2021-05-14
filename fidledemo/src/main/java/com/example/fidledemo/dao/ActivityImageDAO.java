@@ -66,4 +66,10 @@ public interface ActivityImageDAO {
      * @return
      */
     String getActivityImageById(Long id);
+
+    /**
+     * 删除活动相关的所有图片
+     * @param id
+     */
+    void deleteActivityImageById(Long id);
 }
