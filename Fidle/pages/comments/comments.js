@@ -35,7 +35,8 @@ Page({
       method: 'POST',
       header: {
         "Content-Type": "application/x-www-form-urlencoded",
-        'Cookie': wx.getStorageSync('sessionid')
+        'Cookie': wx.getStorageSync('sessionid'),
+        'token': app.globalData.token
       },
       success: function(res){
         console.log(res);
@@ -60,7 +61,8 @@ Page({
       method: 'POST',
       header: {
         "Content-Type": "application/x-www-form-urlencoded",
-        'Cookie': wx.getStorageSync('sessionid')
+        'Cookie': wx.getStorageSync('sessionid'),
+        'token': app.globalData.token
       },
       success: function(res){
         console.log(res);
@@ -85,7 +87,8 @@ Page({
       method: 'POST',
       header: {
         "Content-Type": "application/x-www-form-urlencoded",
-        'Cookie': wx.getStorageSync('sessionid')
+        'Cookie': wx.getStorageSync('sessionid'),
+        'token': app.globalData.token
       },
       success: function(res){
         console.log(res);
@@ -110,7 +113,8 @@ Page({
       method: 'POST',
       header: {
         "Content-Type": "application/x-www-form-urlencoded",
-        'Cookie': wx.getStorageSync('sessionid')
+        'Cookie': wx.getStorageSync('sessionid'),
+        'token': app.globalData.token
       },
       success: function(res){
         console.log(res);
