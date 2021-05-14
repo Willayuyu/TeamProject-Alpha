@@ -13,6 +13,8 @@ import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -126,7 +128,21 @@ public class MyTaskController {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        String[] tags = request.getParameterValues("tags");
+        String tagsString = request.getParameter("tags");
+        String[] tags = tagsString.split(",");
+
+        ArrayList<String> arrayList = new ArrayList<>();
+        if (tags != null) {
+            for (int i = 0; i < tags.length; i++) {
+                arrayList.add(tags[i]);
+            }
+            Collections.reverse(arrayList);
+            for (int i = 0; i < tags.length; i++) {
+                tags[i] = arrayList.get(i);
+                System.out.println(tags[i]);
+            }
+            System.out.println();
+        }
         myTaskService.alterTask(id,title,reward,description,category,startTime,endTime,tags);
         return JSON.toJSONString(Result.successResult());
     }
@@ -139,7 +155,7 @@ public class MyTaskController {
      */
     @PostMapping("/evaluatePublisher")
     // @UserLoginToken
-    public String evaluatePublisher(HttpServletRequest request, HttpSession session){
+    public String evaluatePublisher(HttpServletRequest request,HttpSession session){
         UserBO user = (UserBO) session.getAttribute("user");
         Long id = Long.valueOf(request.getParameter("id"));
         Integer evaluation = Integer.valueOf(request.getParameter("evaluation"));

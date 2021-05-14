@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -25,7 +27,7 @@ public class MyActivityController {
 
     @Autowired
     MyActivityServiceImpl myActivityService;
-
+    
     /**
      * 根据页码返回该页的已发布的活动
      * @param pageid
@@ -61,7 +63,6 @@ public class MyActivityController {
     @PostMapping("/alterActivity")
     @UserLoginToken
     public String alterActivity(HttpSession session, HttpServletRequest request){
-        UserBO userBO = (UserBO) session.getAttribute("user");
         UserBO user= (UserBO) session.getAttribute("user");
         Long id = Long.valueOf(request.getParameter("id"));
         String title = request.getParameter("title");
@@ -74,10 +75,43 @@ public class MyActivityController {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
         Long category = Long.valueOf(request.getParameter("category"));
         String description = request.getParameter("description");
-        String[] images = request.getParameterValues("images");
-        String[] tags = request.getParameterValues("tags");
+        String imageString = request.getParameter("images");
+        String tagsString = request.getParameter("tags");
+        String[] images =imageString.split(",");
+        String[] tags = tagsString.split(",");
+        System.out.println("id:"+id);
+        System.out.println("title+"+title);
+        System.out.println("description:"+description);
+        System.out.println("category:"+category);
+        System.out.print("images_link");
+        ArrayList<String> arrayList = new ArrayList<>();
+        if (images != null) {
+            for (int i = 0; i < images.length; i++) {
+
+                arrayList.add(images[i]);
+            }
+            Collections.reverse(arrayList);
+            for (int i = 0; i < images.length; i++) {
+                images[i] = arrayList.get(i);
+                System.out.println(images[i]);
+            }
+            System.out.println();
+        }
+        System.out.print("tags:");
+        arrayList.clear();
+        if (tags != null) {
+            for (int i = 0; i < tags.length; i++) {
+                arrayList.add(tags[i]);
+            }
+            Collections.reverse(arrayList);
+            for (int i = 0; i < tags.length; i++) {
+                tags[i] = arrayList.get(i);
+                System.out.println(tags[i]);
+            }
+        }
         myActivityService.alterActivity(id,title,address,startTime,endTime,category,description,images,tags);
         return JSON.toJSONString(Result.successResult());
     }

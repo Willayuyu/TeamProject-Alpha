@@ -183,7 +183,7 @@ public class MyTaskServiceImpl implements MyTaskService{
     }
 
     @Override
-    public void alterTask(Long id, String title, BigDecimal reward, String description, Long category, Date startTime, Date endTime, String[] tags) {
+    public void alterTask(Long id, String title, BigDecimal reward, String description, Long category,Date startTime, Date endTime, String[] tags) {
         TaskInformationDO taskInformationDO = new TaskInformationDO();
         taskInformationDO.setCategory(category);
         taskInformationDO.setId(id);

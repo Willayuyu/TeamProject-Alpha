@@ -65,4 +65,8 @@
         where id=#{id}
     </select>
 
+    <delete id="deleteGoodsImageById" parameterType="Long">
+        DELETE FROM goods_image
+        WHERE goods_id = #{id}
+    </delete>
 </mapper>

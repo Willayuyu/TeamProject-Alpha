@@ -67,4 +67,9 @@ public interface GoodsImageDAO {
      */
     String getGoodsImageById(Long id);
 
+    /**
+     * 删除二手物品相关的所有图片
+     * @param id
+     */
+    void deleteGoodsImageById(Long id);
 }
