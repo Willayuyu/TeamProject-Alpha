@@ -1,4 +1,5 @@
 // pages/goodsDetailsPage/goodsDetailsPage.js
+let app =getApp();
 import Toast from '../../components/lib/toast/toast';
 Page({
   /**
@@ -37,12 +38,14 @@ Page({
    */
   getGoodsDetail:function(){
     let that = this;
-    var session_id = wx.getStorageSync('sessionid');
-    var header = {'content-type': 'application/json', 'Cookie': session_id };
     wx.request({
       url: 'http://47.106.241.182:8082/goods/getGoodsDetailById/' + that.data.id,
       method: "GET",
-      header: header,
+      header: {
+        'content-type': 'application/json',
+        'Cookie': wx.getStorageSync('sessionid'),
+        'token': app.globalData.token
+      },
       success(res){
         console.log(res.data);
         if(res.data.code===200){
@@ -92,13 +95,15 @@ Page({
    */
   onClickStar(event){
     let that = this;
-    var session_id = wx.getStorageSync('sessionid');
-    var header = {'content-type': 'application/json', 'Cookie': session_id };
     if(that.data.collectState == -1){
       wx.request({
         url: 'http://47.106.241.182:8082/goods/collectGoods/' + that.data.id,
         method: 'GET',
-        header: header,
+        header: {
+          'content-type': 'application/json',
+          'Cookie': wx.getStorageSync('sessionid'),
+          'token': app.globalData.token
+        },
         success(res){
           console.log(res);
           if(res.data.code===200){
@@ -119,7 +124,11 @@ Page({
       wx.request({
         url: 'http://47.106.241.182:8082/goods/cancelCollectGoods/' + that.data.id,
         method: 'GET',
-        header: header,
+        header: {
+          'content-type': 'application/json',
+          'Cookie': wx.getStorageSync('sessionid'),
+          'token': app.globalData.token
+        },
         success(res){
           console.log(res);
           if(res.data.code===200){

@@ -10,10 +10,10 @@ Page({
     taskTitle: '任务标题',
     reward: 1,
     tagList: [],
-    category:'',
-    acc_id:'',
+    category: '',
+    acc_id: '',
     // buyerId: ''
- // taskPrice: '1',
+    // taskPrice: '1',
     // imageLink: '1',
     // condition: '1',
     // category: '1',
@@ -44,7 +44,7 @@ Page({
       taskTitle: taskTitle,
       reward: reward,
       tagList: tagList,
-      category:category,
+      category: category,
     })
   },
 
@@ -104,6 +104,7 @@ Page({
   },
 
   confirm: function (event) {
+    let app = getApp();
     let that = this;
     let id = that.data.id;
     console.log(id);
@@ -116,41 +117,42 @@ Page({
       })
       console.log('空')
     } else {
-    wx.showModal({
-      content: '确认生成当前订单吗？',
-      success: function (res) {
-        //进行退出登录操作：把Storage中的flag置为false
-        if (res.confirm) {
-          console.log('用户点击确定');
-          wx.request({
-            url: 'http://120.77.210.142:8080/myTask/conductTask/',
-            header: {
-              'Content-Type': 'application/x-www-form-urlencoded',
-              'Cookie': wx.getStorageSync('sessionid')
-            },
-            data: {
-              id: id,
-              acc_id: acc_id
-            },
-            method: 'POST',
-            dataType: 'json',
-            success(res) {
-              console.log(res.data.code);
-              console.log("生成订单成功");
-              wx.redirectTo({
-                url: '/pages/task/task',
-              })
-            },
-            fail(err) {
-              reject(err);
-              wx.showToast({ title: '系统错误' })
-            },
-          })
-        } else if (res.cancel) {
-          console.log('用户点击取消');
+      wx.showModal({
+        content: '确认生成当前订单吗？',
+        success: function (res) {
+          //进行退出登录操作：把Storage中的flag置为false
+          if (res.confirm) {
+            console.log('用户点击确定');
+            wx.request({
+              url: 'http://120.77.210.142:8080/myTask/conductTask/',
+              header: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Cookie': wx.getStorageSync('sessionid'),
+                'token': app.globalData.token
+              },
+              data: {
+                id: id,
+                acc_id: acc_id
+              },
+              method: 'POST',
+              dataType: 'json',
+              success(res) {
+                console.log(res.data.code);
+                console.log("生成订单成功");
+                wx.redirectTo({
+                  url: '/pages/task/task',
+                })
+              },
+              fail(err) {
+                reject(err);
+                wx.showToast({ title: '系统错误' })
+              },
+            })
+          } else if (res.cancel) {
+            console.log('用户点击取消');
+          }
         }
-      }
-    })
-  }
+      })
+    }
   },
 })

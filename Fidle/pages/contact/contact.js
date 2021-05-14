@@ -27,9 +27,10 @@ Page({
       url: 'http://47.106.241.182:8082/homePage/getPublisherBusinessCard/'+ id,
       method: 'GET',
       dataType: 'json',
-      headers: {
-        'Content-Type': 'application/json',
-        'Cookie': wx.getStorageSync('sessionid')
+      header: {
+        'content-type': 'application/json',
+        'Cookie': wx.getStorageSync('sessionid'),
+        'token': app.globalData.token
       },
       success: (res) => {
         console.log(res.data);

@@ -1,4 +1,5 @@
 // pages/goods/goods.js
+let app = getApp();
 Page({
 
   /**
@@ -162,13 +163,13 @@ Page({
    * 渲染在售页面
    */
   showOnSale(pageid) {
-    let session_id = wx.getStorageSync('sessionid');
-    console.log(session_id); 
     let that = this;     
     wx.request({
       url: 'http://47.106.241.182:8082/myGoods/listGoodsOnSaleByPageid/' + pageid,
-      header: { 'content-type': 'application/json',
-       'Cookie': session_id ,
+      header: {
+        'content-type': 'application/json',
+        'Cookie': wx.getStorageSync('sessionid'),
+        'token': app.globalData.token
       },
       success(res){
         console.log(res.data.data);
@@ -217,13 +218,13 @@ Page({
    * 渲染已售页面
    */
   showSold(pageid) {
-    let session_id = wx.getStorageSync('sessionid');
-    console.log(session_id); 
     let that = this;     
     wx.request({
       url: 'http://47.106.241.182:8082/myGoods/listGoodsSoldByPageid/' + pageid,
-      header: { 'content-type': 'application/json',
-       'Cookie': session_id ,
+      header: {
+        'content-type': 'application/json',
+        'Cookie': wx.getStorageSync('sessionid'),
+        'token': app.globalData.token
       },
       success(res){
         console.log(res.data.data);
@@ -271,13 +272,13 @@ Page({
    * 渲染买入界面
    */
   showBuy(pageid) {
-    let session_id = wx.getStorageSync('sessionid');
-    console.log(session_id); 
     let that = this;     
     wx.request({
       url: 'http://120.77.210.142:8080/myGoods/listGoodsBuyingByPageid/' + pageid,
-      header: { 'content-type': 'application/json',
-       'Cookie': session_id ,
+      header: {
+        'content-type': 'application/json',
+        'Cookie': wx.getStorageSync('sessionid'),
+        'token': app.globalData.token
       },
       success(res){
         console.log(res.data.data);
@@ -388,8 +389,9 @@ Page({
       method: 'GET',
       dataType: 'json',
       header: {
-        'Content-Type': 'application/json',
-        'Cookie': wx.getStorageSync('sessionid')
+        'content-type': 'application/json',
+        'Cookie': wx.getStorageSync('sessionid'),
+        'token': app.globalData.token
       },
       success(res) {
         console.log(res.data);

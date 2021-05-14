@@ -1,4 +1,5 @@
 // pages/collect/collect.js
+let app = getApp();
 Page({
 
   /**
@@ -166,8 +167,9 @@ Page({
         method: 'GET',
         dataType: 'json',
         header: {
-          'Content-Type': 'application/json',
-          'Cookie': wx.getStorageSync('sessionid')
+          'content-type': 'application/json',
+          'Cookie': wx.getStorageSync('sessionid'),
+          'token': app.globalData.token
         },
         success: (result) => {
           resolve(result);
@@ -197,8 +199,9 @@ Page({
         method: 'GET',
         dataType: 'json',
         header: {
-          'Content-Type': 'application/json',
-          'Cookie': wx.getStorageSync('sessionid')
+          'content-type': 'application/json',
+          'Cookie': wx.getStorageSync('sessionid'),
+          'token': app.globalData.token
         },
         success: (result) => {
           resolve(result);
@@ -228,8 +231,9 @@ Page({
         method: 'GET',
         dataType: 'json',
         header: {
-          'Content-Type': 'application/json',
-          'Cookie': wx.getStorageSync('sessionid')
+          'content-type': 'application/json',
+          'Cookie': wx.getStorageSync('sessionid'),
+          'token': app.globalData.token
         },
         success: (result) => {
           resolve(result);
@@ -318,7 +322,9 @@ Page({
     wx.request({
       url: 'http://47.106.241.182:8082/goods/cancelCollectGoods/' + id,
       header: {
-        'Content-Type': 'application/json'
+        'content-type': 'application/json',
+        'Cookie': wx.getStorageSync('sessionid'),
+        'token': app.globalData.token
       },
       method: "GET",
       success(res){
@@ -348,7 +354,9 @@ Page({
     wx.request({
       url: 'http://47.106.241.182:8082/task/cancelCollectTask/' + id,
       header: {
-        'Content-Type': 'application/json'
+        'content-type': 'application/json',
+        'Cookie': wx.getStorageSync('sessionid'),
+        'token': app.globalData.token
       },
       method: "GET",
       success(res){
@@ -378,7 +386,9 @@ Page({
     wx.request({
       url: 'http://47.106.241.182:8082/activity/cancelCollectActivity/' + id,
       header: {
-        'Content-Type': 'application/json'
+        'content-type': 'application/json',
+        'Cookie': wx.getStorageSync('sessionid'),
+        'token': app.globalData.token
       },
       method: "GET",
       success(res){
