@@ -14,7 +14,6 @@ App({
     })
   },
   globalData: {
-    click:1,
     //登录以后会设置这些全局变量的值
     token:"",
     user:{},

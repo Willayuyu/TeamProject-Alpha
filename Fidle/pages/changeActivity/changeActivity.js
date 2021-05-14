@@ -87,27 +87,30 @@ Page({
         var session_id = wx.getStorageSync('sessionid');
         var token = wx.getStorageSync('token');
         var header = { 'content-type': 'application/x-www-form-urlencoded', 'Cookie': session_id };
-        for (i = 0; i < list.length; i++) {
-            wx.request({
-                url: 'http://47.106.241.182:8082/publish/getActivityImageIdByLink',
-                data: { imageLink: list[i] },
-                method: "POST",
-                header: header,
-                success(res) {
-                    console.log(res.data.data);
-                    if (res.data.code === 200) {
-                        pictureID[i] = res.data.data;
+        if(list[0] != null){
+            for (i = 0; i < list.length; i++) {
+                wx.request({
+                    url: 'http://47.106.241.182:8082/publish/getActivityImageIdByLink',
+                    data: { imageLink: list[i] },
+                    method: "POST",
+                    header: header,
+                    success(res) {
+                        console.log(res.data.data);
+                        if (res.data.code === 200) {
+                            pictureID[i] = res.data.data;
+                        }
                     }
-                }
+                })
+            }
+            for (i = 0; i < list.length; i++) {
+                activity_List[i] = { id: pictureID[i], imageLink: list[i] };
+            }
+            that.setData({
+                activity_fileList: activity_List,
+                activity_pictureID: pictureID
             })
+            console.log(activity_List)
         }
-        for (i = 0; i < list.length; i++) {
-            activity_List[i] = { id: pictureID[i], imageLink: list[i] };
-        }
-        that.setData({
-            activity_fileList: activity_List,
-            activity_pictureID: pictureID
-        })
     },
     /**
      * 类别转化
@@ -139,7 +142,7 @@ Page({
         for (i = 0; i < that.data.history_label_list.length; i++) {
             list[i] = that.data.history_label_list[i].content;
         }
-        console.log(list)
+        console.log(list);
         that.setData({
             activity_label_list: list
         })
@@ -199,7 +202,7 @@ Page({
             activity_message: e.detail,
         })
     },
-
+    
     //活动信息发布功能
     activityRelease() {
         let that = this;
@@ -210,14 +213,17 @@ Page({
         let activity_message = that.data.activity_message;
         let activity_startTime = that.data.startTime;
         let activity_endTime = that.data.endTime;
-
+        console.log(id);
+        console.log(activity_title);
+        console.log(id);
         let imageList = [];
         for (var i = 0; i < that.data.activity_fileList.length; i++)
             imageList.push(that.data.activity_fileList[i].imageLink);
         console.log(imageList)
         let activity_category = that.data.activity_class_list[that.data.activity_class_list_idx].categoryId;
         let activity_tags = that.data.activity_label_list;
-
+        console.log(activity_tags);
+        console.log(activity_category);
         if (activity_title.trim() == "")
             wx.showToast({
                 icon: "none",
@@ -241,29 +247,10 @@ Page({
         } else {
             flag = true;
         }
-        // 测试
-        // that.setData({
-        //     test: [{
-        //         title: activity_title,
-        //         address: activity_place,
-        //         start_time: activity_startTime,
-        //         end_time: activity_endTime,
-        //         description: activity_message,
-        //         image_links: imageList,
-        //         category: activity_category,
-        //         tags: activity_tags,
-        //     }],
-        // })
-
-        // console.log(that.data.test);
-
-        // console.log(activity_startTime);
-        // console.log(activity_endTime);
-        // console.log(that.dateToString(activity_endTime));
-        if(flag){
-            wx.request({      
+        if(flag == true){
+            wx.request({
                 url: 'http://120.77.210.142:8080/myActivity/alterActivity',
-                header: {         "Content-Type": "application/x-www-form-urlencoded"       },
+                header: { "Content-Type": "application/x-www-form-urlencoded" },
                 method: "POST",
                 dataType:'json',
                 data: {
@@ -272,34 +259,43 @@ Page({
                     address: activity_place,
                     start_time: activity_startTime,
                     end_time: activity_endTime,
+                    category: activity_category,
                     description: activity_message,
                     images: imageList,
-                    category: activity_category,
                     tags: activity_tags,
                 },
-
-                //       data: Util.json2Form( { cityname: "上海", key: "1430ec127e097e1113259c5e1be1ba70" }),
-
-                success: function(res) {
-                    console.log("修改成功")
-                    console.log(res.data)              
-                    if (res == null || res.data == null) {           
-                        console.error('网络请求失败');           
-                        return;         
-                    } else {
-                        console.log(res.data)
-                        wx.showModal({
-                            title: "提示",
-                            content: "活动信息发布成功",
-                            
-                        })
-                        wx.redirectTo({
-                                url: '/pages/activity/activity',
-                              })
-                    }      
-                }    
+                success(res){
+                    console.log(res.data.code);
+                    console.log(res.data.message);
+                    wx.redirectTo({
+                        url: '/pages/activity/activity',
+                    })
+                },
+                fail(err){
+                    wx.showToast({ title: '系统错误' })
+                }
             })
-        } 
+        }
+        
+       //测试
+       /**
+        * that.setData({
+           test: [{
+            id: id,
+            title: activity_title,
+            address: activity_place,
+            start_time: activity_startTime,
+            end_time: activity_endTime,
+            description: activity_message,
+            images: imageList,
+            category: activity_category,
+            tags: activity_tags,
+             }],
+        })
+
+         console.log(that.data.test);
+        */
+        
     },
 
     //活动信息上传图片方法
@@ -580,7 +576,6 @@ Page({
             this.setData({
                 activity_label_list: this.unique(this.data.activity_label_list),
                 activity_tag: "",
-
             })
         }
     },
