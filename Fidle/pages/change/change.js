@@ -23,7 +23,7 @@ Page({
         icon: 'none'
       })
     }
-     else if(phonenum.length!=11||!(/^1[3|4|5|7|8][0-9]{9}$/.test(phonenum))) {
+     else if(phonenum.length!=11||!(/^1[3|4|5|7|8|9][0-9]{9}$/.test(phonenum))) {
       wx.showToast({
         title: '电话号码输入有误！',
         duration: 1000,
