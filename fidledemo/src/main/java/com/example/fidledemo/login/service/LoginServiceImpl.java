@@ -1,8 +1,10 @@
 package com.example.fidledemo.login.service;
 
 import com.alibaba.fastjson.JSON;
+import com.example.fidledemo.BO.CreditBO;
 import com.example.fidledemo.BO.UserBO;
 import com.example.fidledemo.DO.UserDO;
+import com.example.fidledemo.dao.CreditDAO;
 import com.example.fidledemo.dao.UserDAO;
 import com.example.fidledemo.login.util.LoginResult;
 import com.example.fidledemo.login.util.LoginUtil;
@@ -18,6 +20,9 @@ public class LoginServiceImpl implements LoginService
 {
   @Autowired
   private UserDAO userDAO;
+
+  @Autowired
+  private CreditDAO creditDAO;
 
   @Override
   public UserBO loginRequest(String code)
@@ -54,11 +59,20 @@ public class LoginServiceImpl implements LoginService
   public UserBO userAuth(Long id, String wechatAccount, String portrait)
   {
     UserDO userDO=new UserDO();
+    //插入用户授权后的信息
+    userDO.setUsername(wechatAccount);
     userDO.setId(id);
     userDO.setWechatAccount(wechatAccount);
     userDO.setPortrait(portrait);
 
     userDAO.updateUser(userDO);
+
+    //插入信誉信息
+    if(userDAO.getUserById(id).getCredit()==null)
+    {
+      CreditBO creditBO=new CreditBO(id,500,0,0);
+      creditDAO.insertCredit(creditBO.getCreditDO());
+    }
     return userDAO.getUserById(id);
   }
 

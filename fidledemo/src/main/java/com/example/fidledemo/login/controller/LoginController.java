@@ -84,6 +84,8 @@ public class LoginController
       creditVO.setDislikeNum(newUser.getCredit().getDislikeNum());
     }
 
+    personVO.setCredit(creditVO);
+
     return JSON.toJSONString(Result.successResult(personVO));
   }
 
