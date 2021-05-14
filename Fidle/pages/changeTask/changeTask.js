@@ -79,6 +79,11 @@ Page({
             //data: {},  //这里是可以填写服务器需要的参数  
             method: 'GET', // 声明GET请求  
             // header: {}, // 设置请求的 header，GET请求可以不填  
+            header: {
+                'Content-Type': 'application/json',
+                'Cookie': wx.getStorageSync('sessionid'),
+                'token': app.globalData.token
+            },
             success: function(res) {
                 let task_list = new Array();
 
@@ -202,6 +207,7 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
+        console.log('token='+app.globalData.token);
         console.log('修改任务的id为'+options.id);
         this.setData({
             id: options.id
@@ -280,13 +286,14 @@ Page({
      */
     getHistoryTaskList() {
         let that = this;
-        var session_id = wx.getStorageSync('sessionid');
-        var token = wx.getStorageSync('token');
-        var header = { 'content-type': 'application/json', 'Cookie': session_id };
         wx.request({
             url: 'http://47.106.241.182:8082/task/getTaskDetailById/' + that.data.id,
             method: "GET",
-            header: header,
+            header: {
+                'Content-Type': 'application/json',
+                'Cookie': wx.getStorageSync('sessionid'),
+                'token': app.globalData.token
+            },
             success(res) {
                 console.log('获取任务历史记录');
                 let data = res.data.data;
@@ -412,7 +419,8 @@ Page({
       url: 'http://120.77.210.142:8080/myTask/alterTask/',
       method: 'POST',
       header: { 'content-type': 'application/x-www-form-urlencoded',
-       'Cookie': session_id ,
+        'Cookie': session_id ,
+        'token': app.globalData.token
       },
       data: {
         id: task_id,
@@ -446,23 +454,6 @@ Page({
     // }    
       
     })
-
-    // wx.request({      
-    //     url: that.data.task_releaseUrl,
-    //     header: {         "Content-Type": "application/x-www-form-urlencoded"       },
-    //     method: "POST",
-    //     data: {
-    //         title: task_title,
-    //         reward: task_remuneration,
-    //         start_time: task_startTime,
-    //         end_time: task_endTime,
-    //         description: task_message,
-    //         category: task_category,
-    //         tags: task_tags,
-    //     },
-
-        
-    // })
 },
 
 })

@@ -80,8 +80,9 @@ public class PublishController {
         categoryBO.setCategoryId(Long.parseLong(request.getParameter("category")));
         taskInfoBO.setCategory(categoryBO);
 
-        //将String[]转为List<TagBO>
-        String[] tags = request.getParameterValues("tags");
+        //将String转为List<TagBO>
+        String tagss = request.getParameter("tags");
+        String[] tags = tagss.split(",");
         List<TagBO> tagBOS = new ArrayList<>();
         for (String tag : tags) {
             TagBO tagBO = new TagBO();
@@ -134,7 +135,8 @@ public class PublishController {
         goodsInfoBO.setCategory(categoryBO);
 
         //将String[]转为List<TagBO>
-        String[] tags = request.getParameterValues("tags");
+        String tagss = request.getParameter("tags");
+        String[] tags = tagss.split(",");
         List<TagBO> tagBOS = new ArrayList<>();
         for (String tag : tags) {
             TagBO tagBO = new TagBO();
@@ -155,8 +157,9 @@ public class PublishController {
         }
         goodsInfoBO.setTagList(tagBOS);
 
-        //String[]转List<ImageBO>
-        String[] image_links = request.getParameterValues("image_links");
+        //String转List<ImageBO>
+        String imagelink = request.getParameter("image_links");
+        String[] image_links = imagelink.split(",");
         List<ImageBO> imageBOS = new ArrayList<>();
         for (String image_link : image_links) {
             ImageBO imageBO = new ImageBO();
@@ -166,7 +169,6 @@ public class PublishController {
         }
         goodsInfoBO.setImageList(imageBOS);
         goodsInfoBO.setSold(GoodsInfoBO.SELLING);
-
         publishService.insertGoods(goodsInfoBO);
         return JSON.toJSONString(Result.successResult());
     }
@@ -187,24 +189,20 @@ public class PublishController {
         //获得Session中的用户信息
         UserBO userBO = (UserBO) session.getAttribute("user");
         activityInfoBO.setPubId(userBO.getId());
-        System.out.println(userBO.getId());
 
         activityInfoBO.setTitle(request.getParameter("title"));
         activityInfoBO.setAddress(request.getParameter("address"));
 
         //String转Datetime
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        System.out.println(request.getParameter("start_time"));////
-        System.out.println(request.getParameter("start_time"));////
-        System.out.println(formatter.parse(request.getParameter("start_time")));////
-        System.out.println(formatter.parse(request.getParameter("end_time")));////
         activityInfoBO.setStartTime(formatter.parse(request.getParameter("start_time")));
         activityInfoBO.setEndTime(formatter.parse(request.getParameter("end_time")));
 
         activityInfoBO.setDescription(request.getParameter("description"));
 
-        //String[]转List<ImageBO>
-        String[] image_links = request.getParameterValues("image_links");
+        //String转List<ImageBO>
+        String imagelink = request.getParameter("image_links");
+        String[] image_links = imagelink.split(",");
         List<ImageBO> imageBOS = new ArrayList<>();
         for (String image_link : image_links) {
             ImageBO imageBO = new ImageBO();
@@ -219,8 +217,9 @@ public class PublishController {
         categoryBO.setCategoryId(Long.parseLong(request.getParameter("category")));
         activityInfoBO.setCategory(categoryBO);
 
-        //将String[]转为List<TagBO>
-        String[] tags = request.getParameterValues("tags");
+        //将String转为List<TagBO>
+        String tagss = request.getParameter("tags");
+        String[] tags = tagss.split(",");
         List<TagBO> tagBOS = new ArrayList<>();
         for (String tag : tags) {
             TagBO tagBO = new TagBO();

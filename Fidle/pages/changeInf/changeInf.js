@@ -50,7 +50,8 @@ Page({
       method: 'GET',
       header: {
         "Content-Type": "application/json",
-        'Cookie': wx.getStorageSync('sessionid')
+        'Cookie': wx.getStorageSync('sessionid'),
+        'token': app.globalData.token
       },
       success: function(res){
         console.log(res);

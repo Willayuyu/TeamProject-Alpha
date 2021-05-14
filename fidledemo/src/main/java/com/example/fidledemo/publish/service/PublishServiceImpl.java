@@ -79,6 +79,7 @@ public class PublishServiceImpl implements PublishService {
             //根据link查出对应的id
             goodsImageDO.setId(goodsImageDAO.getGoodsImageByLink(goodsImageDO.getImageLink()));
             goodsImageDO.setGoodsId(goodsInfoDO.getId());
+            System.out.println(goodsInfoDO.getId());
             goodsImageDAO.updateGoodsImage(goodsImageDO);
         }
     }
