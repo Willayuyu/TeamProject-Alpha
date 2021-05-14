@@ -6,7 +6,7 @@ Page({
    */
   data: {
       imgsrc:app.globalData.user.portrait,
-      username:app.globalData.username,
+      username:app.globalData.user.username,
       phonenum:app.globalData.phonenum,
       qqnum:app.globalData.qqnum,
   },
@@ -82,6 +82,9 @@ Page({
     wx.setNavigationBarTitle({ title: '修改个人信息' }) ;
     this.setData({
       imgsrc:app.globalData.user.portrait,
+      username:app.globalData.user.username,
+      phonenum:app.globalData.phonenum,
+      qqnum:app.globalData.qqnum,
     })
   },
 
