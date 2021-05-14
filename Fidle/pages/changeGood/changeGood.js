@@ -189,6 +189,7 @@ Page({
         let imageList = [];
         for (var i = 0; i < that.data.goods_fileList.length; i++)
             imageList.push(that.data.goods_fileList[i].imageLink);
+        console.log(imageList);
         let goods_condition = that.data.goods_old_new_list_idx + 1;
         let goods_category = that.data.goods_class_list[that.data.goods_class_list_idx].categoryId;
         let goods_tags = that.data.goods_label_list;
@@ -220,6 +221,9 @@ Page({
                 wx.showToast({ title: '系统错误' })
             }
         })
+        // that.setData({
+        //     goods_fileList: imageList
+        // })
     },
     //二手物品信息发布功能
     goodsRelease() {
@@ -380,7 +384,7 @@ Page({
     goodsDeleteImage: function (e) {
         var that = this;
         var tempFilePaths = that.data.goods_fileList;
-
+        
         var index = e.currentTarget.dataset.id; //获取当前长按图片下标
         console.log(index);
         var tempId = tempFilePaths[index].id;

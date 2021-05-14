@@ -110,6 +110,10 @@ Page({
       url: '/pages/goodsDetailsPage/goodsDetailsPage?id=' + id
     })
   },
+
+  /**
+   * 渲染在售页面
+   */
   showOnSale() {
     return new Promise(function (resolve, reject) {
       wx.request({
@@ -137,6 +141,10 @@ Page({
       })
     })
   },
+
+  /**
+   * 渲染已售页面
+   */
   showSold() {
     return new Promise(function (resolve, reject) {
       wx.request({
@@ -165,6 +173,9 @@ Page({
     })
   },
 
+  /**
+   * 渲染买入界面
+   */
   showBuy() {
     return new Promise(function (resolve, reject) {
       wx.request({
@@ -192,6 +203,10 @@ Page({
       })
     })
   },
+
+  /**
+   * 同步获取三个请求结果
+   */
   showPromise() {
     let that = this;
     Promise.all(
@@ -210,6 +225,9 @@ Page({
       });
   },
 
+  /**
+   * 生成订单传值跳转
+   */
   showOverlap: function (event) {
     // this.setData({ show: true });
     // this.setData({indexOnsale: event.currentTarget.dataset.index});
@@ -236,42 +254,9 @@ Page({
 
   },
 
-  onClickHide() {
-    this.setData({ show: false });
-  },
-
-  noop() { },
-
-  change: function (event) {
-    this.setData({
-      buyerId: event.detail.value
-    })
-  },
-
-  confirm: function (event) {
-    let that = this;
-    let index = that.data.indexOnsale;
-    console.log(index);
-    let goodsList = that.data.goodsOnSale;
-    let goodsData = goodsList[index];
-    console.log(goodsData);
-    let id = goodsData.id;
-    console.log(id);
-    let buyerId = that.data.buyerId;
-    console.log(buyerId);
-    // wx.request({
-    //   url: 'http://120.77.210.142:8080/myGoods/generateOrder/'+id,
-    //   headers: {
-    //     'Content-Type': 'application/x-www-form-urlencoded'
-    //   },
-    //   data:{
-    //     id: id,
-    //     buyerId: buyerId
-    //   }
-
-    // })
-  },
-
+    /**
+     * 下架二手物品
+     */
   deleteGoods: function (event) {
     let that = this;
     let index = event.currentTarget.dataset.index;
@@ -297,6 +282,9 @@ Page({
     })
   },
 
+  /**
+   * 传值跳转修改二手界面
+   */
   gotoAlterGoodsPage: function (event) {
     let that = this;
     let index = event.currentTarget.dataset.index;

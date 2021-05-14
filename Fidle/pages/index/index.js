@@ -103,59 +103,79 @@ Page({
   }]
   },
 
-  //获取搜索框内容
+  /**
+   * 获取搜索框内容
+   */
   getInputValue: function(e) { 
     this.data.searchInput = e.detail.value;
   },
 
-  //二手-时间筛选事件
+  /**
+   * 二手-时间筛选事件
+   */
   select_Sec_Time: function(e) {
     this.data.secTime = e.detail;
     this.search();
   },
 
-  //二手-类别筛选事件
+  /**
+   * 二手-类别筛选事件
+   */
   select_Sec_Sort: function(e) {
     this.data.secSort = e.detail;
     this.search();
   },
 
-  //二手-新旧筛选事件
+  /**
+   * 二手-新旧筛选事件
+   */
   select_Sec_Degree: function(e) {
     this.data.secDegree = e.detail;
     this.search();
   },
 
-  //任务-时间筛选事件
+  /**
+   * 任务-时间筛选事件
+   */
   select_Task_Time: function(e) {
     this.data.taskTime = e.detail;
     this.search();
   },
 
-  //任务-类别筛选事件
+  /**
+   * 任务-类别筛选事件
+   */
   select_Task_Sort: function(e) {
     this.data.taskSort = e.detail;
     this.search();
   },
 
-  //活动-时间筛选事件
+  /**
+   * 活动-时间筛选事件
+   */
   select_Act_Time: function(e) {
     this.data.activityTime = e.detail;
     this.search();
   },
 
-  //活动-类别筛选事件
+  /**
+   * 活动-类别筛选事件
+   */
   select_Act_Sort: function(e) {
     this.data.activitySort = e.detail;
     this.search();
   },
 
-  //标签点击/切换事件
+  /**
+   * 标签点击/切换事件
+   */
   tab_Click: function(e) {
     this.data.tabIndex = e.detail.index;
   },
 
-  //搜索二手物品
+  /**
+   * 搜索二手物品
+   */
   search_Sec: function(days, categoryId, condition, keyWord, pageid) {
     let that=this;
     wx.request({
@@ -187,7 +207,9 @@ Page({
     })
   },
 
-  //搜索任务委托
+  /**
+   * 搜索任务委托
+   */
   search_Task: function(days, categoryId, keyWord, pageid) {
     let that=this;
     wx.request({
@@ -218,7 +240,9 @@ Page({
     })
   },
 
-  //搜索活动
+  /**
+   * 搜索活动
+   */
   search_Act: function(days, categoryId, keyWord, pageid) {
     let that=this;
     wx.request({
@@ -249,7 +273,9 @@ Page({
     })
   },
 
-  //获取下拉框的天数
+  /**
+   * 获取下拉框的天数
+   */
   getDays: function(secTime) {
     var days;
     switch(secTime) {
@@ -274,7 +300,9 @@ Page({
     return days;
   },
 
-  //获取新旧程度值
+  /**
+   * 获取新旧程度值
+   */
   getDegree: function(degree) {
     var condition;
     switch(degree) {
@@ -299,7 +327,9 @@ Page({
     return condition;
   },
 
-  //初始搜索函数（只查第一页）
+  /**
+   * 初始搜索函数（只查第一页）
+   */
   searchOne: function() {
     console.log(this.data.searchInput);
     var keyWord = this.data.searchInput;
@@ -361,7 +391,9 @@ Page({
   },
 
 
-  //搜索功能
+  /**
+   * 搜索功能
+   */
   search: function() {
     this.setData({
       goodsPage: 1,
@@ -371,7 +403,9 @@ Page({
     this.searchOne();
   },
 
-  //上拉刷新
+  /**
+   * 上拉刷新
+   */
   searchPre: function() {
     let pageid;
     switch(this.data.tabIndex) {
@@ -404,7 +438,9 @@ Page({
     console.log(pageid);
   },
 
-  //下拉刷新
+  /**
+   * 下拉刷新
+   */
   searchNext: function() {
     let pageid;
     switch(this.data.tabIndex) {
@@ -437,14 +473,18 @@ Page({
     this.searchOne();
   },
 
-  //联系卖家、委托人
+  /**
+   * 联系卖家、委托人
+   */
   contact: function() {
     wx.navigateTo({
       url: '/pages/contact/contact',
     })
   },
 
-  //二手物品收藏
+  /**
+   * 二手物品收藏
+   */
   storeGoods_collected: function(e) {
     var index = e.currentTarget.dataset.index;
     console.log(index);
@@ -471,7 +511,9 @@ Page({
     })
   },
 
-  //二手物品取消收藏
+  /**
+   * 二手物品取消收藏
+   */
   storeGoods_uncollected: function(e) {
     var index = e.currentTarget.dataset.index;
     console.log(index);
@@ -498,7 +540,9 @@ Page({
     })
   },
 
-  //任务收藏
+  /**
+   * 任务收藏
+   */
   storeTask_collected: function(e) {
     var index = e.currentTarget.dataset.index;
     console.log(index);
@@ -525,7 +569,9 @@ Page({
     })
   },
 
-  //任务取消收藏
+  /**
+   * 任务取消收藏
+   */
   storeTask_uncollected: function(e) {
     var index = e.currentTarget.dataset.index;
     console.log(index);
@@ -552,7 +598,9 @@ Page({
     })
   },
 
-  //活动收藏
+  /**
+   * 活动收藏
+   */
   storeAct_collected: function(e) {
     var index = e.currentTarget.dataset.index;
     console.log(index);
@@ -579,7 +627,9 @@ Page({
     })
   },
 
-  //活动取消收藏
+  /**
+   * 活动取消收藏
+   */
   storeAct_uncollected: function(e) {
     var index = e.currentTarget.dataset.index;
     console.log(index);
@@ -643,7 +693,9 @@ Page({
     })
   },
   
-  //数组去空值
+  /**
+   * 数组去空值 
+   */
   removeEmpty: function(arr) {   
     for(var i = 0; i < arr.length; i++) {
      if(arr[i] == "" || typeof(arr[i]) == "undefined") {
@@ -654,7 +706,9 @@ Page({
      return arr;
   },
 
-  //获取二手物品类别列表
+  /**
+   * 获取二手物品类别列表
+   */
   getGoodsCategory: function() {
     let that=this;
     wx.request({
@@ -686,7 +740,9 @@ Page({
     })
   },
 
-  //获取任务委托类别列表
+  /**
+   * 获取任务委托类别列表
+   */
   getTaskCategory: function() {
     let that=this;
     wx.request({
@@ -718,7 +774,9 @@ Page({
     })
   },
 
-  //获取活动类别列表
+  /**
+   * 获取活动类别列表
+   */
   getActivityCategory: function() {
     let that=this;
     wx.request({
@@ -750,7 +808,9 @@ Page({
     })
   },
 
-  //获取二手物品列表
+  /**
+   * 获取二手物品列表
+   */
   getGoodsList: function(days, categoryId, condition, pageid) {
     let that = this;
     wx.request({
@@ -778,7 +838,9 @@ Page({
     })
   },
 
-  //获取任务物品列表
+  /**
+   * 获取任务物品列表
+   */
   getTaskList: function(days, categoryId, pageid) {
     let that = this;
     wx.request({
@@ -805,7 +867,9 @@ Page({
     })
   },
 
-  //获取活动列表
+  /**
+   * 获取活动列表
+   */
   getActivityList: function(days, categoryId, pageid) {
     let that = this;
     wx.request({
@@ -897,6 +961,9 @@ Page({
 
   },
 
+  /**
+   * 联系卖家
+   */
   goodsConnect: function(event){
     let index = event.currentTarget.dataset.index;
     console.log(index);
@@ -910,6 +977,9 @@ Page({
     }) 
   },
 
+  /**
+   * 联系委托人
+   */
   taskConnect: function(event){
     let index = event.currentTarget.dataset.index;
     console.log(index);

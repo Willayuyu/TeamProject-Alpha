@@ -156,6 +156,9 @@ Page({
     })
   },
 
+  /**
+   * 请求获取收藏的二手物品
+   */
   showGoods() {
     return new Promise(function (resolve, reject) {
       wx.request({
@@ -183,6 +186,10 @@ Page({
       })
     })
   },
+
+  /**
+   * 请求获取收藏的任务
+   */
   showTask() {
     return new Promise(function (resolve, reject) {
       wx.request({
@@ -211,6 +218,9 @@ Page({
     })
   },
 
+  /**
+   * 请求获取收藏的活动
+   */
   showActivity() {
     return new Promise(function (resolve, reject) {
       wx.request({
@@ -238,11 +248,12 @@ Page({
       })
     })
   },
+
+  /**
+   * 同步获取三个请求的结果
+   */
   showPromise() {
     let that = this;
-    let goodsList;
-    let taskList;
-    let activityList;
     Promise.all(
       [that.showGoods(), that.showTask(), that.showActivity()]).then((res) => {
         //三个方法回来后的数据
@@ -259,6 +270,9 @@ Page({
       });
   },
 
+  /***
+   * 联系卖家
+   */
   goodsConnect: function (event) {
     let index = event.currentTarget.dataset.index;
     console.log(index);
@@ -272,6 +286,9 @@ Page({
     })
   },
 
+  /**
+   * 联系委托人
+   */
   taskConnect: function (event) {
     let index = event.currentTarget.dataset.index;
     console.log(index);
@@ -285,6 +302,9 @@ Page({
     }) 
   },
 
+  /**
+   * 二手物品取消收藏
+   */
   goodsCollect: function(event){
     let index = event.currentTarget.dataset.index;
     console.log(index);
@@ -312,6 +332,9 @@ Page({
     })
   },
 
+  /**
+   * 任务取消收藏
+   */
   taskCollect: function(event){
     let index = event.currentTarget.dataset.index;
     console.log(index);
@@ -339,6 +362,9 @@ Page({
     })
   },
 
+  /**
+   * 活动取消收藏
+   */
   activityCollect: function(event){
     let index = event.currentTarget.dataset.index;
     console.log(index);
