@@ -328,48 +328,6 @@ Page({
     })
   },
 
-   /**
-   * 修改任务
-   * 
-   * 参数名	必选	  类型	    说明
-    id	    是	  bigint	  任务委托项id
-    title	  是	  String	  标题
-    reward	是  	decimal	  酬劳
-    pub_id	是  	bigint	  发布者id
-    description	是	String	详细描述
-    category	是	bigint	  类别
-    start_time	是	Datetime	开始时间
-    end_time	是	Datetime	结束时间
-    tags  	是	  String[]	标签数组
-   */
-  doAlterTask(){
-    let session_id = wx.getStorageSync('sessionid');
-    console.log(session_id); 
-     
-    wx.request({
-      url: 'http://120.77.210.142:8080/myTask/alterTask/',
-      method: 'POST',
-      header: { 'content-type': 'application/x-www-form-urlencoded',
-       'Cookie': session_id ,
-      },
-      data: {
-        id: 1,
-        title: "修改后的标题",
-        reward: 30,
-        pub_id: 1,
-        description: "修改后的详细描述",
-        category: 1,
-        start_time: 1620087200000,
-        end_time: 1620087200000,
-        tags: ["修改1","修改2"]
-      },
-      success(res){
-        console.log("修改任务");
-        console.log(res.data);
-      }
-    })
-  },
-
   /**
    * 评价委托发布方
    * 
@@ -448,12 +406,11 @@ Page({
     console.log(task);
     console.log('tagList=');
     console.log(task.tagList);
-    console.log(task.category)
     console.log('url='+'/pages/taskOrder/taskOrder?id='+task.id+'&title='+task.title+
     '&reward='+task.reward+'tagList'+task.tagList);
     wx.navigateTo({
       url: '/pages/taskOrder/taskOrder?id='+task.id+'&title='+task.title+
-      '&reward='+task.reward+'&tagList='+task.tagList+'&category='+task.category,
+      '&reward='+task.reward+'&tagList='+task.tagList,
       // ?i
       // d='+id+'&title='+title+'&price='+price+'&originalPrice='+originalPrice+'&imageLink='+imageLink+'&condition='+condition+'&category='+category+'&tagList='+tagList,
     })
@@ -461,14 +418,14 @@ Page({
   },
 
   /**
-   * 跳转到修改活动页
+   * 跳转到修改任务页
    */
-  gotoAlterActivityPage(e) {
+  gotoAlterTaskPage(e) {
     // 传递的参数
     let id = e.currentTarget.dataset['index'];
     console.log("修改id为"+id+"的活动");
     wx.navigateTo({
-      url: '/pages/changeActivity/changeActivity?id=' + id,
+      url: '/pages/changeTask/changeTask?id=' + id,
     })
     //修改页写好了改
 

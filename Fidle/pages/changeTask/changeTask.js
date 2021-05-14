@@ -1,10 +1,12 @@
 // pages/changeTask/changeTask.js
+var app = getApp();
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
+        id: 1,
         task_title: "",
         task_remuneration: "",
         task_message: "",
@@ -27,6 +29,8 @@ Page({
             initEndTime: "",
             limitEndTime: "2099-12-31 23:59:59"
         },
+        history_category: "",
+        history_label_list: [{ content: "", id: "" }],
 
     },
 
@@ -122,42 +126,6 @@ Page({
         })
     },
 
-    //任务委托发布功能
-    taskRelease() {
-        let that = this;
-        let task_title = that.data.task_title;
-        let task_remuneration = that.data.task_remuneration;
-        let task_message = that.data.task_message;
-        let task_startTime = that.data.startTime;
-        let task_endTime = that.data.endTime;
-        let task_category = that.data.task_class_list[that.data.task_class_list_idx].categoryId;
-        let task_tags = that.data.task_label_list;
-
-        wx.request({      
-            url: that.data.task_releaseUrl,
-            header: {         "Content-Type": "application/x-www-form-urlencoded"       },
-            method: "POST",
-            data: {
-                title: task_title,
-                reward: task_remuneration,
-                start_time: task_startTime,
-                end_time: task_endTime,
-                description: task_message,
-                category: task_category,
-                tags: task_tags,
-            },
-
-            complete: function(res) {              
-                if (res == null || res.data == null) {           console.error('网络请求失败');           return;         } else {
-                    wx.showModal({
-                        title: "提示",
-                        content: "任务委托信息发布成功",
-                    })
-                }      
-            }    
-        })
-    },
-
     getCurrentTime() {
         var date = new Date(); //当前时间
         var month = this.zeroFill(date.getMonth() + 1); //月
@@ -228,7 +196,12 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
+        console.log('修改任务的id为'+options.id);
+        this.setData({
+            id: options.id
+        })
         this.getTaskClassList();
+        this.getHistoryTaskList();
     },
 
     /**
@@ -294,5 +267,182 @@ Page({
      */
     onShareAppMessage: function() {
 
-    }
+    },
+
+     /**
+     * 获取任务历史记录
+     */
+    getHistoryTaskList() {
+        let that = this;
+        var session_id = wx.getStorageSync('sessionid');
+        var token = wx.getStorageSync('token');
+        var header = { 'content-type': 'application/json', 'Cookie': session_id };
+        wx.request({
+            url: 'http://47.106.241.182:8082/task/getTaskDetailById/' + that.data.id,
+            method: "GET",
+            header: header,
+            success(res) {
+                console.log('获取任务历史记录');
+                let data = res.data.data;
+                console.log(res.data);
+                if (res.data.code === 200) {
+                    that.setData({
+                        task_title: data.title,
+                        task_remuneration: data.reward,
+                        task_message: data.description,
+                        history_label_list: res.data.data.tagList,
+                        history_category: res.data.data.category,
+                        task_classListUrl: "http://47.106.241.182:8082/task/listTaskCategory",
+                        task_releaseUrl: "http://47.106.241.182:8082/publish/task",
+
+                        isPickerRender: false,
+                        isPickerShow: false,
+                        startTime: data.startTime,
+                        endTime: data.endTime,
+                        pickerConfig: {
+                            endDate: true,
+                            column: "second",
+                            dateLimit: true,
+                            initStartTime: "",
+                            initEndTime: "",
+                            limitEndTime: "2099-12-31 23:59:59"
+                        },
+
+                    })
+                    that.setLabelList();
+                    that.setCategoryIndex();
+                    // that.setPictureList();
+                }
+            },
+            fail(err) {
+                console.log(err);
+            }
+        })
+    },
+
+    // task_class_list: [{ categoryId: "", categoryDesignation: "" }],
+    // task_label_list: [],
+
+    /**
+     * 类别转化
+     */
+    setCategoryIndex(){
+        let that = this;
+        let list = that.data.task_class_list;
+        let category = that.data.history_category;
+        let i = 0;
+        let categoryID;
+        for(i = 0;i < list.length;i++){
+            if(category == list[i].categoryDesignation){
+                categoryID = i;
+            }
+        }
+        that.setData({
+            task_class_list_idx: categoryID
+        })
+    },
+    /**
+     * 标签转化
+     */
+    setLabelList(){
+        let that = this;
+        let list =[];
+        let i=0;
+        for(i=0;i<that.data.task_label_list.length;i++){
+            list[i] = that.data.task_label_list[i].content;
+        }
+        console.log(list)
+        that.setData({
+            task_label_list: list
+        })
+    },
+
+
+  /**
+   * 修改任务
+   * 
+   * 参数名	必选	  类型	    说明
+    id	    是	  bigint	  任务委托项id
+    title	  是	  String	  标题
+    reward	是  	decimal	  酬劳
+    pub_id	是  	bigint	  发布者id
+    description	是	String	详细描述
+    category	是	bigint	  类别
+    start_time	是	Datetime	开始时间
+    end_time	是	Datetime	结束时间
+    tags  	是	  String[]	标签数组
+    */
+  doAlterTask() {
+    let that = this;
+    let task_id = that.data.id;
+    let task_title = that.data.task_title;
+    let task_remuneration = that.data.task_remuneration;
+    let task_message = that.data.task_message;
+    let task_startTime = that.data.startTime;
+    let task_endTime = that.data.endTime;
+    let task_category = that.data.task_class_list[that.data.task_class_list_idx].categoryId;
+    let task_tags = that.data.task_label_list;
+
+    let session_id = wx.getStorageSync('sessionid');
+    console.log(session_id); 
+    console.log('app.globaldata=');
+    console.log(app.globalData.user.id);
+     
+    wx.request({
+      url: 'http://120.77.210.142:8080/myTask/alterTask/',
+      method: 'POST',
+      header: { 'content-type': 'application/x-www-form-urlencoded',
+       'Cookie': session_id ,
+      },
+      data: {
+        id: task_id,
+        title: task_title,
+        reward: task_remuneration,
+        start_time: task_startTime,
+        end_time: task_endTime,
+        description: task_message,
+        category: task_category,
+        tags: task_tags,
+
+        pub_id: app.globalData.user.id,
+
+      },
+      success(res){
+        console.log("修改任务");
+        console.log(res.data);
+        if(res.data.code==200) {
+        wx.redirectTo({
+            url: '/pages/task/task',
+            })
+        }
+      },
+    //   complete: function(res) {              
+    //     if (res == null || res.data == null) {           console.error('网络请求失败');           return;         } else {
+    //         wx.showModal({
+    //             title: "提示",
+    //             content: "任务委托信息修改成功",
+    //         })
+    //     }      
+    // }    
+      
+    })
+
+    // wx.request({      
+    //     url: that.data.task_releaseUrl,
+    //     header: {         "Content-Type": "application/x-www-form-urlencoded"       },
+    //     method: "POST",
+    //     data: {
+    //         title: task_title,
+    //         reward: task_remuneration,
+    //         start_time: task_startTime,
+    //         end_time: task_endTime,
+    //         description: task_message,
+    //         category: task_category,
+    //         tags: task_tags,
+    //     },
+
+        
+    // })
+},
+
 })

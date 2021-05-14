@@ -12,7 +12,7 @@
             <image wx:if="{{item.taskState=='已完成'}}" class="state" mode="widthFix" src="../../icons/circle (2).png"></image>
             <text class="stateText">{{item.taskState}}</text>
           </view>
-          <image class="modify" mode="widthFix" catchtap="" hover-stop-propagation='true' catchtap="gotoAlterTaskPage"
+          <image class="modify" mode="widthFix" wx:if="{{item.taskState=='未接收'}}" hover-stop-propagation='true' catchtap="gotoAlterTaskPage"
           data-index="{{item.id}}" src="../../icons/modify.png"></image>
         </view>
         <view class="secondLine">
@@ -64,8 +64,10 @@
             <image wx:if="{{item.taskState=='已完成'}}" class="state" mode="widthFix" src="../../icons/circle (2).png"></image>
             <text class="stateText">{{item.taskState}}</text>
           </view>
-          <image class="modify" mode="widthFix" catchtap="" hover-stop-propagation='true' 
+
+          <image wx:if="{{item.taskState=='未接收'}}" class="modify" mode="widthFix" catchtap="do" hover-stop-propagation='true' 
           data-index="{{index}}" src="../../icons/modify.png"></image>
+
         </view>
         <view class="secondLine">
           <text>{{item.title}}</text>

@@ -1,13 +1,13 @@
 {
   "pages": [
-    "pages/index/index",
     "pages/login/login",
+    "pages/index/index",
+    "pages/task/task",
     "pages/contact/contact",
     "pages/change/change",
     "pages/changeGood/changeGood",
     "pages/changeTask/changeTask",
     "pages/changeActivity/changeActivity",
-
     "pages/changeInf/changeInf",
     "pages/aboutus/aboutus",
     "pages/comments/comments",
@@ -17,7 +17,6 @@
     "pages/publish/publish",
     "pages/myInf/myInf",
     "pages/goods/goods",
-    "pages/task/task",
     "pages/activity/activity",
     "pages/collect/collect",
     "pages/order/order",
