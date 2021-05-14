@@ -45,7 +45,7 @@
         t.id AS t_id,content,
         t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified
         FROM goods_info AS gi
-        LEFT JOIN goods_category AS c ON gi.category=c.id
+        LEFT JOIN goods_category AS c ON gi.category=c.category_id
         LEFT JOIN goods_image AS i ON i.goods_id=gi.id
         LEFT JOIN goods_tag AS `gt` ON `gt`.goods_id=gi.id
         LEFT JOIN tag_of_goods AS t ON t.id=`gt`.tag_id
@@ -63,7 +63,7 @@
         t.id AS t_id,content,
         t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified
         FROM goods_info AS gi
-        LEFT JOIN goods_category AS c ON gi.category=c.id
+        LEFT JOIN goods_category AS c ON gi.category=c.category_id
         LEFT JOIN goods_image AS i ON i.goods_id=gi.id
         LEFT JOIN goods_tag AS `gt` ON `gt`.goods_id=gi.id
         LEFT JOIN tag_of_goods AS t ON t.id=`gt`.tag_id
@@ -116,7 +116,7 @@
         t.id AS t_id,content,
         t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified
         FROM goods_info AS gi
-        LEFT JOIN goods_category AS c ON gi.category=c.id
+        LEFT JOIN goods_category AS c ON gi.category=c.category_id
         LEFT JOIN goods_image AS i ON i.goods_id=gi.id
         LEFT JOIN goods_tag AS `gt` ON `gt`.goods_id=gi.id
         LEFT JOIN tag_of_goods AS t ON t.id=`gt`.tag_id
@@ -153,7 +153,7 @@
         t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified
         FROM goods_info AS gi
         LEFT JOIN goods_enshrine AS ge ON ge.goods_id=gi.id
-        LEFT JOIN goods_category AS c ON gi.category=c.id
+        LEFT JOIN goods_category AS c ON gi.category=c.category_id
         LEFT JOIN goods_image AS i ON i.goods_id=gi.id
         LEFT JOIN goods_tag AS `gt` ON `gt`.goods_id=gi.id
         LEFT JOIN tag_of_goods AS t ON t.id=`gt`.tag_id
