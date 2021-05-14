@@ -1,5 +1,6 @@
 // pages/taskDetailsPage/taskDetailsPage.js
 import Toast from '../../components/lib/toast/toast';
+let app = getApp();
 Page({
 
   /**
@@ -21,17 +22,19 @@ Page({
   /**
    * 获取任务详情页信息
    */
-  getTaskDetail:function(){
-    let that=this;
-    var session_id = wx.getStorageSync('sessionid');
-    var header = {'content-type': 'application/json', 'Cookie': session_id };
+  getTaskDetail: function () {
+    let that = this;
     wx.request({
       url: 'http://47.106.241.182:8082/task/getTaskDetailById/' + that.data.id,
       method: "GET",
-      header: header,
-      success(res){
+      header: {
+        'content-type': 'application/json',
+        'Cookie': wx.getStorageSync('sessionid'),
+        'token': app.globalData.token
+      },
+      success(res) {
         console.log(res.data);
-        if(res.data.code===200){
+        if (res.data.code === 200) {
           that.setData({
             title: res.data.data.title,
             price: res.data.data.reward,
@@ -42,11 +45,11 @@ Page({
             beginTime: res.data.data.startTime,
             endTime: res.data.data.endTime,
             pubId: res.data.data.pubId,
-            id:res.data.data.id,
+            id: res.data.data.id,
           })
         }
       },
-      fail(err){
+      fail(err) {
         console.log(err);
       }
     })
@@ -54,7 +57,7 @@ Page({
   /**
    * 点击home图标跳转首页
    */
-  onClickHome(event){
+  onClickHome(event) {
     wx.switchTab({
       url: '/pages/index/index',
     })
@@ -62,18 +65,20 @@ Page({
   /**
    * 点击收藏变色
    */
-  onClickStar(event){
+  onClickStar(event) {
     let that = this;
-    var session_id = wx.getStorageSync('sessionid');
-    var header = {'content-type': 'application/json', 'Cookie': session_id };
-    if(that.data.collectState == -1){
+    if (that.data.collectState == -1) {
       wx.request({
         url: 'http://47.106.241.182:8082/task/collectTask/' + that.data.id,
         method: 'GET',
-        header: header,
-        success(res){
+        header: {
+          'content-type': 'application/json',
+          'Cookie': wx.getStorageSync('sessionid'),
+          'token': app.globalData.token
+        },
+        success(res) {
           console.log(res);
-          if(res.data.code===200){
+          if (res.data.code === 200) {
             that.setData({
               collectState: 1
             });
@@ -81,20 +86,24 @@ Page({
               position: 'bottom',
               message: '收藏成功！'
             });
-          } 
+          }
         },
-        fail(err){
+        fail(err) {
           console.log(err);
         }
       })
-    } else if(that.data.collectState == 1) {
+    } else if (that.data.collectState == 1) {
       wx.request({
         url: 'http://47.106.241.182:8082/task/cancelCollectTask/' + that.data.id,
         method: 'GET',
-        header: header,
-        success(res){
+        header: {
+          'content-type': 'application/json',
+          'Cookie': wx.getStorageSync('sessionid'),
+          'token': app.globalData.token
+        },
+        success(res) {
           console.log(res);
-          if(res.data.code===200){
+          if (res.data.code === 200) {
             that.setData({
               collectState: -1
             });
@@ -104,7 +113,7 @@ Page({
             });
           }
         },
-        fail(err){
+        fail(err) {
           console.log(err);
         }
       })
@@ -113,13 +122,13 @@ Page({
   /**
    * 点击联系委托人跳转
    */
-  taskConnect: function(event){
+  taskConnect: function (event) {
     let that = this;
     let pubId = that.data.pubId;
     console.log(pubId);
-    wx.navigateTo({ 
-      url: '/pages/contact/contact?pubId='+ pubId
-    }) 
+    wx.navigateTo({
+      url: '/pages/contact/contact?pubId=' + pubId
+    })
   },
   /**
    * 生命周期函数--监听页面加载

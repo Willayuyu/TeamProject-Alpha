@@ -1,4 +1,5 @@
 // pages/changeGood/changeGood.js
+let app = getApp();
 Page({
 
     /**
@@ -35,13 +36,14 @@ Page({
      */
     getHistoryGoodsList() {
         let that = this;
-        var session_id = wx.getStorageSync('sessionid');
-        var token = wx.getStorageSync('token');
-        var header = { 'content-type': 'application/json', 'Cookie': session_id };
         wx.request({
             url: 'http://47.106.241.182:8082/goods/getGoodsDetailById/' + that.data.id,
             method: "GET",
-            header: header,
+            header: {
+                'content-type': 'application/json',
+                'Cookie': wx.getStorageSync('sessionid'),
+                'token': app.globalData.token
+              },
             success(res) {
                 console.log(res.data.data);
                 if (res.data.code === 200) {
@@ -89,15 +91,16 @@ Page({
         let goods_List = [];
         let i = 0;
         let pictureID = [];
-        var session_id = wx.getStorageSync('sessionid');
-        var token = wx.getStorageSync('token');
-        var header = { 'content-type': 'application/x-www-form-urlencoded', 'Cookie': session_id };
         for (i = 0; i < list.length; i++) {
             wx.request({
                 url: 'http://47.106.241.182:8082/publish/getGoodsImageIdByLink',
                 data: { imageLink: list[i] },
                 method: "POST",
-                header: header,
+                header: {
+                    'content-type': 'application/x-www-form-urlencoded',
+                    'Cookie': wx.getStorageSync('sessionid'),
+                    'token': app.globalData.token
+                  },
                 success(res) {
                     console.log(res.data.data);
                     if (res.data.code === 200) {
@@ -210,7 +213,11 @@ Page({
 
         wx.request({
             url: 'http://120.77.210.142:8080/myGoods/alterGoods/',
-            header: { "Content-Type": "application/x-www-form-urlencoded" },
+            header: {
+                'content-type': 'application/x-www-form-urlencoded',
+                'Cookie': wx.getStorageSync('sessionid'),
+                'token': app.globalData.token
+              },
             method: "POST",
             dataType: 'json',
             data: {
@@ -255,7 +262,11 @@ Page({
 
         wx.request({
             url: that.data.goods_releaseUrl,
-            header: { "Content-Type": "application/x-www-form-urlencoded" },
+            header: {
+                'content-type': 'application/x-www-form-urlencoded',
+                'Cookie': wx.getStorageSync('sessionid'),
+                'token': app.globalData.token
+              },
             method: "POST",
             data: {
                 title: goods_title,
@@ -410,8 +421,9 @@ Page({
                     wx.request({
                         url: that.data.goods_deleteUrl + tempId,
                         header: {
-                            'content-type': 'application/json' // 默认值
-
+                            'content-type': 'application/json' ,// 默认值
+                            'Cookie': wx.getStorageSync('sessionid'),
+                            'token': app.globalData.token
                         },
                         success: function(res) {
                             console.log("删除成功");
@@ -460,6 +472,11 @@ Page({
             //data: {},  //这里是可以填写服务器需要的参数  
             method: 'GET', // 声明GET请求  
             // header: {}, // 设置请求的 header，GET请求可以不填  
+            header: {
+                'content-type': 'application/json',
+                'Cookie': wx.getStorageSync('sessionid'),
+                'token': app.globalData.token
+            },
             success: function(res) {
                 let goods_list = new Array();
                 res.data.data.forEach(function(e) {
