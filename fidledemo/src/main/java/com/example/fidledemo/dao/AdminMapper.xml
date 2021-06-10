@@ -55,5 +55,29 @@
         where id=#{id}
     </update>
 
+    <select id="getAdminBoByDO" parameterType="com.example.fidledemo.DO.AdminDO" resultMap="Admin">
+        SELECT
+        <if test="distinct !=null and distinct!=''">DISTINCT</if>
+        * FROM admin
+        <where>
+            <if test="id !=null and id!=''">
+                AND id=#{id}
+            </if>
+            <if test="account !=null and account !=''">
+                <if test="accountLike !=null and accountLike !=''">
+                    AND account LIKE "%"#{account}"%"
+                </if>
+                <if test="accountLike ==null or accountLike ==''">
+                    AND account =#{account}
+                </if>
+            </if>
+            <if test="password !=null and password!=''">
+                AND password =#{password}
+            </if>
+        </where>
+        <if test="limit !=null and limit!=''">
+            limit #{begin},#{size}
+        </if>
+    </select>
 
 </mapper>

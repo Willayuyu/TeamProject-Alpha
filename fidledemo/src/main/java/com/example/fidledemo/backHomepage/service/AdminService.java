@@ -1,18 +1,17 @@
-package com.example.fidledemo.dao;
+package com.example.fidledemo.backHomepage.service;
 
 import com.example.fidledemo.BO.AdminBO;
 import com.example.fidledemo.DO.AdminDO;
-import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
- * @author WWJ20
+ * @Description:
+ * @Author: ZSP
  */
-@Mapper
-@Repository
-public interface AdminDAO {
+@Service
+public interface AdminService {
     /**
      * 将管理员实体插入管理员表
      * @param admin

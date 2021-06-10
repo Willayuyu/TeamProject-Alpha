@@ -43,7 +43,7 @@
         t.id AS t_id,content,
         t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified
         FROM task_information AS ti
-        LEFT JOIN task_category AS c ON ti.category=c.id
+        LEFT JOIN task_category AS c ON ti.category=c.category_id
         LEFT JOIN task_tag AS `tt` ON `tt`.task_id=ti.id
         LEFT JOIN tag_of_task AS t ON t.id=`tt`.tag_id
         WHERE ti.id=#{id}
@@ -58,7 +58,7 @@
         t.id AS t_id,content,
         t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified
         FROM task_information AS ti
-        LEFT JOIN task_category AS c ON ti.category=c.id
+        LEFT JOIN task_category AS c ON ti.category=c.category_id
         LEFT JOIN task_tag AS `tt` ON `tt`.task_id=ti.id
         LEFT JOIN tag_of_task AS t ON t.id=`tt`.tag_id
         <where>
@@ -107,7 +107,7 @@
         t.id AS t_id,content,
         t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified
         FROM task_information AS ti
-        LEFT JOIN task_category AS c ON ti.category=c.id
+        LEFT JOIN task_category AS c ON ti.category=c.category_id
         LEFT JOIN task_tag AS `tt` ON `tt`.task_id=ti.id
         LEFT JOIN tag_of_task AS t ON t.id=`tt`.tag_id
         WHERE
@@ -141,7 +141,7 @@
         t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified
         FROM task_information AS ti
         LEFT JOIN task_enshrine AS te ON te.task_id=ti.id
-        LEFT JOIN task_category AS c ON ti.category=c.id
+        LEFT JOIN task_category AS c ON ti.category=c.category_id
         LEFT JOIN task_tag AS `tt` ON `tt`.task_id=ti.id
         LEFT JOIN tag_of_task AS t ON t.id=`tt`.tag_id
         WHERE te.user_id=#{user.id}
