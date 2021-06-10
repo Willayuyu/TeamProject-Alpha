@@ -416,5 +416,14 @@ Page({
     wx.redirectTo({
       url: '/pages/changeGood/changeGood?id='+id,
     })
+  },
+
+  /**
+   * 跳转评价买方/卖方
+   */
+  gotoComment:function(event) {
+    let that = this;
+    let index = event.currentTarget.dataset.index;
+    console.log(index);
   }
 })
