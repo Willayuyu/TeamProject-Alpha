@@ -44,7 +44,7 @@ public class LoginController
     personVO.setPortrait(userBO.getPortrait());
     personVO.setQq(userBO.getQq());
     personVO.setTel(userBO.getTelephone());
-    personVO.setUsername(userBO.getWechatAccount());
+    personVO.setUsername(userBO.getUsername());
 
     CreditVO creditVO=new CreditVO();
     if(userBO.getCredit()!=null)
@@ -74,7 +74,7 @@ public class LoginController
     personVO.setPortrait(newUser.getPortrait());
     personVO.setQq(newUser.getQq());
     personVO.setTel(newUser.getTelephone());
-    personVO.setUsername(newUser.getWechatAccount());
+    personVO.setUsername(newUser.getUsername());
 
     CreditVO creditVO=new CreditVO();
     if(newUser.getCredit()!=null)
