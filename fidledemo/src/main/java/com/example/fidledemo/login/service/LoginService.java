@@ -9,6 +9,11 @@ import com.example.fidledemo.login.util.LoginResult;
  */
 public interface LoginService
 {
+    /**
+     * 初始信誉分
+     */
+    Integer INITIAL_CREDIT_SCORE=500;
+
 
     /**
      * 通过调用api获得登录信息

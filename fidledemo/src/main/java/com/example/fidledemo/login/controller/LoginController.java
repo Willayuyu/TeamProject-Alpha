@@ -37,8 +37,6 @@ public class LoginController
     session.setAttribute("user",userBO);
 
     String token=TokenUtil.getToken(userBO);
-    session.setAttribute("token",token);
-
     PersonVO personVO=new PersonVO();
     personVO.setId(userBO.getId());
     personVO.setPortrait(userBO.getPortrait());
@@ -53,9 +51,7 @@ public class LoginController
       creditVO.setLikeNum(userBO.getCredit().getLikeNum());
       creditVO.setDislikeNum(userBO.getCredit().getDislikeNum());
     }
-
     personVO.setCredit(creditVO);
-
     return JSON.toJSONString(Result.successResult(new LoginVO(personVO,token)));
   }
 
@@ -63,7 +59,6 @@ public class LoginController
   @PostMapping("/userAuth")
   public String userAuth(@RequestParam("nickname") String wechatAccount,@RequestParam("avatar_url") String portrait,HttpSession session)
   {
-
     UserBO user= (UserBO) session.getAttribute("user");
 
     UserBO newUser=loginService.userAuth(user.getId(),wechatAccount,portrait);
