@@ -75,7 +75,7 @@ public class LoginServiceImpl implements LoginService
     //插入信誉信息
     if(user.getCredit()==null)
     {
-      CreditBO creditBO=new CreditBO(id,500,0,0);
+      CreditBO creditBO=new CreditBO(id,INITIAL_CREDIT_SCORE,0,0);
       creditDAO.insertCredit(creditBO.getCreditDO());
     }
     return userDAO.getUserById(id);

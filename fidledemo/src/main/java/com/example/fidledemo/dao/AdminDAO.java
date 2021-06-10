@@ -1,5 +1,6 @@
 package com.example.fidledemo.dao;
 
+import com.example.fidledemo.BO.AdminBO;
 import com.example.fidledemo.DO.AdminDO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -36,4 +37,11 @@ public interface AdminDAO {
      * @return 返回查询到的管理员DO列表
      */
     List<AdminDO> listAdminByDO(AdminDO adminDO);
+
+    /**
+     * 根据DO查询用户
+     * @param adminDO
+     * @return
+     */
+    AdminBO getAdminBoByDO(AdminDO adminDO);
 }
