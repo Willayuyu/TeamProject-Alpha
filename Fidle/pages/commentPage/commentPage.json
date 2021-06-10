@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+    "van-card": "../../components/dist/card/index",
+    "van-tag": "../../components/dist/tag/index",
+    "van-panel": "../../components/dist/panel/index",
+    "van-field": "../../components/dist/field/index",
+    "van-radio": "../../components/dist/radio/index",
+    "van-radio-group": "../../components/dist/radio-group/index"
+  }
+}
