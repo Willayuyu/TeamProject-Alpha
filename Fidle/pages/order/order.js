@@ -111,7 +111,7 @@ Page({
     let buyerId = that.data.buyerId;
     console.log(buyerId);
     let str = buyerId.replace(/(^\s*)|(\s*$)/g, '');
-    if (str == '' || str == undefined || str == null) {
+    if (str == "" || str == undefined || str == null) {
       wx.showToast({
         title: 'id不可为空',
       })

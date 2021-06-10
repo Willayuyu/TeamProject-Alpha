@@ -20,12 +20,12 @@
       <view class="tag">
         <text>类别:</text>
         <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
-        <van-tag color="#f3f4f4" text-color="#323232">{{category}}</van-tag>
+        <van-tag color="#FFDBA5" text-color="#323232">{{category}}</van-tag>
       </view>
       <view class="tag">
         <text decode="true">标签:</text>
         <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
-        <van-tag wx:for="{{tagsList}}" wx:key="{{index}}" color="#f3f4f4" text-color="#323232">{{item.content}}</van-tag>
+        <van-tag wx:for="{{tagsList}}" wx:key="{{index}}" color="#D8E2DA" text-color="#323232">{{item.content}}</van-tag>
       </view>
       <view class="tag">
         <text decode="true">新旧程度:</text>

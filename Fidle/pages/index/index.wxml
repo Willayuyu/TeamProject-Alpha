@@ -30,8 +30,8 @@
           <van-tag wx:if="{{item.condition == 2}}" class="tagItem" color="#dbdbdb" text-color="#394044">九成新</van-tag>
           <van-tag wx:if="{{item.condition == 3}}" class="tagItem" color="#dbdbdb" text-color="#394044">八成新</van-tag>
           <van-tag wx:if="{{item.condition == 4}}" class="tagItem" color="#dbdbdb" text-color="#394044">八成新以下</van-tag>
-          <van-tag class="tagItem" color="#dbdbdb" text-color="#394044">{{item.category}}</van-tag>
-          <van-tag wx:for="{{item.tagList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">{{item.content}}</van-tag>
+          <van-tag class="tagItem" color="#FFDBA5" text-color="#394044">{{item.category}}</van-tag>
+          <van-tag wx:for="{{item.tagList}}" wx:key="{{index}}" class="tagItem" color="#D8E2DA" text-color="#394044">{{item.content}}</van-tag>
         </view>
         <view slot="footer" class="btns">
           <van-button class="btn" catchtap="goodsConnect" hover-stop-propagation='true' data-index="{{index}}">联系卖家</van-button>
@@ -69,8 +69,8 @@
         </view>
         <view slot="tags" class="tagTask">
           <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
-          <van-tag class="tagItem" color="#dbdbdb" text-color="#394044">{{item.category}}</van-tag>
-          <van-tag wx:for="{{item.tagList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">{{item.content}}</van-tag>
+          <van-tag class="tagItem" color="#FFDBA5" text-color="#394044">{{item.category}}</van-tag>
+          <van-tag wx:for="{{item.tagList}}" wx:key="{{index}}" class="tagItem" color="#D8E2DA" text-color="#394044">{{item.content}}</van-tag>
           <view class="taskBtns">
             <van-button class="btn" catchtap="contact" hover-stop-propagation='true' data-index="{{index}}" catchtap="taskConnect">联系委托人</van-button>
             <van-button data-index="{{index}}" wx:if="{{item.collectState == -1}}" class="btn" catchtap="storeTask_collected"
@@ -102,8 +102,8 @@
         </view>
         <view slot="tags" class="tagTask">
           <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
-          <van-tag class="tagItem" color="#dbdbdb" text-color="#394044">{{item.category}}</van-tag>
-          <van-tag wx:for="{{item.tagList}}" wx:key="{{index}}" class="tagItem" color="#dbdbdb" text-color="#394044">{{item.content}}</van-tag>
+          <van-tag class="tagItem" color="#FFDBA5" text-color="#394044">{{item.category}}</van-tag>
+          <van-tag wx:for="{{item.tagList}}" wx:key="{{index}}" class="tagItem" color="#D8E2DA" text-color="#394044">{{item.content}}</van-tag>
         </view>
         <view slot="footer" class="activityBtns">
           <van-button data-index="{{index}}" wx:if="{{item.collectState == -1}}" class="btn" catchtap="storeAct_collected"

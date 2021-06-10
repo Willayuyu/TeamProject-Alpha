@@ -111,7 +111,7 @@ Page({
     let acc_id = that.data.acc_id;
     console.log(acc_id);
     let str = acc_id.replace(/(^\s*)|(\s*$)/g, '');
-    if (str == '' || str == undefined || str == null) {
+    if (str == "" || str == undefined || str == null) {
       wx.showToast({
         title: 'id不可为空',
       })

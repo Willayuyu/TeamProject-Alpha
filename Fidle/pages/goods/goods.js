@@ -396,7 +396,7 @@ Page({
       success(res) {
         console.log(res.data);
         console.log("下架物品");
-        that.onLoad();
+        that.onShow();
       }
     })
   },
