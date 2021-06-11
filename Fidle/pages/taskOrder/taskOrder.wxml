@@ -28,5 +28,6 @@
   <van-field value="{{acc_id}}" placeholder="请输入对方id" border="{{ false }}" catchblur="change" class="field" />
 </van-cell-group>
 <view class="panelBtns">
-  <van-button class="panelBtn" catchtap="confirm" hover-stop-propagation='true'>确认</van-button>
+  <button class="panelBtn" catchtap="confirm" hover-stop-propagation='true' hidden="{{hiddenConfirm}}">确认</button>
+  <button class="panelBtn" catchtap="submit" hover-stop-propagation='true' hidden="{{hiddenSubmit}}">提交</button>
 </view>
