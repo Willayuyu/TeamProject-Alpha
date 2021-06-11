@@ -67,6 +67,19 @@ public class MyTaskServiceImpl implements MyTaskService{
             item.setReward(list.get(i).getReward());
             item.setTitle(list.get(i).getTitle());
             item.setPulisherId(pubId);
+
+            //如果状态为已完成，则查询是否评价
+            Integer isEvaluated = -1;
+            if (list.get(i).getState() == 3){
+                TaskDelegateDO taskDelegateDO = new TaskDelegateDO();
+                taskDelegateDO.setTaskInfoId(list.get(i).getId());
+                List<TaskDelegateBO> taskList = taskDelegateDAO.listTaskDelegateByDO(taskDelegateDO);
+                if (taskList != null) {
+                    isEvaluated = taskList.get(0).getPubEvaluated();
+                }
+            }
+            item.setIsEvaluated(isEvaluated);
+
             list2.add(item);
         }
 
@@ -126,6 +139,19 @@ public class MyTaskServiceImpl implements MyTaskService{
             item.setTitle(list1.get(i).getTitle());
             item.setPulisherId(list1.get(i).getPubId());
             item.setAccepterId(accId);
+
+            //如果状态为已完成，则查询是否评价
+            Integer isEvaluated = -1;
+            if (list1.get(i).getState() == 3){
+                TaskDelegateDO taskDO = new TaskDelegateDO();
+                taskDO.setTaskInfoId(list1.get(i).getId());
+                List<TaskDelegateBO> taskList = taskDelegateDAO.listTaskDelegateByDO(taskDO);
+                if (taskList != null) {
+                    isEvaluated = taskList.get(0).getPubEvaluated();
+                }
+            }
+            item.setIsEvaluated(isEvaluated);
+
             list3.add(item);
         }
 

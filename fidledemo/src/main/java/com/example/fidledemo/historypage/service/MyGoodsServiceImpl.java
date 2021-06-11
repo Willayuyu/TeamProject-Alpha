@@ -75,7 +75,8 @@ public class MyGoodsServiceImpl implements MyGoodsService{
             //构建MyGoodsVO对象
             MyGoodsVO myGoodsVO = new MyGoodsVO(item.getId(),item.getPubId(),null,
                     item.getTitle(),item.getPrice(),item.getOriginalPrice(),imageLink,
-                    item.getCondition(),categoryVO.getCategoryDesignation(),list2);
+                    item.getCondition(),categoryVO.getCategoryDesignation(),list2,0);
+            myGoodsVO.setIsEvaluated(-1);
             list1.add(myGoodsVO);
         }
 
@@ -115,10 +116,20 @@ public class MyGoodsServiceImpl implements MyGoodsService{
                 list2.add(item2);
             }
 
+            //查找是否评价
+            GoodsIndentDO goodsIndentDO = new GoodsIndentDO();
+            goodsIndentDO.setGoodsId(item.getId());
+            List<GoodsIndentBO> indentBOList = goodsIndentDAO.listGoodsIndentByDO(goodsIndentDO);
+            Integer isEvaluated = -1;
+            if (indentBOList != null){
+                isEvaluated = indentBOList.get(0).getPubEvaluated();
+            }
+
             //构建MyGoodsVO
             MyGoodsVO myGoodsVO = new MyGoodsVO(item.getId(),item.getPubId(),null,
                     item.getTitle(),item.getPrice(),item.getOriginalPrice(),imageLink,
-                    item.getCondition(),categoryVO.getCategoryDesignation(),list2);
+                    item.getCondition(),categoryVO.getCategoryDesignation(),list2,isEvaluated);
+            myGoodsVO.setIsEvaluated(isEvaluated);
             list1.add(myGoodsVO);
         }
 
@@ -135,7 +146,7 @@ public class MyGoodsServiceImpl implements MyGoodsService{
         GoodsIndentDO indentDO = new GoodsIndentDO();
         indentDO.setBuyerId(id);
         List<GoodsIndentBO> list = goodsIndentDAO.listGoodsIndentByDO(indentDO);
-
+        System.out.println(list.size());
         //根据二手订单表中的二手物品信息id获取二手物品信息，并转换为MyGoodsVO
         List<MyGoodsVO> list1 = new ArrayList<>();
         for (int i = 0;i <list.size();i++){
@@ -153,7 +164,6 @@ public class MyGoodsServiceImpl implements MyGoodsService{
                 //通过获取到的信息再通过listmapper查找获得图片，类别
                 GoodsInfoDO goodsInfoDO = new GoodsInfoDO();
                 goodsInfoDO.setTitle(goodsInfoBO1.getTitle());
-                goodsInfoDO.setPrice(goodsInfoBO1.getPrice());
                 goodsInfoDO.setSellerId(goodsInfoBO1.getPubId());
                 goodsInfoDO.setDescription(goodsInfoBO1.getDescription());
                 goodsInfoDO.setCondition(goodsInfoBO1.getCondition());
@@ -180,6 +190,15 @@ public class MyGoodsServiceImpl implements MyGoodsService{
                     list2.add(item2);
                 }
 
+                //查找是否评价
+                GoodsIndentDO goodsIndentDO = new GoodsIndentDO();
+                goodsIndentDO.setGoodsId(goodsInfoBO.getId());
+                List<GoodsIndentBO> indentBOList = goodsIndentDAO.listGoodsIndentByDO(goodsIndentDO);
+                Integer isEvaluated = -1;
+                if (indentBOList != null){
+                    isEvaluated = indentBOList.get(0).getPubEvaluated();
+                }
+
                 //设置MyGoodsVO属性
                 item.setBuyerId(buyerId);
                 item.setId(infoId);
@@ -191,6 +210,7 @@ public class MyGoodsServiceImpl implements MyGoodsService{
                 item.setTitle(goodsInfoBO.getTitle());
                 item.setTagList(list2);
                 item.setSellerId(sellerId);
+                item.setIsEvaluated(isEvaluated);
                 list1.add(item);
             }
 
