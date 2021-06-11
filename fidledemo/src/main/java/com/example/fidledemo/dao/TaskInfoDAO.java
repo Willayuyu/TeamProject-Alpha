@@ -55,6 +55,38 @@ public interface TaskInfoDAO
   List<TaskInfoBO> listTaskInfoBySearch(@Param("info") TaskInformationDO infoDO, @Param("tag") TagOfTaskDO tagDO);
 
   /**
+   * 搜索任务信息列表并根据时间降序排序
+   * @param infoDO
+   * @param tagDO
+   * @return
+   */
+  List<TaskInfoBO> listTaskInfoBySearchOrderByDateDESC(@Param("info") TaskInformationDO infoDO, @Param("tag") TagOfTaskDO tagDO);
+
+  /**
+   * 搜索任务信息列表并根据时间升序排序
+   * @param infoDO
+   * @param tagDO
+   * @return
+   */
+  List<TaskInfoBO> listTaskInfoBySearchOrderByDateASC(@Param("info") TaskInformationDO infoDO, @Param("tag") TagOfTaskDO tagDO);
+
+  /**
+   * 搜索任务信息列表并根据酬劳降序排序
+   * @param infoDO
+   * @param tagDO
+   * @return
+   */
+  List<TaskInfoBO> listTaskInfoBySearchOrderByRewardDESC(@Param("info") TaskInformationDO infoDO, @Param("tag") TagOfTaskDO tagDO);
+
+  /**
+   * 搜索任务信息列表并根据酬劳升序排序
+   * @param infoDO
+   * @param tagDO
+   * @return
+   */
+  List<TaskInfoBO> listTaskInfoBySearchOrderByRewardASC(@Param("info") TaskInformationDO infoDO, @Param("tag") TagOfTaskDO tagDO);
+
+  /**
    * 根据id删除任务信息
    * @param id
    */

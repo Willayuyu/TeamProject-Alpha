@@ -54,6 +54,21 @@ public interface ActivityInfoDAO
    */
   List<ActivityInfoBO> listActivityInfoBySearch(@Param("info") ActivityInfoDO infoDO, @Param("tag") TagOfActivityDO tag);
 
+  /**
+   * 搜索活动信息列表并根据时间升序排序
+   * @param infoDO
+   * @param tag
+   * @return
+   */
+  List<ActivityInfoBO> listActivityInfoBySearchOrderByDateASC(@Param("info") ActivityInfoDO infoDO, @Param("tag") TagOfActivityDO tag);
+
+  /**
+   * 搜索活动信息列表并根据时间降序排序
+   * @param infoDO
+   * @param tag
+   * @return
+   */
+  List<ActivityInfoBO> listActivityInfoBySearchOrderByDateDESC(@Param("info") ActivityInfoDO infoDO, @Param("tag") TagOfActivityDO tag);
 
   /**
    * 根据id删除活动信息

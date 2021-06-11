@@ -59,6 +59,41 @@ public interface GoodsInfoDAO {
      */
     List<GoodsInfoBO> listGoodsInfoBySearch(@Param("info") GoodsInfoDO infoDO, @Param("tag") TagOfGoodsDO tagDO);
 
+    /**
+     * 搜索二手物品列表并根据价格升序排序
+     *
+     * @param infoDO
+     * @param tagDO
+     * @return
+     */
+    List<GoodsInfoBO> listGoodsInfoBySearchOrderByPriceASC(@Param("info") GoodsInfoDO infoDO, @Param("tag") TagOfGoodsDO tagDO);
+
+    /**
+     * 搜索二手物品列表并根据价格降序排序
+     *
+     * @param infoDO
+     * @param tagDO
+     * @return
+     */
+    List<GoodsInfoBO> listGoodsInfoBySearchOrderByPriceDESC(@Param("info") GoodsInfoDO infoDO, @Param("tag") TagOfGoodsDO tagDO);
+
+    /**
+     * 搜索二手物品列表并根据新旧程度降序排序
+     *
+     * @param infoDO
+     * @param tagDO
+     * @return
+     */
+    List<GoodsInfoBO> listGoodsInfoBySearchOrderByConditionDESC(@Param("info") GoodsInfoDO infoDO, @Param("tag") TagOfGoodsDO tagDO);
+
+    /**
+     * 搜索二手物品列表并根据新旧程度升序排序
+     *
+     * @param infoDO
+     * @param tagDO
+     * @return
+     */
+    List<GoodsInfoBO> listGoodsInfoBySearchOrderByConditionASC(@Param("info") GoodsInfoDO infoDO, @Param("tag") TagOfGoodsDO tagDO);
 
     /**
      * 根据id删除二手物品
