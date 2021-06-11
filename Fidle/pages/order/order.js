@@ -117,6 +117,7 @@ Page({
       })
       console.log('空')
     } else {
+      console.log(buyerId)
       wx.showModal({
         content: '确认生成当前订单吗？',
         success: function (res) {
