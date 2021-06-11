@@ -129,6 +129,147 @@
 
         <![CDATA[AND ti.end_time >= now() ]]>
 
+        ORDER BY ti_gmt_create DESC
+        <if test="info.limit !=null and info.limit !='' ">limit #{info.begin},#{info.size}</if>
+    </select>
+
+    <!--搜索TaskInfo列表并根据时间降序排序-->
+    <select id="listTaskInfoBySearchOrderByDateDESC" resultMap="TaskInfo">
+        SELECT ti.id AS ti_id,pub_id,task_state,title,reward,start_time,end_time,description,2 AS `type`,
+        ti.gmt_create AS ti_gmt_create,ti.gmt_modified AS ti_gmt_modified,
+        `c`.id AS c_id,category_id,category_designation,
+        `c`.gmt_create AS c_gmt_create,`c`.gmt_modified AS c_gmt_modified,
+        t.id AS t_id,content,
+        t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified
+        FROM task_information AS ti
+        LEFT JOIN task_category AS c ON ti.category=c.category_id
+        LEFT JOIN task_tag AS `tt` ON `tt`.task_id=ti.id
+        LEFT JOIN tag_of_task AS t ON t.id=`tt`.tag_id
+        WHERE
+        (title LIKE "%"#{info.title}"%"
+
+        OR content LIKE "%"#{tag.content}"%"
+
+        OR description LIKE "%"#{info.description}"%")
+
+        AND task_state=#{info.taskState}
+
+        <if test="info.category != null and info.category != ''">
+            AND category=#{info.category}
+        </if>
+
+        <if test="info.createTimeBegin != null and info.createTimeEnd != null">
+            AND ti.gmt_create BETWEEN #{info.createTimeBegin} AND #{info.createTimeEnd}
+        </if>
+
+        <![CDATA[AND ti.end_time >= now() ]]>
+
+        ORDER BY ti_gmt_create DESC
+        <if test="info.limit !=null and info.limit !='' ">limit #{info.begin},#{info.size}</if>
+    </select>
+
+    <!--搜索TaskInfo列表并根据时间升序排序-->
+    <select id="listTaskInfoBySearchOrderByDateASC" resultMap="TaskInfo">
+        SELECT ti.id AS ti_id,pub_id,task_state,title,reward,start_time,end_time,description,2 AS `type`,
+        ti.gmt_create AS ti_gmt_create,ti.gmt_modified AS ti_gmt_modified,
+        `c`.id AS c_id,category_id,category_designation,
+        `c`.gmt_create AS c_gmt_create,`c`.gmt_modified AS c_gmt_modified,
+        t.id AS t_id,content,
+        t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified
+        FROM task_information AS ti
+        LEFT JOIN task_category AS c ON ti.category=c.category_id
+        LEFT JOIN task_tag AS `tt` ON `tt`.task_id=ti.id
+        LEFT JOIN tag_of_task AS t ON t.id=`tt`.tag_id
+        WHERE
+        (title LIKE "%"#{info.title}"%"
+
+        OR content LIKE "%"#{tag.content}"%"
+
+        OR description LIKE "%"#{info.description}"%")
+
+        AND task_state=#{info.taskState}
+
+        <if test="info.category != null and info.category != ''">
+            AND category=#{info.category}
+        </if>
+
+        <if test="info.createTimeBegin != null and info.createTimeEnd != null">
+            AND ti.gmt_create BETWEEN #{info.createTimeBegin} AND #{info.createTimeEnd}
+        </if>
+
+        <![CDATA[AND ti.end_time >= now() ]]>
+
+        ORDER BY ti_gmt_create ASC
+        <if test="info.limit !=null and info.limit !='' ">limit #{info.begin},#{info.size}</if>
+    </select>
+
+    <!--搜索TaskInfo列表并根据酬劳降序排序-->
+    <select id="listTaskInfoBySearchOrderByRewardDESC" resultMap="TaskInfo">
+        SELECT ti.id AS ti_id,pub_id,task_state,title,reward,start_time,end_time,description,2 AS `type`,
+        ti.gmt_create AS ti_gmt_create,ti.gmt_modified AS ti_gmt_modified,
+        `c`.id AS c_id,category_id,category_designation,
+        `c`.gmt_create AS c_gmt_create,`c`.gmt_modified AS c_gmt_modified,
+        t.id AS t_id,content,
+        t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified
+        FROM task_information AS ti
+        LEFT JOIN task_category AS c ON ti.category=c.category_id
+        LEFT JOIN task_tag AS `tt` ON `tt`.task_id=ti.id
+        LEFT JOIN tag_of_task AS t ON t.id=`tt`.tag_id
+        WHERE
+        (title LIKE "%"#{info.title}"%"
+
+        OR content LIKE "%"#{tag.content}"%"
+
+        OR description LIKE "%"#{info.description}"%")
+
+        AND task_state=#{info.taskState}
+
+        <if test="info.category != null and info.category != ''">
+            AND category=#{info.category}
+        </if>
+
+        <if test="info.createTimeBegin != null and info.createTimeEnd != null">
+            AND ti.gmt_create BETWEEN #{info.createTimeBegin} AND #{info.createTimeEnd}
+        </if>
+
+        <![CDATA[AND ti.end_time >= now() ]]>
+
+        ORDER BY reward DESC
+        <if test="info.limit !=null and info.limit !='' ">limit #{info.begin},#{info.size}</if>
+    </select>
+
+    <!--搜索TaskInfo列表并根据酬劳升序排序-->
+    <select id="listTaskInfoBySearchOrderByRewardASC" resultMap="TaskInfo">
+        SELECT ti.id AS ti_id,pub_id,task_state,title,reward,start_time,end_time,description,2 AS `type`,
+        ti.gmt_create AS ti_gmt_create,ti.gmt_modified AS ti_gmt_modified,
+        `c`.id AS c_id,category_id,category_designation,
+        `c`.gmt_create AS c_gmt_create,`c`.gmt_modified AS c_gmt_modified,
+        t.id AS t_id,content,
+        t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified
+        FROM task_information AS ti
+        LEFT JOIN task_category AS c ON ti.category=c.category_id
+        LEFT JOIN task_tag AS `tt` ON `tt`.task_id=ti.id
+        LEFT JOIN tag_of_task AS t ON t.id=`tt`.tag_id
+        WHERE
+        (title LIKE "%"#{info.title}"%"
+
+        OR content LIKE "%"#{tag.content}"%"
+
+        OR description LIKE "%"#{info.description}"%")
+
+        AND task_state=#{info.taskState}
+
+        <if test="info.category != null and info.category != ''">
+            AND category=#{info.category}
+        </if>
+
+        <if test="info.createTimeBegin != null and info.createTimeEnd != null">
+            AND ti.gmt_create BETWEEN #{info.createTimeBegin} AND #{info.createTimeEnd}
+        </if>
+
+        <![CDATA[AND ti.end_time >= now() ]]>
+
+        ORDER BY reward ASC
         <if test="info.limit !=null and info.limit !='' ">limit #{info.begin},#{info.size}</if>
     </select>
 

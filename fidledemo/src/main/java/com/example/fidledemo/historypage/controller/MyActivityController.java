@@ -82,11 +82,6 @@ public class MyActivityController {
         String tagsString = request.getParameter("tags");
         String[] images =imageString.split(",");
         String[] tags = tagsString.split(",");
-        System.out.println("id:"+id);
-        System.out.println("title+"+title);
-        System.out.println("description:"+description);
-        System.out.println("category:"+category);
-        System.out.print("images_link");
         ArrayList<String> arrayList = new ArrayList<>();
         if (images != null) {
             for (int i = 0; i < images.length; i++) {
