@@ -161,6 +161,11 @@
         <if test="user.limit !=null and user.limit !='' ">limit #{user.begin},#{user.size}</if>
     </select>
 
+    <select id="getTotalGoodsNum" resultType="INT">
+        SELECT COUNT(DISTINCT id)
+        FROM goods_info
+    </select>
+
     <select id="getNewGoodsNum" resultType="INT">
         SELECT COUNT(DISTINCT id)
         FROM goods_info
