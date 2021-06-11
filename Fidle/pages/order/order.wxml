@@ -1,24 +1,25 @@
 <view class="wrapper">
-  <van-card price="{{price}}" origin-price="{{originalPrice}}" thumb="{{imageLink}}"
-    bindtap="clickSaleGoodsCard" class="card">
+  <van-card price="{{price}}" origin-price="{{originalPrice}}" thumb="{{imageLink}}" bindtap="clickSaleGoodsCard"
+    class="card">
     <view slot="title" class="title">
       <text>{{title}}</text>
     </view>
     <view slot="tags" class="tagList">
       <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
       <van-tag wx:if="{{condition == 1}}" class="tagItem" color="#dbdbdb" text-color="#394044">全新</van-tag>
-        <van-tag wx:if="{{condition == 2}}" class="tagItem" color="#dbdbdb" text-color="#394044">九成新</van-tag>
-        <van-tag wx:if="{{condition == 3}}" class="tagItem" color="#dbdbdb" text-color="#394044">八成新</van-tag>
-        <van-tag wx:if="{{condition == 4}}" class="tagItem" color="#dbdbdb" text-color="#394044">八成新以下</van-tag>
+      <van-tag wx:if="{{condition == 2}}" class="tagItem" color="#dbdbdb" text-color="#394044">九成新</van-tag>
+      <van-tag wx:if="{{condition == 3}}" class="tagItem" color="#dbdbdb" text-color="#394044">八成新</van-tag>
+      <van-tag wx:if="{{condition == 4}}" class="tagItem" color="#dbdbdb" text-color="#394044">八成新以下</van-tag>
       <van-tag class="tagItem" color="#FFDBA5" text-color="#394044">{{category}}</van-tag>
       <van-tag wx:for="{{tagList}}" wx:key="index" class="tagItem" color="#D8E2DA" text-color="#394044">
         {{item.content}}</van-tag>
     </view>
   </van-card>
-    <van-cell-group class="group">
-      <van-field value="{{buyerId}}" placeholder="请输入对方id" border="{{ false }}" catchblur="change" class="field" />
-    </van-cell-group>
-    <view class="panelBtns">
-      <van-button class="panelBtn" catchtap="confirm" hover-stop-propagation='true'>确认</van-button>
-    </view>
+  <van-cell-group class="group">
+    <van-field value="{{buyerId}}" placeholder="请输入对方id" border="{{ false }}" catchblur="change" class="field" />
+  </van-cell-group>
+  <view class="panelBtns">
+    <button class="panelBtn" catchtap="confirm" hover-stop-propagation='true' hidden="{{hiddenConfirm}}">确认</button>
+    <button class="panelBtn" catchtap="submit" hover-stop-propagation='true' hidden="{{hiddenSubmit}}">提交</button>
+  </view>
 </view>
