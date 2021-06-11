@@ -13,8 +13,6 @@ Page({
     tagList: [],
     category: '',
     acc_id: '',
-    hiddenConfirm:false,
-    hiddenSubmit:true
     // buyerId: ''
     // taskPrice: '1',
     // imageLink: '1',
@@ -105,14 +103,8 @@ Page({
       acc_id: event.detail.value
     })
   },
-  confirm:function(event){
-    this.setData({
-      hiddenConfirm:true,
-      hiddenSubmit:false
-    })
-  },
 
-  submit: function (event) {
+  confirm: function (event) {
     let that = this;
     let id = that.data.id;
     console.log(id);
@@ -124,13 +116,9 @@ Page({
         title: 'id不可为空',
       })
       console.log('空')
-      that.setData({
-        hiddenConfirm:false,
-        hiddenSubmit:true
-      })
     } else {
       wx.showModal({
-        content: '确认提交当前订单吗？',
+        content: '确认生成当前订单吗？',
         success: function (res) {
           //进行退出登录操作：把Storage中的flag置为false
           if (res.confirm) {

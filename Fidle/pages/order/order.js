@@ -16,9 +16,7 @@ Page({
     tagList: [
 
     ],
-    buyerId: '',
-    hiddenConfirm:false,
-    hiddenSubmit:true
+    buyerId: ''
 
   },
 
@@ -106,14 +104,7 @@ Page({
     })
   },
 
-  confirm:function(event){
-    this.setData({
-      hiddenConfirm:true,
-      hiddenSubmit:false
-    })
-  },
-
-  submit: function (event) {
+  confirm: function (event) {
     let that = this;
     let id = that.data.id;
     console.log(id);
@@ -125,17 +116,13 @@ Page({
         title: 'id不可为空',
       })
       console.log('空')
-      that.setData({
-        hiddenConfirm:false,
-        hiddenSubmit:true
-      })
     } else {
       console.log(buyerId)
       wx.showModal({
         content: '确认生成当前订单吗？',
         success: function (res) {
           if (res.confirm) {
-            console.log('用户点击提交');
+            console.log('用户点击确定');
             wx.request({
               url: 'http://47.106.241.182:8080/myGoods/generateOrder/',
               header: {
