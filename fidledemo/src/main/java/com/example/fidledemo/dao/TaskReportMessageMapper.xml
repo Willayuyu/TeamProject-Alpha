@@ -87,4 +87,39 @@
         </set>
         WHERE id=#{id}
     </update>
+
+    <select id="getTaskReportNumByDO" resultType="INT" parameterType="com.example.fidledemo.DO.TaskReportMessageDO">
+        SELECT COUNT(DISTINCT id)
+        FROM task_report_message
+        <where>
+            <if test="id !=null and id!=''">
+                AND id=#{id}
+            </if>
+            <if test="whistleblowerId !=null and whistleblowerId!=''">
+                AND whistleblower_id=#{whistleblowerId}
+            </if>
+            <if test="reportedTaskId !=null and reportedTaskId!=''">
+                AND reported_task_id=#{reportedTaskId}
+            </if>
+            <if test="title !=null and title !=''">
+                <if test="titleLike !=null and titleLike !=''">
+                    AND title LIKE "%"#{title}"%"
+                </if>
+                <if test="titleLike ==null or titleLike ==''">
+                    AND title =#{title}
+                </if>
+            </if>
+            <if test="reason !=null and reason !=''">
+                <if test="reasonLike !=null and reasonLike !=''">
+                    AND reason LIKE "%"#{reason}"%"
+                </if>
+                <if test="reasonLike ==null or reasonLike ==''">
+                    AND reason =#{reason}
+                </if>
+            </if>
+            <if test="state !=null">
+                AND `state`=#{state}
+            </if>
+        </where>
+    </select>
 </mapper>

@@ -66,6 +66,18 @@ public interface TaskInfoDAO
    */
   List<TaskInfoBO> listTaskEnshrineByUserDO(@Param("user") UserDO userDO);
 
+  /**
+   * 返回总任务数
+   * @return
+   */
+  int getTotalTaskNums();
+
+  /**
+   * 返回今日新增任务数
+   * @return
+   */
+  int getNewTaskNums();
+
 
 
 }

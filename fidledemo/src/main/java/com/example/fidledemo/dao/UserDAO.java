@@ -53,4 +53,16 @@ public interface UserDAO
    * @param id
    */
   void deleteUserById(Long id);
+
+  /**
+   * 返回用户总数
+   * @return
+   */
+  int getUserNums();
+
+  /**
+   * 返回今日新增用户总数
+   * @return
+   */
+  int getNewUserNums();
 }

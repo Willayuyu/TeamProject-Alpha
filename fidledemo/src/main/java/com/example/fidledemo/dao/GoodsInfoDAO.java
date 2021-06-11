@@ -74,5 +74,17 @@ public interface GoodsInfoDAO {
      */
     List<GoodsInfoBO> listGoodsEnshrineByUserDO(@Param("user") UserDO userDO);
 
+    /**
+     * 返回总二手物品数
+     * @return
+     */
+    int getTotalGoodsNum();
+
+    /**
+     * 返回今日新增二手物品数
+     * @return
+     */
+    int getNewGoodsNum();
+
 
 }

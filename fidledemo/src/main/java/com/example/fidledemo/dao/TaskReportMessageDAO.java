@@ -46,4 +46,11 @@ public interface TaskReportMessageDAO {
      * @param taskReportMessage
      */
     void updateTaskReportMessage(TaskReportMessageDO taskReportMessage);
+
+    /**
+     * 根据DO返回举报数
+     * @param taskReportMessage
+     * @return
+     */
+    int getTaskReportNumByDO(TaskReportMessageDO taskReportMessage);
 }

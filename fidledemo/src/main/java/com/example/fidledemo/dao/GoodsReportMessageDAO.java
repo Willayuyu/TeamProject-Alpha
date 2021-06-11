@@ -47,4 +47,11 @@ public interface GoodsReportMessageDAO {
      */
     void updateGoodsReportMessage(GoodsReportMessageDO goodsReportMessage);
 
+    /**
+     * 根据DO返回举报数
+     * @param goodsReportMessage
+     * @return
+     */
+    int getGoodsReportNumByDO(GoodsReportMessageDO goodsReportMessage);
+
 }

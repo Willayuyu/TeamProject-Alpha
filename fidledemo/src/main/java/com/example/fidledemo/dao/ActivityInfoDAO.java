@@ -67,4 +67,16 @@ public interface ActivityInfoDAO
    */
   List<ActivityInfoBO> listActivityEnshrineByUserDO(@Param("user") UserDO userDO);
 
+  /**
+   * 返回总活动数
+   * @return
+   */
+  int getTotalActivityNums();
+
+  /**
+   * 返回今日新增活动数
+   * @return
+   */
+  int getNewActivityNums();
+
 }

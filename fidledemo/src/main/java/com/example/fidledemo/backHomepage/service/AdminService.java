@@ -1,9 +1,13 @@
 package com.example.fidledemo.backHomepage.service;
 
 import com.example.fidledemo.BO.AdminBO;
+import com.example.fidledemo.DO.ActivityReportMessageDO;
 import com.example.fidledemo.DO.AdminDO;
+import com.example.fidledemo.DO.GoodsReportMessageDO;
+import com.example.fidledemo.DO.TaskReportMessageDO;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -12,30 +16,6 @@ import java.util.List;
  */
 @Service
 public interface AdminService {
-    /**
-     * 将管理员实体插入管理员表
-     * @param admin
-     */
-    void insertAdmin(AdminDO admin);
-
-    /**
-     * 根据DO更新管理员的信息
-     * @param adminDO
-     */
-    void updateAdmin(AdminDO adminDO);
-
-    /**
-     * 根据id删除管理员
-     * @param id
-     */
-    void deleteAdminById(long id);
-
-    /**
-     * 根据DO查询用户表
-     * @param adminDO
-     * @return 返回查询到的管理员DO列表
-     */
-    List<AdminDO> listAdminByDO(AdminDO adminDO);
 
     /**
      * 根据DO查询用户
@@ -43,4 +23,73 @@ public interface AdminService {
      * @return
      */
     AdminBO getAdminBoByDO(AdminDO adminDO);
+
+    /**
+     * 返回用户总数
+     * @return
+     */
+    int getUserNums();
+
+    /**
+     * 返回总二手物品数
+     * @return
+     */
+    int getTotalGoodsNum();
+
+    /**
+     * 返回总任务数
+     * @return
+     */
+    int getTotalTaskNums();
+
+    /**
+     * 返回总活动数
+     * @return
+     */
+    int getTotalActivityNums();
+
+    /**
+     * 返回今日新增用户总数
+     * @return
+     */
+    int getNewUserNums();
+
+    /**
+     * 返回今日新增二手物品数
+     * @return
+     */
+    int getNewGoodsNum();
+
+    /**
+     * 返回今日新增任务数
+     * @return
+     */
+    int getNewTaskNums();
+
+    /**
+     * 返回今日新增活动数
+     * @return
+     */
+    int getNewActivityNums();
+
+    /**
+     * 根据DO返回举报数
+     * @param goodsReportMessage
+     * @return
+     */
+    int getGoodsReportNumByDO(GoodsReportMessageDO goodsReportMessage);
+
+    /**
+     * 根据DO返回举报数
+     * @param taskReportMessage
+     * @return
+     */
+    int getTaskReportNumByDO(TaskReportMessageDO taskReportMessage);
+
+    /**
+     * 根据DO返回举报数
+     * @param activityReportMessage
+     * @return
+     */
+    int getActivityReportNumByDO(ActivityReportMessageDO activityReportMessage);
 }

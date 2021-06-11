@@ -91,6 +91,17 @@
         <if test="limit !=null and limit !='' ">limit #{begin},#{size}</if>
     </select>
 
+    <select id="getUserNums" resultType="INT">
+        SELECT count(DISTINCT open_id)
+        FROM user
+    </select>
+
+    <select id="getNewUserNums" resultType="INT">
+        SELECT count(DISTINCT open_id)
+        FROM user
+        WHERE date(gmt_create)=current_date
+    </select>
+
     <!--User-->
     <resultMap id="User" type="com.example.fidledemo.BO.UserBO">
         <result property="id" column="u_id"/>

@@ -47,4 +47,11 @@ public interface ActivityReportMessageDAO {
      */
     void updateActivityReportMessage(ActivityReportMessageDO activityReportMessage);
 
+    /**
+     * 根据DO返回举报数
+     * @param activityReportMessage
+     * @return
+     */
+    int getActivityReportNumByDO(ActivityReportMessageDO activityReportMessage);
+
 }
