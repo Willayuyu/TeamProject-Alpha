@@ -5,9 +5,7 @@ import com.example.fidledemo.BO.*;
 import com.example.fidledemo.DO.TagOfTaskDO;
 import com.example.fidledemo.DO.TaskEnshrineDO;
 import com.example.fidledemo.DO.TaskInformationDO;
-import com.example.fidledemo.VO.TaskCategoryVO;
-import com.example.fidledemo.VO.TaskItemVO;
-import com.example.fidledemo.VO.TaskVO;
+import com.example.fidledemo.VO.*;
 import com.example.fidledemo.homepage.service.TaskCategoryServiceImpl;
 import com.example.fidledemo.homepage.service.TaskEnshrineServiceImpl;
 import com.example.fidledemo.homepage.service.TaskInfoServiceImpl;
@@ -94,6 +92,10 @@ public class TaskController {
             PageHelper<TaskItemVO> pageHelper = new PageHelper<>(taskItemVOS,size);
             List<TaskItemVO> itemVOList = pageHelper.getPageByNum(pageid);
 
+            for (TaskItemVO taskItemVO:itemVOList) {
+                taskItemVO.setPageInfo(new PageInfoVO(pageid,pageHelper.getTotalPage(),pageHelper.getTotalNum()));
+            }
+
             return JSON.toJSONString(Result.successResult(itemVOList));
         }catch (Exception e){
             e.printStackTrace();
@@ -156,6 +158,10 @@ public class TaskController {
 
             PageHelper<TaskItemVO> pageHelper = new PageHelper<>(taskItemVOS,size);
             List<TaskItemVO> itemVOList = pageHelper.getPageByNum(pageid);
+
+            for (TaskItemVO taskItemVO:itemVOList) {
+                taskItemVO.setPageInfo(new PageInfoVO(pageid,pageHelper.getTotalPage(),pageHelper.getTotalNum()));
+            }
 
             return JSON.toJSONString(Result.successResult(itemVOList));
         }catch (Exception e){

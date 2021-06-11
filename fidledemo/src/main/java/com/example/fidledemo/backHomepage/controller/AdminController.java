@@ -31,30 +31,6 @@ public class AdminController {
     @Autowired
     AdminService adminService;
 
-    @PostMapping("/admin/login")
-    public String login(HttpServletRequest request){
-        try {
-            String account=request.getParameter("account");
-            String password=request.getParameter("password");
-            AdminDO adminDo=new AdminDO();
-            adminDo.setAccount(account);
-            adminDo.setPassword(password);
-            AdminBO adminBO = adminService.getAdminBoByDO(adminDo);
-            HashMap<String,Object> map=new HashMap<>();
-            if (adminBO!=null){
-                map.put("id",adminBO.getId());
-                map.put("account",adminBO.getAccount());
-                return JSON.toJSONString(Result.successResult(map));
-            }else {
-                return JSON.toJSONString(Result.failureResult(ResultCode.LOGIN_EXCEPTION));
-
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-            return JSON.toJSONString(Result.failureResult(ResultCode.LOGIN_EXCEPTION));
-        }
-    }
-
     @GetMapping("/admin/totalUsersNum")
     public String getTotalUser(){
         try {

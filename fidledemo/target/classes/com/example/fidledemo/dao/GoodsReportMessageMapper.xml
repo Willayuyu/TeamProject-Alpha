@@ -89,4 +89,39 @@
         WHERE id=#{id}
     </update>
 
+    <select id="getGoodsReportNumByDO" resultType="INT" parameterType="com.example.fidledemo.DO.GoodsReportMessageDO">
+        SELECT COUNT(DISTINCT id)
+        FROM goods_report_message
+        <where>
+            <if test="id !=null and id!=''">
+                AND id=#{id}
+            </if>
+            <if test="whistleblowerId !=null and whistleblowerId!=''">
+                AND whistleblower_id=#{whistleblowerId}
+            </if>
+            <if test="reportedGoodsId !=null and reportedGoodsId!=''">
+                AND reported_goods_id=#{reportedGoodsId}
+            </if>
+            <if test="title !=null and title !=''">
+                <if test="titleLike !=null and titleLike !=''">
+                    AND title LIKE "%"#{title}"%"
+                </if>
+                <if test="titleLike ==null or titleLike ==''">
+                    AND title =#{title}
+                </if>
+            </if>
+            <if test="reason !=null and reason !=''">
+                <if test="reasonLike !=null and reasonLike !=''">
+                    AND reason LIKE "%"#{reason}"%"
+                </if>
+                <if test="reasonLike ==null or reasonLike ==''">
+                    AND reason =#{reason}
+                </if>
+            </if>
+            <if test="state !=null">
+                AND `state`=#{state}
+            </if>
+        </where>
+    </select>
+
 </mapper>

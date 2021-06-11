@@ -161,6 +161,18 @@
         <if test="user.limit !=null and user.limit !='' ">limit #{user.begin},#{user.size}</if>
     </select>
 
+    <select id="getNewGoodsNum" resultType="INT">
+        SELECT COUNT(DISTINCT id)
+        FROM goods_info
+        WHERE date(gmt_create)=current_date
+    </select>
+
+    <select id="getGoodsNumByTime" resultType="INT">
+        SELECT COUNT(DISTINCT id)
+        FROM goods_info
+        WHERE gmt_create BETWEEN #{beginTime} AND #{endTime}
+    </select>
+
     <!--GoodsInfo-->
     <resultMap id="GoodsInfo" type="com.example.fidledemo.BO.GoodsInfoBO">
         <result property="id" column="gi_id"/>

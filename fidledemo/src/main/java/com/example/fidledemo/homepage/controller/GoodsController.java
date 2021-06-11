@@ -8,6 +8,7 @@ import com.example.fidledemo.DO.TagOfGoodsDO;
 import com.example.fidledemo.VO.GoodsCategoryVO;
 import com.example.fidledemo.VO.GoodsItemVO;
 import com.example.fidledemo.VO.GoodsVO;
+import com.example.fidledemo.VO.PageInfoVO;
 import com.example.fidledemo.dao.GoodsCategoryDAO;
 import com.example.fidledemo.homepage.service.GoodsCategoryServiceImpl;
 import com.example.fidledemo.homepage.service.GoodsEnshrineServiceImpl;
@@ -27,7 +28,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 二手物品模块
+ * @Description: 二手物品模块
+ * @Author: ZSP
  */
 @RestController
 @PropertySource("classpath:application.yml")
@@ -105,6 +107,9 @@ public class GoodsController {
             PageHelper<GoodsItemVO> pageHelper = new PageHelper<>(goodsItemVOS,size);
             List<GoodsItemVO> itemVOList = pageHelper.getPageByNum(pageid);
 
+            for (GoodsItemVO goodsItemVO:itemVOList) {
+                goodsItemVO.setPageInfo(new PageInfoVO(pageid,pageHelper.getTotalPage(),pageHelper.getTotalNum()));
+            }
 
             return JSON.toJSONString(Result.successResult(itemVOList));
         }catch (Exception e){
@@ -177,6 +182,10 @@ public class GoodsController {
 
             PageHelper<GoodsItemVO> pageHelper = new PageHelper<>(goodsItemVOS,size);
             List<GoodsItemVO> itemVOList = pageHelper.getPageByNum(pageid);
+
+            for (GoodsItemVO goodsItemVO:itemVOList) {
+                goodsItemVO.setPageInfo(new PageInfoVO(pageid,pageHelper.getTotalPage(),pageHelper.getTotalNum()));
+            }
 
 
             return JSON.toJSONString(Result.successResult(itemVOList));

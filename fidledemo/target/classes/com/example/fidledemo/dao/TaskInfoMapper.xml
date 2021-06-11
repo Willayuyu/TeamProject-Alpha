@@ -148,6 +148,17 @@
         <if test="user.limit !=null and user.limit !='' ">limit #{user.begin},#{user.size}</if>
     </select>
 
+    <select id="getTotalTaskNums" resultType="INT">
+        SELECT COUNT(DISTINCT id)
+        FROM task_information
+    </select>
+
+    <select id="getNewTaskNums" resultType="INT">
+        SELECT COUNT(DISTINCT id)
+        FROM task_information
+        WHERE date(gmt_create)=current_date
+    </select>
+
     <!--TaskInfo-->
     <resultMap id="TaskInfo" type="com.example.fidledemo.BO.TaskInfoBO">
         <result property="id" column="ti_id"/>

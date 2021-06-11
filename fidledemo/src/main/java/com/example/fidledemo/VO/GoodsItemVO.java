@@ -49,4 +49,6 @@ public class GoodsItemVO {
 
     private List<GoodsTagVO> tagList;
 
+    private PageInfoVO pageInfo;
+
 }

@@ -36,4 +36,6 @@ public class ActivityItemVO {
     private List<ActivityTagVO> tagList;
 
     private String imageLink;
+
+    private PageInfoVO pageInfo;
 }

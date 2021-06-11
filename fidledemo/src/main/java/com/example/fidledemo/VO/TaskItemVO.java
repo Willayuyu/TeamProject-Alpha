@@ -42,4 +42,6 @@ public class TaskItemVO {
     private Integer collectState;
 
     private String taskState;
+
+    private PageInfoVO pageInfo;
 }

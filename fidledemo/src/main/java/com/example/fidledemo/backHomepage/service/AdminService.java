@@ -3,13 +3,10 @@ package com.example.fidledemo.backHomepage.service;
 import com.example.fidledemo.BO.AdminBO;
 import com.example.fidledemo.DO.ActivityReportMessageDO;
 import com.example.fidledemo.DO.AdminDO;
-<<<<<<< Updated upstream
 import com.example.fidledemo.DO.GoodsReportMessageDO;
 import com.example.fidledemo.DO.TaskReportMessageDO;
-=======
 import com.example.fidledemo.DO.PermissionDO;
 import com.example.fidledemo.DO.RoleDO;
->>>>>>> Stashed changes
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -51,7 +48,6 @@ public interface AdminService {
      * 返回总活动数
      * @return
      */
-<<<<<<< Updated upstream
     int getTotalActivityNums();
 
     /**
@@ -98,8 +94,7 @@ public interface AdminService {
      * @return
      */
     int getActivityReportNumByDO(ActivityReportMessageDO activityReportMessage);
-=======
-    AdminBO getAdminBoByDO(AdminDO adminDO);
+
 
     /**
      * 根据管理员信息来查询对应的角色
@@ -114,5 +109,4 @@ public interface AdminService {
      * @return
      */
     List<PermissionDO> getPermissionDOByRoleDO(RoleDO roleDO);
->>>>>>> Stashed changes
 }

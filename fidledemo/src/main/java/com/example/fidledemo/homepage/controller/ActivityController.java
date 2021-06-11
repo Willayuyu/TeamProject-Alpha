@@ -8,9 +8,7 @@ import com.example.fidledemo.BO.UserLoginToken;
 import com.example.fidledemo.DO.ActivityEnshrineDO;
 import com.example.fidledemo.DO.ActivityInfoDO;
 import com.example.fidledemo.DO.TagOfActivityDO;
-import com.example.fidledemo.VO.ActivityCategoryVO;
-import com.example.fidledemo.VO.ActivityItemVO;
-import com.example.fidledemo.VO.ActivityVO;
+import com.example.fidledemo.VO.*;
 import com.example.fidledemo.homepage.service.ActivityCategoryServiceImpl;
 import com.example.fidledemo.homepage.service.ActivityEnshrineServiceImpl;
 import com.example.fidledemo.homepage.service.ActivityInfoServiceImpl;
@@ -98,6 +96,10 @@ public class ActivityController {
             PageHelper<ActivityItemVO> pageHelper = new PageHelper<>(activityItemVOS,size);
             List<ActivityItemVO> itemVOList = pageHelper.getPageByNum(pageid);
 
+            for (ActivityItemVO activityItemVO:itemVOList) {
+                activityItemVO.setPageInfo(new PageInfoVO(pageid,pageHelper.getTotalPage(),pageHelper.getTotalNum()));
+            }
+
             return JSON.toJSONString(Result.successResult(itemVOList));
         }catch (Exception e){
             e.printStackTrace();
@@ -165,6 +167,10 @@ public class ActivityController {
 
             PageHelper<ActivityItemVO> pageHelper = new PageHelper<>(activityItemVOS,size);
             List<ActivityItemVO> itemVOList = pageHelper.getPageByNum(pageid);
+
+            for (ActivityItemVO activityItemVO:itemVOList) {
+                activityItemVO.setPageInfo(new PageInfoVO(pageid,pageHelper.getTotalPage(),pageHelper.getTotalNum()));
+            }
 
             return JSON.toJSONString(Result.successResult(itemVOList));
         }catch (Exception e){
