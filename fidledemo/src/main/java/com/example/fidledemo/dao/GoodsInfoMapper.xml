@@ -61,12 +61,14 @@
         i.id AS i_id,i.goods_id,image_link,
         i.gmt_create AS i_gmt_create,i.gmt_modified AS i_gmt_modified,
         t.id AS t_id,content,
-        t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified
+        t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified,
+        u.username AS uusername
         FROM goods_info AS gi
         LEFT JOIN goods_category AS c ON gi.category=c.category_id
         LEFT JOIN goods_image AS i ON i.goods_id=gi.id
         LEFT JOIN goods_tag AS `gt` ON `gt`.goods_id=gi.id
         LEFT JOIN tag_of_goods AS t ON t.id=`gt`.tag_id
+        LEFT JOIN `user` AS u ON u.id= gi.seller_id
         <where>
             <if test="info.sellerId !=null and info.sellerId !=''">AND seller_id=#{info.sellerId}</if>
             <if test="info.price !=null and info.price !=''">AND price=#{price}</if>
@@ -114,13 +116,14 @@
         i.id AS i_id,i.goods_id,image_link,
         i.gmt_create AS i_gmt_create,i.gmt_modified AS i_gmt_modified,
         t.id AS t_id,content,
-        t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified
+        t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified,
+        u.username AS uusername
         FROM goods_info AS gi
         LEFT JOIN goods_category AS c ON gi.category=c.category_id
         LEFT JOIN goods_image AS i ON i.goods_id=gi.id
         LEFT JOIN goods_tag AS `gt` ON `gt`.goods_id=gi.id
         LEFT JOIN tag_of_goods AS t ON t.id=`gt`.tag_id
-
+        LEFT JOIN `user` AS u ON u.id= gi.seller_id
         WHERE
         (title LIKE "%"#{info.title}"%"
         OR content LIKE "%"#{tag.content}"%"
@@ -332,6 +335,7 @@
         <result property="description" column="description"/>
         <result property="condition" column="condition"/>
         <result property="sold" column="is_sold"/>
+        <result property="pubName" column="uusername"/>
 
         <!--分类-->
         <association property="category" javaType="com.example.fidledemo.BO.CategoryBO">

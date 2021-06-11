@@ -91,8 +91,9 @@ public class GoodsController {
             List<GoodsItemVO> goodsItemVOS = goodsInfoService.listGoodsInfoByDO(goodsInfoDO, tagOfGoodsDO);
 
             //判断是否被该用户收藏
-            UserBO user = (UserBO) request.getSession().getAttribute("user");
-            Long userId = user.getId();
+            /*UserBO user = (UserBO) request.getSession().getAttribute("user");
+            Long userId = user.getId();*/
+            Long userId = Long.valueOf(1);
             GoodsEnshrineDO goodsEnshrineDO = new GoodsEnshrineDO();
             goodsEnshrineDO.setUserId(userId);
             for (GoodsItemVO goodsItemVO:goodsItemVOS) {
@@ -167,8 +168,9 @@ public class GoodsController {
 
             List<GoodsItemVO> goodsItemVOS = goodsInfoService.listGoodsInfoBySearch(goodsInfoDO, tagOfGoodsDO);
             //判断是否被该用户收藏
-            UserBO user = (UserBO) request.getSession().getAttribute("user");
-            Long userId = user.getId();
+            /*UserBO user = (UserBO) request.getSession().getAttribute("user");
+            Long userId = user.getId();*/
+            Long userId = Long.valueOf(1);
             GoodsEnshrineDO goodsEnshrineDO = new GoodsEnshrineDO();
             goodsEnshrineDO.setUserId(userId);
             for (GoodsItemVO goodsItemVO:goodsItemVOS) {
@@ -221,9 +223,9 @@ public class GoodsController {
     @GetMapping("/goods/collectGoods/{id}")
     public String collectGoods(@PathVariable("id") Long id,HttpServletRequest request){
         try{
-            UserBO user = (UserBO) request.getSession().getAttribute("user");
-            Long userId = user.getId();
-            //userId= Long.valueOf(3);
+            /*UserBO user = (UserBO) request.getSession().getAttribute("user");
+            Long userId = user.getId();*/
+            Long userId = Long.valueOf(1);
             GoodsEnshrineDO goodsEnshrineDO = new GoodsEnshrineDO();
             goodsEnshrineDO.setUserId(userId);
             goodsEnshrineDO.setGoodsId(id);

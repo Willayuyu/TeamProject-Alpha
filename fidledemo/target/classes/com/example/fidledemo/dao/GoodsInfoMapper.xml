@@ -61,12 +61,14 @@
         i.id AS i_id,i.goods_id,image_link,
         i.gmt_create AS i_gmt_create,i.gmt_modified AS i_gmt_modified,
         t.id AS t_id,content,
-        t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified
+        t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified,
+        u.username AS uusername
         FROM goods_info AS gi
         LEFT JOIN goods_category AS c ON gi.category=c.category_id
         LEFT JOIN goods_image AS i ON i.goods_id=gi.id
         LEFT JOIN goods_tag AS `gt` ON `gt`.goods_id=gi.id
         LEFT JOIN tag_of_goods AS t ON t.id=`gt`.tag_id
+        LEFT JOIN `user` AS u ON u.id= gi.seller_id
         <where>
             <if test="info.sellerId !=null and info.sellerId !=''">AND seller_id=#{info.sellerId}</if>
             <if test="info.price !=null and info.price !=''">AND price=#{price}</if>
@@ -114,6 +116,44 @@
         i.id AS i_id,i.goods_id,image_link,
         i.gmt_create AS i_gmt_create,i.gmt_modified AS i_gmt_modified,
         t.id AS t_id,content,
+        t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified,
+        u.username AS uusername
+        FROM goods_info AS gi
+        LEFT JOIN goods_category AS c ON gi.category=c.category_id
+        LEFT JOIN goods_image AS i ON i.goods_id=gi.id
+        LEFT JOIN goods_tag AS `gt` ON `gt`.goods_id=gi.id
+        LEFT JOIN tag_of_goods AS t ON t.id=`gt`.tag_id
+        LEFT JOIN `user` AS u ON u.id= gi.seller_id
+        WHERE
+        (title LIKE "%"#{info.title}"%"
+        OR content LIKE "%"#{tag.content}"%"
+        OR description LIKE "%"#{info.description}"%")
+        AND is_sold=#{info.sold}
+
+
+        <if test="info.category !=null and info.category!= '' ">
+            AND category_id=#{info.category}
+        </if>
+        <if test="info.condition !=null and info.condition != ''">
+            AND `condition`=#{info.condition}
+        </if>
+        <if test="info.createTimeBegin !=null and info.createTimeEnd !=null ">
+            AND gi.gmt_create BETWEEN #{info.createTimeBegin} AND #{info.createTimeEnd}
+        </if>
+        ORDER BY gi_gmt_create DESC
+        <if test="info.limit !=null and info.limit !='' ">limit #{info.begin},#{info.size}</if>
+
+    </select>
+
+    <!--搜索GoodsInfo列表并按新旧程度升序排序-->
+    <select id="listGoodsInfoBySearchOrderByConditionASC" resultMap="GoodsInfo">
+        SELECT gi.id AS gi_id,seller_id,title,price,original_price,description,`condition`,is_sold,1 AS `type`,
+        gi.gmt_create AS gi_gmt_create,gi.gmt_modified AS gi_gmt_modified,
+        `c`.id AS c_id,category_id,category_designation,
+        `c`.gmt_create AS c_gmt_create,`c`.gmt_modified AS c_gmt_modified,
+        i.id AS i_id,i.goods_id,image_link,
+        i.gmt_create AS i_gmt_create,i.gmt_modified AS i_gmt_modified,
+        t.id AS t_id,content,
         t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified
         FROM goods_info AS gi
         LEFT JOIN goods_category AS c ON gi.category=c.category_id
@@ -137,8 +177,115 @@
         <if test="info.createTimeBegin !=null and info.createTimeEnd !=null ">
             AND gi.gmt_create BETWEEN #{info.createTimeBegin} AND #{info.createTimeEnd}
         </if>
+        ORDER BY condition ASC
+        <if test="info.limit !=null and info.limit !='' ">limit #{info.begin},#{info.size}</if>
+    </select>
+
+    <!--搜索GoodsInfo列表并按价格降序排序-->
+    <select id="listGoodsInfoBySearchOrderByConditionDESC" resultMap="GoodsInfo">
+        SELECT gi.id AS gi_id,seller_id,title,price,original_price,description,`condition`,is_sold,1 AS `type`,
+        gi.gmt_create AS gi_gmt_create,gi.gmt_modified AS gi_gmt_modified,
+        `c`.id AS c_id,category_id,category_designation,
+        `c`.gmt_create AS c_gmt_create,`c`.gmt_modified AS c_gmt_modified,
+        i.id AS i_id,i.goods_id,image_link,
+        i.gmt_create AS i_gmt_create,i.gmt_modified AS i_gmt_modified,
+        t.id AS t_id,content,
+        t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified
+        FROM goods_info AS gi
+        LEFT JOIN goods_category AS c ON gi.category=c.category_id
+        LEFT JOIN goods_image AS i ON i.goods_id=gi.id
+        LEFT JOIN goods_tag AS `gt` ON `gt`.goods_id=gi.id
+        LEFT JOIN tag_of_goods AS t ON t.id=`gt`.tag_id
+
+        WHERE
+        (title LIKE "%"#{info.title}"%"
+        OR content LIKE "%"#{tag.content}"%"
+        OR description LIKE "%"#{info.description}"%")
+        AND is_sold=#{info.sold}
 
 
+        <if test="info.category !=null and info.category!= '' ">
+            AND category_id=#{info.category}
+        </if>
+        <if test="info.condition !=null and info.condition != ''">
+            AND `condition`=#{info.condition}
+        </if>
+        <if test="info.createTimeBegin !=null and info.createTimeEnd !=null ">
+            AND gi.gmt_create BETWEEN #{info.createTimeBegin} AND #{info.createTimeEnd}
+        </if>
+        ORDER BY condition ASC
+        <if test="info.limit !=null and info.limit !='' ">limit #{info.begin},#{info.size}</if>
+    </select>
+
+    <!--搜索GoodsInfo列表并按价格升序排序-->
+    <select id="listGoodsInfoBySearchOrderByPriceASC" resultMap="GoodsInfo">
+        SELECT gi.id AS gi_id,seller_id,title,price,original_price,description,`condition`,is_sold,1 AS `type`,
+        gi.gmt_create AS gi_gmt_create,gi.gmt_modified AS gi_gmt_modified,
+        `c`.id AS c_id,category_id,category_designation,
+        `c`.gmt_create AS c_gmt_create,`c`.gmt_modified AS c_gmt_modified,
+        i.id AS i_id,i.goods_id,image_link,
+        i.gmt_create AS i_gmt_create,i.gmt_modified AS i_gmt_modified,
+        t.id AS t_id,content,
+        t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified
+        FROM goods_info AS gi
+        LEFT JOIN goods_category AS c ON gi.category=c.category_id
+        LEFT JOIN goods_image AS i ON i.goods_id=gi.id
+        LEFT JOIN goods_tag AS `gt` ON `gt`.goods_id=gi.id
+        LEFT JOIN tag_of_goods AS t ON t.id=`gt`.tag_id
+
+        WHERE
+        (title LIKE "%"#{info.title}"%"
+        OR content LIKE "%"#{tag.content}"%"
+        OR description LIKE "%"#{info.description}"%")
+        AND is_sold=#{info.sold}
+
+
+        <if test="info.category !=null and info.category!= '' ">
+            AND category_id=#{info.category}
+        </if>
+        <if test="info.condition !=null and info.condition != ''">
+            AND `condition`=#{info.condition}
+        </if>
+        <if test="info.createTimeBegin !=null and info.createTimeEnd !=null ">
+            AND gi.gmt_create BETWEEN #{info.createTimeBegin} AND #{info.createTimeEnd}
+        </if>
+        ORDER BY price ASC
+        <if test="info.limit !=null and info.limit !='' ">limit #{info.begin},#{info.size}</if>
+    </select>
+
+    <!--搜索GoodsInfo列表并按价格降序排序-->
+    <select id="listGoodsInfoBySearchOrderByPriceDESC" resultMap="GoodsInfo">
+        SELECT gi.id AS gi_id,seller_id,title,price,original_price,description,`condition`,is_sold,1 AS `type`,
+        gi.gmt_create AS gi_gmt_create,gi.gmt_modified AS gi_gmt_modified,
+        `c`.id AS c_id,category_id,category_designation,
+        `c`.gmt_create AS c_gmt_create,`c`.gmt_modified AS c_gmt_modified,
+        i.id AS i_id,i.goods_id,image_link,
+        i.gmt_create AS i_gmt_create,i.gmt_modified AS i_gmt_modified,
+        t.id AS t_id,content,
+        t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified
+        FROM goods_info AS gi
+        LEFT JOIN goods_category AS c ON gi.category=c.category_id
+        LEFT JOIN goods_image AS i ON i.goods_id=gi.id
+        LEFT JOIN goods_tag AS `gt` ON `gt`.goods_id=gi.id
+        LEFT JOIN tag_of_goods AS t ON t.id=`gt`.tag_id
+
+        WHERE
+        (title LIKE "%"#{info.title}"%"
+        OR content LIKE "%"#{tag.content}"%"
+        OR description LIKE "%"#{info.description}"%")
+        AND is_sold=#{info.sold}
+
+
+        <if test="info.category !=null and info.category!= '' ">
+            AND category_id=#{info.category}
+        </if>
+        <if test="info.condition !=null and info.condition != ''">
+            AND `condition`=#{info.condition}
+        </if>
+        <if test="info.createTimeBegin !=null and info.createTimeEnd !=null ">
+            AND gi.gmt_create BETWEEN #{info.createTimeBegin} AND #{info.createTimeEnd}
+        </if>
+        ORDER BY price ASC
         <if test="info.limit !=null and info.limit !='' ">limit #{info.begin},#{info.size}</if>
     </select>
 
@@ -188,6 +335,7 @@
         <result property="description" column="description"/>
         <result property="condition" column="condition"/>
         <result property="sold" column="is_sold"/>
+        <result property="pubName" column="uusername"/>
 
         <!--分类-->
         <association property="category" javaType="com.example.fidledemo.BO.CategoryBO">

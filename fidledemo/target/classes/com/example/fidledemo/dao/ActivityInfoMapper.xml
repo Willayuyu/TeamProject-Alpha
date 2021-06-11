@@ -60,12 +60,14 @@
         i.id AS i_id,i.activity_id,image_link,
         i.gmt_create AS i_gmt_create,i.gmt_modified AS i_gmt_modified,
         t.id AS t_id,content,
-        t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified
+        t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified,
+        u.username AS uusername
         FROM activity_info AS a
         LEFT JOIN activity_category AS c ON a.category=c.category_id
         LEFT JOIN activity_image AS i ON i.activity_id=a.id
         LEFT JOIN activity_tag AS `at` ON `at`.activity_id=a.id
         LEFT JOIN tag_of_activity AS t ON t.id=`at`.tag_id
+        LEFT JOIN `user` AS u ON u.id= a.pub_id
         <where>
             <![CDATA[ a.end_time >= now() ]]>
             <if test="info.pubId !=null and info.pubId !=''">AND pub_id=#{info.pubId}</if>
@@ -119,6 +121,46 @@
         i.id AS i_id,i.activity_id,image_link,
         i.gmt_create AS i_gmt_create,i.gmt_modified AS i_gmt_modified,
         t.id AS t_id,content,
+        t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified,
+        u.username AS uusername
+        FROM activity_info AS a
+        LEFT JOIN activity_category AS c ON a.category=c.category_id
+        LEFT JOIN activity_image AS i ON i.activity_id=a.id
+        LEFT JOIN activity_tag AS `at` ON `at`.activity_id=a.id
+        LEFT JOIN tag_of_activity AS t ON t.id=`at`.tag_id
+        LEFT JOIN `user` AS u ON u.id= a.pub_id
+        WHERE
+        (title LIKE "%"#{info.title}"%"
+
+        OR content LIKE "%"#{tag.content}"%"
+
+        OR address LIKE "%"#{info.address}"%"
+
+        OR description LIKE "%"#{info.description}"%")
+
+        <if test="info.category !=null and info.category!=''">
+            AND category_id=#{info.category}
+        </if>
+
+        <if test="info.createTimeBegin !=null and info.createTimeEnd !=null">
+            AND a.gmt_create BETWEEN #{info.createTimeBegin} AND #{info.createTimeEnd}
+        </if>
+
+        <![CDATA[AND a.end_time >= now() ]]>
+
+        ORDER BY a_gmt_create DESC
+        <if test="info.limit !=null and info.limit !='' ">limit #{info.begin},#{info.size}</if>
+    </select>
+
+    <!--搜索ActivityInfo列表并根据时间降序排序-->
+    <select id="listActivityInfoBySearchOrderByDateDESC" resultMap="ActivityInfo">
+        SELECT a.id AS a_id, pub_id,title,address,start_time,end_time,description,3 AS `type`,
+        a.gmt_create AS a_gmt_create,a.gmt_modified AS a_gmt_modified,
+        `c`.id AS c_id,category_id,category_designation,
+        `c`.gmt_create AS c_gmt_create,`c`.gmt_modified AS c_gmt_modified,
+        i.id AS i_id,i.activity_id,image_link,
+        i.gmt_create AS i_gmt_create,i.gmt_modified AS i_gmt_modified,
+        t.id AS t_id,content,
         t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified
         FROM activity_info AS a
         LEFT JOIN activity_category AS c ON a.category=c.category_id
@@ -144,6 +186,45 @@
 
         <![CDATA[AND a.end_time >= now() ]]>
 
+        ORDER BY a_gmt_create DESC
+        <if test="info.limit !=null and info.limit !='' ">limit #{info.begin},#{info.size}</if>
+    </select>
+
+    <!--搜索ActivityInfo列表并根据时间升序排序-->
+    <select id="listActivityInfoBySearchOrderByDateASC" resultMap="ActivityInfo">
+        SELECT a.id AS a_id, pub_id,title,address,start_time,end_time,description,3 AS `type`,
+        a.gmt_create AS a_gmt_create,a.gmt_modified AS a_gmt_modified,
+        `c`.id AS c_id,category_id,category_designation,
+        `c`.gmt_create AS c_gmt_create,`c`.gmt_modified AS c_gmt_modified,
+        i.id AS i_id,i.activity_id,image_link,
+        i.gmt_create AS i_gmt_create,i.gmt_modified AS i_gmt_modified,
+        t.id AS t_id,content,
+        t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified
+        FROM activity_info AS a
+        LEFT JOIN activity_category AS c ON a.category=c.category_id
+        LEFT JOIN activity_image AS i ON i.activity_id=a.id
+        LEFT JOIN activity_tag AS `at` ON `at`.activity_id=a.id
+        LEFT JOIN tag_of_activity AS t ON t.id=`at`.tag_id
+        WHERE
+        (title LIKE "%"#{info.title}"%"
+
+        OR content LIKE "%"#{tag.content}"%"
+
+        OR address LIKE "%"#{info.address}"%"
+
+        OR description LIKE "%"#{info.description}"%")
+
+        <if test="info.category !=null and info.category!=''">
+            AND category_id=#{info.category}
+        </if>
+
+        <if test="info.createTimeBegin !=null and info.createTimeEnd !=null">
+            AND a.gmt_create BETWEEN #{info.createTimeBegin} AND #{info.createTimeEnd}
+        </if>
+
+        <![CDATA[AND a.end_time >= now() ]]>
+
+        ORDER BY a_gmt_create ASC
         <if test="info.limit !=null and info.limit !='' ">limit #{info.begin},#{info.size}</if>
     </select>
 
@@ -193,6 +274,7 @@
         <result property="startTime" column="start_time"/>
         <result property="endTime" column="end_time"/>
         <result property="description" column="description"/>
+        <result property="pubName" column="uusername"/>
 
         <!--分类-->
         <association property="category" javaType="com.example.fidledemo.BO.CategoryBO">

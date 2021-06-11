@@ -56,11 +56,13 @@
         `c`.id AS c_id,category_id,category_designation,
         `c`.gmt_create AS c_gmt_create,`c`.gmt_modified AS c_gmt_modified,
         t.id AS t_id,content,
-        t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified
+        t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified,
+        u.username AS uusername
         FROM task_information AS ti
         LEFT JOIN task_category AS c ON ti.category=c.category_id
         LEFT JOIN task_tag AS `tt` ON `tt`.task_id=ti.id
         LEFT JOIN tag_of_task AS t ON t.id=`tt`.tag_id
+        LEFT JOIN `user` AS u ON u.id= ti.pub_id
         <where>
             <![CDATA[ ti.end_time >= now() ]]>
             <if test="info.pubId !=null and info.pubId !=''">AND pub_id=#{info.pubId}</if>
@@ -105,11 +107,13 @@
         `c`.id AS c_id,category_id,category_designation,
         `c`.gmt_create AS c_gmt_create,`c`.gmt_modified AS c_gmt_modified,
         t.id AS t_id,content,
-        t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified
+        t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified,
+        u.username AS uusername
         FROM task_information AS ti
         LEFT JOIN task_category AS c ON ti.category=c.category_id
         LEFT JOIN task_tag AS `tt` ON `tt`.task_id=ti.id
         LEFT JOIN tag_of_task AS t ON t.id=`tt`.tag_id
+        LEFT JOIN `user` AS u ON u.id= ti.pub_id
         WHERE
         (title LIKE "%"#{info.title}"%"
 
@@ -316,6 +320,7 @@
         <result property="startTime" column="start_time"/>
         <result property="endTime" column="end_time"/>
         <result property="description" column="description"/>
+        <result property="pubName" column="uusername"/>
 
         <!--分类-->
         <association property="category" javaType="com.example.fidledemo.BO.CategoryBO">

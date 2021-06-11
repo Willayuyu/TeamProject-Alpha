@@ -36,7 +36,6 @@ public class TaskInfoServiceImpl implements TaskInfoService{
             taskVO.setTitle(taskInfoBO.getTitle());
             taskVO.setDescription(taskInfoBO.getDescription());
             taskVO.setCategory(taskInfoBO.getCategory().getCategoryDesignation());
-
             List<TagBO> tagList = taskInfoBO.getTagList();
             List<TaskTagVO> taskTagVOS=new ArrayList<>();
             for (TagBO tagBO:tagList) {
@@ -65,6 +64,10 @@ public class TaskInfoServiceImpl implements TaskInfoService{
             taskItemVO.setTitle(taskInfoBO.getTitle());
             taskItemVO.setReward(taskInfoBO.getReward());
             taskItemVO.setCategory(taskInfoBO.getCategory().getCategoryDesignation());
+
+            taskItemVO.setGmt_create(taskInfoBO.getGmtInfo().getGmtCreate());
+            taskItemVO.setAnnouncer(taskInfoBO.getPubName());
+
             List<TagBO> tagList = taskInfoBO.getTagList();
             List<TaskTagVO> taskTagVOS=new ArrayList<>();
             for (TagBO tagBO:tagList) {
@@ -90,6 +93,10 @@ public class TaskInfoServiceImpl implements TaskInfoService{
             taskItemVO.setTitle(taskInfoBO.getTitle());
             taskItemVO.setReward(taskInfoBO.getReward());
             taskItemVO.setCategory(taskInfoBO.getCategory().getCategoryDesignation());
+
+            taskItemVO.setGmt_create(taskInfoBO.getGmtInfo().getGmtCreate());
+            taskItemVO.setAnnouncer(taskInfoBO.getPubName());
+
             List<TagBO> tagList = taskInfoBO.getTagList();
             List<TaskTagVO> taskTagVOS=new ArrayList<>();
             for (TagBO tagBO:tagList) {

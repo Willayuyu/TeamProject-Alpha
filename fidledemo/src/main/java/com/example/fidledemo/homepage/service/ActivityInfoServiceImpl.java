@@ -82,6 +82,11 @@ public class ActivityInfoServiceImpl implements ActivityInfoService{
             activityItemVO.setId(activityInfoBO.getId());
             activityItemVO.setTitle(activityInfoBO.getTitle());
             activityItemVO.setCategory(activityInfoBO.getCategory().getCategoryDesignation());
+
+            activityItemVO.setGmt_create(activityInfoBO.getGmtInfo().getGmtCreate());
+            activityItemVO.setAnnouncer(activityInfoBO.getPubName());
+            activityItemVO.setPublisherId(activityInfoBO.getPubId());
+
             List<TagBO> tagList = activityInfoBO.getTagList();
             List<ActivityTagVO> activityTagVOS=new ArrayList<>();
             for (TagBO tagBO:tagList) {
@@ -107,6 +112,11 @@ public class ActivityInfoServiceImpl implements ActivityInfoService{
             activityItemVO.setId(activityInfoBO.getId());
             activityItemVO.setTitle(activityInfoBO.getTitle());
             activityItemVO.setCategory(activityInfoBO.getCategory().getCategoryDesignation());
+
+            activityItemVO.setGmt_create(activityInfoBO.getGmtInfo().getGmtCreate());
+            activityItemVO.setAnnouncer(activityInfoBO.getPubName());
+            activityItemVO.setPublisherId(activityInfoBO.getPubId());
+
             List<TagBO> tagList = activityInfoBO.getTagList();
             List<ActivityTagVO> activityTagVOS=new ArrayList<>();
 
@@ -116,6 +126,7 @@ public class ActivityInfoServiceImpl implements ActivityInfoService{
                 activityTagVO.setContent(tagBO.getContent());
                 activityTagVOS.add(activityTagVO);
             }
+            activityItemVO.setImageLink(activityInfoBO.getImageList().get(0).getImageLink());
             activityItemVO.setTagList(activityTagVOS);
             activityItemVOS.add(activityItemVO);
         }
