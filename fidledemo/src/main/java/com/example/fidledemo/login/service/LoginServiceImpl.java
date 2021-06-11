@@ -33,15 +33,13 @@ public class LoginServiceImpl implements LoginService
     String json = LoginUtil.httpRequest(url,"GET",null);
 
 
-    System.out.println("json:"+json);
 
     //将json字符串转化成对象
     result = JSON.parseObject(json, LoginResult.class);
 
     String openId=result.getOpenid();
     UserDO userDO=new UserDO();
-
-    System.out.println(openId);
+    
 
     userDO.setOpenId(openId);
 

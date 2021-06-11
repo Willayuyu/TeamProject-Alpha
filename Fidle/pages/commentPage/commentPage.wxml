@@ -13,19 +13,21 @@
     </view>
   </van-card>
 
+  <!-- 单选框 好评=1，差评=-1 -->
   <van-radio-group value="{{ radio }}" bind:change="onChange" direction="horizontal" class="radiogroup">
+  <text class="atext">评价</text>  
   <van-radio use-icon-slot value="{{ radio }}" name="1">
     好评
-    <image style="width:30rpx;height:30rpx" slot="icon" src="{{ radio === '1' ? icon.upactive : icon.upnormal }}" />
+    <image class="good" slot="icon" src="{{ radio === '1' ? icon.upactive : icon.upnormal }}" />
   </van-radio>
-  <van-radio use-icon-slot value="{{ radio }}" name="2">
+  <van-radio use-icon-slot value="{{ radio }}" name="-1">
     差评
-    <image style="width:30rpx;height:30rpx" slot="icon" src="{{ radio === '2' ? icon.downactive : icon.downnormal }}" />
+    <image class="bad" slot="icon" src="{{ radio === '-1' ? icon.downactive : icon.downnormal }}" />
   </van-radio>
 </van-radio-group>
 
   <van-cell-group class="group">
-    <van-field value="{{commentwords}}" placeholder="给这次的交易写一句评价吧" border="{{ false }}" catchblur="change" class="field" />
+    <van-field value="{{commentwords}}" label="留言" placeholder="给这次的交易写一句评价吧" border="{{ false }}" catchblur="change" class="field" type="textarea" autosize/>
   </van-cell-group>
   <view class="panelBtns">
     <van-button class="panelBtn" catchtap="confirm" hover-stop-propagation='true'>确认</van-button>

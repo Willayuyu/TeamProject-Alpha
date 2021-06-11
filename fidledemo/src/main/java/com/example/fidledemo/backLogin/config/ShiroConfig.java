@@ -25,7 +25,7 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setSecurityManager((org.apache.shiro.mgt.SecurityManager) securityManager);
 
         Map<String, String> filterChainDefinitionMap = new HashMap<String, String>();
-        shiroFilterFactoryBean.setLoginUrl("/login");
+        shiroFilterFactoryBean.setLoginUrl("/admin/login");
 
         //filterChainDefinitionMap.put("/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
@@ -54,7 +54,7 @@ public class ShiroConfig {
         return securityManager;
     }
 
-    //加入注解的使用，不加入这个注解不生效
+    //加入注解的使用
     @Bean
     public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
         AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();

@@ -20,6 +20,8 @@ public enum ResultCode
   UPLOAD_FAILURE(1008,"图片上传失败"),
   FORMAT_ERROR(1009,"图片格式错误"),
   IMAGE_SIZE_ERROR(1010,"图片过大"),
+  PASSWORD_ERROR(1011,"密码错误"),
+  ACCOUNT_ERROR(1012,"账号错误"),
   SERVER_ERROR(1050,"服务端错误");
 
 

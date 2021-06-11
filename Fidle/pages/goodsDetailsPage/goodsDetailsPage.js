@@ -7,7 +7,7 @@ Page({
    */
   data: {
     swiperList: [],
-    ChineseNum: ['','全新','九成新','八成新','八成新以下'],
+    ChineseNum: ['', '全新', '九成新', '八成新', '八成新以下'],
     collectState: -1,
     category: "",
     condition: "",
@@ -15,28 +15,31 @@ Page({
     title: "",
     currentPrice: 0,
     originalPrice: 0,
-    description:" ",
+    description: " ",
     pubId: 0,
     id: 0,
+    hiddenModal: true,
+    input: null,
+    inputValue: null
   },
 
   /**
    * 将新旧程度数字转化为中文数字
    */
-  changeNum:function(){
+  changeNum: function () {
     let that = this;
     let condition = that.data.condition;
     condition = Number(condition);
     let ChineseNum = that.data.ChineseNum[condition];
     that.setData({
-      condition:ChineseNum
+      condition: ChineseNum
     })
   },
 
   /**
    * 获取二手详情页信息
    */
-  getGoodsDetail:function(){
+  getGoodsDetail: function () {
     let that = this;
     wx.request({
       url: 'http://47.106.241.182:8080/goods/getGoodsDetailById/' + that.data.id,
@@ -46,9 +49,9 @@ Page({
         'Cookie': wx.getStorageSync('sessionid'),
         'token': app.globalData.token
       },
-      success(res){
+      success(res) {
         console.log(res.data);
-        if(res.data.code===200){
+        if (res.data.code === 200) {
           that.setData({
             swiperList: res.data.data.picturesLink,
             title: res.data.data.title,
@@ -60,12 +63,12 @@ Page({
             description: res.data.data.description,
             category: res.data.data.category,
             pubId: res.data.data.pubId,
-            id:res.data.data.id,
+            id: res.data.data.id,
           });
           that.changeNum();
         }
       },
-      fail(err){
+      fail(err) {
         console.log(err);
       }
     })
@@ -85,7 +88,7 @@ Page({
   /**
    * 点击home图标跳转首页
    */
-  onClickHome(event){
+  onClickHome(event) {
     wx.switchTab({
       url: '/pages/index/index',
     })
@@ -93,9 +96,9 @@ Page({
   /**
    * 点击收藏变色
    */
-  onClickStar(event){
+  onClickStar(event) {
     let that = this;
-    if(that.data.collectState == -1){
+    if (that.data.collectState == -1) {
       wx.request({
         url: 'http://47.106.241.182:8080/goods/collectGoods/' + that.data.id,
         method: 'GET',
@@ -104,9 +107,9 @@ Page({
           'Cookie': wx.getStorageSync('sessionid'),
           'token': app.globalData.token
         },
-        success(res){
+        success(res) {
           console.log(res);
-          if(res.data.code===200){
+          if (res.data.code === 200) {
             that.setData({
               collectState: 1
             });
@@ -114,13 +117,13 @@ Page({
               position: 'bottom',
               message: '收藏成功！'
             });
-          } 
+          }
         },
-        fail(err){
+        fail(err) {
           console.log(err);
         }
       })
-    } else if(that.data.collectState == 1) {
+    } else if (that.data.collectState == 1) {
       wx.request({
         url: 'http://47.106.241.182:8080/goods/cancelCollectGoods/' + that.data.id,
         method: 'GET',
@@ -129,9 +132,9 @@ Page({
           'Cookie': wx.getStorageSync('sessionid'),
           'token': app.globalData.token
         },
-        success(res){
+        success(res) {
           console.log(res);
-          if(res.data.code===200){
+          if (res.data.code === 200) {
             that.setData({
               collectState: -1
             });
@@ -141,7 +144,7 @@ Page({
             });
           }
         },
-        fail(err){
+        fail(err) {
           console.log(err);
         }
       })
@@ -150,18 +153,64 @@ Page({
   /**
    * 点击联系卖家跳转
    */
-  goodsConnect: function(event){
+  goodsConnect: function (event) {
     let that = this;
     let pubId = that.data.pubId;
     console.log(pubId);
-    wx.navigateTo({ 
-      url: '/pages/contact/contact?pubId='+ pubId
-    }) 
+    wx.navigateTo({
+      url: '/pages/contact/contact?pubId=' + pubId
+    })
   },
 
- /**
-   * 生命周期函数--监听页面加载
-   */
+  input: function (e) {
+    this.setData({ inputValue: e.detail.value })
+  },
+  showInputModel: function (e) {
+    this.setData({ hiddenModal: false })
+  },
+  modelConfirm: function (e) {
+    this.setData({ hiddenModal: true })
+    wx.showToast({
+      title: '举报理由：' + this.data.inputValue + '已提交',
+      icon: 'none'
+    })
+    var that = this;
+    var id = that.data.id;
+    console.log(id);
+    var reason = that.data.inputValue;
+    console.log(reason);
+      wx.request({
+        url: 'http://47.106.241.182:8082/goods/reportGoods',
+        method: 'POST',
+        header: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Cookie': wx.getStorageSync('sessionid'),
+          'token': app.globalData.token
+        },
+        data: {
+          id: id,
+          reason: reason
+        },
+        success(res){
+          console.log(res.data);
+        }
+
+      })
+  },
+  modelCancel: function (e) {
+    this.setData({ hiddenModal: true })
+    wx.showToast({
+      title: '举报已取消',
+      icon: 'none'
+    })
+  },
+  reset: function (e) {
+    this.setData({ inputValue: '' });
+  },
+
+  /**
+    * 生命周期函数--监听页面加载
+    */
   onLoad: function (options) {
     wx.setNavigationBarTitle({ title: '二手物品详情页' });
     let goodsID = options.id;
@@ -180,7 +229,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+
   },
 
   /**
