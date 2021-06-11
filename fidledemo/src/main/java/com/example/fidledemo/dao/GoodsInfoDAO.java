@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -85,6 +86,14 @@ public interface GoodsInfoDAO {
      * @return
      */
     int getNewGoodsNum();
+
+    /**
+     * 根据时间段返回二手物品数量
+     * @param begin
+     * @param end
+     * @return
+     */
+    int getGoodsNumByTime(@Param("beginTime") Date begin, @Param("endTime")Date end);
 
 
 }

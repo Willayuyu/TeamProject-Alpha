@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -77,6 +78,14 @@ public interface TaskInfoDAO
    * @return
    */
   int getNewTaskNums();
+
+  /**
+   * 根据时间段返回任务数量
+   * @param begin
+   * @param end
+   * @return
+   */
+  int getTasksNumByTime(@Param("beginTime") Date begin, @Param("endTime")Date end);
 
 
 

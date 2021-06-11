@@ -123,4 +123,19 @@ public class AdminServiceImpl implements AdminService{
         List<PermissionDO> permissionDOS = permissionDAO.listPermissionDOByRoleId((long) 1);
         return permissionDOS;
     }
+
+    @Override
+    public int getGoodsNumByTime(Date begin, Date end) {
+        return goodsInfoDAO.getGoodsNumByTime(begin,end);
+    }
+
+    @Override
+    public int getTasksNumByTime(Date begin, Date end) {
+        return taskInfoDAO.getTasksNumByTime(begin,end);
+    }
+
+    @Override
+    public int getActivityNumByTime(Date begin, Date end) {
+        return activityInfoDAO.getActivityNumByTime(begin,end);
+    }
 }

@@ -177,6 +177,12 @@
         WHERE date(gmt_create)=current_date
     </select>
 
+    <select id="getActivityNumByTime" resultType="INT">
+        SELECT COUNT(DISTINCT id)
+        FROM activity_info
+        WHERE gmt_create BETWEEN #{beginTime} AND #{endTime}
+    </select>
+
 
     <!--ActivityInfo-->
     <resultMap id="ActivityInfo" type="com.example.fidledemo.BO.ActivityInfoBO">

@@ -159,6 +159,12 @@
         WHERE date(gmt_create)=current_date
     </select>
 
+    <select id="getTasksNumByTime" resultType="INT">
+        SELECT COUNT(DISTINCT id)
+        FROM task_information
+        WHERE gmt_create BETWEEN #{beginTime} AND #{endTime}
+    </select>
+
     <!--TaskInfo-->
     <resultMap id="TaskInfo" type="com.example.fidledemo.BO.TaskInfoBO">
         <result property="id" column="ti_id"/>

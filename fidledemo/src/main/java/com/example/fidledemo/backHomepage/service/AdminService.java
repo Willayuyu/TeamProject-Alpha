@@ -7,6 +7,7 @@ import com.example.fidledemo.DO.GoodsReportMessageDO;
 import com.example.fidledemo.DO.TaskReportMessageDO;
 import com.example.fidledemo.DO.PermissionDO;
 import com.example.fidledemo.DO.RoleDO;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -109,4 +110,28 @@ public interface AdminService {
      * @return
      */
     List<PermissionDO> getPermissionDOByRoleDO(RoleDO roleDO);
+
+    /**
+     * 根据时间段返回二手物品数量
+     * @param begin
+     * @param end
+     * @return
+     */
+    int getGoodsNumByTime(@Param("beginTime")Date begin, @Param("endTime")Date end);
+
+    /**
+     * 根据时间段返回任务数量
+     * @param begin
+     * @param end
+     * @return
+     */
+    int getTasksNumByTime(@Param("beginTime") Date begin, @Param("endTime")Date end);
+
+    /**
+     * 根据时间段返回活动数量
+     * @param begin
+     * @param end
+     * @return
+     */
+    int getActivityNumByTime(@Param("beginTime") Date begin, @Param("endTime")Date end);
 }
