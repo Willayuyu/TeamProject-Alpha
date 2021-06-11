@@ -23,6 +23,11 @@ public abstract class BaseInformation
   protected Long pubId;
 
   /**
+   * 发布者姓名
+   */
+  protected String pubName;
+
+  /**
    * 标题
    */
   protected String title;

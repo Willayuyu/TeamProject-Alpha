@@ -27,7 +27,7 @@ public class ShiroConfig {
         Map<String, String> filterChainDefinitionMap = new HashMap<String, String>();
         shiroFilterFactoryBean.setLoginUrl("/admin/login");
 
-        filterChainDefinitionMap.put("/**", "authc");
+        //filterChainDefinitionMap.put("/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
     }

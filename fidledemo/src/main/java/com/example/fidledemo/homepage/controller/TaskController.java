@@ -76,8 +76,9 @@ public class TaskController {
             }
 
             List<TaskItemVO> taskItemVOS = taskInfoService.listTaskInfoByDO(taskInformationDO, tagOfTaskDO);
-            UserBO user = (UserBO) request.getSession().getAttribute("user");
-            Long userId = user.getId();
+            /*UserBO user = (UserBO) request.getSession().getAttribute("user");
+            Long userId = user.getId();*/
+            Long userId = Long.valueOf(1);
             TaskEnshrineDO taskEnshrineDO = new TaskEnshrineDO();
             taskEnshrineDO.setUserId(userId);
             for (TaskItemVO taskItemVO:taskItemVOS) {
@@ -143,8 +144,9 @@ public class TaskController {
             }
 
             List<TaskItemVO> taskItemVOS = taskInfoService.listTaskInfoBySearch(taskInformationDO, tagOfTaskDO);
-            UserBO user = (UserBO) request.getSession().getAttribute("user");
-            Long userId = user.getId();
+            /*UserBO user = (UserBO) request.getSession().getAttribute("user");
+            Long userId = user.getId();*/
+            Long userId = Long.valueOf(1);
             TaskEnshrineDO taskEnshrineDO = new TaskEnshrineDO();
             taskEnshrineDO.setUserId(userId);
             for (TaskItemVO taskItemVO:taskItemVOS) {
