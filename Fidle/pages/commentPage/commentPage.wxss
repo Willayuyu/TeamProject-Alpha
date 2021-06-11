@@ -111,3 +111,20 @@
   font-weight: bold;
   color: #F14836;
 }
+
+.atext {
+  margin-left:55rpx;
+  margin-top:10rpx;
+  font-size:27rpx;
+  color:#455A64
+}
+
+.good {
+  margin-left:65rpx;
+  width:30rpx;
+  height:30rpx
+}
+.bad {
+  width:30rpx;
+  height:30rpx
+}

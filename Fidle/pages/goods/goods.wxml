@@ -54,7 +54,7 @@
           {{item.content}}</van-tag>
       </view>
       <view slot="footer" class="btns">
-        <van-button class="btn" catchtap="gotoComment" hover-stop-propagation='true'>评价买方</van-button>
+        <van-button class="btn" catchtap="gotoComment" hover-stop-propagation='true' data-index="{{index}}">评价买方</van-button>
       </view>
     </van-card>
   </van-tab>
