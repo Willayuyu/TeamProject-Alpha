@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author ZSP
@@ -33,4 +34,7 @@ public class AdminDO {
 
     //模糊字段(字符串)
     private Boolean accountLike;
+
+    //关系字段
+    private List<RoleDO> roleList;
 }

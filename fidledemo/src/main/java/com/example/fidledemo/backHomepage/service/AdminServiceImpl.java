@@ -1,8 +1,17 @@
 package com.example.fidledemo.backHomepage.service;
 
 import com.example.fidledemo.BO.AdminBO;
+<<<<<<< Updated upstream
 import com.example.fidledemo.DO.*;
 import com.example.fidledemo.dao.*;
+=======
+import com.example.fidledemo.DO.AdminDO;
+import com.example.fidledemo.DO.PermissionDO;
+import com.example.fidledemo.DO.RoleDO;
+import com.example.fidledemo.dao.AdminDAO;
+import com.example.fidledemo.dao.PermissionDAO;
+import com.example.fidledemo.dao.RoleDAO;
+>>>>>>> Stashed changes
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +26,7 @@ import java.util.List;
 public class AdminServiceImpl implements AdminService{
 
     @Autowired
+<<<<<<< Updated upstream
     AdminDAO adminDAO;
 
     @Autowired
@@ -39,6 +49,13 @@ public class AdminServiceImpl implements AdminService{
 
     @Autowired
     ActivityReportMessageDAO activityReportMessageDAO;
+=======
+    private AdminDAO adminDAO;
+    @Autowired
+    private RoleDAO roleDAO;
+    @Autowired
+    private PermissionDAO permissionDAO;
+>>>>>>> Stashed changes
 
     @Override
     public AdminBO getAdminBoByDO(AdminDO adminDO) {
@@ -81,6 +98,7 @@ public class AdminServiceImpl implements AdminService{
     }
 
     @Override
+<<<<<<< Updated upstream
     public int getNewActivityNums() {
         return activityInfoDAO.getNewActivityNums();
     }
@@ -101,4 +119,16 @@ public class AdminServiceImpl implements AdminService{
     }
 
 
+=======
+    public List<RoleDO> getRoleDoByAdminBO(AdminBO adminBO) {
+        List<RoleDO> roleDOS = roleDAO.listRoleDOByAdminId(adminBO.getId());
+        return roleDOS;
+    }
+
+    @Override
+    public List<PermissionDO> getPermissionDOByRoleDO(RoleDO roleDO) {
+        List<PermissionDO> permissionDOS = permissionDAO.listPermissionDOByRoleId((long) 1);
+        return permissionDOS;
+    }
+>>>>>>> Stashed changes
 }

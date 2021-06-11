@@ -71,6 +71,9 @@
                     AND account =#{account}
                 </if>
             </if>
+            <if test="password !=null and password!=''">
+                AND password =#{password}
+            </if>
         </where>
         <if test="limit !=null and limit!=''">
             limit #{begin},#{size}
