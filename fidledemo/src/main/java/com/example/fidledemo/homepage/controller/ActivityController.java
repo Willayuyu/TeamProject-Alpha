@@ -62,10 +62,6 @@ public class ActivityController {
             Long categoryId=Long.parseLong(request.getParameter("categoryId"));
             int pageid=Integer.parseInt(request.getParameter("pageid"));
 
-            /*activityInfoDO.setLimit(Boolean.TRUE);
-            activityInfoDO.setBegin((pageid-1)*size);
-            activityInfoDO.setSize(size);*/
-
             activityInfoDO.setDistinct(Boolean.TRUE);
 
             if (categoryId!=0){
@@ -80,9 +76,9 @@ public class ActivityController {
             List<ActivityItemVO> activityItemVOS = activityInfoService.listActivityInfoByDO(activityInfoDO, tagOfActivityDO);
 
             //判断是否被该用户收藏
-            /*UserBO user = (UserBO) request.getSession().getAttribute("user");
-            Long userId = user.getId();*/
-            Long userId = Long.valueOf(1);
+            UserBO user = (UserBO) request.getSession().getAttribute("user");
+            Long userId = user.getId();
+            //Long userId = Long.valueOf(1);
             ActivityEnshrineDO activityEnshrineDO = new ActivityEnshrineDO();
             activityEnshrineDO.setUserId(userId);
             for (ActivityItemVO activityItemVO:activityItemVOS) {
@@ -125,10 +121,6 @@ public class ActivityController {
             int pageid=Integer.parseInt(request.getParameter("pageid"));
             String keyWord=request.getParameter("keyWord");
 
-            /*activityInfoDO.setLimit(Boolean.TRUE);
-            activityInfoDO.setBegin((pageid-1)*size);
-            activityInfoDO.setSize(size);*/
-
             activityInfoDO.setDistinct(Boolean.TRUE);
 
             if(categoryId!=0){
@@ -153,9 +145,9 @@ public class ActivityController {
             List<ActivityItemVO> activityItemVOS = activityInfoService.listActivityInfoBySearch(activityInfoDO, tagOfActivityDO);
 
             //判断是否被该用户收藏
-            /*UserBO user = (UserBO) request.getSession().getAttribute("user");
-            Long userId = user.getId();*/
-            Long userId = Long.valueOf(1);
+            UserBO user = (UserBO) request.getSession().getAttribute("user");
+            Long userId = user.getId();
+            //Long userId = Long.valueOf(1);
             ActivityEnshrineDO activityEnshrineDO = new ActivityEnshrineDO();
             activityEnshrineDO.setUserId(userId);
             for (ActivityItemVO activityItemVO:activityItemVOS) {
