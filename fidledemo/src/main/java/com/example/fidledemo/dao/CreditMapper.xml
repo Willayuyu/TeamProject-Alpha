@@ -34,6 +34,11 @@
         WHERE id=#{id}
     </select>
 
+    <select id="getCreditByWhisId" parameterType="long" resultMap="Credit">
+        SELECT * FROM credit
+        WHERE user_id=#{wid}
+    </select>
+
     <!--查询credit列表-->
     <select id="listCreditByDO" parameterType="com.example.fidledemo.DO.CreditDO" resultMap="Credit">
         SELECT * FROM credit

@@ -120,10 +120,6 @@ public class TaskController {
             String keyWord=request.getParameter("keyWord");
             int pageid=Integer.parseInt(request.getParameter("pageid"));
 
-            /*taskInformationDO.setLimit(Boolean.TRUE);
-            taskInformationDO.setBegin((pageid-1)*size);
-            taskInformationDO.setSize(size);*/
-
             taskInformationDO.setDistinct(Boolean.TRUE);
 
             if (categoryId!=0){
@@ -144,8 +140,6 @@ public class TaskController {
             }
 
             List<TaskItemVO> taskItemVOS = taskInfoService.listTaskInfoBySearch(taskInformationDO, tagOfTaskDO);
-            /*UserBO user = (UserBO) request.getSession().getAttribute("user");
-            Long userId = user.getId();*/
             Long userId = Long.valueOf(1);
             TaskEnshrineDO taskEnshrineDO = new TaskEnshrineDO();
             taskEnshrineDO.setUserId(userId);

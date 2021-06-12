@@ -57,12 +57,20 @@
         `c`.gmt_create AS c_gmt_create,`c`.gmt_modified AS c_gmt_modified,
         t.id AS t_id,content,
         t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified,
+<<<<<<< Updated upstream
         uu.username AS uusername
+=======
+        u.username AS uusername
+>>>>>>> Stashed changes
         FROM task_information AS ti
         LEFT JOIN task_category AS c ON ti.category=c.category_id
         LEFT JOIN task_tag AS `tt` ON `tt`.task_id=ti.id
         LEFT JOIN tag_of_task AS t ON t.id=`tt`.tag_id
+<<<<<<< Updated upstream
         LEFT JOIN `user` AS uu ON uu.id= ti.pub_id
+=======
+        LEFT JOIN `user` AS u ON u.id= ti.pub_id
+>>>>>>> Stashed changes
         <where>
             <![CDATA[ ti.end_time >= now() ]]>
             <if test="info.pubId !=null and info.pubId !=''">AND pub_id=#{info.pubId}</if>
@@ -108,12 +116,20 @@
         `c`.gmt_create AS c_gmt_create,`c`.gmt_modified AS c_gmt_modified,
         t.id AS t_id,content,
         t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified,
+<<<<<<< Updated upstream
         uu.username AS uusername
+=======
+        u.username AS uusername
+>>>>>>> Stashed changes
         FROM task_information AS ti
         LEFT JOIN task_category AS c ON ti.category=c.category_id
         LEFT JOIN task_tag AS `tt` ON `tt`.task_id=ti.id
         LEFT JOIN tag_of_task AS t ON t.id=`tt`.tag_id
+<<<<<<< Updated upstream
         LEFT JOIN `user` AS uu ON uu.id= ti.pub_id
+=======
+        LEFT JOIN `user` AS u ON u.id= ti.pub_id
+>>>>>>> Stashed changes
         WHERE
         (title LIKE "%"#{info.title}"%"
 

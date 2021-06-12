@@ -1,17 +1,29 @@
 package com.example.fidledemo.backHomepage.controller;
 
 import com.alibaba.fastjson.JSON;
+<<<<<<< Updated upstream
 import com.example.fidledemo.BO.*;
 import com.example.fidledemo.DO.*;
 import com.example.fidledemo.VO.BackGoodsItemVO;
 import com.example.fidledemo.VO.PageInfoVO;
+=======
+import com.example.fidledemo.BO.ReportMessage;
+import com.example.fidledemo.BO.Result;
+import com.example.fidledemo.BO.ResultCode;
+import com.example.fidledemo.DO.ActivityReportMessageDO;
+import com.example.fidledemo.DO.GoodsReportMessageDO;
+import com.example.fidledemo.DO.TaskReportMessageDO;
+>>>>>>> Stashed changes
 import com.example.fidledemo.backHomepage.service.AdminService;
 import com.example.fidledemo.homepage.utils.DateUtils;
 import com.example.fidledemo.homepage.utils.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+<<<<<<< Updated upstream
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
+=======
+>>>>>>> Stashed changes
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;

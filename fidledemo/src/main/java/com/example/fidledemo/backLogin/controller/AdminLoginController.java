@@ -46,7 +46,8 @@ public class AdminLoginController {
         adminDO.setAccount(account);
         AdminBO adminBo = adminService.getAdminBoByDO(adminDO);
         subject.getSession().setAttribute("admin", adminBo);
-        return JSON.toJSONString(Result.successResult());
+        adminDO.setId(adminBo.getId());
+        return JSON.toJSONString(Result.successResult(adminDO));
     }
 
 }
