@@ -31,6 +31,7 @@ public class ReportServiceImpl implements ReportService{
         messageDO.setReportedGoodsId(goodsId);
         messageDO.setWhistleblowerId(whistleblowerId);
         messageDO.setState(0);
+        messageDO.setTitle("用户"+whistleblowerId+"举报二手物品"+goodsId);
 
         //插入DO
         goodsReportMessageDAO.insertGoodsReportMessage(messageDO);
@@ -45,6 +46,7 @@ public class ReportServiceImpl implements ReportService{
         messageDO.setReportedTaskId(taskId);
         messageDO.setWhistleblowerId(whistleblowerId);
         messageDO.setState(0);
+        messageDO.setTitle("用户"+whistleblowerId+"举报任务委托"+taskId);
 
         //插入DO
         taskReportMessageDAO.insertTaskReportMessage(messageDO);
@@ -59,6 +61,7 @@ public class ReportServiceImpl implements ReportService{
         messageDO.setReportedActivityId(activityId);
         messageDO.setWhistleblowerId(whistleblowerId);
         messageDO.setState(0);
+        messageDO.setTitle("用户"+whistleblowerId+"举报活动"+activityId);
 
         //插入DO
         activityReportMessageDAO.insertActivityReportMessage(messageDO);
