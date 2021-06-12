@@ -4,7 +4,7 @@
       <Header></Header>
     </div>
     <div class="content flex">
-      <div class="sidebar">
+      <div class="sidebar" v-show="!((path === '/goodsDetail')||(path === '/taskDetail'))">
         <Sidebar></Sidebar>
       </div>
       <div class="page">
@@ -24,10 +24,23 @@ import Sidebar from './components/Sidebar.vue'
 import './assets/css/common.css'
 export default {
   name: 'app',
+  data() {
+    return{
+      path:''
+    }
+  },
   //注册页面中使用的组件
   components: {
     Header,
     Sidebar
+  },
+  mounted() {
+    this.path = this.$route.path
+  },
+  watch: {
+    $route(to, from){
+      this.path = to.path
+    }
   }
 }
 </script>
@@ -62,7 +75,7 @@ export default {
 }
 .page {
   flex: 1;
-  background: bisque;
+  background: #ffffff;
 }
 
 </style>

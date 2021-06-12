@@ -4,7 +4,7 @@
       <i class = "el-icon-back" />
     </div>
     <el-main>
-      <div class="goodsmain">
+      <div class="taskmain">
         <div class="publisherInfo">
           <div class="leftFirstBox">
             发布人信息
@@ -13,7 +13,7 @@
             <img v-bind:src="url"/>
           </div>
           <div class="leftThirdBox">
-            <i class = "iconfont icon-account" />
+            <i class = "el-icon-user" />
             <span class="leftText">Fidle</span>
           </div>
           <div class="leftThirdBox">
@@ -29,24 +29,12 @@
             <span class="leftText">100</span>
           </div>
         </div>
-        <div class="goodsInfo">
-          <div class="goodsImage">
-            <el-carousel height="300px" arrow="never">
-              <el-carousel-item v-for="item in pics" :key="item">
-                <el-image
-                  style="width: 100%"
-                  v-bind:src="item.url"
-                  :preview-src-list="picList">
-                </el-image>
-              </el-carousel-item>
-            </el-carousel>
-          </div>
-          <div class="goodsDetail">
+        <div class="taskInfo">
+          <div class="taskDetail">
             <div class="infoHeader">
               <p class="title">软件工程第八版 好价速来 软件工程第八版 好价速来</p>
               <div class="prices">
                 <span class="price">￥ 30</span>
-                <span class="originalPrice">￥ 50</span>
               </div>
             </div>
             <div class="tags">
@@ -59,16 +47,21 @@
               <i class="el-icon-price-tag"></i>
               <el-tag type="info" v-for="item in labels" :key="item">{{item}}</el-tag>
             </div>
-            <div class="tags">
-              <span>新旧：</span>
-              <i class="el-icon-price-tag"></i>
-              <el-tag type="info">标签1</el-tag>
+            <div class="time">
+              <span>开始时间：</span>
+              <i class="el-icon-time"></i>
+              <span>2021/4/6</span>
             </div>
-            <p class="details">简介：化</p>
+            <div class="time">
+              <span>结束时间：</span>
+              <i class="el-icon-time"></i>
+              <span>2021/4/6</span>
+            </div>
+            <p class="details">简介：</p>
             <div class="footer">
               <div class="leftFooter">
-                <i class = "iconfont icon-zaishouzhong" />
-                <span class="state">在售</span>
+                <i class = "iconfont icon-renwujinhangzhong" />
+                <span class="state">任务进行中</span>
               </div>
               <el-button type="danger">删除</el-button>
             </div>
@@ -84,21 +77,10 @@
     data() {
       return {
         url: require("../assets/img/face" + Math.round(Math.random()*6) + ".png"),
-        pics: [
-          { url: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2841118707,440982020&fm=26&gp=0.jpg' },
-          { url: require("../assets/logo.png") },
-          { url: require("../assets/logo.png") },
-        ],
-        picList: [
-          'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2841118707,440982020&fm=26&gp=0.jpg',
-          require("../assets/logo.png"),
-          require("../assets/logo.png")
-        ],
         labels: [
           '标签1',
           '标签2'
         ]
-
       }
     }
   }
@@ -111,11 +93,11 @@
     padding-bottom: 0px;
     font-size: 40px;
   }
-  .goodsmain{
+  .taskmain{
     display: flex;
     margin-left: 160px;
     margin-bottom: 110px;
-    align-items: stretch;
+    align-items: flex-start;
   }
   .publisherInfo{
     background-color: #EFF3F3;
@@ -170,29 +152,21 @@
     line-height: 23px;
     color: #000000;
   }
-  .goodsInfo{
+  .taskInfo{
     display: flex;
     flex-direction: column;
     width: 43%;
     margin-left: 40px;
   }
-  .goodsImage{
-    background-color: #EFF3F3;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
-  }
-  .goodsDetail{
+  .taskDetail{
     display: flex;
     flex-direction: column;
-    margin-top: 20px;
-    flex-grow: 1;
     padding: 30px;
     text-align: left;
     background-color: #EFF3F3;
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
     font-family: "Helvetica Neue";
-    
   }
   .infoHeader{
     display: flex;
@@ -209,14 +183,8 @@
     color:red;
     font-size: 24px;
   }
-  .originalPrice{
-    margin-left: 10px;
-    font-size: 16px;
-    color: rgba(150, 148, 148, 0.849);
-    text-decoration: line-through;
-  }
   .details{
-    margin-top: 15px;
+    margin-top: 20px;
     font-size: 16px;
   }
   .tags{
@@ -235,6 +203,18 @@
     margin-right: 5px;
     vertical-align: middle;
   }
+  .time{
+    margin-top: 20px;
+    font-size: 16px;
+    vertical-align: middle;
+    display: flex;
+    align-items: center;
+  }
+  .time i{
+    font-size: 20px;
+    vertical-align: middle;
+    margin-right: 5px;
+  }
   .footer{
     margin-top: 30px;
     display: flex;
@@ -246,7 +226,7 @@
     line-height: 23px;
   }
   .leftFooter i{
-    font-size: 30px;
+    font-size: 24px;
     margin-right: 8px;
   }
 </style>

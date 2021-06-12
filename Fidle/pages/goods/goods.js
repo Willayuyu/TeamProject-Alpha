@@ -167,8 +167,8 @@ Page({
     console.log(wx.getStorageSync('sessionid')),
     console.log(app.globalData.token),
     wx.request({
-      url: 'http://47.106.241.182:8080/myGoods/listGoodsOnSaleByPageid/' + pageid,
-      // url: 'http://120.77.210.142:8080/myGoods/listGoodsOnSaleByPageid/' + pageid,
+      //url: 'http://47.106.241.182:8080/myGoods/listGoodsOnSaleByPageid/' + pageid,
+      url: 'http://120.77.210.142:8080/myGoods/listGoodsOnSaleByPageid/' + pageid,
       header: {
         'content-type': 'application/json',
         'Cookie': wx.getStorageSync('sessionid'),
@@ -223,8 +223,8 @@ Page({
   showSold(pageid) {
     let that = this;     
     wx.request({
-      url: 'http://47.106.241.182:8080/myGoods/listGoodsSoldByPageid/' + pageid,
-      //url: 'http://120.77.210.142:8080/myGoods/listGoodsSoldByPageid/' + pageid,
+      //url: 'http://47.106.241.182:8080/myGoods/listGoodsSoldByPageid/' + pageid,
+      url: 'http://120.77.210.142:8080/myGoods/listGoodsSoldByPageid/' + pageid,
       header: {
         'content-type': 'application/json',
         'Cookie': wx.getStorageSync('sessionid'),
@@ -278,8 +278,8 @@ Page({
   showBuy(pageid) {
     let that = this;     
     wx.request({
-      url: 'http://47.106.241.182:8080/myGoods/listGoodsBuyingByPageid/' + pageid,
-      //url: 'http://120.77.210.142:8080/myGoods/listGoodsBuyingByPageid/' + pageid,
+      //url: 'http://47.106.241.182:8080/myGoods/listGoodsBuyingByPageid/' + pageid,
+      url: 'http://120.77.210.142:8080/myGoods/listGoodsBuyingByPageid/' + pageid,
       header: {
         'content-type': 'application/json',
         'Cookie': wx.getStorageSync('sessionid'),
@@ -424,9 +424,9 @@ Page({
   },
 
   /**
-   * 跳转评价买方/卖方
+   * 跳转评价买方
    */
-  gotoComment:function(event) {
+  gotoComment1:function(event) {
     let that = this;
     let index = event.currentTarget.dataset.index;
     console.log(index);
@@ -444,8 +444,38 @@ Page({
     let condition = goodsData.condition;
     let category = goodsData.category;
     let tagList = goodsData.tagList;
+    let isSold = 1;
+    let isBuy = 0;
     wx.navigateTo({
-      url: '/pages/commentPage/commentPage?id=' + id + '&title=' + title + '&price=' + price + '&originalPrice=' + originalPrice + '&imageLink=' + imageLink + '&condition=' + condition + '&category=' + category + '&tagList=' + JSON.stringify(tagList),
+      url: '/pages/commentPage/commentPage?id=' + id + '&title=' + title + '&price=' + price + '&originalPrice=' + originalPrice + '&imageLink=' + imageLink + '&condition=' + condition + '&category=' + category + '&tagList=' + JSON.stringify(tagList) + '&isSold=' +isSold + '&isBuy=' +isBuy ,
+    })
+  },
+
+  /**
+   * 跳转评价卖方
+   */
+  gotoComment2:function(event) {
+    let that = this;
+    let index = event.currentTarget.dataset.index;
+    console.log(index);
+    let goodsList = that.data.goodsBuy;
+    let goodsData = goodsList[index];
+    console.log(goodsData);
+    let id = goodsData.id;
+    console.log(id);
+    let title = goodsData.title;
+    console.log(title);
+    let price = goodsData.price;
+    console.log(price);
+    let originalPrice = goodsData.originalPrice;
+    let imageLink = goodsData.imageLink;
+    let condition = goodsData.condition;
+    let category = goodsData.category;
+    let tagList = goodsData.tagList;
+    let isSold = 0;
+    let isBuy = 1;
+    wx.navigateTo({
+      url: '/pages/commentPage/commentPage?id=' + id + '&title=' + title + '&price=' + price + '&originalPrice=' + originalPrice + '&imageLink=' + imageLink + '&condition=' + condition + '&category=' + category + '&tagList=' + JSON.stringify(tagList) + '&isSold=' +isSold + '&isBuy=' +isBuy ,
     })
   }
 })

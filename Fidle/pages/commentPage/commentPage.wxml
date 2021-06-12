@@ -6,9 +6,12 @@
     </view>
     <view slot="tags" class="tagList">
       <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
-      <van-tag class="tagItem" color="#dbdbdb" text-color="#394044">{{condition}}</van-tag>
-      <van-tag class="tagItem" color="#dbdbdb" text-color="#394044">{{category}}</van-tag>
-      <van-tag wx:for="{{tagList}}" wx:key="index" class="tagItem" color="#dbdbdb" text-color="#394044">
+      <van-tag wx:if="{{condition == 1}}" class="tagItem" color="#dbdbdb" text-color="#394044">全新</van-tag>
+      <van-tag wx:if="{{condition == 2}}" class="tagItem" color="#dbdbdb" text-color="#394044">九成新</van-tag>
+      <van-tag wx:if="{{condition == 3}}" class="tagItem" color="#dbdbdb" text-color="#394044">八成新</van-tag>
+      <van-tag wx:if="{{condition == 4}}" class="tagItem" color="#dbdbdb" text-color="#394044">八成新以下</van-tag>
+      <van-tag class="tagItem" color="#FFDBA5" text-color="#394044">{{category}}</van-tag>
+      <van-tag wx:for="{{tagList}}" wx:key="index" class="tagItem" color="#D8E2DA" text-color="#394044">
         {{item.content}}</van-tag>
     </view>
   </van-card>
@@ -17,11 +20,11 @@
   <van-radio-group value="{{ radio }}" bind:change="onChange" direction="horizontal" class="radiogroup">
   <text class="atext">评价</text>  
   <van-radio use-icon-slot value="{{ radio }}" name="1">
-    好评
+    <text>好评</text>
     <image class="good" slot="icon" src="{{ radio === '1' ? icon.upactive : icon.upnormal }}" />
   </van-radio>
   <van-radio use-icon-slot value="{{ radio }}" name="-1">
-    差评
+    <text>差评</text>
     <image class="bad" slot="icon" src="{{ radio === '-1' ? icon.downactive : icon.downnormal }}" />
   </van-radio>
 </van-radio-group>
@@ -30,6 +33,7 @@
     <van-field value="{{commentwords}}" label="留言" placeholder="给这次的交易写一句评价吧" border="{{ false }}" catchblur="change" class="field" type="textarea" autosize/>
   </van-cell-group>
   <view class="panelBtns">
-    <van-button class="panelBtn" catchtap="confirm" hover-stop-propagation='true'>确认</van-button>
+    <button class="panelBtn" catchtap="confirm" hover-stop-propagation='true' hidden="{{hiddenConfirm}}">确认</button>
+    <button class="panelBtn" catchtap="submit" hover-stop-propagation='true' hidden="{{hiddenSubmit}}">提交</button>
   </view>
 </view>
