@@ -38,7 +38,7 @@ public class GoodsInfoServiceImpl implements GoodsInfoService{
             goodsVO.setOriginalPrice(goodsInfoBO.getOriginalPrice());
             goodsVO.setDescription(goodsInfoBO.getDescription());
             goodsVO.setCategory(goodsInfoBO.getCategory().getCategoryDesignation());
-
+            goodsVO.setState(goodsInfoBO.getSold());
             List<TagBO> tagList = goodsInfoBO.getTagList();
             List<GoodsTagVO> goodsTagVOS=new ArrayList<>();
             for (TagBO tagBO:tagList) {

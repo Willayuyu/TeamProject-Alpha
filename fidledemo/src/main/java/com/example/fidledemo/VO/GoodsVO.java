@@ -46,4 +46,6 @@ public class GoodsVO {
     private Integer collectState;
 
     private Integer condition;
+
+    private Integer state;
 }

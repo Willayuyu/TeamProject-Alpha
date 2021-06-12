@@ -2,6 +2,14 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import goodsDetail from './views/goodsDetail.vue'
+import goodsList from "./views/goodsList.vue";
+
+import PageActivity from './views/PageActivity.vue'
+import PageGoods from './views/PageGoods.vue'
+import PageHome from './views/PageHome.vue'
+import PageTask from './views/PageTask.vue'
+
+
 
 Vue.use(Router)
 
@@ -9,15 +17,20 @@ export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: Home
-    },
+    // {
+    //   path: '/',
+    //   name: 'home',
+    //   component: Home
+    // },
     {
       path: '/goodsDetail',
       name: 'goodsDetail',
       component: goodsDetail
+    },
+    {
+      path: '/goodsList',
+      name: 'goodsList',
+      component: goodsList
     },
     {
       path: '/about',
@@ -27,5 +40,21 @@ export default new Router({
       // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
     },
+    {
+      path:'/',
+      component:PageHome
+    },
+    {
+      path:'/activity',
+      component:PageActivity
+    },
+    {
+      path:'/goods',
+      component:PageGoods
+    },
+    {
+      path:'/task',
+      component:PageTask
+    }
   ]
 })

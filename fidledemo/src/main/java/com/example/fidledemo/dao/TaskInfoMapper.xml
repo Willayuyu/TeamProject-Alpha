@@ -57,12 +57,12 @@
         `c`.gmt_create AS c_gmt_create,`c`.gmt_modified AS c_gmt_modified,
         t.id AS t_id,content,
         t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified,
-        u.username AS uusername
+        `uu`.username AS uusername
         FROM task_information AS ti
         LEFT JOIN task_category AS c ON ti.category=c.category_id
         LEFT JOIN task_tag AS `tt` ON `tt`.task_id=ti.id
         LEFT JOIN tag_of_task AS t ON t.id=`tt`.tag_id
-        LEFT JOIN `user` AS u ON u.id= ti.pub_id
+        LEFT JOIN `user` AS `uu` ON `uu`.id= ti.pub_id
         <where>
             <![CDATA[ ti.end_time >= now() ]]>
             <if test="info.pubId !=null and info.pubId !=''">AND pub_id=#{info.pubId}</if>
@@ -108,12 +108,12 @@
         `c`.gmt_create AS c_gmt_create,`c`.gmt_modified AS c_gmt_modified,
         t.id AS t_id,content,
         t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified,
-        u.username AS uusername
+        `uu`.username AS uusername
         FROM task_information AS ti
         LEFT JOIN task_category AS c ON ti.category=c.category_id
         LEFT JOIN task_tag AS `tt` ON `tt`.task_id=ti.id
         LEFT JOIN tag_of_task AS t ON t.id=`tt`.tag_id
-        LEFT JOIN `user` AS u ON u.id= ti.pub_id
+        LEFT JOIN `user` AS `uu` ON `uu`.id= ti.pub_id
         WHERE
         (title LIKE "%"#{info.title}"%"
 
@@ -308,6 +308,92 @@
         SELECT COUNT(DISTINCT id)
         FROM task_information
         WHERE gmt_create BETWEEN #{beginTime} AND #{endTime}
+    </select>
+
+    <!--查询TaskInfo列表-->
+    <select id="listTaskInfoByDOForBack" resultMap="TaskInfo">
+        SELECT ti.id AS ti_id,pub_id,task_state,title,reward,start_time,end_time,description,2 AS `type`,
+        ti.gmt_create AS ti_gmt_create,ti.gmt_modified AS ti_gmt_modified,
+        `c`.id AS c_id,category_id,category_designation,
+        `c`.gmt_create AS c_gmt_create,`c`.gmt_modified AS c_gmt_modified,
+        t.id AS t_id,content,
+        t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified,
+        `uu`.username AS uusername
+        FROM task_information AS ti
+        LEFT JOIN task_category AS c ON ti.category=c.category_id
+        LEFT JOIN task_tag AS `tt` ON `tt`.task_id=ti.id
+        LEFT JOIN tag_of_task AS t ON t.id=`tt`.tag_id
+        LEFT JOIN `user` AS `uu` ON `uu`.id= ti.pub_id
+        <where>
+            <if test="info.pubId !=null and info.pubId !=''">AND pub_id=#{info.pubId}</if>
+            <if test="info.taskState !=null">AND task_state=#{info.taskState}</if>
+            <if test="info.title !=null and info.title !=''">
+                <if test="info.titleLike !=null and info.titleLike !='' ">
+                    AND title LIKE "%"#{info.title}"%"
+                </if>
+                <if test="info.titleLike ==null or info.titleLike ==''">
+                    AND title=#{info.title}
+                </if>
+            </if>
+            <if test="tag.content !=null and tag.content !=''">
+                <if test="tag.contentLike !=null and tag.contentLike !='' ">
+                    AND content LIKE "%"#{tag.content}"%"
+                </if>
+                <if test="tag.contentLike ==null or tag.contentLike ==''">
+                    AND content=#{tag.content}
+                </if>
+            </if>
+            <if test="info.reward !=null and info.reward !=''">AND reward=#{info.reward}</if>
+            <if test="info.description !=null and info.description !=''">
+                <if test="info.descriptionLike !=null and info.descriptionLike !='' ">
+                    AND description LIKE "%"#{info.description}"%"
+                </if>
+                <if test="info.descriptionLike ==null or info.descriptionLike ==''">
+                    AND description=#{info.description}
+                </if>
+            </if>
+            <if test="info.category !=null and info.category !='' ">AND category=#{info.category}</if>
+            <if test="info.createTimeBegin !=null and info.createTimeEnd !=null">
+                AND ti.gmt_create BETWEEN #{info.createTimeBegin} AND #{info.createTimeEnd}
+            </if>
+        </where>
+        <if test="info.limit !=null and info.limit !='' ">limit #{info.begin},#{info.size}</if>
+    </select>
+
+    <!--搜索TaskInfo列表-->
+    <select id="listTaskInfoBySearchForBack" resultMap="TaskInfo">
+        SELECT ti.id AS ti_id,pub_id,task_state,title,reward,start_time,end_time,description,2 AS `type`,
+        ti.gmt_create AS ti_gmt_create,ti.gmt_modified AS ti_gmt_modified,
+        `c`.id AS c_id,category_id,category_designation,
+        `c`.gmt_create AS c_gmt_create,`c`.gmt_modified AS c_gmt_modified,
+        t.id AS t_id,content,
+        t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified,
+        `uu`.username AS uusername
+        FROM task_information AS ti
+        LEFT JOIN task_category AS c ON ti.category=c.category_id
+        LEFT JOIN task_tag AS `tt` ON `tt`.task_id=ti.id
+        LEFT JOIN tag_of_task AS t ON t.id=`tt`.tag_id
+        LEFT JOIN `user` AS `uu` ON `uu`.id= ti.pub_id
+        WHERE
+        (title LIKE "%"#{info.title}"%"
+
+        OR content LIKE "%"#{tag.content}"%"
+
+        OR description LIKE "%"#{info.description}"%")
+
+        AND task_state=#{info.taskState}
+
+        <if test="info.category != null and info.category != ''">
+            AND category=#{info.category}
+        </if>
+
+        <if test="info.createTimeBegin != null and info.createTimeEnd != null">
+            AND ti.gmt_create BETWEEN #{info.createTimeBegin} AND #{info.createTimeEnd}
+        </if>
+
+
+        ORDER BY ti_gmt_create DESC
+        <if test="info.limit !=null and info.limit !='' ">limit #{info.begin},#{info.size}</if>
     </select>
 
     <!--TaskInfo-->

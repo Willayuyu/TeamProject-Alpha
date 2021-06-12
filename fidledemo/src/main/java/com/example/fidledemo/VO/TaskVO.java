@@ -49,4 +49,5 @@ public class TaskVO {
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private Date endTime;
 
+    private Integer state;
 }

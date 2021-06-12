@@ -19,7 +19,6 @@ Page({
     pubId: 0,
     id: 0,
     hiddenModal: true,
-    input: null,
     inputValue: null
   },
 
@@ -162,6 +161,9 @@ Page({
     })
   },
 
+  /**
+   * 举报
+   */
   input: function (e) {
     this.setData({ inputValue: e.detail.value })
   },

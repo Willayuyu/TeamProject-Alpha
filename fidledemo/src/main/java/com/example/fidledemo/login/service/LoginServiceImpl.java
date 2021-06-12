@@ -39,7 +39,7 @@ public class LoginServiceImpl implements LoginService
 
     String openId=result.getOpenid();
     UserDO userDO=new UserDO();
-    
+
 
     userDO.setOpenId(openId);
 
