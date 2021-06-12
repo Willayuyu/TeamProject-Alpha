@@ -36,8 +36,8 @@
         <el-table-column prop="id" label="序号"></el-table-column>
         <el-table-column prop="category" label="类别"></el-table-column>
         <el-table-column prop="title" label="标题"></el-table-column>
-        <el-table-column prop="sellerId" label="发布人"></el-table-column>
-        <el-table-column prop="releaseTime" label="发布时间"></el-table-column>
+        <el-table-column prop="announcer" label="发布人"></el-table-column>
+        <el-table-column prop="gmt_create" label="发布时间"></el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button
@@ -51,6 +51,17 @@
         </el-table-column>
       </el-table>
     </el-row>
+    <div>
+      <el-pagination
+          @current-change="handleCurrentChange"
+          @pre-click="handleCurrentChange"
+          @next-click="handleCurrentChange"
+          :current-page.sync="currentPage"
+          :page-size="10"
+          layout="total, prev, pager, next"
+          :total="totalNum">
+      </el-pagination>
+    </div>
   </el-container>
 
 </template>
@@ -59,6 +70,8 @@
 export default {
   data () {
     return {
+      currentPage: 1,
+      totalNum: 53,
       input: '',
       category: '类别',
       categoryList: [
@@ -107,6 +120,8 @@ export default {
         "originalPrice":6,
         "price":4,
         "sellerId":1,
+        "announcer":"zzzzcx",
+        "gmt_create":"2020-1-22",
         "tagList":
             [
               {
@@ -115,7 +130,12 @@ export default {
               }
             ],
         "title":"hhh",
-        "releaseTime":"2021.06.12"
+        "pageInfo":
+            {
+                "currentPage":1,
+                "totalNum":53,
+                "totalPage":7
+            }
       },
         {
           "category":"鞋子",
@@ -126,6 +146,8 @@ export default {
           "originalPrice":6,
           "price":4,
           "sellerId":1,
+          "announcer":"zzzzcx",
+          "gmt_create":"2020-1-22",
           "tagList":
               [
                 {
@@ -145,6 +167,8 @@ export default {
           "originalPrice":6,
           "price":4,
           "sellerId":1,
+          "announcer":"zzzzcx",
+          "gmt_create":"2020-1-22",
           "tagList":
               [
                 {
@@ -171,6 +195,10 @@ export default {
     handleDelete(index,row) {
       console.log(row.id);
     },//删除
+
+    handleCurrentChange(val) {
+
+    },//改变页面
   }
 }
 </script>
