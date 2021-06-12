@@ -36,6 +36,7 @@ public class TaskInfoServiceImpl implements TaskInfoService{
             taskVO.setTitle(taskInfoBO.getTitle());
             taskVO.setDescription(taskInfoBO.getDescription());
             taskVO.setCategory(taskInfoBO.getCategory().getCategoryDesignation());
+            taskVO.setState(taskInfoBO.getState());
             List<TagBO> tagList = taskInfoBO.getTagList();
             List<TaskTagVO> taskTagVOS=new ArrayList<>();
             for (TagBO tagBO:tagList) {

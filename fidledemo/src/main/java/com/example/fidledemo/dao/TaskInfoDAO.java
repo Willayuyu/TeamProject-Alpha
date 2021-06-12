@@ -119,6 +119,22 @@ public interface TaskInfoDAO
    */
   int getTasksNumByTime(@Param("beginTime") Date begin, @Param("endTime")Date end);
 
+  /**
+   * 根据DO获得任务信息列表(后台)
+   * @param infoDO
+   * @param tagDO
+   * @return
+   */
+  List<TaskInfoBO> listTaskInfoByDOForBack(@Param("info") TaskInformationDO infoDO, @Param("tag") TagOfTaskDO tagDO);
+
+  /**
+   * 根据DO搜索任务信息列表(后台)
+   * @param infoDO
+   * @param tagDO
+   * @return
+   */
+  List<TaskInfoBO> listTaskInfoBySearchForBack(@Param("info") TaskInformationDO infoDO, @Param("tag") TagOfTaskDO tagDO);
+
 
 
 }

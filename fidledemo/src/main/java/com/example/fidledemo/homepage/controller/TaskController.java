@@ -58,10 +58,6 @@ public class TaskController {
             Long categoryId=Long.parseLong(request.getParameter("categoryId"));
             int pageid=Integer.parseInt(request.getParameter("pageid"));
 
-            /*taskInformationDO.setLimit(Boolean.TRUE);
-            taskInformationDO.setBegin((pageid-1)*size);
-            taskInformationDO.setSize(size);*/
-
             taskInformationDO.setDistinct(Boolean.TRUE);
 
             if (categoryId!=0){
@@ -76,9 +72,9 @@ public class TaskController {
             }
 
             List<TaskItemVO> taskItemVOS = taskInfoService.listTaskInfoByDO(taskInformationDO, tagOfTaskDO);
-            /*UserBO user = (UserBO) request.getSession().getAttribute("user");
-            Long userId = user.getId();*/
-            Long userId = Long.valueOf(1);
+            UserBO user = (UserBO) request.getSession().getAttribute("user");
+            Long userId = user.getId();
+            //Long userId = Long.valueOf(1);
             TaskEnshrineDO taskEnshrineDO = new TaskEnshrineDO();
             taskEnshrineDO.setUserId(userId);
             for (TaskItemVO taskItemVO:taskItemVOS) {
@@ -120,10 +116,6 @@ public class TaskController {
             String keyWord=request.getParameter("keyWord");
             int pageid=Integer.parseInt(request.getParameter("pageid"));
 
-            /*taskInformationDO.setLimit(Boolean.TRUE);
-            taskInformationDO.setBegin((pageid-1)*size);
-            taskInformationDO.setSize(size);*/
-
             taskInformationDO.setDistinct(Boolean.TRUE);
 
             if (categoryId!=0){
@@ -144,9 +136,8 @@ public class TaskController {
             }
 
             List<TaskItemVO> taskItemVOS = taskInfoService.listTaskInfoBySearch(taskInformationDO, tagOfTaskDO);
-            /*UserBO user = (UserBO) request.getSession().getAttribute("user");
-            Long userId = user.getId();*/
-            Long userId = Long.valueOf(1);
+            UserBO user = (UserBO) request.getSession().getAttribute("user");
+            Long userId = user.getId();
             TaskEnshrineDO taskEnshrineDO = new TaskEnshrineDO();
             taskEnshrineDO.setUserId(userId);
             for (TaskItemVO taskItemVO:taskItemVOS) {
@@ -250,7 +241,7 @@ public class TaskController {
             if (taskVO!=null){
                 UserBO user = (UserBO) request.getSession().getAttribute("user");
                 Long userId = user.getId();
-                //userId= Long.valueOf(2);
+                //Long userId= Long.valueOf(2);
                 TaskEnshrineDO taskEnshrineDO = new TaskEnshrineDO();
                 taskEnshrineDO.setUserId(userId);
                 taskEnshrineDO.setTaskId(id);

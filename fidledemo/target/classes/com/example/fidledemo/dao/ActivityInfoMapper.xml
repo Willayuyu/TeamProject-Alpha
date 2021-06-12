@@ -60,12 +60,14 @@
         i.id AS i_id,i.activity_id,image_link,
         i.gmt_create AS i_gmt_create,i.gmt_modified AS i_gmt_modified,
         t.id AS t_id,content,
-        t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified
+        t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified,
+        `uu`.username AS uusername
         FROM activity_info AS a
         LEFT JOIN activity_category AS c ON a.category=c.category_id
         LEFT JOIN activity_image AS i ON i.activity_id=a.id
         LEFT JOIN activity_tag AS `at` ON `at`.activity_id=a.id
         LEFT JOIN tag_of_activity AS t ON t.id=`at`.tag_id
+        LEFT JOIN `user` AS `uu` ON `uu`.id= a.pub_id
         <where>
             <![CDATA[ a.end_time >= now() ]]>
             <if test="info.pubId !=null and info.pubId !=''">AND pub_id=#{info.pubId}</if>
@@ -119,12 +121,14 @@
         i.id AS i_id,i.activity_id,image_link,
         i.gmt_create AS i_gmt_create,i.gmt_modified AS i_gmt_modified,
         t.id AS t_id,content,
-        t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified
+        t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified,
+        `uu`.username AS uusername
         FROM activity_info AS a
         LEFT JOIN activity_category AS c ON a.category=c.category_id
         LEFT JOIN activity_image AS i ON i.activity_id=a.id
         LEFT JOIN activity_tag AS `at` ON `at`.activity_id=a.id
         LEFT JOIN tag_of_activity AS t ON t.id=`at`.tag_id
+        LEFT JOIN `user` AS `uu` ON `uu`.id= a.pub_id
         WHERE
         (title LIKE "%"#{info.title}"%"
 
@@ -260,6 +264,104 @@
         WHERE gmt_create BETWEEN #{beginTime} AND #{endTime}
     </select>
 
+    <!--查询ActivityInfo列表-->
+    <select id="listActivityInfoByDOForBack" resultMap="ActivityInfo">
+        SELECT a.id AS a_id, pub_id,title,address,start_time,end_time,description,3 AS `type`,
+        a.gmt_create AS a_gmt_create,a.gmt_modified AS a_gmt_modified,
+        `c`.id AS c_id,category_id,category_designation,
+        `c`.gmt_create AS c_gmt_create,`c`.gmt_modified AS c_gmt_modified,
+        i.id AS i_id,i.activity_id,image_link,
+        i.gmt_create AS i_gmt_create,i.gmt_modified AS i_gmt_modified,
+        t.id AS t_id,content,
+        t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified,
+        `uu`.username AS uusername
+        FROM activity_info AS a
+        LEFT JOIN activity_category AS c ON a.category=c.category_id
+        LEFT JOIN activity_image AS i ON i.activity_id=a.id
+        LEFT JOIN activity_tag AS `at` ON `at`.activity_id=a.id
+        LEFT JOIN tag_of_activity AS t ON t.id=`at`.tag_id
+        LEFT JOIN `user` AS `uu` ON `uu`.id= a.pub_id
+        <where>
+            <if test="info.pubId !=null and info.pubId !=''">AND pub_id=#{info.pubId}</if>
+            <if test="info.title !=null and info.title !=''">
+                <if test="info.titleLike !=null and info.titleLike !='' ">
+                    AND title LIKE "%"#{info.title}"%"
+                </if>
+                <if test="info.titleLike ==null or info.titleLike ==''">
+                    AND title=#{info.title}
+                </if>
+            </if>
+            <if test="tag.content !=null and tag.content !=''">
+                <if test="tag.contentLike !=null and tag.contentLike !='' ">
+                    AND content LIKE "%"#{tag.content}"%"
+                </if>
+                <if test="tag.contentLike ==null or tag.contentLike ==''">
+                    AND content=#{tag.content}
+                </if>
+            </if>
+            <if test="info.address !=null and info.address !=''">
+                <if test="info.addressLike !=null and info.addressLike !='' ">
+                    AND address LIKE "%"#{info.address}"%"
+                </if>
+                <if test="info.addressLike ==null or info.addressLike ==''">
+                    AND address=#{info.address}
+                </if>
+            </if>
+            <if test="info.description !=null and info.description !=''">
+                <if test="info.descriptionLike !=null and info.descriptionLike !='' ">
+                    AND description LIKE "%"#{info.description}"%"
+                </if>
+                <if test="info.descriptionLike ==null or info.descriptionLike ==''">
+                    AND description=#{info.description}
+                </if>
+            </if>
+            <if test="info.category !=null and info.category !='' ">AND category_id=#{info.category}</if>
+            <if test="info.createTimeBegin !=null and info.createTimeEnd !=null">
+                AND a.gmt_create BETWEEN #{info.createTimeBegin} AND #{info.createTimeEnd}
+            </if>
+
+        </where>
+        <if test="info.limit !=null and info.limit !='' ">limit #{info.begin},#{info.size}</if>
+    </select>
+
+    <!--搜索ActivityInfo列表-->
+    <select id="listActivityInfoBySearchForBack" resultMap="ActivityInfo">
+        SELECT a.id AS a_id, pub_id,title,address,start_time,end_time,description,3 AS `type`,
+        a.gmt_create AS a_gmt_create,a.gmt_modified AS a_gmt_modified,
+        `c`.id AS c_id,category_id,category_designation,
+        `c`.gmt_create AS c_gmt_create,`c`.gmt_modified AS c_gmt_modified,
+        i.id AS i_id,i.activity_id,image_link,
+        i.gmt_create AS i_gmt_create,i.gmt_modified AS i_gmt_modified,
+        t.id AS t_id,content,
+        t.gmt_create AS t_gmt_create,t.gmt_modified AS t_gmt_modified,
+        `uu`.username AS uusername
+        FROM activity_info AS a
+        LEFT JOIN activity_category AS c ON a.category=c.category_id
+        LEFT JOIN activity_image AS i ON i.activity_id=a.id
+        LEFT JOIN activity_tag AS `at` ON `at`.activity_id=a.id
+        LEFT JOIN tag_of_activity AS t ON t.id=`at`.tag_id
+        LEFT JOIN `user` AS `uu` ON `uu`.id= a.pub_id
+        WHERE
+        (title LIKE "%"#{info.title}"%"
+
+        OR content LIKE "%"#{tag.content}"%"
+
+        OR address LIKE "%"#{info.address}"%"
+
+        OR description LIKE "%"#{info.description}"%")
+
+        <if test="info.category !=null and info.category!=''">
+            AND category_id=#{info.category}
+        </if>
+
+        <if test="info.createTimeBegin !=null and info.createTimeEnd !=null">
+            AND a.gmt_create BETWEEN #{info.createTimeBegin} AND #{info.createTimeEnd}
+        </if>
+
+        ORDER BY a_gmt_create DESC
+        <if test="info.limit !=null and info.limit !='' ">limit #{info.begin},#{info.size}</if>
+    </select>
+
 
     <!--ActivityInfo-->
     <resultMap id="ActivityInfo" type="com.example.fidledemo.BO.ActivityInfoBO">
@@ -270,6 +372,7 @@
         <result property="startTime" column="start_time"/>
         <result property="endTime" column="end_time"/>
         <result property="description" column="description"/>
+        <result property="pubName" column="uusername"/>
 
         <!--分类-->
         <association property="category" javaType="com.example.fidledemo.BO.CategoryBO">

@@ -66,10 +66,6 @@ public class GoodsController {
             int condition=Integer.parseInt(request.getParameter("condition"));
             int pageid=Integer.parseInt(request.getParameter("pageid"));
 
-            /*goodsInfoDO.setLimit(Boolean.TRUE);
-            goodsInfoDO.setBegin((pageid-1)*size);
-            goodsInfoDO.setSize(size);*/
-
             goodsInfoDO.setDistinct(Boolean.TRUE);
 
             if(categoryId!=0){
@@ -91,9 +87,9 @@ public class GoodsController {
             List<GoodsItemVO> goodsItemVOS = goodsInfoService.listGoodsInfoByDO(goodsInfoDO, tagOfGoodsDO);
 
             //判断是否被该用户收藏
-            /*UserBO user = (UserBO) request.getSession().getAttribute("user");
-            Long userId = user.getId();*/
-            Long userId = Long.valueOf(1);
+            UserBO user = (UserBO) request.getSession().getAttribute("user");
+            Long userId = user.getId();
+            //Long userId = Long.valueOf(1);
             GoodsEnshrineDO goodsEnshrineDO = new GoodsEnshrineDO();
             goodsEnshrineDO.setUserId(userId);
             for (GoodsItemVO goodsItemVO:goodsItemVOS) {
@@ -168,9 +164,9 @@ public class GoodsController {
 
             List<GoodsItemVO> goodsItemVOS = goodsInfoService.listGoodsInfoBySearch(goodsInfoDO, tagOfGoodsDO);
             //判断是否被该用户收藏
-            /*UserBO user = (UserBO) request.getSession().getAttribute("user");
-            Long userId = user.getId();*/
-            Long userId = Long.valueOf(1);
+            UserBO user = (UserBO) request.getSession().getAttribute("user");
+            Long userId = user.getId();
+            //Long userId = Long.valueOf(1);
             GoodsEnshrineDO goodsEnshrineDO = new GoodsEnshrineDO();
             goodsEnshrineDO.setUserId(userId);
             for (GoodsItemVO goodsItemVO:goodsItemVOS) {
@@ -223,9 +219,9 @@ public class GoodsController {
     @GetMapping("/goods/collectGoods/{id}")
     public String collectGoods(@PathVariable("id") Long id,HttpServletRequest request){
         try{
-            /*UserBO user = (UserBO) request.getSession().getAttribute("user");
-            Long userId = user.getId();*/
-            Long userId = Long.valueOf(1);
+            UserBO user = (UserBO) request.getSession().getAttribute("user");
+            Long userId = user.getId();
+            //Long userId = Long.valueOf(1);
             GoodsEnshrineDO goodsEnshrineDO = new GoodsEnshrineDO();
             goodsEnshrineDO.setUserId(userId);
             goodsEnshrineDO.setGoodsId(id);
@@ -275,7 +271,7 @@ public class GoodsController {
             if (goodsVO!=null){
                 UserBO user = (UserBO) request.getSession().getAttribute("user");
                 Long userId = user.getId();
-                //userId= Long.valueOf(2);
+                //Long userId= Long.valueOf(2);
                 GoodsEnshrineDO goodsEnshrineDO = new GoodsEnshrineDO();
                 goodsEnshrineDO.setUserId(userId);
                 goodsEnshrineDO.setGoodsId(goodsVO.getId());

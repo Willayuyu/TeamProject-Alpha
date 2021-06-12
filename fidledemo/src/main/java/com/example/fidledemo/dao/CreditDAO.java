@@ -47,6 +47,12 @@ public interface CreditDAO
    */
   void deleteCreditById(Long id);
 
+  /**
+   * 根据举报者id查找对应的信用分
+   * @param wid
+   * @return
+   */
+  CreditBO getCreditByWhisId(Long wid);
 
 
 }

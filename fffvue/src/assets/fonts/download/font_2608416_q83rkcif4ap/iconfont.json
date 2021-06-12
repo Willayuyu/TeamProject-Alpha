@@ -1,0 +1,37 @@
+{
+  "id": "2608416",
+  "name": "Fidle",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "8879771",
+      "name": "home",
+      "font_class": "home",
+      "unicode": "e609",
+      "unicode_decimal": 58889
+    },
+    {
+      "icon_id": "12759445",
+      "name": "shopping bag",
+      "font_class": "shoppingbag",
+      "unicode": "e608",
+      "unicode_decimal": 58888
+    },
+    {
+      "icon_id": "16692233",
+      "name": "horn",
+      "font_class": "horn",
+      "unicode": "e6b8",
+      "unicode_decimal": 59064
+    },
+    {
+      "icon_id": "17540640",
+      "name": "Shopping cart, finance, business",
+      "font_class": "Shoppingcartfinancebusiness",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    }
+  ]
+}
