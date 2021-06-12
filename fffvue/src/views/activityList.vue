@@ -31,8 +31,8 @@
         </el-form-item>
       </el-form>
     </el-row>
-    <el-row class="goodsTable">
-      <el-table :data="goodsList" stripe border height="400">
+    <el-row class="activityTable">
+      <el-table :data="activityList" stripe border height="400">
         <el-table-column prop="id" label="序号"></el-table-column>
         <el-table-column prop="category" label="类别"></el-table-column>
         <el-table-column prop="title" label="标题"></el-table-column>
@@ -111,74 +111,34 @@ export default {
           label: '近三个月'
         }
       ],
-      goodsList: [ {
-        "category":"鞋子",
-        "collectState":0,
-        "condition":1,
+      activityList: [ {
         "id":1,
-        "imageLink":"13213",
-        "originalPrice":6,
-        "price":4,
-        "sellerId":1,
-        "announcer":"zzzzcx",
-        "gmt_create":"2020-1-22",
-        "tagList":
-            [
-              {
-                "content":"hhhhh",
-                "id":1
-              }
-            ],
-        "title":"hhh",
-        "pageInfo":
-            {
-                "currentPage":1,
-                "totalNum":53,
-                "totalPage":7
-            }
-      },
-        {
-          "category":"鞋子",
-          "collectState":0,
-          "condition":1,
-          "id":2,
-          "imageLink":"13213",
-          "originalPrice":6,
-          "price":4,
-          "sellerId":1,
-          "announcer":"zzzzcx",
-          "gmt_create":"2020-1-22",
-          "tagList":
-              [
-                {
-                  "content":"hhhhh",
-                  "id":1
-                }
-              ],
-          "title":"hhh",
-          "releaseTime":"2021.06.12"
-        },
-        {
-          "category":"鞋子",
-          "collectState":0,
-          "condition":1,
-          "id":3,
-          "imageLink":"13213",
-          "originalPrice":6,
-          "price":4,
-          "sellerId":1,
-          "announcer":"zzzzcx",
-          "gmt_create":"2020-1-22",
-          "tagList":
-              [
-                {
-                  "content":"hhhhh",
-                  "id":1
-                }
-              ],
-          "title":"hhh",
-          "releaseTime":"2021.06.12"
-        }],//二手物品列表
+        "publisherId":11,          //发布者ID
+        "title":"团立项",   //标题
+        "category":1,            //类别
+        "announcer":"zzzzcx",    //发布人
+        "gmt_create":"2020-2-22",        //发布时间
+    "pageInfo":
+    {
+      "currentPage":1,
+        "totalNum":8,
+        "totalPage":1
+    }
+  },
+    {
+      "id":2,
+      "publisherId":11,          //发布者ID
+        "title":"团立项",   //标题
+        "category":1,            //类别
+        "announcer":"zzzzcx",    //发布人
+        "gmt_create":"2020-2-22",        //发布时间
+      "pageInfo":
+      {
+        "currentPage":1,
+          "totalNum":8,
+          "totalPage":1
+      }
+    }],//活动列表
     }
   },
   methods: {
@@ -204,16 +164,16 @@ export default {
 </script>
 
 <style>
-  .searchInput {
-    margin: 0 10%;
-  }
-  .searchSelect {
-    margin: 0 10%;
-  }
-  .goodsTable {
-    margin: 20px 10%;
-  }
-  .page {
-    margin: 0 auto;
-  }
+.searchInput {
+  margin: 0 10%;
+}
+.searchSelect {
+  margin: 0 10%;
+}
+.activityTable {
+  margin: 20px 10%;
+}
+.page {
+  margin: 0 auto;
+}
 </style>
