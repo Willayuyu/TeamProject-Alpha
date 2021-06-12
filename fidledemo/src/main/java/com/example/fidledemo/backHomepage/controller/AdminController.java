@@ -1,17 +1,16 @@
 package com.example.fidledemo.backHomepage.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.example.fidledemo.BO.AdminBO;
-import com.example.fidledemo.BO.ReportMessage;
-import com.example.fidledemo.BO.Result;
-import com.example.fidledemo.BO.ResultCode;
-import com.example.fidledemo.DO.ActivityReportMessageDO;
-import com.example.fidledemo.DO.AdminDO;
-import com.example.fidledemo.DO.GoodsReportMessageDO;
-import com.example.fidledemo.DO.TaskReportMessageDO;
+import com.example.fidledemo.BO.*;
+import com.example.fidledemo.DO.*;
+import com.example.fidledemo.VO.BackGoodsItemVO;
+import com.example.fidledemo.VO.PageInfoVO;
 import com.example.fidledemo.backHomepage.service.AdminService;
 import com.example.fidledemo.homepage.utils.DateUtils;
+import com.example.fidledemo.homepage.utils.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,7 +29,11 @@ import java.util.List;
  * @Author: ZSP
  */
 @RestController
+@PropertySource("classpath:application.yml")
 public class AdminController {
+
+    @Value("${size}")
+    private int size;
 
     @Autowired
     AdminService adminService;
@@ -243,6 +246,107 @@ public class AdminController {
             map.put("tasksReleaseList",tasksReleaseList);
             map.put("activitiesReleaseList",activitiesReleaseList);
             return JSON.toJSONString(Result.successResult(map));
+        }catch (Exception e){
+            e.printStackTrace();
+            return JSON.toJSONString(Result.failureResult(ResultCode.RESOURCE_EMPTY));
+        }
+    }
+
+    /**
+     * 根据多选框筛选条件获得二手列表
+     * @param request
+     * @return
+     */
+    @UserLoginToken
+    @PostMapping("/admin/listGoods")
+    public String getListGoods(HttpServletRequest request){
+        try{
+            GoodsInfoDO goodsInfoDO = new GoodsInfoDO();
+            TagOfGoodsDO tagOfGoodsDO = new TagOfGoodsDO();
+            int days=Integer.parseInt(request.getParameter("days"));
+            Long categoryId=Long.parseLong(request.getParameter("categoryId"));
+            int pageid=Integer.parseInt(request.getParameter("pageid"));
+
+
+            goodsInfoDO.setDistinct(Boolean.TRUE);
+
+            if(categoryId!=0){
+                goodsInfoDO.setCategory(categoryId);
+            }
+
+
+            if(days!=0){
+                goodsInfoDO.setCreateTimeEnd(new Date());
+                goodsInfoDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
+            }
+
+
+            List<BackGoodsItemVO> goodsItemVOS = adminService.listGoodsInfoByDO(goodsInfoDO, tagOfGoodsDO);
+
+
+            PageHelper<BackGoodsItemVO> pageHelper = new PageHelper<>(goodsItemVOS,size);
+            List<BackGoodsItemVO> itemVOList = pageHelper.getPageByNum(pageid);
+
+            for (BackGoodsItemVO goodsItemVO:itemVOList) {
+                goodsItemVO.setPageInfo(new PageInfoVO(pageid,pageHelper.getTotalPage(),pageHelper.getTotalNum()));
+            }
+            return JSON.toJSONString(Result.successResult(itemVOList));
+        }catch (Exception e){
+            e.printStackTrace();
+            return JSON.toJSONString(Result.failureResult(ResultCode.RESOURCE_EMPTY));
+        }
+    }
+
+    /**
+     * 根据多选框筛选条件及关键词获得二手列表
+     * @param request
+     * @return
+     */
+    @UserLoginToken
+    @PostMapping("/admin/listGoodsByKeyword")
+    public String getListGoodsByKeyword(HttpServletRequest request){
+
+        try{
+            GoodsInfoDO goodsInfoDO = new GoodsInfoDO();
+            TagOfGoodsDO tagOfGoodsDO = new TagOfGoodsDO();
+
+            int days=Integer.parseInt(request.getParameter("days"));
+            Long categoryId=Long.parseLong(request.getParameter("categoryId"));
+            String keyWord=request.getParameter("keyWord");
+            int pageid=Integer.parseInt(request.getParameter("pageid"));
+
+
+            goodsInfoDO.setDistinct(Boolean.TRUE);
+            goodsInfoDO.setTitle(keyWord);
+            goodsInfoDO.setTitleLike(Boolean.TRUE);
+            goodsInfoDO.setDescription(keyWord);
+            goodsInfoDO.setDescriptionLike(Boolean.TRUE);
+
+            if(categoryId!=0){
+                goodsInfoDO.setCategory(categoryId);
+            }
+
+
+            goodsInfoDO.setSold(GoodsInfoBO.SELLING);
+
+            if(days!=0){
+                goodsInfoDO.setCreateTimeEnd(new Date());
+                goodsInfoDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
+            }
+
+            tagOfGoodsDO.setContent(keyWord);
+            tagOfGoodsDO.setContentLike(Boolean.TRUE);
+
+            List<BackGoodsItemVO> goodsItemVOS = adminService.listGoodsInfoBySearch(goodsInfoDO, tagOfGoodsDO);
+
+            PageHelper<BackGoodsItemVO> pageHelper = new PageHelper<>(goodsItemVOS,size);
+            List<BackGoodsItemVO> itemVOList = pageHelper.getPageByNum(pageid);
+
+            for (BackGoodsItemVO goodsItemVO:itemVOList) {
+                goodsItemVO.setPageInfo(new PageInfoVO(pageid,pageHelper.getTotalPage(),pageHelper.getTotalNum()));
+            }
+
+            return JSON.toJSONString(Result.successResult(itemVOList));
         }catch (Exception e){
             e.printStackTrace();
             return JSON.toJSONString(Result.failureResult(ResultCode.RESOURCE_EMPTY));

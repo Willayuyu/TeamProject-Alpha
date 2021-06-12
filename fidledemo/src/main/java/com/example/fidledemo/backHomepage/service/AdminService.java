@@ -1,12 +1,8 @@
 package com.example.fidledemo.backHomepage.service;
 
 import com.example.fidledemo.BO.AdminBO;
-import com.example.fidledemo.DO.ActivityReportMessageDO;
-import com.example.fidledemo.DO.AdminDO;
-import com.example.fidledemo.DO.GoodsReportMessageDO;
-import com.example.fidledemo.DO.TaskReportMessageDO;
-import com.example.fidledemo.DO.PermissionDO;
-import com.example.fidledemo.DO.RoleDO;
+import com.example.fidledemo.DO.*;
+import com.example.fidledemo.VO.BackGoodsItemVO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
@@ -134,4 +130,21 @@ public interface AdminService {
      * @return
      */
     int getActivityNumByTime(@Param("beginTime") Date begin, @Param("endTime")Date end);
+
+
+    /**
+     * 根据DO查询二手物品列表
+     * @param infoDO
+     * @param tagDO
+     * @return
+     */
+    List<BackGoodsItemVO> listGoodsInfoByDO(@Param("info") GoodsInfoDO infoDO, @Param("tag") TagOfGoodsDO tagDO);
+
+    /**
+     * 根据DO搜索二手物品列表
+     * @param infoDO
+     * @param tagDO
+     * @return
+     */
+    List<BackGoodsItemVO> listGoodsInfoBySearch(@Param("info") GoodsInfoDO infoDO, @Param("tag") TagOfGoodsDO tagDO);
 }
