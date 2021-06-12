@@ -42,7 +42,8 @@
           </view>
 
           <view class="taskBtns">
-          <van-button wx:if="{{item.taskState=='已完成'}}" class="btn">评价</van-button>
+          <van-button wx:if="{{item.taskState=='已完成'&&item.isEvaluated==0}}" class="btn" data-index="{{index}}" catchtap="gotoComment1">评价</van-button>
+          <van-button wx:if="{{item.taskState=='已完成'&&item.isEvaluated==1}}" class="btn" data-index="{{index}}" catchtap="">已评价</van-button>
           </view>
        
         </view>
@@ -88,7 +89,8 @@
 
           </view>
           <view class="taskBtns">
-            <van-button wx:if="{{item.taskState=='已完成'}}" class="btn">评价</van-button>
+            <van-button wx:if="{{item.taskState=='已完成'&&item.isEvaluated==0}}" class="btn" class="btn" data-index="{{index}}" catchtap="gotoComment2">评价</van-button>
+            <van-button wx:if="{{item.taskState=='已完成'&&item.isEvaluated==1}}" class="btn" class="btn" data-index="{{index}}" catchtap="">已评价</van-button>
           </view>
         
         <van-overlay show="{{ show }}">

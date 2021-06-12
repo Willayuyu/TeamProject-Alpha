@@ -1,3 +1,4 @@
+// pages/taskOrder/taskOrder.js
 let app = getApp();
 Page({
 
@@ -13,21 +14,26 @@ Page({
       downactive: '../../icons/thumbs-downblue.png',
     },
 
-    id: '',
-    title: '',
-    price: '',
-    originalPrice: '',
-    imageLink: '',
-    condition: '',
+    task: {},
+    id: '1',
+    taskTitle: '任务标题',
+    reward: 1,
+    tagList: [],
     category: '',
-    tagList: [
-
-    ],
-    commentwords: '',
+    acc_id: '',
     hiddenConfirm:false,
     hiddenSubmit:true,
-    isSold:-1,
-    isBuy:-1
+    isAccepter:-1,
+    isPublisher:-1
+    // buyerId: ''
+    // taskPrice: '1',
+    // imageLink: '1',
+    // condition: '1',
+    // category: '1',
+    // id: 1,
+    //   title: '',
+    //   reward,
+    //   tagList
   },
 
   /**
@@ -35,32 +41,28 @@ Page({
    */
   onLoad: function (options) {
     let that = this;
-    wx.setNavigationBarTitle({ title: '评价' })
+    wx.setNavigationBarTitle({ title: '生成订单' })
     let id = options.id;
-    console.log(id);
-    let title = options.title;
-    console.log(title);
-    let price = options.price;
-    console.log(price);
-    let originalPrice = options.originalPrice;
-    let imageLink = options.imageLink;
-    let condition = options.condition;
-    let category = options.category;
+    let taskTitle = options.title;
+    let reward = options.reward;
     let tagList = JSON.parse(options.tagList);
-    let isSold = options.isSold;
-    let isBuy = options.isBuy;
-    console.log("issold="+isSold+"isbuy="+isBuy);
+    let category = options.category;
+    let isPublisher = options.isPublisher;
+    let isAccepter = options.isAccepter;
+    console.log("isPublisher="+isPublisher+"isAccepter="+isAccepter);
+    console.log(id);
+    console.log(taskTitle);
+    console.log(reward);
+    console.log(tagList);
+    console.log(category);
     that.setData({
       id: id,
-      price: price,
-      title: title,
-      originalPrice: originalPrice,
-      imageLink: imageLink,
-      condition: condition,
-      category: category,
+      taskTitle: taskTitle,
+      reward: reward,
       tagList: tagList,
-      isSold: isSold,
-      isBuy: isBuy,
+      category: category,
+      isPublisher:isPublisher,
+      isAccepter:isAccepter,
     })
   },
 
@@ -169,10 +171,10 @@ Page({
         success: function (res) {
           if (res.confirm) {
             console.log('用户点击提交');
-            if(that.data.isSold ==1 && that.data.isBuy == 0) {//评价买家
-              console.log("评价买家");
+            if(that.data.isPublisher ==1 && that.data.isAccepter == 0) {//评价任务接受方
+              console.log("评价任务接受方");
               wx.request({
-                url: 'http://120.77.210.142:8080/myGoods/evaluateBuyer/',
+                url: 'http://120.77.210.142:8080/myTask/evaluateAccepter/',
                 header: {
                   'Content-Type': 'application/x-www-form-urlencoded',
                   'Cookie': wx.getStorageSync('sessionid'),
@@ -187,9 +189,9 @@ Page({
                 dataType: 'json',
                 success(res) {
                   console.log(res.data.code);
-                  console.log("订单评价成功");
+                  console.log("任务评价成功");
                   wx.redirectTo({
-                    url: '/pages/goods/goods',
+                    url: '/pages/task/task',
                   })
                 },
                 fail(err) {
@@ -198,10 +200,10 @@ Page({
                 },
               })
             }
-            else {//评价卖家
-              console.log("评价卖家");
+            else {//评价任务发布方
+              console.log("评价任务发布方");
               wx.request({
-                url: 'http://120.77.210.142:8080/myGoods/evaluateSeller/',
+                url: 'http://120.77.210.142:8080/myTask/evaluatePublisher/',
                 header: {
                   'Content-Type': 'application/x-www-form-urlencoded',
                   'Cookie': wx.getStorageSync('sessionid'),
@@ -216,9 +218,9 @@ Page({
                 dataType: 'json',
                 success(res) {
                   console.log(res.data.code);
-                  console.log("订单评价成功");
+                  console.log("任务评价成功");
                   wx.redirectTo({
-                    url: '/pages/goods/goods',
+                    url: '/pages/task/task',
                   })
                 },
                 fail(err) {

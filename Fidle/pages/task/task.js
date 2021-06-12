@@ -222,7 +222,8 @@ Page({
     console.log(session_id); 
     let that = this;     
     wx.request({
-      url: 'http://47.106.241.182:8080/myTask/listTaskPublishedByPageid/'+ pageid,
+      //url: 'http://47.106.241.182:8080/myTask/listTaskPublishedByPageid/'+ pageid,
+      url: 'http://120.77.210.142:8080/myTask/listTaskPublishedByPageid/'+ pageid,
       header: { 'content-type': 'application/json',
        'Cookie': session_id ,
        'token': app.globalData.token
@@ -254,7 +255,8 @@ Page({
     console.log(session_id);  
     let that = this;        
     wx.request({
-      url: 'http://47.106.241.182:8080/myTask/listTaskAcceptedByPageid/' + pageid,
+      //url: 'http://47.106.241.182:8080/myTask/listTaskAcceptedByPageid/' + pageid,
+      url: 'http://120.77.210.142:8080/myTask/listTaskAcceptedByPageid/' + pageid,
       header: { 'content-type': 'application/json',
        'Cookie': session_id ,
        'token': app.globalData.token
@@ -391,68 +393,6 @@ Page({
     })
   },
 
-  /**
-   * 评价委托发布方
-   * 
-   * 参数名	    必选	类型	  说明
-    id    	    是	bigint	任务委托项id
-    evaluation	是	int	    是否好评
-    reason	    是	String	评价内容
-   */
-  doEvaluateTaskPublisher(){
-    let session_id = wx.getStorageSync('sessionid');
-    console.log(session_id); 
-     
-    wx.request({
-      url: 'http://47.106.241.182:8080/myTask/evaluatePublisher',
-      method: 'POST',
-      header: { 'content-type': 'application/x-www-form-urlencoded',
-       'Cookie': session_id ,
-       'token': app.globalData.token
-      },
-      data: {
-        id: 1,
-        evaluation: 1,
-        reason: "评价委托发布方的一条评价",
-      },
-      success(res){
-        console.log("评价委托发布方");
-        console.log(res.data);
-      }
-    })
-  },
-
-  /**
-   * 评价委托接受方
-   * 
-   * 参数名	    必选	类型	  说明
-    id    	    是	bigint	任务委托项id
-    evaluation	是	int	    是否好评
-    reason	    是	String	评价内容
-   */
-  doEvaluateTaskAccepter(){
-    let session_id = wx.getStorageSync('sessionid');
-    console.log(session_id); 
-     
-    wx.request({
-      url: 'http://47.106.241.182:8080/myTask/evaluateAccepter',
-      method: 'POST',
-      header: { 'content-type': 'application/x-www-form-urlencoded',
-       'Cookie': session_id ,
-       'token': app.globalData.token
-      },
-      data: {
-        id: 1,
-        evaluation: 1,
-        reason: "评价委托接受方的一条评价",
-      },
-      success(res){
-        console.log("评价委托接受方");
-        console.log(res.data);
-      }
-    })
-  },
-
   showOverlap: function(event){
     this.setData({indexOnsale: event.currentTarget.dataset.index});
     console.log("showOverlap");
@@ -503,5 +443,59 @@ Page({
           console.log(options.e_id) // 即上一个界面传过来的值
         },
      */
-  }
+  },
+
+  /**
+   * 评价任务接受方
+   */
+  gotoComment1: function(event){
+    this.setData({indexOnsale: event.currentTarget.dataset.index});
+    console.log("评价任务接受方");
+    let that = this;
+    //获得下标
+    let index = event.currentTarget.dataset.index;
+    console.log(index);
+    console.log('that.data.publishedTaskList');
+    
+    let taskList = that.data.publishedTaskList;
+    console.log(taskList);
+    let task = taskList[index];
+    console.log('task');
+    console.log(task);
+    console.log('tagList=');
+    console.log(task.tagList);
+    console.log('/pages/taskOrder/taskOrder?id='+task.id+'&title='+task.title+
+    '&reward='+task.reward+'&tagList='+JSON.stringify(task.tagList)+'&category='+task.category);
+    wx.navigateTo({
+      url: '/pages/taskcommentPage/taskcommentPage?id='+task.id+'&title='+task.title+
+      '&reward='+task.reward+'&tagList='+JSON.stringify(task.tagList)+'&category='+task.category+'&isPublisher=1&isAccepter=0',
+    })
+  },
+
+  /**
+   * 评价任务发布方
+   */
+  gotoComment2: function(event){
+    this.setData({indexOnsale: event.currentTarget.dataset.index});
+    console.log("评价任务发布方");
+    let that = this;
+    //获得下标
+    let index = event.currentTarget.dataset.index;
+    console.log(index);
+    console.log('that.data.acceptedTaskList');
+    
+    let taskList = that.data.acceptedTaskList;
+    console.log(taskList);
+    let task = taskList[index];
+    console.log('task');
+    console.log(task);
+    console.log('tagList=');
+    console.log(task.tagList);
+    console.log('/pages/taskOrder/taskOrder?id='+task.id+'&title='+task.title+
+    '&reward='+task.reward+'&tagList='+JSON.stringify(task.tagList)+'&category='+task.category);
+    wx.navigateTo({
+      url: '/pages/taskcommentPage/taskcommentPage?id='+task.id+'&title='+task.title+
+      '&reward='+task.reward+'&tagList='+JSON.stringify(task.tagList)+'&category='+task.category+'&isPublisher=0&isAccepter=1',
+    })
+  },
 })

@@ -1,0 +1,45 @@
+<van-card class="card">
+  <view slot="title" class="title">
+    <!-- <view class="modifyTag">
+      <view>
+        <image class="state" mode="widthFix" src="../../icons/circle (2).png"></image>
+        <text class="stateText">{{state[2]}}</text>
+      </view>
+      <image class="modify" mode="widthFix" src="../../icons/modify.png"></image>
+    </view> -->
+    <view class="secondLine">
+      <text>{{taskTitle}}</text>
+      <view class="price">
+        <text class="sign">￥</text>
+        <text class="priceText">{{reward}}</text>
+      </view>
+    </view>
+  </view>
+  <view slot="tags" class="tagTask">
+    <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
+    <van-tag class="tagItem" color="#FFDBA5" text-color="#394044">{{category}}</van-tag>
+    <van-tag wx:for="{{tagList}}" wx:key="{{index}}" class="tagItem" color="#D8E2DA" text-color="#394044">
+      {{item.content}}</van-tag>
+  </view>
+</van-card>
+
+<!-- 单选框 好评=1，差评=-1 -->
+<van-radio-group value="{{ radio }}" bind:change="onChange" direction="horizontal" class="radiogroup">
+  <text class="atext">评价</text>  
+  <van-radio use-icon-slot value="{{ radio }}" name="1">
+    <text>好评</text>
+    <image class="good" slot="icon" src="{{ radio === '1' ? icon.upactive : icon.upnormal }}" />
+  </van-radio>
+  <van-radio use-icon-slot value="{{ radio }}" name="-1">
+    <text>差评</text>
+    <image class="bad" slot="icon" src="{{ radio === '-1' ? icon.downactive : icon.downnormal }}" />
+  </van-radio>
+</van-radio-group>
+
+  <van-cell-group class="group">
+    <van-field value="{{commentwords}}" label="留言" placeholder="给这次的交易写一句评价吧" border="{{ false }}" catchblur="change" class="field" type="textarea" autosize/>
+  </van-cell-group>
+  <view class="panelBtns">
+    <button class="panelBtn" catchtap="confirm" hover-stop-propagation='true' hidden="{{hiddenConfirm}}">确认</button>
+    <button class="panelBtn" catchtap="submit" hover-stop-propagation='true' hidden="{{hiddenSubmit}}">提交</button>
+  </view>
