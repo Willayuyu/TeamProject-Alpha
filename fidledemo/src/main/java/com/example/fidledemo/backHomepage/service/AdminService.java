@@ -2,7 +2,9 @@ package com.example.fidledemo.backHomepage.service;
 
 import com.example.fidledemo.BO.AdminBO;
 import com.example.fidledemo.DO.*;
+import com.example.fidledemo.VO.BackActivityVO;
 import com.example.fidledemo.VO.BackGoodsItemVO;
+import com.example.fidledemo.VO.BackTaskItemVO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
@@ -147,4 +149,36 @@ public interface AdminService {
      * @return
      */
     List<BackGoodsItemVO> listGoodsInfoBySearch(@Param("info") GoodsInfoDO infoDO, @Param("tag") TagOfGoodsDO tagDO);
+
+    /**
+     * 根据DO获得任务信息列表
+     * @param infoDO
+     * @param tagDO
+     * @return
+     */
+    List<BackTaskItemVO> listTaskInfoByDOForBack(@Param("info") TaskInformationDO infoDO, @Param("tag") TagOfTaskDO tagDO);
+
+    /**
+     * 根据DO搜索任务信息列表
+     * @param infoDO
+     * @param tagDO
+     * @return
+     */
+    List<BackTaskItemVO> listTaskInfoBySearchForBack(@Param("info") TaskInformationDO infoDO, @Param("tag") TagOfTaskDO tagDO);
+
+    /**
+     * 根据DO获取活动信息列表
+     * @param infoDO
+     * @param tag
+     * @return
+     */
+    List<BackActivityVO> listActivityInfoByDOForBack(@Param("info") ActivityInfoDO infoDO, @Param("tag") TagOfActivityDO tag);
+
+    /**
+     * 根据DO搜索活动信息列表
+     * @param infoDO
+     * @param tag
+     * @return
+     */
+    List<BackActivityVO> listActivityInfoBySearchForBack(@Param("info") ActivityInfoDO infoDO, @Param("tag") TagOfActivityDO tag);
 }

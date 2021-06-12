@@ -1,29 +1,25 @@
 package com.example.fidledemo.backHomepage.controller;
 
 import com.alibaba.fastjson.JSON;
-<<<<<<< Updated upstream
 import com.example.fidledemo.BO.*;
 import com.example.fidledemo.DO.*;
+import com.example.fidledemo.VO.BackActivityVO;
 import com.example.fidledemo.VO.BackGoodsItemVO;
+import com.example.fidledemo.VO.BackTaskItemVO;
 import com.example.fidledemo.VO.PageInfoVO;
-=======
 import com.example.fidledemo.BO.ReportMessage;
 import com.example.fidledemo.BO.Result;
 import com.example.fidledemo.BO.ResultCode;
 import com.example.fidledemo.DO.ActivityReportMessageDO;
 import com.example.fidledemo.DO.GoodsReportMessageDO;
 import com.example.fidledemo.DO.TaskReportMessageDO;
->>>>>>> Stashed changes
 import com.example.fidledemo.backHomepage.service.AdminService;
 import com.example.fidledemo.homepage.utils.DateUtils;
 import com.example.fidledemo.homepage.utils.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
-<<<<<<< Updated upstream
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
-=======
->>>>>>> Stashed changes
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -364,6 +360,205 @@ public class AdminController {
             return JSON.toJSONString(Result.failureResult(ResultCode.RESOURCE_EMPTY));
         }
     }
+
+    /**
+     * 根据多选框筛选条件获得任务列表
+     * @param request
+     * @return
+     */
+    @UserLoginToken
+    @PostMapping("/admin/listTask")
+    public String getListTask(HttpServletRequest request){
+        try{
+            TaskInformationDO taskInformationDO = new TaskInformationDO();
+            TagOfTaskDO tagOfTaskDO = new TagOfTaskDO();
+            int days=Integer.parseInt(request.getParameter("days"));
+            Long categoryId=Long.parseLong(request.getParameter("categoryId"));
+            int pageid=Integer.parseInt(request.getParameter("pageid"));
+
+
+            taskInformationDO.setDistinct(Boolean.TRUE);
+
+            if (categoryId!=0){
+                taskInformationDO.setCategory(categoryId);
+            }
+
+            if (days!=0){
+                taskInformationDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
+                taskInformationDO.setCreateTimeEnd(new Date());
+            }
+
+            List<BackTaskItemVO> taskItemVOS = adminService.listTaskInfoByDOForBack(taskInformationDO, tagOfTaskDO);
+
+            PageHelper<BackTaskItemVO> pageHelper = new PageHelper<>(taskItemVOS,size);
+            List<BackTaskItemVO> itemVOList = pageHelper.getPageByNum(pageid);
+
+            for (BackTaskItemVO taskItemVO:itemVOList) {
+                taskItemVO.setPageInfo(new PageInfoVO(pageid,pageHelper.getTotalPage(),pageHelper.getTotalNum()));
+            }
+
+            return JSON.toJSONString(Result.successResult(itemVOList));
+        }catch (Exception e){
+            e.printStackTrace();
+            return JSON.toJSONString(Result.failureResult(ResultCode.RESOURCE_EMPTY));
+        }
+    }
+
+    /**
+     * 根据多选框筛选条件及关键词获得任务列表
+     * @param request
+     * @return
+     */
+    @UserLoginToken
+    @PostMapping("/admin/listTaskByKeyword")
+    public String getListTaskByKeyword(HttpServletRequest request){
+        try{
+            TaskInformationDO taskInformationDO = new TaskInformationDO();
+            TagOfTaskDO tagOfTaskDO = new TagOfTaskDO();
+            int days=Integer.parseInt(request.getParameter("days"));
+            Long categoryId=Long.parseLong(request.getParameter("categoryId"));
+            String keyWord=request.getParameter("keyWord");
+            int pageid=Integer.parseInt(request.getParameter("pageid"));
+
+            taskInformationDO.setDistinct(Boolean.TRUE);
+
+            if (categoryId!=0){
+                taskInformationDO.setCategory(categoryId);
+            }
+
+            taskInformationDO.setTaskState(TaskInfoBO.UNACCEPTED);
+            taskInformationDO.setTitle(keyWord);
+            taskInformationDO.setTitleLike(Boolean.TRUE);
+            taskInformationDO.setDescription(keyWord);
+            taskInformationDO.setDescriptionLike(Boolean.TRUE);
+            tagOfTaskDO.setContent(keyWord);
+            tagOfTaskDO.setContentLike(Boolean.TRUE);
+
+            if (days!=0){
+                taskInformationDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
+                taskInformationDO.setCreateTimeEnd(new Date());
+            }
+
+            List<BackTaskItemVO> taskItemVOS = adminService.listTaskInfoBySearchForBack(taskInformationDO, tagOfTaskDO);
+
+            PageHelper<BackTaskItemVO> pageHelper = new PageHelper<>(taskItemVOS,size);
+            List<BackTaskItemVO> itemVOList = pageHelper.getPageByNum(pageid);
+
+            for (BackTaskItemVO taskItemVO:itemVOList) {
+                taskItemVO.setPageInfo(new PageInfoVO(pageid,pageHelper.getTotalPage(),pageHelper.getTotalNum()));
+            }
+
+            return JSON.toJSONString(Result.successResult(itemVOList));
+        }catch (Exception e){
+            e.printStackTrace();
+            return JSON.toJSONString(Result.failureResult(ResultCode.RESOURCE_EMPTY));
+        }
+    }
+
+
+    /**
+     * 根据多选框筛选条件获得活动列表
+     * @param request
+     * @return
+     */
+    @UserLoginToken
+    @PostMapping("/admin/listActivity")
+    public String getListActivity(HttpServletRequest request){
+        try{
+            ActivityInfoDO activityInfoDO = new ActivityInfoDO();
+            TagOfActivityDO tagOfActivityDO = new TagOfActivityDO();
+
+            int days=Integer.parseInt(request.getParameter("days"));
+            Long categoryId=Long.parseLong(request.getParameter("categoryId"));
+            int pageid=Integer.parseInt(request.getParameter("pageid"));
+
+
+            activityInfoDO.setDistinct(Boolean.TRUE);
+
+            if (categoryId!=0){
+                activityInfoDO.setCategory(categoryId);
+            }
+
+            if (days!=0){
+                activityInfoDO.setCreateTimeEnd(new Date());
+                activityInfoDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
+            }
+
+            List<BackActivityVO> activityItemVOS = adminService.listActivityInfoByDOForBack(activityInfoDO, tagOfActivityDO);
+
+
+            PageHelper<BackActivityVO> pageHelper = new PageHelper<>(activityItemVOS,size);
+            List<BackActivityVO> itemVOList = pageHelper.getPageByNum(pageid);
+
+            for (BackActivityVO activityItemVO:itemVOList) {
+                activityItemVO.setPageInfo(new PageInfoVO(pageid,pageHelper.getTotalPage(),pageHelper.getTotalNum()));
+            }
+
+            return JSON.toJSONString(Result.successResult(itemVOList));
+        }catch (Exception e){
+            e.printStackTrace();
+            return JSON.toJSONString(Result.failureResult(ResultCode.RESOURCE_EMPTY));
+        }
+    }
+
+    /**
+     * 根据多选框筛选条件和关键词获得活动列表
+     * @param request
+     * @return
+     */
+    @UserLoginToken
+    @PostMapping("/admin/listActivityByKeyword")
+    public String getListActivityByKeyword(HttpServletRequest request){
+        try{
+            ActivityInfoDO activityInfoDO = new ActivityInfoDO();
+            TagOfActivityDO tagOfActivityDO = new TagOfActivityDO();
+
+            int days=Integer.parseInt(request.getParameter("days"));
+            Long categoryId=Long.parseLong(request.getParameter("categoryId"));
+            int pageid=Integer.parseInt(request.getParameter("pageid"));
+            String keyWord=request.getParameter("keyWord");
+
+
+            activityInfoDO.setDistinct(Boolean.TRUE);
+
+            if(categoryId!=0){
+                activityInfoDO.setCategory(categoryId);
+            }
+
+            if(days!=0){
+                activityInfoDO.setCreateTimeEnd(new Date());
+                activityInfoDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
+            }
+
+            activityInfoDO.setTitle(keyWord);
+            activityInfoDO.setTitleLike(Boolean.TRUE);
+            activityInfoDO.setAddress(keyWord);
+            activityInfoDO.setAddressLike(Boolean.TRUE);
+            activityInfoDO.setDescription(keyWord);
+            activityInfoDO.setDescriptionLike(Boolean.TRUE);
+
+            tagOfActivityDO.setContent(keyWord);
+            tagOfActivityDO.setContentLike(Boolean.TRUE);
+
+            List<BackActivityVO> activityItemVOS = adminService.listActivityInfoBySearchForBack(activityInfoDO, tagOfActivityDO);
+
+
+            PageHelper<BackActivityVO> pageHelper = new PageHelper<>(activityItemVOS,size);
+            List<BackActivityVO> itemVOList = pageHelper.getPageByNum(pageid);
+
+            for (BackActivityVO activityItemVO:itemVOList) {
+                activityItemVO.setPageInfo(new PageInfoVO(pageid,pageHelper.getTotalPage(),pageHelper.getTotalNum()));
+            }
+
+            return JSON.toJSONString(Result.successResult(itemVOList));
+        }catch (Exception e){
+            e.printStackTrace();
+            return JSON.toJSONString(Result.failureResult(ResultCode.RESOURCE_EMPTY));
+        }
+    }
+
+
+
 
 
 }

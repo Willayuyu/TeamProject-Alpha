@@ -103,4 +103,20 @@ public interface ActivityInfoDAO
    */
   int getActivityNumByTime(@Param("beginTime") Date begin, @Param("endTime")Date end);
 
+  /**
+   * 根据DO获取活动信息列表(后台)
+   * @param infoDO
+   * @param tag
+   * @return
+   */
+  List<ActivityInfoBO> listActivityInfoByDOForBack(@Param("info") ActivityInfoDO infoDO, @Param("tag") TagOfActivityDO tag);
+
+  /**
+   * 根据DO搜索活动信息列表（后台）
+   * @param infoDO
+   * @param tag
+   * @return
+   */
+  List<ActivityInfoBO> listActivityInfoBySearchForBack(@Param("info") ActivityInfoDO infoDO, @Param("tag") TagOfActivityDO tag);
+
 }
