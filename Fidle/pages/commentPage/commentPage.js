@@ -23,8 +23,11 @@ Page({
     tagList: [
 
     ],
-    commentwords: ''
-
+    commentwords: '',
+    hiddenConfirm:false,
+    hiddenSubmit:true,
+    isSold:-1,
+    isBuy:-1
   },
 
   /**
@@ -44,6 +47,9 @@ Page({
     let condition = options.condition;
     let category = options.category;
     let tagList = JSON.parse(options.tagList);
+    let isSold = options.isSold;
+    let isBuy = options.isBuy;
+    console.log("issold="+isSold+"isbuy="+isBuy);
     that.setData({
       id: id,
       price: price,
@@ -52,7 +58,9 @@ Page({
       imageLink: imageLink,
       condition: condition,
       category: category,
-      tagList: tagList
+      tagList: tagList,
+      isSold: isSold,
+      isBuy: isBuy,
     })
   },
 
@@ -118,6 +126,13 @@ Page({
   },
 
   confirm: function (event) {
+    this.setData({
+      hiddenConfirm:true,
+      hiddenSubmit:false
+    })
+  },
+
+  submit: function (event) {
     let that = this;
     let id = that.data.id;
     console.log(id);
@@ -131,45 +146,87 @@ Page({
         icon: 'none',
         title: '您还未选择评价',
       })
-      console.log('评价为空')
+      console.log('评价为空'),
+      that.setData({
+        hiddenConfirm:false,
+        hiddenSubmit:true
+      })
     }
     else if (str == '' || str == undefined || str == null) {
       wx.showToast({
         icon: 'none',
         title: '评论不可为空',
       })
-      console.log('评论内容为空')
-    } else {
+      console.log('评论内容为空'),
+      that.setData({
+        hiddenConfirm:false,
+        hiddenSubmit:true
+      })
+    } 
+    else {
       wx.showModal({
         content: '确认提交评论吗？',
         success: function (res) {
           if (res.confirm) {
-            console.log('用户点击确定');
-            // wx.request({
-            //   url: 'http://47.106.241.182:8080/myGoods/generateOrder/',
-            //   header: {
-            //     'Content-Type': 'application/x-www-form-urlencoded',
-            //     'Cookie': wx.getStorageSync('sessionid'),
-            //     'token': app.globalData.token
-            //   },
-            //   data: {
-            //     id: id,
-            //     buyerId: buyerId
-            //   },
-            //   method: 'POST',
-            //   dataType: 'json',
-            //   success(res) {
-            //     console.log(res.data.code);
-            //     console.log("生成订单成功");
-            //     wx.redirectTo({
-            //       url: '/pages/goods/goods',
-            //     })
-            //   },
-            //   fail(err) {
-            //     reject(err);
-            //     wx.showToast({ title: '系统错误' })
-            //   },
-            // })
+            console.log('用户点击提交');
+            if(that.data.isSold ==1 && that.data.isBuy == 0) {//评价买家
+              console.log("评价买家");
+              wx.request({
+                url: 'http://120.77.210.142:8080/myGoods/evaluateBuyer/',
+                header: {
+                  'Content-Type': 'application/x-www-form-urlencoded',
+                  'Cookie': wx.getStorageSync('sessionid'),
+                  'token': app.globalData.token
+                },
+                data: {
+                  id: id,
+                  evaluation: radio,
+                  reason: commentwords
+                },
+                method: 'POST',
+                dataType: 'json',
+                success(res) {
+                  console.log(res.data.code);
+                  console.log("订单评价成功");
+                  wx.redirectTo({
+                    url: '/pages/goods/goods',
+                  })
+                },
+                fail(err) {
+                  reject(err);
+                  wx.showToast({ title: '系统错误' })
+                },
+              })
+            }
+            else {//评价卖家
+              console.log("评价卖家");
+              wx.request({
+                url: 'http://120.77.210.142:8080/myGoods/evaluateSeller/',
+                header: {
+                  'Content-Type': 'application/x-www-form-urlencoded',
+                  'Cookie': wx.getStorageSync('sessionid'),
+                  'token': app.globalData.token
+                },
+                data: {
+                  id: id,
+                  evaluation: radio,
+                  reason: commentwords
+                },
+                method: 'POST',
+                dataType: 'json',
+                success(res) {
+                  console.log(res.data.code);
+                  console.log("订单评价成功");
+                  wx.redirectTo({
+                    url: '/pages/goods/goods',
+                  })
+                },
+                fail(err) {
+                  reject(err);
+                  wx.showToast({ title: '系统错误' })
+                },
+              })
+            }            
           } else if (res.cancel) {
             console.log('用户点击取消');
           }

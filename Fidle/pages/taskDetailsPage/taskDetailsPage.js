@@ -17,6 +17,8 @@ Page({
     endTime: "",
     pubId: 0,
     id: 0,
+    hiddenModal: true,
+    inputValue: null
   },
 
   /**
@@ -130,6 +132,56 @@ Page({
       url: '/pages/contact/contact?pubId=' + pubId
     })
   },
+
+   /**
+   * 举报
+   */
+  input: function (e) {
+    this.setData({ inputValue: e.detail.value })
+  },
+  showInputModel: function (e) {
+    this.setData({ hiddenModal: false })
+  },
+  modelConfirm: function (e) {
+    this.setData({ hiddenModal: true })
+    wx.showToast({
+      title: '举报理由：' + this.data.inputValue + '已提交',
+      icon: 'none'
+    })
+    var that = this;
+    var id = that.data.id;
+    console.log(id);
+    var reason = that.data.inputValue;
+    console.log(reason);
+      wx.request({
+        url: 'http://120.77.210.142:8080/goods/reportGoods',
+        method: 'POST',
+        header: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Cookie': wx.getStorageSync('sessionid'),
+          'token': app.globalData.token
+        },
+        data: {
+          id: id,
+          reason: reason
+        },
+        success(res){
+          console.log(res.data);
+        }
+
+      })
+  },
+  modelCancel: function (e) {
+    this.setData({ hiddenModal: true })
+    wx.showToast({
+      title: '举报已取消',
+      icon: 'none'
+    })
+  },
+  reset: function (e) {
+    this.setData({ inputValue: '' });
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */

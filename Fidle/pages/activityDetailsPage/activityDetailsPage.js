@@ -157,7 +157,7 @@ Page({
     var reason = that.data.inputValue;
     console.log(reason);
       wx.request({
-        url: 'http://47.106.241.182:8082/activity/reportActivity',
+        url: 'http://120.77.210.142:8080/activity/reportActivity',
         method: 'POST',
         header: {
           'Content-Type': 'application/x-www-form-urlencoded',

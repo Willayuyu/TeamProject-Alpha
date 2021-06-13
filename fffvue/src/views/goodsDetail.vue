@@ -1,7 +1,10 @@
 <template>
-    <el-container style="height: 100%;" direction="vertical">
+  <el-container style="height: 100%;" direction="vertical">
+    <div>
+      <i class = "el-icon-back" />
+    </div>
     <el-main>
-      <div class="main">
+      <div class="goodsmain">
         <div class="publisherInfo">
           <div class="leftFirstBox">
             发布人信息
@@ -21,6 +24,10 @@
             <i class = "iconfont icon-qq" />
             <span class="leftText">11111111111</span>
           </div>
+          <div class="leftThirdBox">
+            <i class = "el-icon-medal" />
+            <span class="leftText">100</span>
+          </div>
         </div>
         <div class="goodsInfo">
           <div class="goodsImage">
@@ -35,7 +42,7 @@
             </el-carousel>
           </div>
           <div class="goodsDetail">
-            <div class="header">
+            <div class="infoHeader">
               <p class="title">软件工程第八版 好价速来 软件工程第八版 好价速来</p>
               <div class="prices">
                 <span class="price">￥ 30</span>
@@ -57,7 +64,7 @@
               <i class="el-icon-price-tag"></i>
               <el-tag type="info">标签1</el-tag>
             </div>
-            <p class="details">软件工程第八版 好价速来 软件工程第八版 好价速来 软件工程第八版 好价速来 软件工程第八版 好价速来</p>
+            <p class="details">简介：化</p>
             <div class="footer">
               <div class="leftFooter">
                 <i class = "iconfont icon-zaishouzhong" />
@@ -76,7 +83,7 @@
   export default {
     data() {
       return {
-        url: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=900739219,1112472094&fm=26&gp=0.jpg',
+        url: require("../assets/img/face" + Math.round(Math.random()*6) + ".png"),
         pics: [
           { url: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2841118707,440982020&fm=26&gp=0.jpg' },
           { url: require("../assets/logo.png") },
@@ -91,13 +98,20 @@
           '标签1',
           '标签2'
         ]
+
       }
     }
   }
 </script>
 
 <style>
-  .main{
+  .el-icon-back{
+    margin-left: 20px;
+    padding: 20px;
+    padding-bottom: 0px;
+    font-size: 40px;
+  }
+  .goodsmain{
     display: flex;
     margin-left: 160px;
     margin-bottom: 110px;
@@ -118,6 +132,7 @@
     font-size: 22px;
     font-weight: bold;
     border-radius: 4px;
+    text-align: center;
   }
   .leftSecondBox{
     margin: 30px;
@@ -125,7 +140,8 @@
     padding: 30px;
     background-color: #FFFFFF;
     border-radius: 4px;
-    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    text-align: center;
   }
   .leftSecondBox img{
     width: 200px;
@@ -166,6 +182,8 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
   }
   .goodsDetail{
+    display: flex;
+    flex-direction: column;
     margin-top: 20px;
     flex-grow: 1;
     padding: 30px;
@@ -174,14 +192,16 @@
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
     font-family: "Helvetica Neue";
+    
   }
-  .header{
+  .infoHeader{
     display: flex;
     justify-content: space-between;
+    margin-bottom: 10px;
   }
   .title{
     margin-top: 0px;
-    font-size: 19px;
+    font-size: 20px;
     font-weight: bold;
     max-width: 75%;
   }
@@ -196,22 +216,27 @@
     text-decoration: line-through;
   }
   .details{
-    font-size: 15px;
+    margin-top: 15px;
+    font-size: 16px;
   }
   .tags{
-    margin-top: 10px;
-    font-size: 15px;
+    margin-top: 20px;
+    font-size: 16px;
     vertical-align: middle;
+    display: flex;
+    align-items: center;
   }
   .tags i{
     font-size: 20px;
     vertical-align: middle;
   }
   .el-tag{
+    margin-left: 5px;
     margin-right: 5px;
     vertical-align: middle;
   }
   .footer{
+    margin-top: 30px;
     display: flex;
     justify-content: space-between;
   }
@@ -224,5 +249,4 @@
     font-size: 30px;
     margin-right: 8px;
   }
-
 </style>
