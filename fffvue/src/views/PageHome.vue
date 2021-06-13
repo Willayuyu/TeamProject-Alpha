@@ -183,7 +183,7 @@
 
         <div id="trendChart" class="whiteBackground">
           <el-container>
-            <el-header height="40px" class="trendHeader">
+            <el-header height="60px" class="trendHeader">
               <el-row>
                 <el-col :span="12" :offset="6">发布量趋势图</el-col>
                 <el-col :span="6">
@@ -199,7 +199,7 @@
               </el-row>
             </el-header>
             <el-main class="trendChart">
-              <p>趋势图图表</p>
+              <div id="map" style="width: 100%;height:326px;"></div>
             </el-main>
           </el-container>
         </div>
@@ -211,6 +211,7 @@
 <script>
 //局部引用组件
 // import sideBar from "./";
+
 export default {
   name: "homePage",
   data() {
@@ -233,8 +234,69 @@ export default {
       goodReport: 350,
       taskReport: 500,
       activityReport: 400,
+
     }
-  }
+  },
+  mounted() {
+    this.getMap();
+  },
+
+  methods: {
+    getMap() {
+      let myChart = this.$echarts.init(document.getElementById('map'))
+      let option = {
+        title: {
+        },
+        tooltip: {
+          trigger: 'axis'
+        },
+        legend: {
+          data: ['二手物品', '任务委托', '活动信息']
+        },
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          containLabel: true
+        },
+        toolbox: {
+          feature: {
+            saveAsImage: {}
+          }
+        },
+        xAxis: {
+          type: 'category',
+          boundaryGap: false,
+          data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日','周一', '周二', '周三', '周四', '周五', '周六', '周日','周一', '周二', '周三', '周四', '周五', '周六', '周日','周一', '周二', '周三', '周四', '周五', '周六', '周日']
+        },
+        yAxis: {
+          type: 'value'
+        },
+        series: [
+          {
+            name: '二手物品',
+            type: 'line',
+            stack: '总量',
+            data: [120, 132, 101, 134, 90, 230, 210,120, 132, 101, 134, 90, 230, 210,120, 132, 101, 134, 90, 230, 210,120, 132, 101, 134, 90, 230, 210]
+          },
+          {
+            name: '任务委托',
+            type: 'line',
+            stack: '总量',
+            data: [220, 182, 191, 234, 290, 330, 310]
+          },
+          {
+            name: '活动信息',
+            type: 'line',
+            stack: '总量',
+            data: [150, 232, 201, 154, 190, 330, 410]
+          },
+        ]
+      }
+      myChart.setOption(option)
+    }
+  },
+
 }
 </script>
 
@@ -315,11 +377,13 @@ img {
   margin-right: 50px;
 }
 .trendChart{
-  height: 180px;
+  height: 380px;
+  width: 100%;
 }
 .report{
   width: 80%;
   border-radius: 5px;
 
 }
+
 </style>
