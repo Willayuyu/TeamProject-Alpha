@@ -145,6 +145,7 @@ com\example\fidledemo\VO\TaskVO.class
 com\example\fidledemo\config\ExceptionAdvice.class
 com\example\fidledemo\VO\UserVO.class
 com\example\fidledemo\FidledemoApplication.class
+com\example\fidledemo\VO\AdminVO.class
 com\example\fidledemo\BO\ReportMessage.class
 com\example\fidledemo\dao\TaskCategoryDAO.class
 com\example\fidledemo\historypage\service\MyActivityService.class
