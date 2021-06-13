@@ -195,10 +195,10 @@ export default {
         days = 0;
       else
         days = this.secTime;
-      axios("http://47.106.241.182:8080/goods/listGoodsCategory").then(res => {
+      axios.get("/api/goods/listGoodsCategory").then(res => {
         console.log(res);
       })
-      axios.post("http://47.106.241.182:8080/admin/listGoodsByKeyword",
+      axios.post("/api/admin/listGoodsByKeyword",
           {
             days: days,
             categoryId: categoryId,
@@ -206,6 +206,7 @@ export default {
             pageid: this.currentPage
           },
       ).then(res => {
+        console.log(res.data)
         this.goodsList = res.data;
         this.currentPage = res.data[0].pageInfo.currentPage;
         this.totalNum = res.data[0].pageInfo.totalNum;

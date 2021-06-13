@@ -196,7 +196,7 @@ export default {
         days = this.secTime;
       axios({
         method: "POST",
-        url: "http://47.106.241.182:8080/admin/listGoodsByKeyword",
+        url: "/api/goods/listGoodsCategory",
         header: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
@@ -210,6 +210,7 @@ export default {
         this.goodsList = res.data;
         this.currentPage = res.data[0].pageInfo.currentPage;
         this.totalNum = res.data[0].pageInfo.totalNum;
+        console.log(res.data)
       })
       console.log(this.input);
       console.log(categoryId);
