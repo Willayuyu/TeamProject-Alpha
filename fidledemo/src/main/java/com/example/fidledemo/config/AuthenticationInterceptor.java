@@ -6,9 +6,12 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.example.fidledemo.BO.AdminBO;
 import com.example.fidledemo.BO.PassToken;
 import com.example.fidledemo.BO.UserBO;
 import com.example.fidledemo.BO.UserLoginToken;
+import com.example.fidledemo.DO.AdminDO;
+import com.example.fidledemo.dao.AdminDAO;
 import com.example.fidledemo.dao.UserDAO;
 import com.example.fidledemo.homepage.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +32,8 @@ public class AuthenticationInterceptor implements HandlerInterceptor
   @Autowired
   UserDAO userDAO;
 
+  @Autowired
+  AdminDAO adminDAO;
 
   @Override
   public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object object) throws Exception
@@ -66,29 +71,52 @@ public class AuthenticationInterceptor implements HandlerInterceptor
           throw new RuntimeException("无token，请重新登录");
         }
         // 获取 token 中的 user id
-        long userId;
+        long id;
+        UserBO user=null;
+        AdminBO admin=null;
         try
         {
-          userId = Long.parseLong(JWT.decode(token).getAudience().get(0));
+          id = Long.parseLong(JWT.decode(token).getAudience().get(0));
+          if(id>=10000)
+          {
+            long adminId=id-10000;
+            AdminDO adminDO=new AdminDO();
+            adminDO.setId(adminId);
+            admin=adminDAO.getAdminBoByDO(adminDO);
+            // 验证 token
+            JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(admin.getAccount())).build();
+            try
+            {
+              jwtVerifier.verify(token);
+            }
+            catch (JWTVerificationException e)
+            {
+              throw new RuntimeException("401");
+            }
+          }
+          else
+          {
+            user = userDAO.getUserById(id);
+            // 验证 token
+            JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(user.getOpenId())).build();
+            try
+            {
+              jwtVerifier.verify(token);
+            }
+            catch (JWTVerificationException e)
+            {
+              throw new RuntimeException("401");
+            }
+          }
         }
         catch (JWTDecodeException j)
         {
           throw new RuntimeException("401");
         }
-        UserBO user = userDAO.getUserById(userId);
+
         if (user == null)
         {
           throw new RuntimeException("用户不存在，请重新登录");
-        }
-        // 验证 token
-        JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(user.getOpenId())).build();
-        try
-        {
-          jwtVerifier.verify(token);
-        }
-        catch (JWTVerificationException e)
-        {
-          throw new RuntimeException("401");
         }
         return true;
       }

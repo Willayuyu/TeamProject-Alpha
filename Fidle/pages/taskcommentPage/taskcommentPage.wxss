@@ -1,0 +1,128 @@
+.card{
+  display: block;
+  margin-bottom: 15rpx;
+}
+
+.tagsIcon{
+  width: 35rpx;
+  height: auto;
+  vertical-align: middle;
+}
+
+.tagItem{
+  margin-left: 15rpx;
+  vertical-align: middle;
+}
+
+.tagList{
+  margin: 10rpx 0;
+}
+
+.tagTask{
+  margin-top: 15rpx;
+}
+
+.title{
+  font-size: 28rpx;
+  font-weight: bold;
+}
+
+.btn{
+  width: 50rpx;
+  height: 20rpx; 
+  margin: 50rpx 20rpx 40rpx;
+  padding: 10rpx 20rpx;
+  background-color: #7db5ee;
+  color: #F3F4F4;
+  font-size: 22rpx;
+  border-radius: 5rpx;
+}
+
+.secondLine{
+  display: flex;
+  justify-content: space-between;
+}
+
+.sign{
+  flex: 1;
+  margin-top: 0rpx;
+  text-align: right;
+  font-size: 25rpx;
+  color: #F14836;
+}
+
+.priceText{
+  margin-right: 25rpx;
+  margin-top: 0rpx;
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #F14836;
+}
+
+.taskBtns{
+  margin-top: 20rpx;
+  text-align: right;
+}
+
+.modifyTag{
+  display: flex;
+  justify-content: space-between;
+}
+
+.state{
+  width: 25rpx;
+  height: auto;
+  vertical-align: middle;
+  text-align: left;
+}
+
+.stateText{
+  margin-left: 20rpx;
+  height: auto;
+  vertical-align: middle;
+  font-size: 25rpx;
+}
+
+.modify{
+  margin-right: 25rpx;
+  width: 40rpx;
+  height: 40rpx;
+  vertical-align: middle;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.panelBtns{
+  text-align: center;
+}
+
+.panelBtn{
+  padding: 20rpx 150rpx 20rpx;
+  background-color: #7db5ee;
+  color: #F3F4F4;
+  font-size: 25rpx;
+  border-radius: 5rpx;
+}
+
+
+.atext {
+  margin-left:92rpx;
+  margin-top:10rpx;
+  font-size:29rpx;
+  color:#455A64
+}
+
+.good {
+  margin-left:80rpx;
+  width:30rpx;
+  height:30rpx
+}
+.bad {
+  width:30rpx;
+  height:30rpx
+}

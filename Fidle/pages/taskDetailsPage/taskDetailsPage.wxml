@@ -38,7 +38,10 @@
     <van-icon name="wap-home-o" size="50rpx" bind:click="onClickHome"/>
     <van-icon name="star-o" size="50rpx" bind:click="onClickStar" wx:if="{{collectState == -1}}"/>
     <van-icon name="star" size="50rpx" bind:click="onClickStar" wx:else="{{collectState == 1}}"/>
-    <image class="tagsIcon" mode="widthFix" src="../../icons/jubao.png"></image>
+    <image class="tagsIcon" mode="widthFix" src="../../icons/jubao.png" bindtap="showInputModel"></image>
+    <modal hidden="{{hiddenModal}}" title="举报" confirm-text="提交" cancel-text="取消"   bindconfirm="modelConfirm" bindcancel="modelCancel" bindtap="reset">
+      <input placeholder='请输入举报理由' value="{{inputValue}}" bindinput='input' />
+    </modal>
     <button class="contact" type="primary"  style="width: 330rpx; background-color: #7db5ee;"  bindtap="taskConnect">联系委托人</button>
   </view>
   <van-toast id="van-toast"/>

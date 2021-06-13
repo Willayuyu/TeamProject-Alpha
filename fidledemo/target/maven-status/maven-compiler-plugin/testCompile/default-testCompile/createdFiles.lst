@@ -2,4 +2,5 @@ com\example\fidledemo\FidledemoApplicationTests.class
 com\example\fidledemo\TestZSP.class
 com\example\fidledemo\TestWWJ.class
 com\example\fidledemo\TestPublish.class
+com\example\fidledemo\TestSomething.class
 com\example\fidledemo\TestCollection.class

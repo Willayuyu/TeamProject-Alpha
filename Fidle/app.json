@@ -1,6 +1,6 @@
 {
   "pages": [
-    "pages/login/login",
+   "pages/login/login",
     "pages/index/index",
     "pages/task/task",
     "pages/contact/contact",
@@ -22,7 +22,8 @@
     "pages/order/order",
     "pages/logs/logs",
     "pages/taskOrder/taskOrder",
-    "pages/commentPage/commentPage"
+    "pages/commentPage/commentPage",
+    "pages/taskcommentPage/taskcommentPage"
   ],
   "window": {
     "enablePullDownRefresh": true,
