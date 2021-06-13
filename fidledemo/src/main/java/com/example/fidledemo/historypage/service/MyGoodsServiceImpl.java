@@ -9,11 +9,13 @@ import com.example.fidledemo.VO.GoodsTagVO;
 import com.example.fidledemo.VO.MyGoodsVO;
 import com.example.fidledemo.dao.*;
 import com.example.fidledemo.historypage.utils.PageHelper;
+import com.example.fidledemo.historypage.utils.SortVOList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -40,9 +42,10 @@ public class MyGoodsServiceImpl implements MyGoodsService{
     @Autowired
     GoodsImageDAO goodsImageDAO;
 
+
     @Override
     public List<MyGoodsVO> listGoodsOnSale(Integer pageid,Long sellerId) {
-
+        SortVOList sort = new SortVOList();
         //根据二手物品状态和发布者id筛选二手物品信息
         GoodsInfoDO goodsInfoDO= new GoodsInfoDO();
         goodsInfoDO.setSold(1);
@@ -79,6 +82,8 @@ public class MyGoodsServiceImpl implements MyGoodsService{
             myGoodsVO.setIsEvaluated(-1);
             list1.add(myGoodsVO);
         }
+        //按评价和id排序
+        Collections.sort(list1,sort);
 
         //分页
         PageHelper<MyGoodsVO> pageHelper = new PageHelper<>(list1,5);
@@ -88,6 +93,8 @@ public class MyGoodsServiceImpl implements MyGoodsService{
 
     @Override
     public List<MyGoodsVO> listGoodsSold(Integer pageid,Long sellerId) {
+        SortVOList sort = new SortVOList();
+
         //根据sellerid和已卖出状态对二手物品信息筛选
         GoodsInfoDO goodsInfoDO= new GoodsInfoDO();
         goodsInfoDO.setSold(2);
@@ -132,6 +139,8 @@ public class MyGoodsServiceImpl implements MyGoodsService{
             myGoodsVO.setIsEvaluated(isEvaluated);
             list1.add(myGoodsVO);
         }
+        //按评价和id排序
+        Collections.sort(list1,sort);
 
         //分页
         PageHelper<MyGoodsVO> pageHelper = new PageHelper<>(list1,5);
@@ -141,6 +150,7 @@ public class MyGoodsServiceImpl implements MyGoodsService{
 
     @Override
     public List<MyGoodsVO> listGoodsBuying(Integer pageid,Long id) {
+        SortVOList sort = new SortVOList();
 
         //根据买家id筛选二手物品订单表
         GoodsIndentDO indentDO = new GoodsIndentDO();
@@ -196,7 +206,7 @@ public class MyGoodsServiceImpl implements MyGoodsService{
                 List<GoodsIndentBO> indentBOList = goodsIndentDAO.listGoodsIndentByDO(goodsIndentDO);
                 Integer isEvaluated = -1;
                 if (indentBOList != null){
-                    isEvaluated = indentBOList.get(0).getPubEvaluated();
+                    isEvaluated = indentBOList.get(0).getAccEvaluated();
                 }
 
                 //设置MyGoodsVO属性
@@ -215,6 +225,8 @@ public class MyGoodsServiceImpl implements MyGoodsService{
             }
 
         }
+        //按评价和id排序
+        Collections.sort(list1,sort);
 
         //分页
         PageHelper<MyGoodsVO> pageHelper = new PageHelper<>(list1,5);

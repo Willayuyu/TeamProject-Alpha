@@ -8,11 +8,13 @@ import com.example.fidledemo.VO.MyTaskVO;
 import com.example.fidledemo.VO.TaskTagVO;
 import com.example.fidledemo.dao.*;
 import com.example.fidledemo.historypage.utils.PageHelper;
+import com.example.fidledemo.historypage.utils.SortVOList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -38,12 +40,12 @@ public class MyTaskServiceImpl implements MyTaskService{
     TaskEvaluationDAO taskEvaluationDAO;
     @Override
     public List<MyTaskVO> listTaskPublished(Integer pageid, Long pubId) {
+        SortVOList sort = new SortVOList();
 
         //设置任务信息查询DO（插入查询字段pubid，通过发布者id筛选任务信息表）
         TaskInformationDO taskInformationDO = new TaskInformationDO();
         taskInformationDO.setPubId(pubId);
         List<TaskInfoBO> list = taskInfoDAO.listTaskInfoByDO(taskInformationDO,new TagOfTaskDO());
-        //分页
 
         //将查询返回的TaskInfoBO转化为MyTaskVO
         List<MyTaskVO> list2 = new ArrayList<>();
@@ -83,6 +85,9 @@ public class MyTaskServiceImpl implements MyTaskService{
             list2.add(item);
         }
 
+        //排序
+        Collections.sort(list2,sort);
+
         //分页
         PageHelper<MyTaskVO> pageHelper = new PageHelper<>(list2,5);
         List<MyTaskVO> myTaskVOS = pageHelper.getPageByNum(pageid);
@@ -91,6 +96,7 @@ public class MyTaskServiceImpl implements MyTaskService{
 
     @Override
     public List<MyTaskVO> listTaskAccepted(Integer pageid, Long accId) {
+        SortVOList sort = new SortVOList();
 
         //通过接受方ID构建TaskDelegateDO表查询任务订单表
         TaskDelegateDO taskDelegateDO = new TaskDelegateDO();
@@ -147,13 +153,15 @@ public class MyTaskServiceImpl implements MyTaskService{
                 taskDO.setTaskInfoId(list1.get(i).getId());
                 List<TaskDelegateBO> taskList = taskDelegateDAO.listTaskDelegateByDO(taskDO);
                 if (taskList != null) {
-                    isEvaluated = taskList.get(0).getPubEvaluated();
+                    isEvaluated = taskList.get(0).getAccEvaluated();
                 }
             }
             item.setIsEvaluated(isEvaluated);
 
             list3.add(item);
         }
+        //排序
+        Collections.sort(list3,sort);
 
         //分页
         PageHelper<MyTaskVO> pageHelper = new PageHelper<>(list3,5);
