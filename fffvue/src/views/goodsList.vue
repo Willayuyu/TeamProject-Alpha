@@ -67,6 +67,9 @@
 </template>
 
 <script>
+import axios from "axios";
+
+
 export default {
   data () {
     return {
@@ -95,19 +98,19 @@ export default {
           value: '0',
           label: '发布时间'
         }, {
-          value: '1',
+          value: '3',
           label: '近三天'
         }, {
-          value: '2',
+          value: '1',
           label: '近一天'
         }, {
-          value: '3',
+          value: '7',
           label: '近七天'
         }, {
-          value: '4',
+          value: '30',
           label: '近一个月'
         },{
-          value: '5',
+          value: '90',
           label: '近三个月'
         }
       ],
@@ -183,9 +186,33 @@ export default {
   },
   methods: {
     search() {
+      let categoryId,days;
+      if(this.category === "类别")
+        categoryId = 0;
+      else
+        categoryId = this.category;
+      if(this.secTime === "发布时间")
+        days = 0;
+      else
+        days = this.secTime;
+      axios("http://47.106.241.182:8080/goods/listGoodsCategory").then(res => {
+        console.log(res);
+      })
+      axios.post("http://47.106.241.182:8080/admin/listGoodsByKeyword",
+          {
+            days: days,
+            categoryId: categoryId,
+            keyWord: this.input,
+            pageid: this.currentPage
+          },
+      ).then(res => {
+        this.goodsList = res.data;
+        this.currentPage = res.data[0].pageInfo.currentPage;
+        this.totalNum = res.data[0].pageInfo.totalNum;
+      })
       console.log(this.input);
-      console.log(this.category);
-      console.log(this.secTime);
+      console.log(categoryId);
+      console.log(days);
     },//搜索
 
     viewDetail(index,row) {
@@ -197,7 +224,7 @@ export default {
     },//删除
 
     handleCurrentChange(val) {
-
+      this.currentPage = val;
     },//改变页面
   }
 }
