@@ -13,29 +13,29 @@
             <img v-bind:src="url"/>
           </div>
           <div class="leftThirdBox">
-            <i class = "iconfont icon-account" />
-            <span class="leftText">Fidle</span>
+            <i class = "el-icon-user" />
+            <span class="leftText">{{username}}</span>
           </div>
           <div class="leftThirdBox">
             <i class = "iconfont icon-shouji" />
-            <span class="leftText">11111111111</span>
+            <span class="leftText">{{tel}}</span>
           </div>
           <div class="leftThirdBox">
             <i class = "iconfont icon-qq" />
-            <span class="leftText">11111111111</span>
+            <span class="leftText">{{qq}}</span>
           </div>
           <div class="leftThirdBox">
             <i class = "el-icon-medal" />
-            <span class="leftText">100</span>
+            <span class="leftText">{{creditscore}}</span>
           </div>
         </div>
         <div class="goodsInfo">
           <div class="goodsImage">
             <el-carousel height="300px" arrow="never">
-              <el-carousel-item v-for="item in pics" :key="item">
+              <el-carousel-item v-for="item in picList" :key="item">
                 <el-image
                   style="width: 100%"
-                  v-bind:src="item.url"
+                  v-bind:src="item"
                   :preview-src-list="picList">
                 </el-image>
               </el-carousel-item>
@@ -43,32 +43,34 @@
           </div>
           <div class="goodsDetail">
             <div class="infoHeader">
-              <p class="title">软件工程第八版 好价速来 软件工程第八版 好价速来</p>
+              <p class="title">{{title}}</p>
               <div class="prices">
-                <span class="price">￥ 30</span>
-                <span class="originalPrice">￥ 50</span>
+                <span class="price">￥ {{price}}</span>
+                <span class="originalPrice">￥ {{originalPrice}}</span>
               </div>
             </div>
             <div class="tags">
               <span>类别：</span>
               <i class="el-icon-price-tag"></i>
-              <el-tag type="info">标签1</el-tag>
+              <el-tag type="info">{{category}}</el-tag>
             </div>
             <div class="tags">
               <span>标签：</span>
               <i class="el-icon-price-tag"></i>
-              <el-tag type="info" v-for="item in labels" :key="item">{{item}}</el-tag>
+              <el-tag type="info" v-for="item in labels" :key="item">{{item.content}}</el-tag>
             </div>
             <div class="tags">
               <span>新旧：</span>
               <i class="el-icon-price-tag"></i>
-              <el-tag type="info">标签1</el-tag>
+              <el-tag type="info">{{condition}}</el-tag>
             </div>
-            <p class="details">简介：化</p>
+            <p class="details">简介：{{description}}</p>
             <div class="footer">
               <div class="leftFooter">
-                <i class = "iconfont icon-zaishouzhong" />
-                <span class="state">在售</span>
+                <i class = "iconfont icon-zaishouzhong" v-if = "state === 1"/>
+                <i class = "iconfont icon-yishouchu" v-else-if = "state === 2"/>
+                <span class="state" v-if="state === 1">在售中</span>
+                <span class="state" v-if="state === 2">已售出</span>
               </div>
               <el-button type="danger">删除</el-button>
             </div>
@@ -79,26 +81,79 @@
   </el-container>
 </template>
 
-<script>
+<script scoped>
+import axios from "axios";
+
   export default {
     data() {
       return {
-        url: require("../assets/img/face" + Math.round(Math.random()*6) + ".png"),
-        pics: [
-          { url: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2841118707,440982020&fm=26&gp=0.jpg' },
-          { url: require("../assets/logo.png") },
-          { url: require("../assets/logo.png") },
-        ],
+        url: require("../assets/img/face" + Math.round(Math.random()*5) + ".png"),
         picList: [
           'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2841118707,440982020&fm=26&gp=0.jpg',
           require("../assets/logo.png"),
           require("../assets/logo.png")
         ],
         labels: [
-          '标签1',
-          '标签2'
-        ]
+          { content: '标签1', id: 1},
+          { content: '标签2', id: 2},
+        ],
+        qq: '1',
+        tel: '1',
+        username: '1',
+        creditscore: 100,
+        category: "1",
+        collectState: -1,
+        condition: 1,
+        description: '',
+        price: 1,
+        originalPrice: 1,
+        pubId: 1,
+        state: 2,
+        title: '',
+      }
+    },
 
+    mounted() {
+      this.getGoodsInfo();
+      this.getPublisherInfo();
+    },
+
+    methods: {
+      async getGoodsInfo() {
+        await axios.get('/api/goods/getGoodsDetailById/' + 89)
+        .then( response => {
+          console.log(response.data.data);
+          this.category = response.data.data.category;
+          this.collectState = response.data.data.collectState;
+          this.condition = response.data.data.condition;
+          this.description = response.data.data.description;
+          this.price = response.data.data.price;
+          this.originalPrice = response.data.data.originalPrice;
+          this.picList = response.data.data.picturesLink;
+          this.pubId = response.data.data.pubId;
+          this.state = response.data.data.state;
+          this.title = response.data.data.title;
+          this.labels = response.data.data.tagList;
+          console.log(this.pubId);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      },
+
+      async getPublisherInfo() {
+        await this.getGoodsInfo();
+        axios.get('/api/personalPage/getHomePageById/' + this.pubId)
+        .then( response => {
+          console.log(response);
+          this.username = response.data.data.username;
+          this.qq = response.data.data.qq;
+          this.tel = response.data.data.tel;
+          this.creditscore = response.data.data.credit.creditScore;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
       }
     }
   }
@@ -116,6 +171,7 @@
     margin-left: 160px;
     margin-bottom: 110px;
     align-items: stretch;
+    flex-shrink: 0;
   }
   .publisherInfo{
     background-color: #EFF3F3;
