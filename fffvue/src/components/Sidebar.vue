@@ -14,15 +14,15 @@
       <i class="iconfont icon-home icon"></i>
       <span slot="title">首页</span>
     </el-menu-item>
-    <el-menu-item index="/goods">
+    <el-menu-item index="/goodsList">
       <i class="iconfont icon-Shoppingcartfinancebusiness icon"></i>
       <span slot="title">二手物品</span>
     </el-menu-item>
-    <el-menu-item index="/task">
+    <el-menu-item index="/taskList">
       <i class="iconfont icon-shoppingbag icon"></i>
       <span slot="title">任务委托</span>
     </el-menu-item>
-    <el-menu-item index="/activity">
+    <el-menu-item index="/activityList">
       <i class="iconfont icon-horn icon"></i>
       <span slot="title">活动信息</span>
     </el-menu-item>

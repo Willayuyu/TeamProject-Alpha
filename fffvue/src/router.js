@@ -11,6 +11,8 @@ import PageHome from './views/PageHome.vue'
 import PageTask from './views/PageTask.vue'
 import Login from './views/Login.vue'
 import goodsReport from './views/goodsReport.vue'
+import taskReport from "./views/taskReport.vue";
+import activityReport from "./views/activityReport.vue";
 
 
 
@@ -51,6 +53,21 @@ export default new Router({
       path: '/activityList',
       name: 'activityList',
       component: activityList
+    },
+    {
+      path: '/goodsReport',
+      name: 'goodsReport',
+      component: goodsReport
+    },
+    {
+      path: '/taskReport',
+      name: 'taskReport',
+      component: taskReport
+    },
+    {
+      path: '/activityReport',
+      name: 'activityReport',
+      component: activityReport
     },
     {
       path: '/goodsReport',
