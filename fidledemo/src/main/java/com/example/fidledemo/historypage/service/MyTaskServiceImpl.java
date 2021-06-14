@@ -8,11 +8,14 @@ import com.example.fidledemo.VO.MyTaskVO;
 import com.example.fidledemo.VO.TaskTagVO;
 import com.example.fidledemo.dao.*;
 import com.example.fidledemo.historypage.utils.PageHelper;
+import com.example.fidledemo.historypage.utils.ScoreUtil;
+import com.example.fidledemo.historypage.utils.SortVOList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -36,14 +39,18 @@ public class MyTaskServiceImpl implements MyTaskService{
 
     @Autowired
     TaskEvaluationDAO taskEvaluationDAO;
+
+    @Autowired
+    ScoreUtil scoreUtil;
+
     @Override
     public List<MyTaskVO> listTaskPublished(Integer pageid, Long pubId) {
+        SortVOList sort = new SortVOList();
 
         //设置任务信息查询DO（插入查询字段pubid，通过发布者id筛选任务信息表）
         TaskInformationDO taskInformationDO = new TaskInformationDO();
         taskInformationDO.setPubId(pubId);
         List<TaskInfoBO> list = taskInfoDAO.listTaskInfoByDO(taskInformationDO,new TagOfTaskDO());
-        //分页
 
         //将查询返回的TaskInfoBO转化为MyTaskVO
         List<MyTaskVO> list2 = new ArrayList<>();
@@ -67,8 +74,24 @@ public class MyTaskServiceImpl implements MyTaskService{
             item.setReward(list.get(i).getReward());
             item.setTitle(list.get(i).getTitle());
             item.setPulisherId(pubId);
+
+            //如果状态为已完成，则查询是否评价
+            Integer isEvaluated = -1;
+            if (list.get(i).getState() == 3){
+                TaskDelegateDO taskDelegateDO = new TaskDelegateDO();
+                taskDelegateDO.setTaskInfoId(list.get(i).getId());
+                List<TaskDelegateBO> taskList = taskDelegateDAO.listTaskDelegateByDO(taskDelegateDO);
+                if (taskList != null) {
+                    isEvaluated = taskList.get(0).getPubEvaluated();
+                }
+            }
+            item.setIsEvaluated(isEvaluated);
+
             list2.add(item);
         }
+
+        //排序
+        Collections.sort(list2,sort);
 
         //分页
         PageHelper<MyTaskVO> pageHelper = new PageHelper<>(list2,5);
@@ -78,6 +101,7 @@ public class MyTaskServiceImpl implements MyTaskService{
 
     @Override
     public List<MyTaskVO> listTaskAccepted(Integer pageid, Long accId) {
+        SortVOList sort = new SortVOList();
 
         //通过接受方ID构建TaskDelegateDO表查询任务订单表
         TaskDelegateDO taskDelegateDO = new TaskDelegateDO();
@@ -126,8 +150,23 @@ public class MyTaskServiceImpl implements MyTaskService{
             item.setTitle(list1.get(i).getTitle());
             item.setPulisherId(list1.get(i).getPubId());
             item.setAccepterId(accId);
+
+            //如果状态为已完成，则查询是否评价
+            Integer isEvaluated = -1;
+            if (list1.get(i).getState() == 3){
+                TaskDelegateDO taskDO = new TaskDelegateDO();
+                taskDO.setTaskInfoId(list1.get(i).getId());
+                List<TaskDelegateBO> taskList = taskDelegateDAO.listTaskDelegateByDO(taskDO);
+                if (taskList != null) {
+                    isEvaluated = taskList.get(0).getAccEvaluated();
+                }
+            }
+            item.setIsEvaluated(isEvaluated);
+
             list3.add(item);
         }
+        //排序
+        Collections.sort(list3,sort);
 
         //分页
         PageHelper<MyTaskVO> pageHelper = new PageHelper<>(list3,5);
@@ -159,11 +198,14 @@ public class MyTaskServiceImpl implements MyTaskService{
     }
 
     @Override
-    public void finishTaskById(Long id) {
+    public void finishTaskById(Long id,Long userId) {
         TaskInformationDO taskInformationDO = new TaskInformationDO();
         taskInformationDO.setId(id);
         taskInformationDO.setTaskState(3);
         taskInfoDAO.updateTaskInfo(taskInformationDO);
+
+        //进行信用分处理
+        scoreUtil.score(userId,1);
     }
 
     @Override
@@ -227,6 +269,7 @@ public class MyTaskServiceImpl implements MyTaskService{
         taskDelegateDO.setAccId(evaluatorId);
         List<TaskDelegateBO> list2 = taskDelegateDAO.listTaskDelegateByDO(taskDelegateDO);
         Long deletgateId = list2.get(0).getId();
+        Long publisherId = list2.get(0).getPubId();
         //插入评价
         TaskEvaluationDO taskEvaluationDO = new TaskEvaluationDO();
         taskEvaluationDO.setEvaluation(evaluation);
@@ -244,6 +287,9 @@ public class MyTaskServiceImpl implements MyTaskService{
         taskDelegateDO.setAccId(evaluatorId);
         taskDelegateDO.setAccEvaluated(1);
         taskDelegateDAO.updateTaskDelegate(taskDelegateDO);
+
+        //进行信用分处理
+        scoreUtil.score(publisherId,evaluation);
     }
 
     @Override
@@ -255,6 +301,7 @@ public class MyTaskServiceImpl implements MyTaskService{
         taskDelegateDO.setPubId(evaluatorId);
         List<TaskDelegateBO> list2 = taskDelegateDAO.listTaskDelegateByDO(taskDelegateDO);
         Long deletgateId = list2.get(0).getId();
+        Long accepterId = list2.get(0).getAccId();
         //插入评价
         TaskEvaluationDO taskEvaluationDO = new TaskEvaluationDO();
         taskEvaluationDO.setEvaluation(evaluation);
@@ -272,5 +319,8 @@ public class MyTaskServiceImpl implements MyTaskService{
         taskDelegateDO.setPubId(evaluatorId);
         taskDelegateDO.setPubEvaluated(1);
         taskDelegateDAO.updateTaskDelegate(taskDelegateDO);
+
+        //进行信用分处理
+        scoreUtil.score(accepterId,evaluation);
     }
 }

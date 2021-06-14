@@ -9,11 +9,14 @@ import com.example.fidledemo.VO.GoodsTagVO;
 import com.example.fidledemo.VO.MyGoodsVO;
 import com.example.fidledemo.dao.*;
 import com.example.fidledemo.historypage.utils.PageHelper;
+import com.example.fidledemo.historypage.utils.ScoreUtil;
+import com.example.fidledemo.historypage.utils.SortVOList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -40,9 +43,13 @@ public class MyGoodsServiceImpl implements MyGoodsService{
     @Autowired
     GoodsImageDAO goodsImageDAO;
 
+    @Autowired
+    ScoreUtil scoreUtil;
+
+
     @Override
     public List<MyGoodsVO> listGoodsOnSale(Integer pageid,Long sellerId) {
-
+        SortVOList sort = new SortVOList();
         //根据二手物品状态和发布者id筛选二手物品信息
         GoodsInfoDO goodsInfoDO= new GoodsInfoDO();
         goodsInfoDO.setSold(1);
@@ -75,9 +82,12 @@ public class MyGoodsServiceImpl implements MyGoodsService{
             //构建MyGoodsVO对象
             MyGoodsVO myGoodsVO = new MyGoodsVO(item.getId(),item.getPubId(),null,
                     item.getTitle(),item.getPrice(),item.getOriginalPrice(),imageLink,
-                    item.getCondition(),categoryVO.getCategoryDesignation(),list2);
+                    item.getCondition(),categoryVO.getCategoryDesignation(),list2,0);
+            myGoodsVO.setIsEvaluated(-1);
             list1.add(myGoodsVO);
         }
+        //按评价和id排序
+        Collections.sort(list1,sort);
 
         //分页
         PageHelper<MyGoodsVO> pageHelper = new PageHelper<>(list1,5);
@@ -87,6 +97,8 @@ public class MyGoodsServiceImpl implements MyGoodsService{
 
     @Override
     public List<MyGoodsVO> listGoodsSold(Integer pageid,Long sellerId) {
+        SortVOList sort = new SortVOList();
+
         //根据sellerid和已卖出状态对二手物品信息筛选
         GoodsInfoDO goodsInfoDO= new GoodsInfoDO();
         goodsInfoDO.setSold(2);
@@ -115,12 +127,24 @@ public class MyGoodsServiceImpl implements MyGoodsService{
                 list2.add(item2);
             }
 
+            //查找是否评价
+            GoodsIndentDO goodsIndentDO = new GoodsIndentDO();
+            goodsIndentDO.setGoodsId(item.getId());
+            List<GoodsIndentBO> indentBOList = goodsIndentDAO.listGoodsIndentByDO(goodsIndentDO);
+            Integer isEvaluated = -1;
+            if (indentBOList != null){
+                isEvaluated = indentBOList.get(0).getPubEvaluated();
+            }
+
             //构建MyGoodsVO
             MyGoodsVO myGoodsVO = new MyGoodsVO(item.getId(),item.getPubId(),null,
                     item.getTitle(),item.getPrice(),item.getOriginalPrice(),imageLink,
-                    item.getCondition(),categoryVO.getCategoryDesignation(),list2);
+                    item.getCondition(),categoryVO.getCategoryDesignation(),list2,isEvaluated);
+            myGoodsVO.setIsEvaluated(isEvaluated);
             list1.add(myGoodsVO);
         }
+        //按评价和id排序
+        Collections.sort(list1,sort);
 
         //分页
         PageHelper<MyGoodsVO> pageHelper = new PageHelper<>(list1,5);
@@ -130,12 +154,13 @@ public class MyGoodsServiceImpl implements MyGoodsService{
 
     @Override
     public List<MyGoodsVO> listGoodsBuying(Integer pageid,Long id) {
+        SortVOList sort = new SortVOList();
 
         //根据买家id筛选二手物品订单表
         GoodsIndentDO indentDO = new GoodsIndentDO();
         indentDO.setBuyerId(id);
         List<GoodsIndentBO> list = goodsIndentDAO.listGoodsIndentByDO(indentDO);
-
+        System.out.println(list.size());
         //根据二手订单表中的二手物品信息id获取二手物品信息，并转换为MyGoodsVO
         List<MyGoodsVO> list1 = new ArrayList<>();
         for (int i = 0;i <list.size();i++){
@@ -153,7 +178,6 @@ public class MyGoodsServiceImpl implements MyGoodsService{
                 //通过获取到的信息再通过listmapper查找获得图片，类别
                 GoodsInfoDO goodsInfoDO = new GoodsInfoDO();
                 goodsInfoDO.setTitle(goodsInfoBO1.getTitle());
-                goodsInfoDO.setPrice(goodsInfoBO1.getPrice());
                 goodsInfoDO.setSellerId(goodsInfoBO1.getPubId());
                 goodsInfoDO.setDescription(goodsInfoBO1.getDescription());
                 goodsInfoDO.setCondition(goodsInfoBO1.getCondition());
@@ -180,6 +204,15 @@ public class MyGoodsServiceImpl implements MyGoodsService{
                     list2.add(item2);
                 }
 
+                //查找是否评价
+                GoodsIndentDO goodsIndentDO = new GoodsIndentDO();
+                goodsIndentDO.setGoodsId(goodsInfoBO.getId());
+                List<GoodsIndentBO> indentBOList = goodsIndentDAO.listGoodsIndentByDO(goodsIndentDO);
+                Integer isEvaluated = -1;
+                if (indentBOList != null){
+                    isEvaluated = indentBOList.get(0).getAccEvaluated();
+                }
+
                 //设置MyGoodsVO属性
                 item.setBuyerId(buyerId);
                 item.setId(infoId);
@@ -191,10 +224,13 @@ public class MyGoodsServiceImpl implements MyGoodsService{
                 item.setTitle(goodsInfoBO.getTitle());
                 item.setTagList(list2);
                 item.setSellerId(sellerId);
+                item.setIsEvaluated(isEvaluated);
                 list1.add(item);
             }
 
         }
+        //按评价和id排序
+        Collections.sort(list1,sort);
 
         //分页
         PageHelper<MyGoodsVO> pageHelper = new PageHelper<>(list1,5);
@@ -220,7 +256,8 @@ public class MyGoodsServiceImpl implements MyGoodsService{
         goodsInfoDO.setSold(2);
         goodsInfoDAO.updateGoodsInfo(goodsInfoDO);
 
-
+        //信用分处理
+        scoreUtil.score(sellerId,1);
     }
 
     @Override
@@ -284,6 +321,7 @@ public class MyGoodsServiceImpl implements MyGoodsService{
         goodsIndentDO.setSellerId(evaluatorId);
         List<GoodsIndentBO> list2 = goodsIndentDAO.listGoodsIndentByDO(goodsIndentDO);
         Long intentId = list2.get(0).getId();
+        Long buyerId = list2.get(0).getAccId();
         //插入评价
         GoodsEvaluationDO goodsEvaluationDO = new GoodsEvaluationDO();
         goodsEvaluationDO.setEvaluation(evaluation);
@@ -303,6 +341,9 @@ public class MyGoodsServiceImpl implements MyGoodsService{
         goodsIndentDO.setSellerEvaluated(1);
         goodsIndentDAO.updateGoodsIndent(goodsIndentDO);
 
+        //信用分处理
+        scoreUtil.score(buyerId,evaluation.intValue());
+
     }
 
     @Override
@@ -314,6 +355,7 @@ public class MyGoodsServiceImpl implements MyGoodsService{
         goodsIndentDO.setBuyerId(evaluatorId);
         List<GoodsIndentBO> list2 = goodsIndentDAO.listGoodsIndentByDO(goodsIndentDO);
         Long intentId = list2.get(0).getId();
+        Long sellerId = list2.get(0).getPubId();
         //插入评价
         GoodsEvaluationDO goodsEvaluationDO = new GoodsEvaluationDO();
         goodsEvaluationDO.setEvaluation(evaluation);
@@ -332,5 +374,8 @@ public class MyGoodsServiceImpl implements MyGoodsService{
         goodsIndentDO.setBuyerEvaluateId(evaluationId);
         goodsIndentDO.setBuyerEvaluated(1);
         goodsIndentDAO.updateGoodsIndent(goodsIndentDO);
+
+        //信用分处理
+        scoreUtil.score(sellerId,evaluation.intValue());
     }
 }

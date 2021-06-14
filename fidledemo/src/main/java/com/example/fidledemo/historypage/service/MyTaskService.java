@@ -44,7 +44,7 @@ public interface MyTaskService {
      * 完成任务
      * @param id
      */
-    void finishTaskById(Long id);
+    void finishTaskById(Long id,Long userId);
 
     /**
      * 取消任务

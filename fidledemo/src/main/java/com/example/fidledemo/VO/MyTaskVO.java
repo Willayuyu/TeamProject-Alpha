@@ -31,6 +31,8 @@ public class MyTaskVO {
 
     private String taskState;
 
+    private Integer isEvaluated;
+
     public void setState(Integer state){
 
         if (state.equals(new Integer(-1))) {

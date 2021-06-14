@@ -34,4 +34,6 @@ public class MyGoodsVO {
     private String category;
 
     private List<GoodsTagVO> tagList;
+
+    private Integer isEvaluated;
 }

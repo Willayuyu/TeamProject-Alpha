@@ -15,11 +15,13 @@ import com.example.fidledemo.dao.ActivityInfoDAO;
 import com.example.fidledemo.dao.ActivityTagDAO;
 import com.example.fidledemo.dao.TagOfActivityDAO;
 import com.example.fidledemo.historypage.utils.PageHelper;
+import com.example.fidledemo.historypage.utils.SortVOList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -38,6 +40,7 @@ public class MyActivityServiceImpl implements MyActivityService {
     ActivityImageDAO activityImageDAO;
     @Override
     public List<MyActivityVO> listActivityPublished(Integer pageid, Long pubId) {
+        SortVOList sort = new SortVOList();
 
         //根据发布者id获取已发布活动信息
         ActivityInfoDO activityInfoDO = new ActivityInfoDO();
@@ -78,6 +81,8 @@ public class MyActivityServiceImpl implements MyActivityService {
             item.setId(list.get(i).getId());
             list1.add(item);
         }
+        //排序
+        Collections.sort(list1,sort);
 
         //分页
         PageHelper<MyActivityVO> pageHelper = new PageHelper<>(list1,5);

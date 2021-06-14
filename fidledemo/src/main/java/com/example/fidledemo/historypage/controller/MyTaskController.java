@@ -3,6 +3,7 @@ package com.example.fidledemo.historypage.controller;
 import com.alibaba.fastjson.JSON;
 import com.example.fidledemo.BO.Result;
 import com.example.fidledemo.BO.UserBO;
+import com.example.fidledemo.BO.UserLoginToken;
 import com.example.fidledemo.VO.MyTaskVO;
 import com.example.fidledemo.historypage.service.MyTaskServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class MyTaskController {
      * @return
      */
     @GetMapping("/listTaskPublishedByPageid/{Pageid}")
-    // @UserLoginToken
+    @UserLoginToken
     public String listTaskPublished(@PathVariable("Pageid") Integer pageid, HttpSession session){
         UserBO user= (UserBO) session.getAttribute("user");
         List<MyTaskVO> list = myTaskService.listTaskPublished(pageid,user.getId());
@@ -48,7 +49,7 @@ public class MyTaskController {
      * @return
      */
     @GetMapping("/listTaskAcceptedByPageid/{Pageid}")
-    // @UserLoginToken
+    @UserLoginToken
     public String listTaskAccepted(@PathVariable("Pageid") Integer pageid,HttpSession session){
         UserBO user = (UserBO) session.getAttribute("user");
         List<MyTaskVO> list = myTaskService.listTaskAccepted(pageid,user.getId());
@@ -62,7 +63,7 @@ public class MyTaskController {
      * @return
      */
     @PostMapping("/conductTask")
-    // @UserLoginToken
+    @UserLoginToken
     public String conductTask(HttpServletRequest request,HttpSession session){
         UserBO user = (UserBO) session.getAttribute("user");
         Long id = Long.valueOf(request.getParameter("id"));
@@ -77,7 +78,7 @@ public class MyTaskController {
      * @return
      */
     @GetMapping("/deleteTaskById/{Id}")
-    // @UserLoginToken
+    @UserLoginToken
     public String deleteTask(@PathVariable("Id") Long id){
         myTaskService.deleteTaskById(id);
         return JSON.toJSONString(Result.successResult());
@@ -89,9 +90,10 @@ public class MyTaskController {
      * @return
      */
     @GetMapping("/finishTaskById/{Id}")
-    // @UserLoginToken
-    public String finishTask(@PathVariable("Id") Long id){
-        myTaskService.finishTaskById(id);
+    @UserLoginToken
+    public String finishTask(@PathVariable("Id") Long id,HttpSession session){
+        UserBO user = (UserBO) session.getAttribute("user");
+        myTaskService.finishTaskById(id,user.getId());
         return JSON.toJSONString(Result.successResult());
     }
 
@@ -101,7 +103,7 @@ public class MyTaskController {
      * @return
      */
     @GetMapping("cancelTaskById/{Id}")
-    //@UserLoginToken
+    @UserLoginToken
     public String cancelTask(@PathVariable("Id") Long id){
         myTaskService.cancelTaskById(id);
         return JSON.toJSONString(Result.successResult());
@@ -113,7 +115,7 @@ public class MyTaskController {
      * @return
      */
     @PostMapping("/alterTask")
-    // @UserLoginToken
+    @UserLoginToken
     public String alterTask(HttpServletRequest request){
         Long id = Long.valueOf(request.getParameter("id"));
         String title = request.getParameter("title");
@@ -154,7 +156,7 @@ public class MyTaskController {
      * @return
      */
     @PostMapping("/evaluatePublisher")
-    // @UserLoginToken
+    @UserLoginToken
     public String evaluatePublisher(HttpServletRequest request,HttpSession session){
         UserBO user = (UserBO) session.getAttribute("user");
         Long id = Long.valueOf(request.getParameter("id"));
@@ -171,7 +173,7 @@ public class MyTaskController {
      * @return
      */
     @PostMapping("/evaluateAccepter")
-    // @UserLoginToken
+    @UserLoginToken
     public String evaluateAccepter(HttpSession session,HttpServletRequest request){
         UserBO user = (UserBO) session.getAttribute("user");
         Long id = Long.valueOf(request.getParameter("id"));
