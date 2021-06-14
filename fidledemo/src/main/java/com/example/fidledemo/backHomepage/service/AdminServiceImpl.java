@@ -168,7 +168,6 @@ public class AdminServiceImpl implements AdminService{
 
             goodsItemVO.setGmt_create(goodsInfoBO.getGmtInfo().getGmtCreate());
             goodsItemVO.setAnnouncer(goodsInfoBO.getPubName());
-            System.out.println(goodsItemVO.getAnnouncer());
 
             goodsItemVOS.add(goodsItemVO);
         }
