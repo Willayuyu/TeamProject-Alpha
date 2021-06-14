@@ -76,7 +76,7 @@
   export default {
     data() {
       return {
-        url: require("../assets/img/face" + Math.round(Math.random()*6) + ".png"),
+        url: require("../assets/img/face" + Math.round(Math.random()*5) + ".png"),
         labels: [
           '标签1',
           '标签2'
@@ -86,7 +86,7 @@
   }
 </script>
 
-<style>
+<style scoped>
   .el-icon-back{
     margin-left: 20px;
     padding: 20px;

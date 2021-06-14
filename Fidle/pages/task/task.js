@@ -133,7 +133,7 @@ Page({
     let id;
     let pubId;
     wx.request({
-      url: 'http://47.106.241.182:8080/myTask/listTaskPublishedByPageid/1',
+      url: 'http://47.106.241.182:8082/myTask/listTaskPublishedByPageid/1',
       method: 'GET',
       dataType: 'json',
       data: {
@@ -167,7 +167,7 @@ Page({
     let id;
     let pubId;
     wx.request({
-      url: 'http://47.106.241.182:8080/myTask/listTaskPublishedByPageid/1',
+      url: 'http://47.106.241.182:8082/myTask/listTaskPublishedByPageid/1',
       method: 'GET',
       dataType: 'json',
       data: {
@@ -293,7 +293,7 @@ Page({
     console.log("进行id为"+id+"的任务");
     let that = this;
     wx.request({
-      url: 'http://47.106.241.182:8080/myTask/conductTask',
+      url: 'http://47.106.241.182:8082/myTask/conductTask',
       method: 'POST',
       header: { 'content-type': 'application/x-www-form-urlencoded',
        'Cookie': session_id ,
@@ -322,7 +322,7 @@ Page({
     console.log("删除id为"+id+"的任务"); 
     let that = this;   
     wx.request({
-      url: 'http://47.106.241.182:8080/myTask/deleteTaskById/'+id,
+      url: 'http://47.106.241.182:8082/myTask/deleteTaskById/'+id,
       header: { 'content-type': 'application/json',
        'Cookie': session_id ,
        'token': app.globalData.token
@@ -349,7 +349,7 @@ Page({
     console.log("完成id为"+id+"的任务");   
     let that = this;   
     wx.request({
-      url: 'http://47.106.241.182:8080/myTask/finishTaskById/'+id,
+      url: 'http://47.106.241.182:8082/myTask/finishTaskById/'+id,
       header: { 'content-type': 'application/json',
        'Cookie': session_id ,
        'token': app.globalData.token
@@ -376,7 +376,7 @@ Page({
     console.log("取消id为"+id+"的任务");
     let that = this; 
     wx.request({
-      url: 'http://47.106.241.182:8080/myTask/cancelTaskById/'+id,
+      url: 'http://47.106.241.182:8082/myTask/cancelTaskById/'+id,
       header: { 'content-type': 'application/json',
        'Cookie': session_id ,
        'token': app.globalData.token

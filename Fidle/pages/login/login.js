@@ -98,7 +98,7 @@ Page({
             console.log('res.code='+res.code)
             //2 发起网络请求,获取token和用户信息
             wx.request({
-              url: 'http://47.106.241.182:8080/login/loginRequest',
+              url: 'http://47.106.241.182:8082/login/loginRequest',
               // url: 'https://baidu.com',
               method: 'POST',
               data:{code: res.code},
@@ -207,7 +207,7 @@ Page({
         console.log('token='+app.globalData.token)
         console.log("发起授权网络请求")
         wx.request({
-          url: 'http://47.106.241.182:8080/login/userAuth', 
+          url: 'http://47.106.241.182:8082/login/userAuth', 
           // url: 'https://baidu.com',
           method: 'POST',
           data: {
