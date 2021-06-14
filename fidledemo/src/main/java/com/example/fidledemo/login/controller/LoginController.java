@@ -10,10 +10,7 @@ import com.example.fidledemo.VO.PersonVO;
 import com.example.fidledemo.login.service.LoginService;
 import com.example.fidledemo.login.util.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.time.Period;

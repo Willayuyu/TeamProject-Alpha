@@ -335,8 +335,6 @@ public class AdminController {
             }
 
 
-            goodsInfoDO.setSold(GoodsInfoBO.SELLING);
-
             if(days!=0){
                 goodsInfoDO.setCreateTimeEnd(new Date());
                 goodsInfoDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
