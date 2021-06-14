@@ -1,7 +1,7 @@
 <template>
   <el-container style="height: 100%;" direction="vertical">
     <div>
-      <i class = "el-icon-back" />
+      <i class = "el-icon-back" @click="$router.back(-1)"/>
     </div>
     <el-main>
       <div class="activityMain">
@@ -70,7 +70,7 @@
             </div>
             <p class="details">简介：{{description}}</p>
             <div class="footer">
-              <el-button type="danger">删除</el-button>
+              <el-button type="danger" @click="deleteInfo">删除</el-button>
             </div>
           </div>
         </div>
@@ -81,6 +81,7 @@
 
 <script scoped>
 import axios from "axios";
+import { Message } from 'element-ui';
 
   export default {
     data() {
@@ -116,7 +117,8 @@ import axios from "axios";
 
     methods: {
       async getActivityInfo() {
-        await axios.get('/api/activity/getActivityDetailById/' + 89)
+        this.id = this.$route.params.id;
+        await axios.get('/api/activity/getActivityDetailById/' + this.id)
         .then( response => {
           console.log(response.data.data);
           this.category = response.data.data.category;
@@ -145,6 +147,21 @@ import axios from "axios";
           this.tel = response.data.data.tel;
           this.url = response.data.data.portrait;
           this.creditscore = response.data.data.credit.creditScore;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      },
+
+      deleteInfo(){
+        axios.get('/api/myActivity/deleteActivityById/' + this.id)
+        .then( response => {
+          console.log(response);
+          this.$message({
+            message: '删除成功！',
+            type: 'success'
+          });
+          this.$router.back(-1);
         })
         .catch(function (error) {
           console.log(error);

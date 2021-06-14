@@ -1,7 +1,7 @@
 <template>
   <el-container style="height: 100%;" direction="vertical">
     <div>
-      <i class = "el-icon-back" />
+      <i class = "el-icon-back" @click="$router.back(-1)"/>
     </div>
     <el-main>
       <div class="goodsmain">
@@ -75,7 +75,7 @@
                 <span class="state" v-if="state === 1">在售中</span>
                 <span class="state" v-if="state === 2">已售出</span>
               </div>
-              <el-button type="danger">删除</el-button>
+              <el-button type="danger" @click="deleteInfo">删除</el-button>
             </div>
           </div>
         </div>
@@ -86,6 +86,7 @@
 
 <script>
 import axios from "axios";
+import { Message } from 'element-ui';
 
   export default {
     data() {
@@ -113,6 +114,7 @@ import axios from "axios";
         pubId: 1,
         state: 2,
         title: '',
+        id: 1,
       }
     },
 
@@ -123,7 +125,8 @@ import axios from "axios";
 
     methods: {
       async getGoodsInfo() {
-        await axios.get('/api/goods/getGoodsDetailById/' + 89)
+        this.id = this.$route.params.id;
+        await axios.get('/api/goods/getGoodsDetailById/' + this.id)
         .then( response => {
           console.log(response.data.data);
           this.category = response.data.data.category;
@@ -154,6 +157,21 @@ import axios from "axios";
           this.tel = response.data.data.tel;
           this.url = response.data.data.portrait;
           this.creditscore = response.data.data.credit.creditScore;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      },
+
+      deleteInfo(){
+        axios.get('/api/myGoods/withdrawGoodsById/' + this.id)
+        .then( response => {
+          console.log(response);
+          this.$message({
+            message: '删除成功！',
+            type: 'success'
+          });
+          this.$router.back(-1);
         })
         .catch(function (error) {
           console.log(error);

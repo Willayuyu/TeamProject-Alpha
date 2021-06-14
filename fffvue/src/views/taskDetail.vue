@@ -1,7 +1,7 @@
 <template>
   <el-container style="height: 100%;" direction="vertical">
     <div>
-      <i class = "el-icon-back" />
+      <i class = "el-icon-back" @click="$router.back(-1)"/>
     </div>
     <el-main>
       <div class="taskmain">
@@ -69,7 +69,7 @@
                 <span class="state" v-else-if="state === 2">进行中</span>
                 <span class="state" v-else-if="state === 3">已完成</span>
               </div>
-              <el-button type="danger">删除</el-button>
+              <el-button type="danger" @click="deleteInfo">删除</el-button>
             </div>
           </div>
         </div>
@@ -80,6 +80,7 @@
 
 <script>
 import axios from "axios";
+import { Message } from 'element-ui';
 
   export default {
     data() {
@@ -110,7 +111,8 @@ import axios from "axios";
 
     methods: {
       async getTaskInfo() {
-        await axios.get('/api/task/getTaskDetailById/69')
+        this.id = this.$route.params.id;
+        await axios.get('/api/task/getTaskDetailById/' + this.id)
         .then( response => {
           console.log(response.data.data);
           this.category = response.data.data.category;
@@ -139,6 +141,21 @@ import axios from "axios";
           this.tel = response.data.data.tel;
           this.url = response.data.data.portrait;
           this.creditscore = response.data.data.credit.creditScore;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      },
+
+      deleteInfo(){
+        axios.get('/api/myTask/deleteTaskById/' + this.id)
+        .then( response => {
+          console.log(response);
+          this.$message({
+            message: '删除成功！',
+            type: 'success'
+          });
+          this.$router.back(-1);
         })
         .catch(function (error) {
           console.log(error);
