@@ -18,9 +18,9 @@ Page({
         goods_label_list: [],
         goods_old_new_list_idx: 0,
         goods_class_list_idx: 0,
-        goods_uploadUrl: "http://47.106.241.182:8080/publish/uploadGoodsImage",
-        goods_deleteUrl: "http://47.106.241.182:8080/publish/deleteGoodsImage/",
-        goods_releaseUrl: "http://47.106.241.182:8080/publish/goods",
+        goods_uploadUrl: "http://47.106.241.182:8082/publish/uploadGoodsImage",
+        goods_deleteUrl: "http://47.106.241.182:8082/publish/deleteGoodsImage/",
+        goods_releaseUrl: "http://47.106.241.182:8082/publish/goods",
 
 
         task_title: "",
@@ -30,8 +30,8 @@ Page({
         task_class_list: [{ categoryId: "", categoryDesignation: "" }],
         task_label_list: [],
         task_class_list_idx: 0,
-        task_classListUrl: "http://47.106.241.182:8080/task/listTaskCategory",
-        task_releaseUrl: "http://47.106.241.182:8080/publish/task",
+        task_classListUrl: "http://47.106.241.182:8082/task/listTaskCategory",
+        task_releaseUrl: "http://47.106.241.182:8082/publish/task",
 
         isPickerRender: false,
         isPickerShow: false,
@@ -55,9 +55,9 @@ Page({
         activity_class_list: [{ categoryId: "", categoryDesignation: "" }],
         activity_label_list: [],
         activity_class_list_idx: 0,
-        activity_uploadUrl: "http://47.106.241.182:8080/publish/uploadActivityImage",
-        activity_deleteUrl: "http://47.106.241.182:8080/publish/deleteActivityImage/",
-        activity_releaseUrl: "http://47.106.241.182:8080/publish/activity",
+        activity_uploadUrl: "http://47.106.241.182:8082/publish/uploadActivityImage",
+        activity_deleteUrl: "http://47.106.241.182:8082/publish/deleteActivityImage/",
+        activity_releaseUrl: "http://47.106.241.182:8082/publish/activity",
 
     },
 
@@ -445,7 +445,7 @@ Page({
     getGoodsClassList() {
         let that = this;
         wx.request({
-            url: "http://47.106.241.182:8080/goods/listGoodsCategory", //这里''里面填写你的服务器API接口的路径  
+            url: "http://47.106.241.182:8082/goods/listGoodsCategory", //这里''里面填写你的服务器API接口的路径  
             //data: {},  //这里是可以填写服务器需要的参数  
             method: 'GET', // 声明GET请求  
             header: {
@@ -980,7 +980,7 @@ Page({
         let that = this;
 
         wx.request({
-            url: "http://47.106.241.182:8080/activity/listActivityCategory", //这里''里面填写你的服务器API接口的路径  
+            url: "http://47.106.241.182:8082/activity/listActivityCategory", //这里''里面填写你的服务器API接口的路径  
             //data: {},  //这里是可以填写服务器需要的参数  
             method: 'GET', // 声明GET请求  
             header: {
