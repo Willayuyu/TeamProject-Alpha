@@ -215,6 +215,8 @@
 //局部引用组件
 // import sideBar from "./";
 
+import axios from "axios";
+
 export default {
   name: "homePage",
   data() {
@@ -242,14 +244,14 @@ export default {
   },
   mounted() {
     this.getMap();
+    this.init();
   },
 
   methods: {
     getMap() {
       let myChart = this.$echarts.init(document.getElementById('map'))
       let option = {
-        title: {
-        },
+        title: {},
         tooltip: {
           trigger: 'axis'
         },
@@ -270,7 +272,7 @@ export default {
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日','周一', '周二', '周三', '周四', '周五', '周六', '周日','周一', '周二', '周三', '周四', '周五', '周六', '周日','周一', '周二', '周三', '周四', '周五', '周六', '周日']
+          data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日', '周一', '周二', '周三', '周四', '周五', '周六', '周日', '周一', '周二', '周三', '周四', '周五', '周六', '周日', '周一', '周二', '周三', '周四', '周五', '周六', '周日']
         },
         yAxis: {
           type: 'value'
@@ -280,7 +282,7 @@ export default {
             name: '二手物品',
             type: 'line',
             stack: '总量',
-            data: [120, 132, 101, 134, 90, 230, 210,120, 132, 101, 134, 90, 230, 210,120, 132, 101, 134, 90, 230, 210,120, 132, 101, 134, 90, 230, 210]
+            data: [120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90, 230, 210]
           },
           {
             name: '任务委托',
@@ -297,9 +299,39 @@ export default {
         ]
       }
       myChart.setOption(option)
-    }
-  },
+    },
 
+    init() {
+      axios
+          .get('http://47.106.241.182:8082/admin/totalUsersNum')
+          .then(response => (this.usersNumber = response.data.data))
+
+      axios
+          .get('http://47.106.241.182:8082/admin/totalGoodsNum')
+          .then(response => (this.goodNumber = response.data.data))
+
+      axios
+          .get('http://47.106.241.182:8082/admin/totalTasksNum')
+          .then(response => (this.taskNumber = response.data.data))
+
+      axios
+          .get('http://47.106.241.182:8082/admin/totalActivitiesNum')
+          .then(response => (this.activityNumber = response.data.data))
+
+      axios
+          .get('http://47.106.241.182:8082/admin/goodsReportNum')
+          .then(response => (this.goodReport = response.data.data))
+
+      axios
+          .get('http://47.106.241.182:8082/admin/tasksReportNum')
+          .then(response => (this.taskReport = response.data.data))
+
+      axios
+          .get('http://47.106.241.182:8082/admin/activitiesReportNum')
+          .then(response => (this.activityReport = response.data.data))
+
+    }
+  }
 }
 </script>
 
