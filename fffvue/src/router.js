@@ -10,6 +10,7 @@ import PageGoods from './views/PageGoods.vue'
 import PageHome from './views/PageHome.vue'
 import PageTask from './views/PageTask.vue'
 import Login from './views/Login.vue'
+import goodsReport from './views/goodsReport.vue'
 
 
 
@@ -50,6 +51,11 @@ export default new Router({
       path: '/activityList',
       name: 'activityList',
       component: activityList
+    },
+    {
+      path: '/goodsReport',
+      name: 'goodsReport',
+      component: goodsReport
     },
     {
       path: '/about',

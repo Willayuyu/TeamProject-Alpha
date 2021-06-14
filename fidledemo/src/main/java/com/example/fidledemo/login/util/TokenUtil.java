@@ -21,7 +21,7 @@ public class TokenUtil
 
     public static String getToken(AdminBO admin)
     {
-        return JWT.create().withAudience(String.valueOf(admin.getId()))
+        return JWT.create().withAudience(String.valueOf(admin.getId()+10000))
                 .sign(Algorithm.HMAC256(admin.getAccount()));
     }
 }

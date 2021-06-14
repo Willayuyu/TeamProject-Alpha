@@ -10,9 +10,9 @@
           <el-select v-model="category" size="small">
             <el-option
                 v-for="item in categoryList"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
+                :key="item.categoryId"
+                :label="item.categoryDesignation"
+                :value="item.categoryId">
             </el-option>
           </el-select>
         </el-form-item>
@@ -68,7 +68,7 @@
 
 <script>
 import axios from "axios";
-
+import qs from "qs";
 
 export default {
   data () {
@@ -78,19 +78,7 @@ export default {
       input: '',
       category: '类别',
       categoryList: [
-        {
-          value: '0',
-          label: '类别'
-        }, {
-          value: '1',
-          label: '衣服'
-        }, {
-          value: '2',
-          label: '生活用品'
-        }, {
-          value: '3',
-          label: '球鞋'
-        }
+        { categoryDesignation: "衣服", categoryId: 1 },
       ],
       secTime: '发布时间',
       secTimeList: [
@@ -139,49 +127,7 @@ export default {
                 "totalNum":53,
                 "totalPage":7
             }
-      },
-        {
-          "category":"鞋子",
-          "collectState":0,
-          "condition":1,
-          "id":2,
-          "imageLink":"13213",
-          "originalPrice":6,
-          "price":4,
-          "sellerId":1,
-          "announcer":"zzzzcx",
-          "gmt_create":"2020-1-22",
-          "tagList":
-              [
-                {
-                  "content":"hhhhh",
-                  "id":1
-                }
-              ],
-          "title":"hhh",
-          "releaseTime":"2021.06.12"
-        },
-        {
-          "category":"鞋子",
-          "collectState":0,
-          "condition":1,
-          "id":3,
-          "imageLink":"13213",
-          "originalPrice":6,
-          "price":4,
-          "sellerId":1,
-          "announcer":"zzzzcx",
-          "gmt_create":"2020-1-22",
-          "tagList":
-              [
-                {
-                  "content":"hhhhh",
-                  "id":1
-                }
-              ],
-          "title":"hhh",
-          "releaseTime":"2021.06.12"
-        }],//二手物品列表
+      }],//二手物品列表
     }
   },
   methods: {
@@ -195,39 +141,44 @@ export default {
         days = 0;
       else
         days = this.secTime;
-      axios.get("/api/goods/listGoodsCategory").then(res => {
-        console.log(res);
-      })
       axios.post("/api/admin/listGoodsByKeyword",
-          {
+          qs.stringify({
             days: days,
             categoryId: categoryId,
             keyWord: this.input,
             pageid: this.currentPage
-          },
+          }),
       ).then(res => {
-        console.log(res.data)
-        this.goodsList = res.data;
-        this.currentPage = res.data[0].pageInfo.currentPage;
-        this.totalNum = res.data[0].pageInfo.totalNum;
+        this.goodsList = res.data.data;
+        this.currentPage = res.data.data[0].pageInfo.currentPage;
+        this.totalNum = res.data.data[0].pageInfo.totalNum;
       })
-      console.log(this.input);
-      console.log(categoryId);
-      console.log(days);
     },//搜索
 
     viewDetail(index,row) {
       console.log(row.id);
+      this.$router.push({name: "goodsDetail", params: {'id': row.id}})
     },//查看详情
 
     handleDelete(index,row) {
-      console.log(row.id);
+      let url = "/api/myGoods/withdrawGoodsById/" + row.id;
+      axios.get(url);
+      console.log("删除" + row.id);
     },//删除
 
     handleCurrentChange(val) {
       this.currentPage = val;
+      this.search();
     },//改变页面
-  }
+  },
+  beforeMount:function () {
+    axios.get("/api/goods/listGoodsCategory").then(res => {
+      console.log(res);
+      this.categoryList = res.data.data;
+    })
+    this.search();
+  },
+
 }
 </script>
 
