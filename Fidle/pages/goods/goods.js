@@ -167,8 +167,8 @@ Page({
     console.log(wx.getStorageSync('sessionid')),
     console.log(app.globalData.token),
     wx.request({
-      //url: 'http://47.106.241.182:8080/myGoods/listGoodsOnSaleByPageid/' + pageid,
-      url: 'http://120.77.210.142:8080/myGoods/listGoodsOnSaleByPageid/' + pageid,
+      url: 'http://47.106.241.182:8082/myGoods/listGoodsOnSaleByPageid/' + pageid,
+      // url: 'http://120.77.210.142:8080/myGoods/listGoodsOnSaleByPageid/' + pageid,
       header: {
         'content-type': 'application/json',
         'Cookie': wx.getStorageSync('sessionid'),
@@ -223,8 +223,8 @@ Page({
   showSold(pageid) {
     let that = this;     
     wx.request({
-      //url: 'http://47.106.241.182:8080/myGoods/listGoodsSoldByPageid/' + pageid,
-      url: 'http://120.77.210.142:8080/myGoods/listGoodsSoldByPageid/' + pageid,
+      url: 'http://47.106.241.182:8082/myGoods/listGoodsSoldByPageid/' + pageid,
+      // url: 'http://120.77.210.142:8080/myGoods/listGoodsSoldByPageid/' + pageid,
       header: {
         'content-type': 'application/json',
         'Cookie': wx.getStorageSync('sessionid'),
@@ -278,8 +278,8 @@ Page({
   showBuy(pageid) {
     let that = this;     
     wx.request({
-      //url: 'http://47.106.241.182:8080/myGoods/listGoodsBuyingByPageid/' + pageid,
-      url: 'http://120.77.210.142:8080/myGoods/listGoodsBuyingByPageid/' + pageid,
+      url: 'http://47.106.241.182:8082/myGoods/listGoodsBuyingByPageid/' + pageid,
+      // url: 'http://120.77.210.142:8080/myGoods/listGoodsBuyingByPageid/' + pageid,
       header: {
         'content-type': 'application/json',
         'Cookie': wx.getStorageSync('sessionid'),
@@ -389,19 +389,30 @@ Page({
     console.log(goodsData);
     let id = goodsData.id;
     console.log(id);
-    wx.request({
-      url: 'http://47.106.241.182:8080/myGoods/withdrawGoodsById/' + id,
-      method: 'GET',
-      dataType: 'json',
-      header: {
-        'content-type': 'application/json',
-        'Cookie': wx.getStorageSync('sessionid'),
-        'token': app.globalData.token
-      },
-      success(res) {
-        console.log(res.data);
-        console.log("下架物品");
-        that.onShow();
+    wx.showModal({
+      title: '提示',
+      content: '您确定要下架该商品吗',
+      success: function (res) {
+        if (res.confirm) {//这里是点击了确定以后
+          console.log('用户点击确定')
+          wx.request({
+            url: 'http://47.106.241.182:8082/myGoods/withdrawGoodsById/' + id,
+            method: 'GET',
+            dataType: 'json',
+            header: {
+              'content-type': 'application/json',
+              'Cookie': wx.getStorageSync('sessionid'),
+              'token': app.globalData.token
+            },
+            success(res) {
+              console.log(res.data);
+              console.log("下架物品");
+              that.onShow();
+            }
+          })
+        } else {//这里是点击了取消以后 
+          console.log('用户点击取消')
+        }
       }
     })
   },
