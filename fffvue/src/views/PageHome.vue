@@ -10,92 +10,97 @@
               </el-header>
               <el-main>
                 <el-row>
-                  <el-col :span="6">
-                    <div id="user" class="boxes user">
-                      <el-container>
-                        <el-main class="box">
-                          <el-row>
-                            <el-col :span="9">
-                              <div class="image">
-                                <img src="../assets/users.png">
-                              </div>
-                            </el-col>
-                            <el-col :span="15">
-                              <div>
-                                <h3>用户数</h3>
-                                <h3>{{usersNumber}}</h3>
-                              </div>
-                            </el-col>
-                          </el-row>
-                        </el-main>
-                      </el-container>
-                    </div>
-                  </el-col>
-                  <el-col :span="6">
 
-                    <div id="good" class="boxes good">
-                      <el-container>
-                        <el-main class="box">
-                          <el-row>
-                            <el-col :span="9">
-                              <div class="image">
-                                <img src="../assets/shoppingCard.png">
-                              </div>
-                            </el-col>
-                            <el-col :span="15">
-                              <div>
-                                <h3>二手物品数</h3>
-                                <h3>{{goodNumber}}</h3>
-                              </div>
-                            </el-col>
-                          </el-row>
-                        </el-main>
-                      </el-container>
-                    </div>
-
-                  </el-col>
-                  <el-col :span="6">
-                    <div id="task" class="boxes task">
-                      <el-container>
-                        <el-main class="box">
-                          <el-row>
-                            <el-col :span="9">
-                              <div class="image">
-                                <img src="../assets/work.png">
-                              </div>
-                            </el-col>
-                            <el-col :span="15">
-                              <div>
-                                <h3>任务数</h3>
-                                <h3>{{taskNumber}}</h3>
-                              </div>
-                            </el-col>
-                          </el-row>
-                        </el-main>
-                      </el-container>
-                    </div>
-                  </el-col>
-                  <el-col :span="6">
-                    <div id="activity" class="boxes activity">
-                      <el-container>
-                        <el-main class="box">
-                          <el-row>
-                            <el-col :span="9">
-                              <div class="image">
-                                <img src="../assets/notification.png">
-                              </div>
-                            </el-col>
-                            <el-col :span="15">
-                              <div>
-                                <h3>活动数</h3>
-                                <h3>{{activityNumber}}</h3>
-                              </div>
-                            </el-col>
-                          </el-row>
-                        </el-main>
-                      </el-container>
-                    </div>
-                  </el-col>
+                    <el-col :span="6">
+                      <div id="user" class="boxes user">
+                        <el-container>
+                          <el-main class="box">
+                            <el-row>
+                              <el-col :span="9">
+                                <div class="image">
+                                  <img src="../assets/users.png">
+                                </div>
+                              </el-col>
+                              <el-col :span="15">
+                                <div>
+                                  <h3>用户数</h3>
+                                  <h3>{{usersNumber}}</h3>
+                                </div>
+                              </el-col>
+                            </el-row>
+                          </el-main>
+                        </el-container>
+                      </div>
+                    </el-col>
+                  <router-link to="goods">
+                    <el-col :span="6">
+                      <div id="good" class="boxes good">
+                        <el-container>
+                          <el-main class="box">
+                            <el-row>
+                              <el-col :span="9">
+                                <div class="image">
+                                  <img src="../assets/shoppingCard.png">
+                                </div>
+                              </el-col>
+                              <el-col :span="15">
+                                <div>
+                                  <h3>二手物品数</h3>
+                                  <h3>{{goodNumber}}</h3>
+                                </div>
+                              </el-col>
+                            </el-row>
+                          </el-main>
+                        </el-container>
+                      </div>
+                    </el-col>
+                  </router-link>
+                  <router-link to="task">
+                    <el-col :span="6">
+                      <div id="task" class="boxes task">
+                        <el-container>
+                          <el-main class="box">
+                            <el-row>
+                              <el-col :span="9">
+                                <div class="image">
+                                  <img src="../assets/work.png">
+                                </div>
+                              </el-col>
+                              <el-col :span="15">
+                                <div>
+                                  <h3>任务数</h3>
+                                  <h3>{{taskNumber}}</h3>
+                                </div>
+                              </el-col>
+                            </el-row>
+                          </el-main>
+                        </el-container>
+                      </div>
+                    </el-col>
+                  </router-link>
+                  <router-link to="activity">
+                    <el-col :span="6">
+                      <div id="activity" class="boxes activity">
+                        <el-container>
+                          <el-main class="box">
+                            <el-row>
+                              <el-col :span="9">
+                                <div class="image">
+                                  <img src="../assets/notification.png">
+                                </div>
+                              </el-col>
+                              <el-col :span="15">
+                                <div>
+                                  <h3>活动数</h3>
+                                  <h3>{{activityNumber}}</h3>
+                                </div>
+                              </el-col>
+                            </el-row>
+                          </el-main>
+                        </el-container>
+                      </div>
+                    </el-col>
+                  </router-link>
                 </el-row>
               </el-main>
             </el-container>
@@ -109,7 +114,7 @@
               <el-main>
                 <el-row>
                   <el-col :span="5" :offset="1">
-                    <router-link to="goods">
+                    <router-link to="goodsReport">
                       <div id="goodReport">
                         <el-container>
                           <el-main class="box report">
@@ -132,7 +137,7 @@
                     </router-link>
                   </el-col>
                   <el-col :span="5" :offset="3">
-                    <router-link to="task">
+                    <router-link to="taskReport">
                       <div id="taskReport">
                         <el-container>
                           <el-main class="box report">
@@ -155,7 +160,7 @@
                     </router-link>
                   </el-col>
                   <el-col :span="5" :offset="3">
-                    <router-link to="activity">
+                    <router-link to="activityReport">
                       <div id="activityReport">
                         <el-container>
                           <el-main class="box report">
@@ -287,7 +292,7 @@ export default {
           {
             name: '二手物品',
             type: 'line',
-            
+
             data: this.goodData,
             smooth:true
           },
