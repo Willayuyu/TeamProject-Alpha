@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import goodsDetail from './views/goodsDetail.vue'
+import activityDetail from './views/activityDetail.vue'
 import taskDetail from './views/taskDetail.vue'
 import goodsList from "./views/goodsList.vue";
 import taskList from "./views/taskList.vue";
@@ -38,6 +39,11 @@ export default new Router({
       path: '/taskDetail',
       name: 'taskDetail',
       component: taskDetail
+    },
+    {
+      path: '/activityDetail',
+      name: 'activityDetail',
+      component: activityDetail
     },
     {
       path: '/goodsList',

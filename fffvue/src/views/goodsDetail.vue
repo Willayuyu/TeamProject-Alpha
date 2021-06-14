@@ -34,7 +34,7 @@
             <el-carousel height="300px" arrow="never">
               <el-carousel-item v-for="item in picList" :key="item">
                 <el-image
-                  style="width: 100%"
+                  style="height: 100%"
                   v-bind:src="item"
                   :preview-src-list="picList">
                 </el-image>
@@ -62,7 +62,10 @@
             <div class="tags">
               <span>新旧：</span>
               <i class="el-icon-price-tag"></i>
-              <el-tag type="info">{{condition}}</el-tag>
+              <el-tag type="info" v-if="condition === 1">全新</el-tag>
+              <el-tag type="info" v-else-if="condition === 2">九成新</el-tag>
+              <el-tag type="info" v-else-if="condition === 3">八成新</el-tag>
+              <el-tag type="info" v-else-if="condition === 4">八成以下</el-tag>
             </div>
             <p class="details">简介：{{description}}</p>
             <div class="footer">
@@ -81,7 +84,7 @@
   </el-container>
 </template>
 
-<script scoped>
+<script>
 import axios from "axios";
 
   export default {
@@ -149,6 +152,7 @@ import axios from "axios";
           this.username = response.data.data.username;
           this.qq = response.data.data.qq;
           this.tel = response.data.data.tel;
+          this.url = response.data.data.portrait;
           this.creditscore = response.data.data.credit.creditScore;
         })
         .catch(function (error) {
@@ -159,7 +163,7 @@ import axios from "axios";
   }
 </script>
 
-<style>
+<style scoped>
   .el-icon-back{
     margin-left: 20px;
     padding: 20px;
@@ -233,6 +237,7 @@ import axios from "axios";
     margin-left: 40px;
   }
   .goodsImage{
+    text-align: center;
     background-color: #EFF3F3;
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
@@ -272,11 +277,11 @@ import axios from "axios";
     text-decoration: line-through;
   }
   .details{
-    margin-top: 15px;
+    margin-top: 20px;
     font-size: 16px;
   }
   .tags{
-    margin-top: 20px;
+    margin-top: 15px;
     font-size: 16px;
     vertical-align: middle;
     display: flex;
@@ -302,7 +307,7 @@ import axios from "axios";
     line-height: 23px;
   }
   .leftFooter i{
-    font-size: 30px;
+    font-size: 35px;
     margin-right: 8px;
   }
 </style>
