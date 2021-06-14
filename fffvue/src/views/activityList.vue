@@ -10,9 +10,9 @@
           <el-select v-model="category" size="small">
             <el-option
                 v-for="item in categoryList"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
+                :key="item.categoryId"
+                :label="item.categoryDesignation"
+                :value="item.categoryId">
             </el-option>
           </el-select>
         </el-form-item>
@@ -67,6 +67,9 @@
 </template>
 
 <script>
+import axios from "axios";
+import qs from "qs";
+
 export default {
   data () {
     return {
@@ -75,19 +78,7 @@ export default {
       input: '',
       category: '类别',
       categoryList: [
-        {
-          value: '0',
-          label: '类别'
-        }, {
-          value: '1',
-          label: '衣服'
-        }, {
-          value: '2',
-          label: '生活用品'
-        }, {
-          value: '3',
-          label: '球鞋'
-        }
+
       ],
       secTime: '发布时间',
       secTimeList: [
@@ -143,23 +134,52 @@ export default {
   },
   methods: {
     search() {
-      console.log(this.input);
-      console.log(this.category);
-      console.log(this.secTime);
+      let categoryId,days;
+      if(this.category === "类别")
+        categoryId = 0;
+      else
+        categoryId = this.category;
+      if(this.secTime === "发布时间")
+        days = 0;
+      else
+        days = this.secTime;
+      axios.post("/api/admin/listActivityByKeyword",
+          qs.stringify({
+            days: days,
+            categoryId: categoryId,
+            keyWord: this.input,
+            pageid: this.currentPage
+          }),
+      ).then(res => {
+        this.activityList = res.data.data;
+        this.currentPage = res.data.data[0].pageInfo.currentPage;
+        this.totalNum = res.data.data[0].pageInfo.totalNum;
+      })
     },//搜索
 
     viewDetail(index,row) {
       console.log(row.id);
+      this.$router.push({name: "activityDetail", params: {'id': row.id}})
     },//查看详情
 
     handleDelete(index,row) {
-      console.log(row.id);
+      let url = "/api/myActivity/deleteActivityById/" + row.id;
+      axios.get(url);
+      console.log("删除" + row.id);
     },//删除
 
     handleCurrentChange(val) {
-
+      this.currentPage = val;
+      this.search();
     },//改变页面
-  }
+  },
+  beforeMount:function () {
+    axios.get("/api/activity/listActivityCategory").then(res => {
+      console.log(res);
+      this.categoryList = res.data.data;
+    })
+    this.search();
+  },
 }
 </script>
 
