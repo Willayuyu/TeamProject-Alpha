@@ -287,21 +287,21 @@ export default {
           {
             name: '二手物品',
             type: 'line',
-            stack: '总量',
+            
             data: this.goodData,
             smooth:true
           },
           {
             name: '任务委托',
             type: 'line',
-            stack: '总量',
+
             data: this.taskData,
             smooth:true
           },
           {
             name: '活动信息',
             type: 'line',
-            stack: '总量',
+
             data: this.activityData,
             smooth:true
           },
@@ -391,7 +391,7 @@ export default {
     getReleaseNum(list){
       let temp = [];
       for(let i = 0; i < list.length; i++){
-        temp.push(list[i].releaseNum);
+        temp.push(parseInt(list[i].releaseNum));
       }
 
       return temp;
