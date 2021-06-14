@@ -222,8 +222,8 @@ Page({
     console.log(session_id); 
     let that = this;     
     wx.request({
-      //url: 'http://47.106.241.182:8080/myTask/listTaskPublishedByPageid/'+ pageid,
-      url: 'http://120.77.210.142:8080/myTask/listTaskPublishedByPageid/'+ pageid,
+      url: 'http://47.106.241.182:8082/myTask/listTaskPublishedByPageid/'+ pageid,
+      // url: 'http://120.77.210.142:8080/myTask/listTaskPublishedByPageid/'+ pageid,
       header: { 'content-type': 'application/json',
        'Cookie': session_id ,
        'token': app.globalData.token
@@ -255,8 +255,8 @@ Page({
     console.log(session_id);  
     let that = this;        
     wx.request({
-      //url: 'http://47.106.241.182:8080/myTask/listTaskAcceptedByPageid/' + pageid,
-      url: 'http://120.77.210.142:8080/myTask/listTaskAcceptedByPageid/' + pageid,
+      url: 'http://47.106.241.182:8082/myTask/listTaskAcceptedByPageid/' + pageid,
+      // url: 'http://120.77.210.142:8080/myTask/listTaskAcceptedByPageid/' + pageid,
       header: { 'content-type': 'application/json',
        'Cookie': session_id ,
        'token': app.globalData.token
@@ -321,18 +321,29 @@ Page({
     console.log(session_id);   
     console.log("删除id为"+id+"的任务"); 
     let that = this;   
-    wx.request({
-      url: 'http://47.106.241.182:8082/myTask/deleteTaskById/'+id,
-      header: { 'content-type': 'application/json',
-       'Cookie': session_id ,
-       'token': app.globalData.token
-      },
-      success(res){
-        if(res.data.code==200) {
-          console.log("删除任务");
-          console.log(res.data);
-          // that.getPublishedTaskList();
-          that.onLoad();
+    wx.showModal({
+      title: '提示',
+      content: '您确定要删除该任务吗?',
+      success: function (res) {
+        if (res.confirm) {//这里是点击了确定以后
+          console.log('用户点击确定')
+          wx.request({
+            url: 'http://47.106.241.182:8082/myTask/deleteTaskById/'+id,
+            header: { 'content-type': 'application/json',
+             'Cookie': session_id ,
+             'token': app.globalData.token
+            },
+            success(res){
+              if(res.data.code==200) {
+                console.log("删除任务");
+                console.log(res.data);
+                // that.getPublishedTaskList();
+                that.onLoad();
+              }
+            }
+          })
+        } else {//这里是点击了取消以后
+          console.log('用户点击取消')
         }
       }
     })
