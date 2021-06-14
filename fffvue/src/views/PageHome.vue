@@ -188,7 +188,7 @@
                 <el-row>
                   <el-col :span="12" :offset="6">发布量趋势图</el-col>
                   <el-col :span="6">
-                    <el-select v-model="value" placeholder="请选择">
+                    <el-select v-model="value" placeholder="请选择" @change="selectTrigger(value)">
                       <el-option
                           v-for="item in options"
                           :key="item.value"
@@ -200,7 +200,7 @@
                 </el-row>
               </el-header>
               <el-main class="trendChart">
-                <div id="map" style="width: 100%;height:326px;"></div>
+                <div id="chart" style="width: 100%;height:326px;"></div>
               </el-main>
             </el-container>
           </div>
@@ -216,6 +216,7 @@
 // import sideBar from "./";
 
 import axios from "axios";
+import qs from "qs";
 
 export default {
   name: "homePage",
@@ -231,7 +232,7 @@ export default {
         value: '选项3',
         label: '近三个月'
       }],
-      value: '',
+      value: '选项1',
       usersNumber: 200,
       goodNumber: 350,
       taskNumber: 500,
@@ -239,17 +240,22 @@ export default {
       goodReport: 350,
       taskReport: 500,
       activityReport: 400,
+      date: [],
+      goodData: [],
+      taskData: [],
+      activityData: []
 
     }
   },
   mounted() {
-    this.getMap();
+
     this.init();
+    this.changeChart(7);
   },
 
   methods: {
-    getMap() {
-      let myChart = this.$echarts.init(document.getElementById('map'))
+    getChart() {
+      let myChart = this.$echarts.init(document.getElementById('chart'))
       let option = {
         title: {},
         tooltip: {
@@ -272,7 +278,7 @@ export default {
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日', '周一', '周二', '周三', '周四', '周五', '周六', '周日', '周一', '周二', '周三', '周四', '周五', '周六', '周日', '周一', '周二', '周三', '周四', '周五', '周六', '周日']
+          data: this.date
         },
         yAxis: {
           type: 'value'
@@ -282,19 +288,22 @@ export default {
             name: '二手物品',
             type: 'line',
             stack: '总量',
-            data: [120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90, 230, 210]
+            data: this.goodData,
+            smooth:true
           },
           {
             name: '任务委托',
             type: 'line',
             stack: '总量',
-            data: [220, 182, 191, 234, 290, 330, 310]
+            data: this.taskData,
+            smooth:true
           },
           {
             name: '活动信息',
             type: 'line',
             stack: '总量',
-            data: [150, 232, 201, 154, 190, 330, 410]
+            data: this.activityData,
+            smooth:true
           },
         ]
       }
@@ -330,6 +339,66 @@ export default {
           .get('http://47.106.241.182:8082/admin/activitiesReportNum')
           .then(response => (this.activityReport = response.data.data))
 
+    },
+
+    selectTrigger(value){
+      let i = 7;
+
+      if(value==this.options[0].value)
+        i = 7;
+      else if(value==this.options[1].value)
+        i = 30;
+      else if(value==this.options[2].value)
+        i = 90;
+
+      this.changeChart(i);
+    },
+
+    getX(list){
+      this.date = [];
+      for(let i = 0; i < list.length; i++){
+        this.date.push(this.dealStr(list[i].endTime));
+      }
+    },
+
+    changeChart(value) {
+      console.log(value);
+      let that = this;
+      axios.post('http://47.106.241.182:8082/admin/releaseNumTrend',
+          qs.stringify({
+          dayNum: value
+      }))
+      .then(function (response) {
+        let goodsReleaseList = response.data.data.goodsReleaseList;
+        let tasksReleaseList = response.data.data.tasksReleaseList;
+        let activitiesReleaseList = response.data.data.activitiesReleaseList;
+        that.getX(goodsReleaseList);
+        that.goodData = that.getReleaseNum(goodsReleaseList);
+        that.taskData = that.getReleaseNum(tasksReleaseList);
+        that.activityData = that.getReleaseNum(activitiesReleaseList);
+        // console.log(goodsReleaseList);
+        that.getChart();
+        // console.log(that.goodData);
+        // console.log(that.date);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+
+    },
+
+    getReleaseNum(list){
+      let temp = [];
+      for(let i = 0; i < list.length; i++){
+        temp.push(list[i].releaseNum);
+      }
+
+      return temp;
+    },
+    dealStr(value){
+      let array = value.split('-');
+      return array[1] + '.' + array[2];
     }
   }
 }
