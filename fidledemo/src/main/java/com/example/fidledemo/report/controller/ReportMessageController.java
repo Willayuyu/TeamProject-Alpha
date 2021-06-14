@@ -4,22 +4,21 @@ import com.alibaba.fastjson.JSON;
 import com.example.fidledemo.BO.Result;
 import com.example.fidledemo.BO.UserBO;
 import com.example.fidledemo.BO.UserLoginToken;
-import com.example.fidledemo.report.service.ReportServiceImpl;
+import com.example.fidledemo.report.service.ReportMessageServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
- * @author zyf
+ * @author cxx
  */
 @RestController
-public class ReportController {
+public class ReportMessageController {
     @Autowired
-    ReportServiceImpl reportService;
+    ReportMessageServiceImpl reportService;
 
     @PostMapping("/goods/reportGoods")
     @UserLoginToken

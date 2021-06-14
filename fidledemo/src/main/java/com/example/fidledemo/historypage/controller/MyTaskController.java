@@ -91,8 +91,9 @@ public class MyTaskController {
      */
     @GetMapping("/finishTaskById/{Id}")
     @UserLoginToken
-    public String finishTask(@PathVariable("Id") Long id){
-        myTaskService.finishTaskById(id);
+    public String finishTask(@PathVariable("Id") Long id,HttpSession session){
+        UserBO user = (UserBO) session.getAttribute("user");
+        myTaskService.finishTaskById(id,user.getId());
         return JSON.toJSONString(Result.successResult());
     }
 

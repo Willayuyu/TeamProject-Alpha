@@ -9,6 +9,7 @@ import com.example.fidledemo.VO.GoodsTagVO;
 import com.example.fidledemo.VO.MyGoodsVO;
 import com.example.fidledemo.dao.*;
 import com.example.fidledemo.historypage.utils.PageHelper;
+import com.example.fidledemo.historypage.utils.ScoreUtil;
 import com.example.fidledemo.historypage.utils.SortVOList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,6 +42,9 @@ public class MyGoodsServiceImpl implements MyGoodsService{
 
     @Autowired
     GoodsImageDAO goodsImageDAO;
+
+    @Autowired
+    ScoreUtil scoreUtil;
 
 
     @Override
@@ -252,7 +256,8 @@ public class MyGoodsServiceImpl implements MyGoodsService{
         goodsInfoDO.setSold(2);
         goodsInfoDAO.updateGoodsInfo(goodsInfoDO);
 
-
+        //信用分处理
+        scoreUtil.score(sellerId,1);
     }
 
     @Override
@@ -316,6 +321,7 @@ public class MyGoodsServiceImpl implements MyGoodsService{
         goodsIndentDO.setSellerId(evaluatorId);
         List<GoodsIndentBO> list2 = goodsIndentDAO.listGoodsIndentByDO(goodsIndentDO);
         Long intentId = list2.get(0).getId();
+        Long buyerId = list2.get(0).getAccId();
         //插入评价
         GoodsEvaluationDO goodsEvaluationDO = new GoodsEvaluationDO();
         goodsEvaluationDO.setEvaluation(evaluation);
@@ -335,6 +341,9 @@ public class MyGoodsServiceImpl implements MyGoodsService{
         goodsIndentDO.setSellerEvaluated(1);
         goodsIndentDAO.updateGoodsIndent(goodsIndentDO);
 
+        //信用分处理
+        scoreUtil.score(buyerId,evaluation.intValue());
+
     }
 
     @Override
@@ -346,6 +355,7 @@ public class MyGoodsServiceImpl implements MyGoodsService{
         goodsIndentDO.setBuyerId(evaluatorId);
         List<GoodsIndentBO> list2 = goodsIndentDAO.listGoodsIndentByDO(goodsIndentDO);
         Long intentId = list2.get(0).getId();
+        Long sellerId = list2.get(0).getPubId();
         //插入评价
         GoodsEvaluationDO goodsEvaluationDO = new GoodsEvaluationDO();
         goodsEvaluationDO.setEvaluation(evaluation);
@@ -364,5 +374,8 @@ public class MyGoodsServiceImpl implements MyGoodsService{
         goodsIndentDO.setBuyerEvaluateId(evaluationId);
         goodsIndentDO.setBuyerEvaluated(1);
         goodsIndentDAO.updateGoodsIndent(goodsIndentDO);
+
+        //信用分处理
+        scoreUtil.score(sellerId,evaluation.intValue());
     }
 }

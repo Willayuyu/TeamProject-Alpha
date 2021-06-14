@@ -8,6 +8,7 @@ import com.example.fidledemo.VO.MyTaskVO;
 import com.example.fidledemo.VO.TaskTagVO;
 import com.example.fidledemo.dao.*;
 import com.example.fidledemo.historypage.utils.PageHelper;
+import com.example.fidledemo.historypage.utils.ScoreUtil;
 import com.example.fidledemo.historypage.utils.SortVOList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,10 @@ public class MyTaskServiceImpl implements MyTaskService{
 
     @Autowired
     TaskEvaluationDAO taskEvaluationDAO;
+
+    @Autowired
+    ScoreUtil scoreUtil;
+
     @Override
     public List<MyTaskVO> listTaskPublished(Integer pageid, Long pubId) {
         SortVOList sort = new SortVOList();
@@ -193,11 +198,14 @@ public class MyTaskServiceImpl implements MyTaskService{
     }
 
     @Override
-    public void finishTaskById(Long id) {
+    public void finishTaskById(Long id,Long userId) {
         TaskInformationDO taskInformationDO = new TaskInformationDO();
         taskInformationDO.setId(id);
         taskInformationDO.setTaskState(3);
         taskInfoDAO.updateTaskInfo(taskInformationDO);
+
+        //进行信用分处理
+        scoreUtil.score(userId,1);
     }
 
     @Override
@@ -261,6 +269,7 @@ public class MyTaskServiceImpl implements MyTaskService{
         taskDelegateDO.setAccId(evaluatorId);
         List<TaskDelegateBO> list2 = taskDelegateDAO.listTaskDelegateByDO(taskDelegateDO);
         Long deletgateId = list2.get(0).getId();
+        Long publisherId = list2.get(0).getPubId();
         //插入评价
         TaskEvaluationDO taskEvaluationDO = new TaskEvaluationDO();
         taskEvaluationDO.setEvaluation(evaluation);
@@ -278,6 +287,9 @@ public class MyTaskServiceImpl implements MyTaskService{
         taskDelegateDO.setAccId(evaluatorId);
         taskDelegateDO.setAccEvaluated(1);
         taskDelegateDAO.updateTaskDelegate(taskDelegateDO);
+
+        //进行信用分处理
+        scoreUtil.score(publisherId,evaluation);
     }
 
     @Override
@@ -289,6 +301,7 @@ public class MyTaskServiceImpl implements MyTaskService{
         taskDelegateDO.setPubId(evaluatorId);
         List<TaskDelegateBO> list2 = taskDelegateDAO.listTaskDelegateByDO(taskDelegateDO);
         Long deletgateId = list2.get(0).getId();
+        Long accepterId = list2.get(0).getAccId();
         //插入评价
         TaskEvaluationDO taskEvaluationDO = new TaskEvaluationDO();
         taskEvaluationDO.setEvaluation(evaluation);
@@ -306,5 +319,8 @@ public class MyTaskServiceImpl implements MyTaskService{
         taskDelegateDO.setPubId(evaluatorId);
         taskDelegateDO.setPubEvaluated(1);
         taskDelegateDAO.updateTaskDelegate(taskDelegateDO);
+
+        //进行信用分处理
+        scoreUtil.score(accepterId,evaluation);
     }
 }

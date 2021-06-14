@@ -10,10 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * @author zyf
+ * @author cxx
  */
 @Service
-public class ReportServiceImpl implements ReportService{
+public class ReportMessageServiceImpl implements ReportMessageService {
     @Autowired
     GoodsReportMessageDAO goodsReportMessageDAO;
     @Autowired

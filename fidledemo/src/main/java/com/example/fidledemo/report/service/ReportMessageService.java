@@ -2,9 +2,9 @@ package com.example.fidledemo.report.service;
 
 
 /**
- * @author zyf
+ * @author cxx
  */
-public interface ReportService {
+public interface ReportMessageService {
 
     /**
      * 举报二手物品
