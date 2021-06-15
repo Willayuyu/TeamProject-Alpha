@@ -54,7 +54,7 @@
               <i class="el-icon-price-tag"></i>
               <el-tag type="info">{{category}}</el-tag>
             </div>
-            <div class="tags">
+            <div class="tags" v-show="tagflag">
               <span>标签：</span>
               <i class="el-icon-price-tag"></i>
               <el-tag type="info" v-for="item in labels" :key="item">{{item.content}}</el-tag>
@@ -93,13 +93,10 @@ import { Message } from 'element-ui';
       return {
         url: require("../assets/img/face" + Math.round(Math.random()*5) + ".png"),
         picList: [
-          'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2841118707,440982020&fm=26&gp=0.jpg',
-          require("../assets/logo.png"),
-          require("../assets/logo.png")
+          '',
         ],
         labels: [
-          { content: '标签1', id: 1},
-          { content: '标签2', id: 2},
+          { content: '', id: 0 },
         ],
         qq: '1',
         tel: '1',
@@ -115,6 +112,7 @@ import { Message } from 'element-ui';
         state: 2,
         title: '',
         id: 1,
+        tagflag: 1,
       }
     },
 
@@ -140,7 +138,13 @@ import { Message } from 'element-ui';
           this.state = response.data.data.state;
           this.title = response.data.data.title;
           this.labels = response.data.data.tagList;
-          console.log(this.pubId);
+          if(this.picList[0] == null || this.picList[0] == ''){
+            this.picList[0] = require("../assets/img/defaultpic.png");
+          }
+          if(this.labels[0].content == ''){
+            this.tagflag = 0;
+          }
+          console.log(this.tagflag);
         })
         .catch(function (error) {
           console.log(error);
@@ -192,8 +196,9 @@ import { Message } from 'element-ui';
     display: flex;
     margin-left: 160px;
     margin-bottom: 110px;
-    align-items: stretch;
+    align-items: flex-start;
     flex-shrink: 0;
+
   }
   .publisherInfo{
     background-color: #EFF3F3;
@@ -271,7 +276,6 @@ import { Message } from 'element-ui';
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
     font-family: "Helvetica Neue";
-    
   }
   .infoHeader{
     display: flex;

@@ -50,7 +50,7 @@
               <i class="el-icon-price-tag"></i>
               <el-tag type="info">{{category}}</el-tag>
             </div>
-            <div class="tags">
+            <div class="tags" v-show="tagflag == 1">
               <span>标签：</span>
               <i class="el-icon-price-tag"></i>
               <el-tag type="info" v-for="item in labels" :key="item">{{item.content}}</el-tag>
@@ -107,6 +107,7 @@ import { Message } from 'element-ui';
         startTime: '',
         endTime: '',
         address: '',
+        tagflag: 1,
       }
     },
 
@@ -130,6 +131,12 @@ import { Message } from 'element-ui';
           this.startTime = response.data.data.startTime;
           this.endTime = response.data.data.endTime;
           this.address = response.data.data.address;
+          if(this.picList[0] == null || this.picList[0] == ''){
+            this.picList[0] = require("../assets/img/defaultpic.png");
+          }
+          if(this.labels[0].content == ''){
+            this.tagflag = 0;
+          }
           console.log(this.pubId);
         })
         .catch(function (error) {

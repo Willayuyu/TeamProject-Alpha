@@ -42,7 +42,7 @@
               <i class="el-icon-price-tag"></i>
               <el-tag type="info">{{category}}</el-tag>
             </div>
-            <div class="tags">
+            <div class="tags" v-show="tagflag">
               <span>标签：</span>
               <i class="el-icon-price-tag"></i>
               <el-tag type="info" v-for="item in labels" :key="item">{{item.content}}</el-tag>
@@ -101,6 +101,7 @@ import { Message } from 'element-ui';
         pubId: 1,
         state: 1,
         title: '',
+        tagflag: 1,
       }
     },
 
@@ -124,6 +125,9 @@ import { Message } from 'element-ui';
           this.startTime = response.data.data.startTime;
           this.endTime = response.data.data.endTime;
           this.labels = response.data.data.tagList;
+          if(this.labels[0].content == ''){
+            this.tagflag = 0;
+          }
           console.log(this.pubId);
         })
         .catch(function (error) {
