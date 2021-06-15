@@ -137,7 +137,7 @@ Page({
           if (res.confirm) {
             console.log('用户点击提交');
             wx.request({
-              url: 'http://47.106.241.182:8080/myGoods/generateOrder/',
+              url: 'http://47.106.241.182:8082/myGoods/generateOrder/',
               header: {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'Cookie': wx.getStorageSync('sessionid'),
