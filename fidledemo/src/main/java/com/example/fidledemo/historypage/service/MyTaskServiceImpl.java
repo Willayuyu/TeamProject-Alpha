@@ -92,7 +92,6 @@ public class MyTaskServiceImpl implements MyTaskService{
 
         //排序
         Collections.sort(list2,sort);
-
         //分页
         PageHelper<MyTaskVO> pageHelper = new PageHelper<>(list2,5);
         List<MyTaskVO> myTaskVOS = pageHelper.getPageByNum(pageid);
