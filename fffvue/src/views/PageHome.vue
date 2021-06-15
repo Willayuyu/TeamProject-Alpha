@@ -213,7 +213,6 @@
       </el-main>
     </el-container>
   </div>
-
 </template>
 
 <script>
@@ -224,7 +223,7 @@ import axios from "axios";
 import qs from "qs";
 
 export default {
-  name: "homePage",
+  name: "PageHome",
   data() {
     return {
       options: [{
@@ -259,6 +258,10 @@ export default {
   },
 
   methods: {
+
+    /**
+     * 绘制折线图
+     */
     getChart() {
       let myChart = this.$echarts.init(document.getElementById('chart'))
       let option = {
@@ -315,6 +318,9 @@ export default {
       myChart.setOption(option)
     },
 
+    /**
+     * 初始化获取用户数，二手交易数、任务委托数、活动信息数、以及三种类别的举报数
+     */
     init() {
       axios
           .get('http://47.106.241.182:8082/admin/totalUsersNum')
@@ -346,6 +352,10 @@ export default {
 
     },
 
+    /**
+     * 获取多选框的数值
+     * @param value 多选框的value值
+     */
     selectTrigger(value){
       let i = 7;
 
@@ -359,6 +369,10 @@ export default {
       this.changeChart(i);
     },
 
+    /**
+     * 获取横坐标(日期)
+     * @param list 获取的折线图数据列表
+     */
     getX(list){
       this.date = [];
       for(let i = 0; i < list.length; i++){
@@ -366,6 +380,10 @@ export default {
       }
     },
 
+    /**
+     * 根据选择框改变折线图
+     * @param value 向后台请求的数据天数
+     */
     changeChart(value) {
       console.log(value);
       let that = this;
@@ -389,16 +407,18 @@ export default {
       .catch(function (error) {
         console.log(error);
       });
-
-
     },
 
+    /**
+     * 处理列表获取y轴数组值
+     * @param list 待处理列表
+     * @returns {*[]} 折线的y轴数值数组
+     */
     getReleaseNum(list){
       let temp = [];
       for(let i = 0; i < list.length; i++){
         temp.push(parseInt(list[i].releaseNum));
       }
-
       return temp;
     },
     dealStr(value){
@@ -413,95 +433,103 @@ export default {
 .el-container{
   margin-bottom: 20px;
 }
-/*.el-aside{*/
-/*  border: solid 1px black;*/
-/*}*/
-/*.el-main{*/
-/*  border: solid 1px blue;*/
-/*}*/
-/*.el-col{*/
-/*  border: solid 1px green;*/
-/*  background: blue;*/
-/*}*/
-.boxes h3 {
-  color: #FFFFFF;
+
+.el-header{
+  background: #FFFFFF;
 }
 
+.el-col{
+  text-align: center;
+}
+
+/*图片大小*/
 img {
   width: 40px;
   height: 40px;
   margin: 0 auto;
 }
 
+/*图片居中*/
 .image{
   margin: 0 auto;
 }
 
-.el-header{
-  background: #FFFFFF;
-}
-.el-col{
-  text-align: center;
-}
-
+/*后台首页背景*/
 .homePage{
   background: #E7ECF3;
 }
 
+/*头部*/
 .header{
   font-family: "Microsoft YaHei";
   float: left;
   font-weight: bold;
   margin-top: 20px;
 }
+
+/*发布量趋势图的header*/
 .trendHeader{
   font-family: "Microsoft YaHei";
   font-weight: bold;
   padding-top: 10px;
 }
+
+/*白色背景*/
 .whiteBackground{
   background: #FFFFFF;
-
 }
+
+/*发布概况 待处理举报卡片样式*/
 .boxes{
   width:200px;
   height: 100px;
   border-radius: 5px;
 }
+
+.boxes h3 {
+  color: #FFFFFF;
+}
+
+/*发布概况 待处理举报卡片样式*/
 .box{
   margin-top: 5px;
   vertical-align: middle;
 }
+
+/*总用户数*/
 .user{
   margin-left: 50px;
   background: #F9AEAE;
 }
+
+/*二手交易数*/
 .good{
   background: #F0E073;
   margin: 0 auto;
 }
+
+/*任务数*/
 .task{
   background: #B091E3;
   margin: 0 auto;
 }
+
+/*活动数*/
 .activity{
   float: right;
   background: #99DAC0;
   margin-right: 50px;
 }
+
+/*趋势图*/
 .trendChart{
   height: 380px;
   width: 100%;
 }
+
+/*举报*/
 .report{
   width: 80%;
   border-radius: 5px;
-
 }
-
-.size{
-  width: 90%;
-  height: 30%;
-}
-
 </style>
