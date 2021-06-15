@@ -8,9 +8,6 @@
     <div class="header-avatar">
         <el-dropdown trigger="click" placement="bottom-end">
         <span class="el-dropdown-link">
-            <!-- <i class="el-icon-user-solid"></i> -->
-            <!-- <el-avatar class="header-icon" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar> -->
-            <!-- <el-avatar class="header-icon" :src=admin></el-avatar> -->
             <el-avatar icon="el-icon-user-solid"></el-avatar>
         </span>
         <template #dropdown>
@@ -51,6 +48,6 @@ export default{
     margin:0 30px
 }
 .header-avatar {
-    margin-left: 82vw;
+    margin-left: 79vw;
 }
 </style>
