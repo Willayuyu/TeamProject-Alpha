@@ -27,7 +27,7 @@ Page({
     var that=this;
     wx.request({
       //请求获得该用户的二手好评信息
-      url: 'http://47.106.241.182:8080/personalCard/getGoodsEvaluationByLike',
+      url: 'http://47.106.241.182:8082/personalCard/getGoodsEvaluationByLike',
       data: {
         id: app.globalData.user.id,
         isLike: 1,
@@ -53,7 +53,7 @@ Page({
 
     wx.request({
       //请求获得该用户的二手差评信息
-      url: 'http://47.106.241.182:8080/personalCard/getGoodsEvaluationByLike',
+      url: 'http://47.106.241.182:8082/personalCard/getGoodsEvaluationByLike',
       data: {
         id: app.globalData.user.id,
         isLike: -1,
@@ -79,7 +79,7 @@ Page({
 
     wx.request({
       //请求获得该用户的任务好评信息
-      url: 'http://47.106.241.182:8080/personalCard/getTaskEvaluationByLike',
+      url: 'http://47.106.241.182:8082/personalCard/getTaskEvaluationByLike',
       data: {
         id: app.globalData.user.id,
         isLike: 1,
@@ -105,7 +105,7 @@ Page({
 
     wx.request({
       //请求获得该用户的二手差评信息
-      url: 'http://47.106.241.182:8080/personalCard/getTaskEvaluationByLike',
+      url: 'http://47.106.241.182:8082/personalCard/getTaskEvaluationByLike',
       data: {
         id: app.globalData.user.id,
         isLike: -1,

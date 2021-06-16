@@ -4,7 +4,7 @@
       <i class = "el-icon-back" @click="$router.back(-1)"/>
     </div>
     <el-main>
-      <div class="taskmain">
+      <div class="activityMain">
         <div class="publisherInfo">
           <div class="leftFirstBox">
             发布人信息
@@ -29,46 +29,47 @@
             <span class="leftText">{{creditscore}}</span>
           </div>
         </div>
-        <div class="taskInfo">
-          <div class="taskDetail">
+        <div class="activityInfo">
+          <div class="activityImage">
+            <el-carousel height="300px" arrow="never">
+              <el-carousel-item v-for="item in picList" :key="item">
+                <el-image
+                  style="height: 100%"
+                  v-bind:src="item"
+                  :preview-src-list="picList">
+                </el-image>
+              </el-carousel-item>
+            </el-carousel>
+          </div>
+          <div class="activityDetail">
             <div class="infoHeader">
               <p class="title">{{title}}</p>
-              <div class="prices">
-                <span class="price">￥ {{price}}</span>
-              </div>
             </div>
             <div class="tags">
               <span>类别：</span>
               <i class="el-icon-price-tag"></i>
               <el-tag type="info">{{category}}</el-tag>
             </div>
-            <div class="tags" v-show="tagflag">
+            <div class="tags" v-show="tagflag == 1">
               <span>标签：</span>
               <i class="el-icon-price-tag"></i>
               <el-tag type="info" v-for="item in labels" :key="item">{{item.content}}</el-tag>
             </div>
+            <div class="address">
+              <span>活动地点：{{address}}</span>
+            </div>
             <div class="time">
-              <span>开始时间：</span>
+              <span>活动开始：</span>
               <i class="el-icon-time"></i>
               <span>{{startTime}}</span>
             </div>
             <div class="time">
-              <span>结束时间：</span>
+              <span>活动时间：</span>
               <i class="el-icon-time"></i>
               <span>{{endTime}}</span>
             </div>
             <p class="details">简介：{{description}}</p>
             <div class="footer">
-              <div class="leftFooter">
-                <i class = "iconfont icon-weibiaoti-" v-if="state === -1"/>
-                <i class = "iconfont icon-weijieshou" v-else-if="state === 1"/>
-                <i class = "iconfont icon-jinhangzhong" v-else-if="state === 2"/>
-                <i class = "iconfont icon-yiwancheng" v-else-if="state === 3"/>
-                <span class="state" v-if="state === -1">已取消</span>
-                <span class="state" v-else-if="state === 1">未接收</span>
-                <span class="state" v-else-if="state === 2">进行中</span>
-                <span class="state" v-else-if="state === 3">已完成</span>
-              </div>
               <el-button type="danger" @click="deleteInfo">删除</el-button>
             </div>
           </div>
@@ -78,7 +79,7 @@
   </el-container>
 </template>
 
-<script>
+<script scoped>
 import axios from "axios";
 import { Message } from 'element-ui';
 
@@ -86,6 +87,11 @@ import { Message } from 'element-ui';
     data() {
       return {
         url: require("../assets/img/face" + Math.round(Math.random()*5) + ".png"),
+        picList: [
+          'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2841118707,440982020&fm=26&gp=0.jpg',
+          require("../assets/logo.png"),
+          require("../assets/logo.png")
+        ],
         labels: [
           { content: '标签1', id: 1},
           { content: '标签2', id: 2},
@@ -95,36 +101,39 @@ import { Message } from 'element-ui';
         username: '1',
         creditscore: 100,
         category: "1",
-        collectState: -1,
         description: '',
-        price: 1,
         pubId: 1,
-        state: 1,
         title: '',
+        startTime: '',
+        endTime: '',
+        address: '',
         tagflag: 1,
       }
     },
 
     mounted() {
-      this.getTaskInfo();
+      this.getActivityInfo();
       this.getPublisherInfo();
     },
 
     methods: {
-      async getTaskInfo() {
+      async getActivityInfo() {
         this.id = this.$route.params.id;
-        await axios.get('/api/task/getTaskDetailById/' + this.id)
+        await axios.get('/api/activity/getActivityDetailById/' + this.id)
         .then( response => {
           console.log(response.data.data);
           this.category = response.data.data.category;
           this.description = response.data.data.description;
-          this.price = response.data.data.reward;
+          this.picList = response.data.data.picturesLink;
           this.pubId = response.data.data.pubId;
-          this.state = response.data.data.state;
           this.title = response.data.data.title;
+          this.labels = response.data.data.tagList;
           this.startTime = response.data.data.startTime;
           this.endTime = response.data.data.endTime;
-          this.labels = response.data.data.tagList;
+          this.address = response.data.data.address;
+          if(this.picList[0] == null || this.picList[0] == ''){
+            this.picList[0] = require("../assets/img/defaultpic.png");
+          }
           if(this.labels[0].content == ''){
             this.tagflag = 0;
           }
@@ -136,7 +145,7 @@ import { Message } from 'element-ui';
       },
 
       async getPublisherInfo() {
-        await this.getTaskInfo();
+        await this.getActivityInfo();
         axios.get('/api/personalPage/getHomePageById/' + this.pubId)
         .then( response => {
           console.log(response);
@@ -152,7 +161,7 @@ import { Message } from 'element-ui';
       },
 
       deleteInfo(){
-        axios.get('/api/myTask/deleteTaskById/' + this.id)
+        axios.get('/api/myActivity/deleteActivityById/' + this.id)
         .then( response => {
           console.log(response);
           this.$message({
@@ -169,7 +178,6 @@ import { Message } from 'element-ui';
   }
 </script>
 
-
 <style scoped>
   .el-icon-back{
     margin-left: 20px;
@@ -177,11 +185,12 @@ import { Message } from 'element-ui';
     padding-bottom: 0px;
     font-size: 40px;
   }
-  .taskmain{
+  .activityMain{
     display: flex;
     margin-left: 160px;
     margin-bottom: 110px;
-    align-items: flex-start;
+    align-items: stretch;
+    flex-shrink: 0;
   }
   .publisherInfo{
     background-color: #EFF3F3;
@@ -236,15 +245,23 @@ import { Message } from 'element-ui';
     line-height: 23px;
     color: #000000;
   }
-  .taskInfo{
+  .activityInfo{
     display: flex;
     flex-direction: column;
     width: 43%;
     margin-left: 40px;
   }
-  .taskDetail{
+  .activityImage{
+    text-align: center;
+    background-color: #EFF3F3;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+  }
+  .activityDetail{
     display: flex;
     flex-direction: column;
+    margin-top: 20px;
+    flex-grow: 1;
     padding: 30px;
     text-align: left;
     background-color: #EFF3F3;
@@ -262,10 +279,6 @@ import { Message } from 'element-ui';
     font-size: 20px;
     font-weight: bold;
     max-width: 75%;
-  }
-  .price{
-    color:red;
-    font-size: 26px;
   }
   .details{
     margin-top: 20px;
@@ -287,6 +300,10 @@ import { Message } from 'element-ui';
     margin-right: 5px;
     vertical-align: middle;
   }
+  .address{
+    margin-top: 20px;
+    font-size: 16px;
+  }
   .time{
     margin-top: 20px;
     font-size: 16px;
@@ -302,15 +319,6 @@ import { Message } from 'element-ui';
   .footer{
     margin-top: 30px;
     display: flex;
-    justify-content: space-between;
-  }
-  .leftFooter{
-    display:flex;
-    align-items: center;
-    line-height: 23px;
-  }
-  .leftFooter i{
-    font-size: 40px;
-    margin-right: 8px;
+    justify-content:flex-end;
   }
 </style>

@@ -2,7 +2,7 @@
   <el-container>
     <el-header></el-header>
     <el-row class="goodsTable">
-      <el-table :data="goodsReports" stripe border height="400">
+      <el-table :data="activitiesReports" stripe border height="400">
         <el-table-column prop="id" label="序号" width="70"></el-table-column>
         <el-table-column prop="reportedInfoId" label="订单ID" width="70"></el-table-column>
         <el-table-column prop="title" label="标题" width="200"></el-table-column>
@@ -47,7 +47,7 @@ export default {
     return {
       currentPage: 1,
       totalNum: 53,
-      goodsReports: [
+      activitiesReports: [
         {
           "content": "zzz",
           "gmtInfo": {
@@ -76,18 +76,18 @@ export default {
 
     viewDetail(index,row) {
       console.log(row.reportedInfoId);
-      this.$router.push({name: "goodsDetail", params: {'id': row.reportedInfoId}})
+      this.$router.push({name: "activityDetail", params: {'id': row.reportedInfoId}})
     },//查看详情
 
     ignoreReport(index,row) {
       console.log(row.id);
-      let url = "/api/admin/ignoreGoodsReport/" + row.id;
+      let url = "/api/admin/ignoreActivityReport/" + row.id;
       axios.get(url);
     },//忽略举报
 
     throughReport(index,row) {
       console.log(row.id);
-      let url = "/api/admin/handleGoodsReport/" + row.id;
+      let url = "/api/admin/handleActivityReport/" + row.id;
       axios.get(url);
     },//通过举报
 
@@ -97,9 +97,9 @@ export default {
     },//改变页面
 
     getReports() {
-      let url = "/api/admin/goodsReport/page/" + this.currentPage;
+      let url = "/api/admin/activitiesReport/page/" + this.currentPage;
       axios.get(url).then(res => {
-        this.goodsReports = res.data.data.goodsReports;
+        this.activitiesReports = res.data.data.activitiesReports;
         this.currentPage = res.data.data.pageInfo.currentPage;
         this.totalNum = res.data.data.pageInfo.totalNum;
       })

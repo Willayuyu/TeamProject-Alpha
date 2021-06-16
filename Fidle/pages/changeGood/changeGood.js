@@ -22,9 +22,9 @@ Page({
         goods_label_list: [],
         goods_old_new_list_idx: 0,
         goods_class_list_idx: 0,
-        goods_uploadUrl: "http://47.106.241.182:8080/publish/uploadGoodsImage",
-        goods_deleteUrl: "http://47.106.241.182:8080/publish/deleteGoodsImage/",
-        goods_releaseUrl: "http://47.106.241.182:8080/publish/goods",
+        goods_uploadUrl: "http://47.106.241.182:8082/publish/uploadGoodsImage",
+        goods_deleteUrl: "http://47.106.241.182:8082/publish/deleteGoodsImage/",
+        goods_releaseUrl: "http://47.106.241.182:8082/publish/goods",
         history_fileList: [],
         history_condition: "",
         history_category: "",
@@ -37,7 +37,7 @@ Page({
     getHistoryGoodsList() {
         let that = this;
         wx.request({
-            url: 'http://47.106.241.182:8080/goods/getGoodsDetailById/' + that.data.id,
+            url: 'http://47.106.241.182:8082/goods/getGoodsDetailById/' + that.data.id,
             method: "GET",
             header: {
                 'content-type': 'application/json',
@@ -93,7 +93,7 @@ Page({
         let pictureID = [];
         for (i = 0; i < list.length; i++) {
             wx.request({
-                url: 'http://47.106.241.182:8080/publish/getGoodsImageIdByLink',
+                url: 'http://47.106.241.182:8082/publish/getGoodsImageIdByLink',
                 data: { imageLink: list[i] },
                 method: "POST",
                 header: {
@@ -212,7 +212,7 @@ Page({
         console.log(goods_tags);
 
         wx.request({
-            url: 'http://47.106.241.182:8080/myGoods/alterGoods/',
+            url: 'http://47.106.241.182:8082/myGoods/alterGoods/',
             header: {
                 'content-type': 'application/x-www-form-urlencoded',
                 'Cookie': wx.getStorageSync('sessionid'),
@@ -470,7 +470,7 @@ Page({
     getGoodsClassList() {
         let that = this;
         wx.request({
-            url: "http://47.106.241.182:8080/goods/listGoodsCategory", //这里''里面填写你的服务器API接口的路径  
+            url: "http://47.106.241.182:8082/goods/listGoodsCategory", //这里''里面填写你的服务器API接口的路径  
             //data: {},  //这里是可以填写服务器需要的参数  
             method: 'GET', // 声明GET请求  
             // header: {}, // 设置请求的 header，GET请求可以不填  

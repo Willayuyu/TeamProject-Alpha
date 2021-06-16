@@ -172,7 +172,7 @@ Page({
             if(that.data.isSold ==1 && that.data.isBuy == 0) {//评价买家
               console.log("评价买家");
               wx.request({
-                url: 'http://120.77.210.142:8080/myGoods/evaluateBuyer/',
+                url: 'http://47.106.241.182:8082/myGoods/evaluateBuyer/',
                 header: {
                   'Content-Type': 'application/x-www-form-urlencoded',
                   'Cookie': wx.getStorageSync('sessionid'),
@@ -201,7 +201,7 @@ Page({
             else {//评价卖家
               console.log("评价卖家");
               wx.request({
-                url: 'http://120.77.210.142:8080/myGoods/evaluateSeller/',
+                url: 'http://47.106.241.182:8082/myGoods/evaluateSeller/',
                 header: {
                   'Content-Type': 'application/x-www-form-urlencoded',
                   'Cookie': wx.getStorageSync('sessionid'),

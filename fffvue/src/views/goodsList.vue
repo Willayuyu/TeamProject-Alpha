@@ -38,7 +38,7 @@
         <el-table-column prop="title" label="标题"></el-table-column>
         <el-table-column prop="announcer" label="发布人"></el-table-column>
         <el-table-column prop="gmt_create" label="发布时间"></el-table-column>
-        <el-table-column label="操作">
+        <el-table-column label="操作" width="200">
           <template slot-scope="scope">
             <el-button
                 size="mini"

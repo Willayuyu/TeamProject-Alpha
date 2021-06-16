@@ -6,11 +6,39 @@
   "description": "",
   "glyphs": [
     {
-      "icon_id": "17334956",
-      "name": "已结束",
-      "font_class": "yijieshu",
-      "unicode": "e6c0",
-      "unicode_decimal": 59072
+      "icon_id": "20277957",
+      "name": "进行中",
+      "font_class": "jinhangzhong",
+      "unicode": "e6a1",
+      "unicode_decimal": 59041
+    },
+    {
+      "icon_id": "7589935",
+      "name": "已完成",
+      "font_class": "yiwancheng",
+      "unicode": "e732",
+      "unicode_decimal": 59186
+    },
+    {
+      "icon_id": "3794727",
+      "name": "已取消",
+      "font_class": "weibiaoti-",
+      "unicode": "e62e",
+      "unicode_decimal": 58926
+    },
+    {
+      "icon_id": "15379961",
+      "name": "未接收",
+      "font_class": "weijieshou",
+      "unicode": "e62b",
+      "unicode_decimal": 58923
+    },
+    {
+      "icon_id": "14863885",
+      "name": "返 回",
+      "font_class": "fanhui",
+      "unicode": "e611",
+      "unicode_decimal": 58897
     },
     {
       "icon_id": "11393201",

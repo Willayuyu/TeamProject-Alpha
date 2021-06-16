@@ -28,7 +28,7 @@ Page({
   getActivityDetail:function(){
     let that=this;
     wx.request({
-      url: 'http://47.106.241.182:8080/activity/getActivityDetailById/' + that.data.id,
+      url: 'http://47.106.241.182:8082/activity/getActivityDetailById/' + that.data.id,
       method: "GET",
       header:{
         'content-type': 'application/json',
@@ -85,7 +85,7 @@ Page({
     let that = this;
     if(that.data.collectState == -1){
       wx.request({
-        url: 'http://47.106.241.182:8080/activity/collectActivity/' + that.data.id,
+        url: 'http://47.106.241.182:8082/activity/collectActivity/' + that.data.id,
         method: 'GET',
         header:{
           'content-type': 'application/json',
@@ -110,7 +110,7 @@ Page({
       })
     } else if(that.data.collectState == 1) {
       wx.request({
-        url: 'http://47.106.241.182:8080/activity/cancelCollectActivity/' + that.data.id,
+        url: 'http://47.106.241.182:8082/activity/cancelCollectActivity/' + that.data.id,
         method: 'GET',
         header:{
           'content-type': 'application/json',
@@ -157,7 +157,7 @@ Page({
     var reason = that.data.inputValue;
     console.log(reason);
       wx.request({
-        url: 'http://120.77.210.142:8080/activity/reportActivity',
+        url: 'http://120.77.210.142:8082/activity/reportActivity',
         method: 'POST',
         header: {
           'Content-Type': 'application/x-www-form-urlencoded',

@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <div class="header" v-show="!(path ==='/login')">
+    <div class="header" v-show="!(path === '/login')">
       <Header></Header>
     </div>
     <div class="content flex">
-      <div class="sidebar" v-show="!((path === '/goodsDetail')||(path === '/taskDetail')||(path ==='/login'))">
+      <div class="sidebar" v-show="!((path === '/goodsDetail')||(path === '/taskDetail')||(path === '/activityDetail')||(path === '/login'))">
         <Sidebar></Sidebar>
       </div>
       <div class="page" v-show="!(path ==='/login')">

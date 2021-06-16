@@ -1,7 +1,7 @@
 <template>
   <el-container style="height: 100%;" direction="vertical">
     <div>
-      <i class = "el-icon-back" />
+      <i class = "el-icon-back" @click="$router.back(-1)"/>
     </div>
     <el-main>
       <div class="goodsmain">
@@ -34,7 +34,7 @@
             <el-carousel height="300px" arrow="never">
               <el-carousel-item v-for="item in picList" :key="item">
                 <el-image
-                  style="width: 100%"
+                  style="height: 100%"
                   v-bind:src="item"
                   :preview-src-list="picList">
                 </el-image>
@@ -54,7 +54,7 @@
               <i class="el-icon-price-tag"></i>
               <el-tag type="info">{{category}}</el-tag>
             </div>
-            <div class="tags">
+            <div class="tags" v-show="tagflag">
               <span>标签：</span>
               <i class="el-icon-price-tag"></i>
               <el-tag type="info" v-for="item in labels" :key="item">{{item.content}}</el-tag>
@@ -62,7 +62,10 @@
             <div class="tags">
               <span>新旧：</span>
               <i class="el-icon-price-tag"></i>
-              <el-tag type="info">{{condition}}</el-tag>
+              <el-tag type="info" v-if="condition === 1">全新</el-tag>
+              <el-tag type="info" v-else-if="condition === 2">九成新</el-tag>
+              <el-tag type="info" v-else-if="condition === 3">八成新</el-tag>
+              <el-tag type="info" v-else-if="condition === 4">八成以下</el-tag>
             </div>
             <p class="details">简介：{{description}}</p>
             <div class="footer">
@@ -72,7 +75,7 @@
                 <span class="state" v-if="state === 1">在售中</span>
                 <span class="state" v-if="state === 2">已售出</span>
               </div>
-              <el-button type="danger">删除</el-button>
+              <el-button type="danger" @click="deleteInfo">删除</el-button>
             </div>
           </div>
         </div>
@@ -81,21 +84,19 @@
   </el-container>
 </template>
 
-<script scoped>
+<script>
 import axios from "axios";
+import { Message } from 'element-ui';
 
   export default {
     data() {
       return {
         url: require("../assets/img/face" + Math.round(Math.random()*5) + ".png"),
         picList: [
-          'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2841118707,440982020&fm=26&gp=0.jpg',
-          require("../assets/logo.png"),
-          require("../assets/logo.png")
+          '',
         ],
         labels: [
-          { content: '标签1', id: 1},
-          { content: '标签2', id: 2},
+          { content: '', id: 0 },
         ],
         qq: '1',
         tel: '1',
@@ -110,6 +111,8 @@ import axios from "axios";
         pubId: 1,
         state: 2,
         title: '',
+        id: 1,
+        tagflag: 1,
       }
     },
 
@@ -120,7 +123,8 @@ import axios from "axios";
 
     methods: {
       async getGoodsInfo() {
-        await axios.get('/api/goods/getGoodsDetailById/' + 89)
+        this.id = this.$route.params.id;
+        await axios.get('/api/goods/getGoodsDetailById/' + this.id)
         .then( response => {
           console.log(response.data.data);
           this.category = response.data.data.category;
@@ -134,7 +138,13 @@ import axios from "axios";
           this.state = response.data.data.state;
           this.title = response.data.data.title;
           this.labels = response.data.data.tagList;
-          console.log(this.pubId);
+          if(this.picList[0] == null || this.picList[0] == ''){
+            this.picList[0] = require("../assets/img/defaultpic.png");
+          }
+          if(this.labels[0].content == ''){
+            this.tagflag = 0;
+          }
+          console.log(this.tagflag);
         })
         .catch(function (error) {
           console.log(error);
@@ -149,7 +159,23 @@ import axios from "axios";
           this.username = response.data.data.username;
           this.qq = response.data.data.qq;
           this.tel = response.data.data.tel;
+          this.url = response.data.data.portrait;
           this.creditscore = response.data.data.credit.creditScore;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      },
+
+      deleteInfo(){
+        axios.get('/api/myGoods/withdrawGoodsById/' + this.id)
+        .then( response => {
+          console.log(response);
+          this.$message({
+            message: '删除成功！',
+            type: 'success'
+          });
+          this.$router.back(-1);
         })
         .catch(function (error) {
           console.log(error);
@@ -159,7 +185,7 @@ import axios from "axios";
   }
 </script>
 
-<style>
+<style scoped>
   .el-icon-back{
     margin-left: 20px;
     padding: 20px;
@@ -170,8 +196,9 @@ import axios from "axios";
     display: flex;
     margin-left: 160px;
     margin-bottom: 110px;
-    align-items: stretch;
+    align-items: flex-start;
     flex-shrink: 0;
+
   }
   .publisherInfo{
     background-color: #EFF3F3;
@@ -233,6 +260,7 @@ import axios from "axios";
     margin-left: 40px;
   }
   .goodsImage{
+    text-align: center;
     background-color: #EFF3F3;
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
@@ -248,7 +276,6 @@ import axios from "axios";
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
     font-family: "Helvetica Neue";
-    
   }
   .infoHeader{
     display: flex;
@@ -272,11 +299,11 @@ import axios from "axios";
     text-decoration: line-through;
   }
   .details{
-    margin-top: 15px;
+    margin-top: 20px;
     font-size: 16px;
   }
   .tags{
-    margin-top: 20px;
+    margin-top: 15px;
     font-size: 16px;
     vertical-align: middle;
     display: flex;
@@ -302,7 +329,7 @@ import axios from "axios";
     line-height: 23px;
   }
   .leftFooter i{
-    font-size: 30px;
+    font-size: 35px;
     margin-right: 8px;
   }
 </style>
