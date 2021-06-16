@@ -302,7 +302,7 @@ Page({
         days = 90;
         break;
       default:
-        days = 30;
+        days = 0;
     }
     return days;
   },
