@@ -46,8 +46,8 @@ Page({
       userid:app.globalData.user.id,
       username:app.globalData.user.username,
       credit:app.globalData.user.credit.creditScore,
-      goodcmt:app.globalData.user.credit.dislikeNum,
-      badcmt:app.globalData.user.credit.likeNum,
+      goodcmt:app.globalData.user.credit.likeNum,
+      badcmt:app.globalData.user.credit.dislikeNum,
     })
   },
 
