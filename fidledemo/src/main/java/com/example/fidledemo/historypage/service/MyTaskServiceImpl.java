@@ -8,7 +8,7 @@ import com.example.fidledemo.VO.MyTaskVO;
 import com.example.fidledemo.VO.TaskTagVO;
 import com.example.fidledemo.dao.*;
 import com.example.fidledemo.historypage.utils.PageHelper;
-import com.example.fidledemo.historypage.utils.ScoreUtil;
+import com.example.fidledemo.historypage.utils.CreditUtil;
 import com.example.fidledemo.historypage.utils.SortVOList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,7 +41,7 @@ public class MyTaskServiceImpl implements MyTaskService{
     TaskEvaluationDAO taskEvaluationDAO;
 
     @Autowired
-    ScoreUtil scoreUtil;
+    CreditUtil creditUtil;
 
     @Override
     public List<MyTaskVO> listTaskPublished(Integer pageid, Long pubId) {
@@ -81,7 +81,7 @@ public class MyTaskServiceImpl implements MyTaskService{
                 TaskDelegateDO taskDelegateDO = new TaskDelegateDO();
                 taskDelegateDO.setTaskInfoId(list.get(i).getId());
                 List<TaskDelegateBO> taskList = taskDelegateDAO.listTaskDelegateByDO(taskDelegateDO);
-                if (taskList != null) {
+                if (taskList.size() != 0) {
                     isEvaluated = taskList.get(0).getPubEvaluated();
                 }
             }
@@ -92,6 +92,7 @@ public class MyTaskServiceImpl implements MyTaskService{
 
         //排序
         Collections.sort(list2,sort);
+
         //分页
         PageHelper<MyTaskVO> pageHelper = new PageHelper<>(list2,5);
         List<MyTaskVO> myTaskVOS = pageHelper.getPageByNum(pageid);
@@ -204,7 +205,7 @@ public class MyTaskServiceImpl implements MyTaskService{
         taskInfoDAO.updateTaskInfo(taskInformationDO);
 
         //进行信用分处理
-        scoreUtil.score(userId,1);
+        creditUtil.score(userId,1);
     }
 
     @Override
@@ -287,8 +288,11 @@ public class MyTaskServiceImpl implements MyTaskService{
         taskDelegateDO.setAccEvaluated(1);
         taskDelegateDAO.updateTaskDelegate(taskDelegateDO);
 
+        //更新个人信誉信息
+        creditUtil.addLikeOrDislikeNum(publisherId,evaluation.intValue());
+
         //进行信用分处理
-        scoreUtil.score(publisherId,evaluation);
+        creditUtil.score(publisherId,evaluation);
     }
 
     @Override
@@ -319,7 +323,10 @@ public class MyTaskServiceImpl implements MyTaskService{
         taskDelegateDO.setPubEvaluated(1);
         taskDelegateDAO.updateTaskDelegate(taskDelegateDO);
 
+        //更新个人信誉信息
+        creditUtil.addLikeOrDislikeNum(accepterId,evaluation.intValue());
+
         //进行信用分处理
-        scoreUtil.score(accepterId,evaluation);
+        creditUtil.score(accepterId,evaluation);
     }
 }

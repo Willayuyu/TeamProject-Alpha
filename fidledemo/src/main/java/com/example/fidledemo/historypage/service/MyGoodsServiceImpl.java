@@ -9,7 +9,7 @@ import com.example.fidledemo.VO.GoodsTagVO;
 import com.example.fidledemo.VO.MyGoodsVO;
 import com.example.fidledemo.dao.*;
 import com.example.fidledemo.historypage.utils.PageHelper;
-import com.example.fidledemo.historypage.utils.ScoreUtil;
+import com.example.fidledemo.historypage.utils.CreditUtil;
 import com.example.fidledemo.historypage.utils.SortVOList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,7 +44,7 @@ public class MyGoodsServiceImpl implements MyGoodsService{
     GoodsImageDAO goodsImageDAO;
 
     @Autowired
-    ScoreUtil scoreUtil;
+    CreditUtil creditUtil;
 
 
     @Override
@@ -132,7 +132,7 @@ public class MyGoodsServiceImpl implements MyGoodsService{
             goodsIndentDO.setGoodsId(item.getId());
             List<GoodsIndentBO> indentBOList = goodsIndentDAO.listGoodsIndentByDO(goodsIndentDO);
             Integer isEvaluated = -1;
-            if (indentBOList != null){
+            if (indentBOList.size() != 0){
                 isEvaluated = indentBOList.get(0).getPubEvaluated();
             }
 
@@ -209,7 +209,7 @@ public class MyGoodsServiceImpl implements MyGoodsService{
                 goodsIndentDO.setGoodsId(goodsInfoBO.getId());
                 List<GoodsIndentBO> indentBOList = goodsIndentDAO.listGoodsIndentByDO(goodsIndentDO);
                 Integer isEvaluated = -1;
-                if (indentBOList != null){
+                if (indentBOList.size() != 0){
                     isEvaluated = indentBOList.get(0).getAccEvaluated();
                 }
 
@@ -257,7 +257,7 @@ public class MyGoodsServiceImpl implements MyGoodsService{
         goodsInfoDAO.updateGoodsInfo(goodsInfoDO);
 
         //信用分处理
-        scoreUtil.score(sellerId,1);
+        creditUtil.score(sellerId,1);
     }
 
     @Override
@@ -341,8 +341,11 @@ public class MyGoodsServiceImpl implements MyGoodsService{
         goodsIndentDO.setSellerEvaluated(1);
         goodsIndentDAO.updateGoodsIndent(goodsIndentDO);
 
+        //更新个人信誉信息
+        creditUtil.addLikeOrDislikeNum(buyerId,evaluation.intValue());
+
         //信用分处理
-        scoreUtil.score(buyerId,evaluation.intValue());
+        creditUtil.score(buyerId,evaluation.intValue());
 
     }
 
@@ -375,7 +378,10 @@ public class MyGoodsServiceImpl implements MyGoodsService{
         goodsIndentDO.setBuyerEvaluated(1);
         goodsIndentDAO.updateGoodsIndent(goodsIndentDO);
 
+        //更新个人信誉信息
+        creditUtil.addLikeOrDislikeNum(sellerId,evaluation.intValue());
+
         //信用分处理
-        scoreUtil.score(sellerId,evaluation.intValue());
+        creditUtil.score(sellerId,evaluation.intValue());
     }
 }
