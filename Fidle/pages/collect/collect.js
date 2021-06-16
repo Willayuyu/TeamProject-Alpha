@@ -163,7 +163,7 @@ Page({
   showGoods() {
     return new Promise(function (resolve, reject) {
       wx.request({
-        url: 'http://47.106.241.182:8082/collection/listCollectibleGoodsByPageid/1',
+        url: 'https://fidle.shawnxixi.icu/collection/listCollectibleGoodsByPageid/1',
         method: 'GET',
         dataType: 'json',
         header: {
@@ -195,7 +195,7 @@ Page({
   showTask() {
     return new Promise(function (resolve, reject) {
       wx.request({
-        url: 'http://47.106.241.182:8082/collection/listCollectibleTaskByPageid/1',
+        url: 'https://fidle.shawnxixi.icu/collection/listCollectibleTaskByPageid/1',
         method: 'GET',
         dataType: 'json',
         header: {
@@ -227,7 +227,7 @@ Page({
   showActivity() {
     return new Promise(function (resolve, reject) {
       wx.request({
-        url: 'http://47.106.241.182:8082/collection/listCollectibleActivityByPageid/1',
+        url: 'https://fidle.shawnxixi.icu/collection/listCollectibleActivityByPageid/1',
         method: 'GET',
         dataType: 'json',
         header: {
@@ -320,7 +320,7 @@ Page({
     console.log(id);
     dataList.collectState = -1;
     wx.request({
-      url: 'http://47.106.241.182:8082/goods/cancelCollectGoods/' + id,
+      url: 'https://fidle.shawnxixi.icu/goods/cancelCollectGoods/' + id,
       header: {
         'content-type': 'application/json',
         'Cookie': wx.getStorageSync('sessionid'),
@@ -352,7 +352,7 @@ Page({
     console.log(id);
     dataList.collectState = -1;
     wx.request({
-      url: 'http://47.106.241.182:8082/task/cancelCollectTask/' + id,
+      url: 'https://fidle.shawnxixi.icu/task/cancelCollectTask/' + id,
       header: {
         'content-type': 'application/json',
         'Cookie': wx.getStorageSync('sessionid'),
@@ -384,7 +384,7 @@ Page({
     console.log(id);
     dataList.collectState = -1;
     wx.request({
-      url: 'http://47.106.241.182:8082/activity/cancelCollectActivity/' + id,
+      url: 'https://fidle.shawnxixi.icu/activity/cancelCollectActivity/' + id,
       header: {
         'content-type': 'application/json',
         'Cookie': wx.getStorageSync('sessionid'),

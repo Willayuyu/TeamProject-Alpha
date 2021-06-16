@@ -27,7 +27,7 @@ Page({
   getTaskDetail: function () {
     let that = this;
     wx.request({
-      url: 'http://47.106.241.182:8082/task/getTaskDetailById/' + that.data.id,
+      url: 'https://fidle.shawnxixi.icu/task/getTaskDetailById/' + that.data.id,
       method: "GET",
       header: {
         'content-type': 'application/json',
@@ -71,7 +71,7 @@ Page({
     let that = this;
     if (that.data.collectState == -1) {
       wx.request({
-        url: 'http://47.106.241.182:8082/task/collectTask/' + that.data.id,
+        url: 'https://fidle.shawnxixi.icu/task/collectTask/' + that.data.id,
         method: 'GET',
         header: {
           'content-type': 'application/json',
@@ -96,7 +96,7 @@ Page({
       })
     } else if (that.data.collectState == 1) {
       wx.request({
-        url: 'http://47.106.241.182:8082/task/cancelCollectTask/' + that.data.id,
+        url: 'https://fidle.shawnxixi.icu/task/cancelCollectTask/' + that.data.id,
         method: 'GET',
         header: {
           'content-type': 'application/json',
@@ -154,7 +154,7 @@ Page({
     var reason = that.data.inputValue;
     console.log(reason);
       wx.request({
-        url: 'http://47.106.241.182:8082/goods/reportGoods',
+        url: 'https://fidle.shawnxixi.icu/goods/reportGoods',
         method: 'POST',
         header: {
           'Content-Type': 'application/x-www-form-urlencoded',

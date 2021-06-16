@@ -167,7 +167,7 @@ Page({
     console.log(wx.getStorageSync('sessionid')),
     console.log(app.globalData.token),
     wx.request({
-      url: 'http://47.106.241.182:8082/myGoods/listGoodsOnSaleByPageid/' + pageid,
+      url: 'https://fidle.shawnxixi.icu/myGoods/listGoodsOnSaleByPageid/' + pageid,
       // url: 'http://120.77.210.142:8080/myGoods/listGoodsOnSaleByPageid/' + pageid,
       header: {
         'content-type': 'application/json',
@@ -223,7 +223,7 @@ Page({
   showSold(pageid) {
     let that = this;     
     wx.request({
-      url: 'http://47.106.241.182:8082/myGoods/listGoodsSoldByPageid/' + pageid,
+      url: 'https://fidle.shawnxixi.icu/myGoods/listGoodsSoldByPageid/' + pageid,
       // url: 'http://120.77.210.142:8080/myGoods/listGoodsSoldByPageid/' + pageid,
       header: {
         'content-type': 'application/json',
@@ -278,7 +278,7 @@ Page({
   showBuy(pageid) {
     let that = this;     
     wx.request({
-      url: 'http://47.106.241.182:8082/myGoods/listGoodsBuyingByPageid/' + pageid,
+      url: 'https://fidle.shawnxixi.icu/myGoods/listGoodsBuyingByPageid/' + pageid,
       // url: 'http://120.77.210.142:8080/myGoods/listGoodsBuyingByPageid/' + pageid,
       header: {
         'content-type': 'application/json',
@@ -396,7 +396,7 @@ Page({
         if (res.confirm) {//这里是点击了确定以后
           console.log('用户点击确定')
           wx.request({
-            url: 'http://47.106.241.182:8082/myGoods/withdrawGoodsById/' + id,
+            url: 'https://fidle.shawnxixi.icu/myGoods/withdrawGoodsById/' + id,
             method: 'GET',
             dataType: 'json',
             header: {

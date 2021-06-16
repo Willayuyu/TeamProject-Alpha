@@ -14,8 +14,8 @@ Page({
         task_class_list: [{ categoryId: "", categoryDesignation: "" }],
         task_label_list: [],
         task_class_list_idx: 0,
-        task_classListUrl: "http://47.106.241.182:8082/task/listTaskCategory",
-        task_releaseUrl: "http://47.106.241.182:8082/publish/task",
+        task_classListUrl: "https://fidle.shawnxixi.icu/task/listTaskCategory",
+        task_releaseUrl: "https://fidle.shawnxixi.icu/publish/task",
 
         isPickerRender: false,
         isPickerShow: false,
@@ -287,7 +287,7 @@ Page({
     getHistoryTaskList() {
         let that = this;
         wx.request({
-            url: 'http://47.106.241.182:8082/task/getTaskDetailById/' + that.data.id,
+            url: 'https://fidle.shawnxixi.icu/task/getTaskDetailById/' + that.data.id,
             method: "GET",
             header: {
                 'Content-Type': 'application/json',
@@ -306,8 +306,8 @@ Page({
                         task_message: data.description,
                         history_label_list: res.data.data.tagList,
                         history_category: res.data.data.category,
-                        task_classListUrl: "http://47.106.241.182:8082/task/listTaskCategory",
-                        task_releaseUrl: "http://47.106.241.182:8082/publish/task",
+                        task_classListUrl: "https://fidle.shawnxixi.icu/task/listTaskCategory",
+                        task_releaseUrl: "https://fidle.shawnxixi.icu/publish/task",
 
                         isPickerRender: false,
                         isPickerShow: false,
@@ -416,7 +416,7 @@ Page({
     console.log(app.globalData.user.id);
      
     wx.request({
-      url: 'http://47.106.241.182:8082/myTask/alterTask/',
+      url: 'https://fidle.shawnxixi.icu/myTask/alterTask/',
       method: 'POST',
       header: { 'content-type': 'application/x-www-form-urlencoded',
         'Cookie': session_id ,

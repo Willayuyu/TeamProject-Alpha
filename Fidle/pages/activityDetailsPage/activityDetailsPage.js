@@ -85,7 +85,7 @@ Page({
     let that = this;
     if(that.data.collectState == -1){
       wx.request({
-        url: 'http://47.106.241.182:8082/activity/collectActivity/' + that.data.id,
+        url: 'https://fidle.shawnxixi.icu/activity/collectActivity/' + that.data.id,
         method: 'GET',
         header:{
           'content-type': 'application/json',

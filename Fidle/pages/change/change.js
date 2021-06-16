@@ -40,7 +40,7 @@ Page({
       console.log("填入的qq："+qqnum);
 
       wx.request({
-        url: 'http://47.106.241.182:8082/personalPage/alterInformation',
+        url: 'https://fidle.shawnxixi.icu/personalPage/alterInformation',
         data: {
           //将修改的数据传给后台进行同步修改
           username: username,

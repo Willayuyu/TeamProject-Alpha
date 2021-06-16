@@ -133,7 +133,7 @@ Page({
     let id;
     let pubId;
     wx.request({
-      url: 'http://47.106.241.182:8082/myTask/listTaskPublishedByPageid/1',
+      url: 'https://fidle.shawnxixi.icu/myTask/listTaskPublishedByPageid/1',
       method: 'GET',
       dataType: 'json',
       data: {
@@ -167,7 +167,7 @@ Page({
     let id;
     let pubId;
     wx.request({
-      url: 'http://47.106.241.182:8082/myTask/listTaskPublishedByPageid/1',
+      url: 'https://fidle.shawnxixi.icu/myTask/listTaskPublishedByPageid/1',
       method: 'GET',
       dataType: 'json',
       data: {
@@ -222,7 +222,7 @@ Page({
     console.log(session_id); 
     let that = this;     
     wx.request({
-      url: 'http://47.106.241.182:8082/myTask/listTaskPublishedByPageid/'+ pageid,
+      url: 'https://fidle.shawnxixi.icu/myTask/listTaskPublishedByPageid/'+ pageid,
       // url: 'http://120.77.210.142:8080/myTask/listTaskPublishedByPageid/'+ pageid,
       header: { 'content-type': 'application/json',
        'Cookie': session_id ,
@@ -255,7 +255,7 @@ Page({
     console.log(session_id);  
     let that = this;        
     wx.request({
-      url: 'http://47.106.241.182:8082/myTask/listTaskAcceptedByPageid/' + pageid,
+      url: 'https://fidle.shawnxixi.icu/myTask/listTaskAcceptedByPageid/' + pageid,
       // url: 'http://120.77.210.142:8080/myTask/listTaskAcceptedByPageid/' + pageid,
       header: { 'content-type': 'application/json',
        'Cookie': session_id ,
@@ -293,7 +293,7 @@ Page({
     console.log("进行id为"+id+"的任务");
     let that = this;
     wx.request({
-      url: 'http://47.106.241.182:8082/myTask/conductTask',
+      url: 'https://fidle.shawnxixi.icu/myTask/conductTask',
       method: 'POST',
       header: { 'content-type': 'application/x-www-form-urlencoded',
        'Cookie': session_id ,
@@ -328,7 +328,7 @@ Page({
         if (res.confirm) {//这里是点击了确定以后
           console.log('用户点击确定')
           wx.request({
-            url: 'http://47.106.241.182:8082/myTask/deleteTaskById/'+id,
+            url: 'https://fidle.shawnxixi.icu/myTask/deleteTaskById/'+id,
             header: { 'content-type': 'application/json',
              'Cookie': session_id ,
              'token': app.globalData.token
@@ -360,7 +360,7 @@ Page({
     console.log("完成id为"+id+"的任务");   
     let that = this;   
     wx.request({
-      url: 'http://47.106.241.182:8082/myTask/finishTaskById/'+id,
+      url: 'https://fidle.shawnxixi.icu/myTask/finishTaskById/'+id,
       header: { 'content-type': 'application/json',
        'Cookie': session_id ,
        'token': app.globalData.token
@@ -387,7 +387,7 @@ Page({
     console.log("取消id为"+id+"的任务");
     let that = this; 
     wx.request({
-      url: 'http://47.106.241.182:8082/myTask/cancelTaskById/'+id,
+      url: 'https://fidle.shawnxixi.icu/myTask/cancelTaskById/'+id,
       header: { 'content-type': 'application/json',
        'Cookie': session_id ,
        'token': app.globalData.token

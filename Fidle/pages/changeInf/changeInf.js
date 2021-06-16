@@ -46,7 +46,7 @@ Page({
     });
     let that=this;
     wx.request({
-      url: 'http://47.106.241.182:8082/personalPage/getHomePageById/'+app.globalData.user.id,
+      url: 'https://fidle.shawnxixi.icu/personalPage/getHomePageById/'+app.globalData.user.id,
       method: 'GET',
       header: {
         "Content-Type": "application/json",

@@ -174,7 +174,7 @@ Page({
             if(that.data.isPublisher ==1 && that.data.isAccepter == 0) {//评价任务接受方
               console.log("评价任务接受方");
               wx.request({
-                url: 'http://47.106.241.182:8082/myTask/evaluateAccepter/',
+                url: 'https://fidle.shawnxixi.icu/myTask/evaluateAccepter/',
                 header: {
                   'Content-Type': 'application/x-www-form-urlencoded',
                   'Cookie': wx.getStorageSync('sessionid'),
@@ -203,7 +203,7 @@ Page({
             else {//评价任务发布方
               console.log("评价任务发布方");
               wx.request({
-                url: 'http://47.106.241.182:8082/myTask/evaluatePublisher/',
+                url: 'https://fidle.shawnxixi.icu/myTask/evaluatePublisher/',
                 header: {
                   'Content-Type': 'application/x-www-form-urlencoded',
                   'Cookie': wx.getStorageSync('sessionid'),

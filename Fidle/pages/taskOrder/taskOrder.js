@@ -136,7 +136,7 @@ Page({
           if (res.confirm) {
             console.log('用户点击确定');
             wx.request({
-              url: 'http://47.106.241.182:8082/myTask/conductTask/',
+              url: 'https://fidle.shawnxixi.icu/myTask/conductTask/',
               header: {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'Cookie': wx.getStorageSync('sessionid'),
