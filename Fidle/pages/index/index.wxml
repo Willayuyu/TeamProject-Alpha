@@ -7,14 +7,6 @@
   <van-tabs bind:click="tab_Click" swipeable="{{true}}" color="#7DB5EE">
     <van-tab title="二手" name="goods">
       <view class="tab">
-        <view class="screen_btn" bindtap="rankPSec">
-            价格
-          <image src="/images/shangxia.png" mode="widthFix" class="img"></image>
-        </view>
-        <view class="screen_btn" bindtap="rankDSec">
-            新旧
-          <image src="/images/shangxia.png" mode="widthFix" class="img"></image>
-        </view>
         <c-select initSelect="{{secTime}}" prop-array='{{secTimeArray}}'  bind:select='select_Sec_Time'/>
         <c-select initSelect="{{secSort}}" prop-array='{{secSortArray}}'  bind:select='select_Sec_Sort'/>
         <c-select initSelect="{{secDegree}}" prop-array='{{secDegreeArray}}'  bind:select='select_Sec_Degree'/>
@@ -47,14 +39,6 @@
     </van-tab>
     <van-tab title="任务" name="task">
       <view class="tab">
-        <view class="screen_btn screen_btn_left1" bindtap="rankPTask">
-          酬劳
-          <image src="/images/shangxia.png" mode="widthFix" class="img"></image>
-        </view>
-        <view class="screen_btn screen_btn_large" bindtap="rankDTask">
-          截止时间
-          <image src="/images/shangxia.png" mode="widthFix" class="img"></image>
-        </view>
         <c-select initSelect="{{taskTime}}" prop-array='{{taskTimeArray}}'  bind:select='select_Task_Time'/>
         <c-select initSelect="{{taskSort}}" prop-array='{{taskSortArray}}'  bind:select='select_Task_Sort'/>
       </view>
@@ -88,10 +72,6 @@
     </van-tab>  
     <van-tab title="活动" name="activity">
       <view class="tab">
-        <view class="screen_btn screen_btn_large screen_btn-left2" bindtap="rankDActivity">
-          活动时间
-          <image src="/images/shangxia.png" mode="widthFix" class="img"></image>
-        </view>
         <c-select initSelect="{{activityTime}}" prop-array='{{activityTimeArray}}'  bind:select='select_Act_Time'/>
         <c-select initSelect="{{activitySort}}" prop-array='{{activitySortArray}}'  bind:select='select_Act_Sort'/>
       </view>

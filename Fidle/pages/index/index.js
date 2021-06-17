@@ -716,6 +716,8 @@ Page({
           var map = new Map();
           var array = []; 
           var list = res.data.data;//json中的data数组
+          map.set(0,"类别");
+          array.push("类别");
           for(var i in list) {
             var category = list[i].categoryDesignation;
             var id = list[i].categoryId;
@@ -752,6 +754,8 @@ Page({
           var map = new Map();
           var array = []; 
           var list = res.data.data;//json中的data数组
+          map.set(0,"类别");
+          array.push("类别");
           for(var i in list) {
             var category = list[i].categoryDesignation;
             var id = list[i].categoryId;
@@ -788,6 +792,8 @@ Page({
           var map = new Map();
           var array = []; 
           var list = res.data.data;//json中的data数组
+          map.set(0,"类别");
+          array.push("类别");
           for(var i in list) {
             var category = list[i].categoryDesignation;
             var id = list[i].categoryId;

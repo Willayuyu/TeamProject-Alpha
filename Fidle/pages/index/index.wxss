@@ -9,7 +9,8 @@
 /*下拉框样式*/
 c-select {
   display: inline-block;
-  margin: 10rpx 5rpx 0 10rpx;
+  margin: 10rpx 5rpx 0 30rpx;
+  /* margin: 0 auto; */
 }
 
 /*导航条*/

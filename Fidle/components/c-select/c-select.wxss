@@ -1,6 +1,6 @@
 /* pages/components/c-select/c-select.wxss */
 .ms-content-box {
-  width: 160rpx;
+  width: 200rpx;
 }
 
 .ms-content {
