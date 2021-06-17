@@ -3,10 +3,7 @@ package com.example.fidledemo.backHomepage.controller;
 import com.alibaba.fastjson.JSON;
 import com.example.fidledemo.BO.*;
 import com.example.fidledemo.DO.*;
-import com.example.fidledemo.VO.BackActivityVO;
-import com.example.fidledemo.VO.BackGoodsItemVO;
-import com.example.fidledemo.VO.BackTaskItemVO;
-import com.example.fidledemo.VO.PageInfoVO;
+import com.example.fidledemo.VO.*;
 import com.example.fidledemo.BO.ReportMessage;
 import com.example.fidledemo.BO.Result;
 import com.example.fidledemo.BO.ResultCode;
@@ -14,6 +11,9 @@ import com.example.fidledemo.DO.ActivityReportMessageDO;
 import com.example.fidledemo.DO.GoodsReportMessageDO;
 import com.example.fidledemo.DO.TaskReportMessageDO;
 import com.example.fidledemo.backHomepage.service.AdminService;
+import com.example.fidledemo.homepage.service.ActivityInfoServiceImpl;
+import com.example.fidledemo.homepage.service.GoodsInfoServiceImpl;
+import com.example.fidledemo.homepage.service.TaskInfoServiceImpl;
 import com.example.fidledemo.homepage.utils.DateUtils;
 import com.example.fidledemo.homepage.utils.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -553,9 +554,6 @@ public class AdminController {
             return JSON.toJSONString(Result.failureResult(ResultCode.RESOURCE_EMPTY));
         }
     }
-
-
-
 
 
 }

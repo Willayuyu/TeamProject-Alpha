@@ -79,6 +79,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor
           id = Long.parseLong(JWT.decode(token).getAudience().get(0));
           if(id>=10000)
           {
+            httpServletRequest.getSession().setAttribute("user",userDAO.getUserById(1L));
             long adminId=id-10000;
             AdminDO adminDO=new AdminDO();
             adminDO.setId(adminId);

@@ -5,9 +5,7 @@ import com.example.fidledemo.BO.AdminBO;
 import com.example.fidledemo.BO.GoodsInfoBO;
 import com.example.fidledemo.BO.TaskInfoBO;
 import com.example.fidledemo.DO.*;
-import com.example.fidledemo.VO.BackActivityVO;
-import com.example.fidledemo.VO.BackGoodsItemVO;
-import com.example.fidledemo.VO.BackTaskItemVO;
+import com.example.fidledemo.VO.*;
 import com.example.fidledemo.dao.*;
 import com.example.fidledemo.DO.AdminDO;
 import com.example.fidledemo.DO.PermissionDO;
@@ -285,4 +283,5 @@ public class AdminServiceImpl implements AdminService{
         }
         return activityItemVOS;
     }
+
 }
