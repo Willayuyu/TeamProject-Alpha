@@ -25,7 +25,7 @@
       <text class="itemcontent words" decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{dataList.credit.creditScore}}</text>
     </view>
   </view>
-  <view class="itembg" bindtap="comments">
+  <view class="itembg">
     <view class="itemname words" decode="{{true}}">曾获评价 
       <text decode="{{true}}">&nbsp;&nbsp;</text>
       <text class="itemcontent words iconfont icon-cc-thumbs-up" decode="{{true}}">&nbsp;&nbsp;×{{dataList.credit.likeNum}}</text>
