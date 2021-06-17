@@ -129,42 +129,56 @@ Page({
         hiddenSubmit:true
       })
     } else {
-      wx.showModal({
-        content: '确认提交当前订单吗？',
-        success: function (res) {
-          //进行退出登录操作：把Storage中的flag置为false
-          if (res.confirm) {
-            console.log('用户点击确定');
-            wx.request({
-              url: 'https://fidle.shawnxixi.icu/myTask/conductTask/',
-              header: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'Cookie': wx.getStorageSync('sessionid'),
-                'token': app.globalData.token
-              },
-              data: {
-                id: id,
-                acc_id: acc_id
-              },
-              method: 'POST',
-              dataType: 'json',
-              success(res) {
-                console.log(res.data.code);
-                console.log("生成订单成功");
-                wx.redirectTo({
-                  url: '/pages/task/task',
-                })
-              },
-              fail(err) {
-                reject(err);
-                wx.showToast({ title: '系统错误' })
-              },
-            })
-          } else if (res.cancel) {
-            console.log('用户点击取消');
+      let myid = app.globalData.user.id;
+      console.log(myid);
+      console.log(acc_id);
+      console.log(myid==acc_id)
+      if(myid == acc_id)
+      {
+        wx.showToast({ title: '不可以是自己喔' })
+        that.setData({
+          hiddenConfirm:false,
+          hiddenSubmit:true
+        })
+      }
+      else{
+        wx.showModal({
+          content: '确认提交当前订单吗？',
+          success: function (res) {
+            //进行退出登录操作：把Storage中的flag置为false
+            if (res.confirm) {
+              console.log('用户点击确定');
+              wx.request({
+                url: 'https://fidle.shawnxixi.icu/myTask/conductTask/',
+                header: {
+                  'Content-Type': 'application/x-www-form-urlencoded',
+                  'Cookie': wx.getStorageSync('sessionid'),
+                  'token': app.globalData.token
+                },
+                data: {
+                  id: id,
+                  acc_id: acc_id
+                },
+                method: 'POST',
+                dataType: 'json',
+                success(res) {
+                  console.log(res.data.code);
+                  console.log("生成订单成功");
+                  wx.redirectTo({
+                    url: '/pages/task/task',
+                  })
+                },
+                fail(err) {
+                  reject(err);
+                  wx.showToast({ title: '系统错误' })
+                },
+              })
+            } else if (res.cancel) {
+              console.log('用户点击取消');
+            }
           }
-        }
-      })
+        })
+      }
     }
   },
 })

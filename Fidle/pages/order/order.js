@@ -131,41 +131,54 @@ Page({
       })
     } else {
       console.log(buyerId)
-      wx.showModal({
-        content: '确认生成当前订单吗？',
-        success: function (res) {
-          if (res.confirm) {
-            console.log('用户点击提交');
-            wx.request({
-              url: 'https://fidle.shawnxixi.icu/myGoods/generateOrder/',
-              header: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'Cookie': wx.getStorageSync('sessionid'),
-                'token': app.globalData.token
-              },
-              data: {
-                id: id,
-                buyerId: buyerId
-              },
-              method: 'POST',
-              dataType: 'json',
-              success(res) {
-                console.log(res.data.code);
-                console.log("生成订单成功");
-                wx.redirectTo({
-                  url: '/pages/goods/goods',
+      let myid = app.globalData.user.id;
+      console.log(myid);
+      console.log(myid==buyerId)
+      if(myid == buyerId)
+      {
+        wx.showToast({ title: '不可以是自己喔' })
+        that.setData({
+          hiddenConfirm:false,
+          hiddenSubmit:true
+        })
+      }
+      else{
+          wx.showModal({
+            content: '确认生成当前订单吗？',
+            success: function (res) {
+              if (res.confirm) {
+                console.log('用户点击提交');
+                wx.request({
+                  url: 'https://fidle.shawnxixi.icu/myGoods/generateOrder/',
+                  header: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Cookie': wx.getStorageSync('sessionid'),
+                    'token': app.globalData.token
+                  },
+                  data: {
+                    id: id,
+                    buyerId: buyerId
+                  },
+                  method: 'POST',
+                  dataType: 'json',
+                  success(res) {
+                    console.log(res.data.code);
+                    console.log("生成订单成功");
+                    wx.redirectTo({
+                      url: '/pages/goods/goods',
+                    })
+                  },
+                  fail(err) {
+                    reject(err);
+                    wx.showToast({ title: '系统错误' })
+                  },
                 })
-              },
-              fail(err) {
-                reject(err);
-                wx.showToast({ title: '系统错误' })
-              },
-            })
-          } else if (res.cancel) {
-            console.log('用户点击取消');
-          }
-        }
-      })
+              } else if (res.cancel) {
+                console.log('用户点击取消');
+              }
+            }
+          })
+      }  
     }
   },
 })
