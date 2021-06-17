@@ -371,7 +371,7 @@ Page({
     let condition = goodsData.condition;
     let category = goodsData.category;
     let tagList = goodsData.tagList;
-    wx.navigateTo({
+    wx.redirectTo({
       url: '/pages/order/order?id=' + id + '&title=' + title + '&price=' + price + '&originalPrice=' + originalPrice + '&imageLink=' + imageLink + '&condition=' + condition + '&category=' + category + '&tagList=' + JSON.stringify(tagList),
     })
 
@@ -457,7 +457,7 @@ Page({
     let tagList = goodsData.tagList;
     let isSold = 1;
     let isBuy = 0;
-    wx.navigateTo({
+    wx.redirectTo({
       url: '/pages/commentPage/commentPage?id=' + id + '&title=' + title + '&price=' + price + '&originalPrice=' + originalPrice + '&imageLink=' + imageLink + '&condition=' + condition + '&category=' + category + '&tagList=' + JSON.stringify(tagList) + '&isSold=' +isSold + '&isBuy=' +isBuy ,
     })
   },
@@ -485,7 +485,7 @@ Page({
     let tagList = goodsData.tagList;
     let isSold = 0;
     let isBuy = 1;
-    wx.navigateTo({
+    wx.redirectTo({
       url: '/pages/commentPage/commentPage?id=' + id + '&title=' + title + '&price=' + price + '&originalPrice=' + originalPrice + '&imageLink=' + imageLink + '&condition=' + condition + '&category=' + category + '&tagList=' + JSON.stringify(tagList) + '&isSold=' +isSold + '&isBuy=' +isBuy ,
     })
   }

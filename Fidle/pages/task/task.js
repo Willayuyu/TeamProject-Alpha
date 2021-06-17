@@ -424,7 +424,7 @@ Page({
     console.log(task.tagList);
     console.log('/pages/taskOrder/taskOrder?id='+task.id+'&title='+task.title+
     '&reward='+task.reward+'&tagList='+JSON.stringify(task.tagList)+'&category='+task.category);
-    wx.navigateTo({
+    wx.redirectTo({
       url: '/pages/taskOrder/taskOrder?id='+task.id+'&title='+task.title+
       '&reward='+task.reward+'&tagList='+JSON.stringify(task.tagList)+'&category='+task.category,
       // ?i
@@ -477,7 +477,7 @@ Page({
     console.log(task.tagList);
     console.log('/pages/taskOrder/taskOrder?id='+task.id+'&title='+task.title+
     '&reward='+task.reward+'&tagList='+JSON.stringify(task.tagList)+'&category='+task.category);
-    wx.navigateTo({
+    wx.redirectTo({
       url: '/pages/taskcommentPage/taskcommentPage?id='+task.id+'&title='+task.title+
       '&reward='+task.reward+'&tagList='+JSON.stringify(task.tagList)+'&category='+task.category+'&isPublisher=1&isAccepter=0',
     })
@@ -504,7 +504,7 @@ Page({
     console.log(task.tagList);
     console.log('/pages/taskOrder/taskOrder?id='+task.id+'&title='+task.title+
     '&reward='+task.reward+'&tagList='+JSON.stringify(task.tagList)+'&category='+task.category);
-    wx.navigateTo({
+    wx.redirectTo({
       url: '/pages/taskcommentPage/taskcommentPage?id='+task.id+'&title='+task.title+
       '&reward='+task.reward+'&tagList='+JSON.stringify(task.tagList)+'&category='+task.category+'&isPublisher=0&isAccepter=1',
     })
