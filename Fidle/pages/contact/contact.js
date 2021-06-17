@@ -108,12 +108,14 @@ Page({
    */
   telPaste(){
     var tel=this.data.dataList.tel;
-    wx.showToast({
-      title: '电话号码复制成功',
-    })
+    
     wx.setClipboardData({
       data: tel,
       success: function (res) {
+        wx.showToast({
+          title: '电话复制成功',
+          duration: 1000
+        })
         wx.getClipboardData({    
           success: function (res) {
             console.log(res.data) // data
@@ -128,12 +130,13 @@ Page({
    */
   qqPaste(){
     var qq=this.data.dataList.qq;
-    wx.showToast({
-      title: 'qq号码复制成功',
-    })
     wx.setClipboardData({
       data: qq,
       success: function (res) {
+        wx.showToast({
+          title: 'qq号码复制成功',
+          duration: 1000
+        })
         wx.getClipboardData({    
           success: function (res) {
             console.log(res.data) // data
