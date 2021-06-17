@@ -342,23 +342,35 @@ Page({
     console.log(session_id);      
     console.log("取消id为"+id+"的任务");
     let that = this; 
-    wx.request({
-      url: 'https://fidle.shawnxixi.icu/myTask/cancelTaskById/'+id,
-      header: { 'content-type': 'application/json',
-       'Cookie': session_id ,
-       'token': app.globalData.token
-      },
-      success(res){
-        console.log(res.data);
-        if(res.data.code==200) {
-          console.log("取消任务");
-          console.log(res.data);
-          // that.getPublishedTaskList();
-          that.onLoad();
+    wx.showModal({
+      title: '提示',
+      content: '您确定要取消该任务吗?',
+      success: function (res) {
+        if (res.confirm) {//这里是点击了确定以后
+          console.log('用户点击确定')
+          wx.request({
+            url: 'https://fidle.shawnxixi.icu/myTask/cancelTaskById/'+id,
+            header: { 'content-type': 'application/json',
+             'Cookie': session_id ,
+             'token': app.globalData.token
+            },
+            success(res){
+              console.log(res.data);
+              if(res.data.code==200) {
+                console.log("取消任务");
+                console.log(res.data);
+                // that.getPublishedTaskList();
+                that.onLoad();
+              }
+            }
+          })
+        } else {//这里是点击了取消以后
+          console.log('用户点击取消')
         }
       }
     })
   },
+
 
   showOverlap: function(event){
     this.setData({indexOnsale: event.currentTarget.dataset.index});
