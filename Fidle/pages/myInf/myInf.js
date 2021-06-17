@@ -70,8 +70,8 @@ Page({
     this.setData({//username，信用分，好评，差评可能会改变。需要重新获取
       username:app.globalData.user.username,
       credit:app.globalData.user.credit.creditScore,
-      goodcmt:app.globalData.user.credit.dislikeNum,
-      badcmt:app.globalData.user.credit.likeNum,
+      goodcmt:app.globalData.user.credit.likeNum,
+      badcmt:app.globalData.user.credit.dislikeNum,
     })
   },
 
