@@ -51,6 +51,7 @@ public class AdminController {
      * 返回总用户数
      * @return
      */
+    @UserLoginToken
     @GetMapping("/admin/totalUsersNum")
     public String getTotalUser(){
         try {
@@ -65,6 +66,7 @@ public class AdminController {
      * 返回总二手物品数
      * @return
      */
+    @UserLoginToken
     @GetMapping("/admin/totalGoodsNum")
     public String getTotalGoodsNum(){
         try {
@@ -79,6 +81,7 @@ public class AdminController {
      * 返回总任务数
      * @return
      */
+    @UserLoginToken
     @GetMapping("/admin/totalTasksNum")
     public String getTotalTaskNum(){
         try {
@@ -93,6 +96,7 @@ public class AdminController {
      * 返回总活动数
      * @return
      */
+    @UserLoginToken
     @GetMapping("/admin/totalActivitiesNum")
     public String getTotalActivityNum(){
         try {
@@ -107,6 +111,7 @@ public class AdminController {
      * 返回今日新增用户数
      * @return
      */
+    @UserLoginToken
     @GetMapping("/admin/newUsersNum")
     public String getNewUserNums(){
         try {
@@ -121,6 +126,7 @@ public class AdminController {
      * 返回今日新发布二手物品数
      * @return
      */
+    @UserLoginToken
     @GetMapping("/admin/newGoodsNum")
     public String getNewGoodsNums(){
         try {
@@ -135,6 +141,7 @@ public class AdminController {
      * 返回今日新发布任务数
      * @return
      */
+    @UserLoginToken
     @GetMapping("/admin/newTasksNum")
     public String getNewTasksNums(){
         try {
@@ -149,6 +156,7 @@ public class AdminController {
      * 返回今日新发布活动数
      * @return
      */
+    @UserLoginToken
     @GetMapping("/admin/newActivitiesNum")
     public String getNewActivitiesNums(){
         try {
@@ -163,6 +171,7 @@ public class AdminController {
      * 返回未处理二手物品举报数
      * @return
      */
+    @UserLoginToken
     @GetMapping("/admin/goodsReportNum")
     public String getGoodsReportNum(){
         try{
@@ -179,6 +188,7 @@ public class AdminController {
      * 返回未处理任务举报数
      * @return
      */
+    @UserLoginToken
     @GetMapping("/admin/tasksReportNum")
     public String getTaskReportNum(){
         try{
@@ -195,6 +205,7 @@ public class AdminController {
      * 返回未处理活动举报数
      * @return
      */
+    @UserLoginToken
     @GetMapping("/admin/activitiesReportNum")
     public String getActivityReportNum(){
         try{
@@ -213,6 +224,7 @@ public class AdminController {
      * @return
      * @throws ParseException
      */
+    @UserLoginToken
     @PostMapping("/admin/releaseNumTrend")
     public String getGoodsNumByTime(HttpServletRequest request) throws ParseException {
         try {
