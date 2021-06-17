@@ -36,6 +36,10 @@ public class GoodsSortServiceImpl implements GoodsSortService
       goodsItemVO.setImageLink(goodsInfoBO.getImageList().get(0).getImageLink());
       goodsItemVO.setCondition(goodsInfoBO.getCondition());
       goodsItemVO.setCategory(goodsInfoBO.getCategory().getCategoryDesignation());
+
+      goodsItemVO.setGmt_create(goodsInfoBO.getGmtInfo().getGmtCreate());
+      goodsItemVO.setAnnouncer(goodsInfoBO.getPubName());
+
       List<TagBO> tagList = goodsInfoBO.getTagList();
       List<GoodsTagVO> goodsTagVOS = new ArrayList<>();
       for (TagBO tagBO:tagList) {
@@ -67,6 +71,10 @@ public class GoodsSortServiceImpl implements GoodsSortService
       goodsItemVO.setImageLink(goodsInfoBO.getImageList().get(0).getImageLink());
       goodsItemVO.setCondition(goodsInfoBO.getCondition());
       goodsItemVO.setCategory(goodsInfoBO.getCategory().getCategoryDesignation());
+
+      goodsItemVO.setGmt_create(goodsInfoBO.getGmtInfo().getGmtCreate());
+      goodsItemVO.setAnnouncer(goodsInfoBO.getPubName());
+
       List<TagBO> tagList = goodsInfoBO.getTagList();
       List<GoodsTagVO> goodsTagVOS = new ArrayList<>();
       for (TagBO tagBO:tagList) {
@@ -98,6 +106,10 @@ public class GoodsSortServiceImpl implements GoodsSortService
       goodsItemVO.setImageLink(goodsInfoBO.getImageList().get(0).getImageLink());
       goodsItemVO.setCondition(goodsInfoBO.getCondition());
       goodsItemVO.setCategory(goodsInfoBO.getCategory().getCategoryDesignation());
+
+      goodsItemVO.setGmt_create(goodsInfoBO.getGmtInfo().getGmtCreate());
+      goodsItemVO.setAnnouncer(goodsInfoBO.getPubName());
+
       List<TagBO> tagList = goodsInfoBO.getTagList();
       List<GoodsTagVO> goodsTagVOS = new ArrayList<>();
       for (TagBO tagBO:tagList) {
@@ -129,6 +141,10 @@ public class GoodsSortServiceImpl implements GoodsSortService
       goodsItemVO.setImageLink(goodsInfoBO.getImageList().get(0).getImageLink());
       goodsItemVO.setCondition(goodsInfoBO.getCondition());
       goodsItemVO.setCategory(goodsInfoBO.getCategory().getCategoryDesignation());
+
+      goodsItemVO.setGmt_create(goodsInfoBO.getGmtInfo().getGmtCreate());
+      goodsItemVO.setAnnouncer(goodsInfoBO.getPubName());
+
       List<TagBO> tagList = goodsInfoBO.getTagList();
       List<GoodsTagVO> goodsTagVOS = new ArrayList<>();
       for (TagBO tagBO:tagList) {

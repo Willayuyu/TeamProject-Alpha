@@ -193,6 +193,7 @@ public class TaskSortController
       List<TaskItemVO> taskItemVOS = taskSortService.listGoodsInfoBySearchOrderByDateDesc(taskInformationDO, tagOfTaskDO);
       UserBO user = (UserBO) request.getSession().getAttribute("user");
       Long userId = user.getId();
+
       TaskEnshrineDO taskEnshrineDO = new TaskEnshrineDO();
       taskEnshrineDO.setUserId(userId);
       for (TaskItemVO taskItemVO:taskItemVOS) {
