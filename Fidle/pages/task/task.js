@@ -131,69 +131,25 @@ Page({
   clickPublishTaskCard(event) {
     let index = event.currentTarget.dataset.index;
     let id;
-    let pubId;
-    wx.request({
-      url: 'https://fidle.shawnxixi.icu/myTask/listTaskPublishedByPageid/1',
-      method: 'GET',
-      dataType: 'json',
-      data: {
-        'id': id,
-        'pubId': pubId
-      },
-      headers: {
-        'Content-Type': 'application/json',
-        'Cookie': wx.getStorageSync('sessionid'),
-        'token': app.globalData.token
-      },
-      success: (res) => {
-        console.log(index);
-        let dataList = res.data.data[index];
-        console.log(dataList);
-        id = dataList.id;
-        pubId = dataList.pub_Id;
-        console.log(id);
-        console.log(pubId);
-        wx.navigateTo({
-          url: '/pages/taskDetailsPage/taskDetailsPage?id='+id,
-        })
-      },
-      fail: (err) => {
-        wx.showToast({ title: '系统错误' })
-      },
+    let that = this;
+    let dataList = that.data.publishedTaskList[index];
+    console.log(dataList.id);
+    id = dataList.id;
+    console.log(id);
+    wx.navigateTo({
+      url: '/pages/taskDetailsPage/taskDetailsPage?id=' + id
     })
   },
   clickAcceptTaskCard(event) {
     let index = event.currentTarget.dataset.index;
     let id;
-    let pubId;
-    wx.request({
-      url: 'https://fidle.shawnxixi.icu/myTask/listTaskPublishedByPageid/1',
-      method: 'GET',
-      dataType: 'json',
-      data: {
-        'id': id,
-        'pubId': pubId
-      },
-      headers: {
-        'Content-Type': 'application/json',
-        'Cookie': wx.getStorageSync('sessionid'),
-        'token': app.globalData.token
-      },
-      success: (res) => {
-        console.log(index);
-        let dataList = res.data.data[index];
-        console.log(dataList);
-        id = dataList.id;
-        pubId = dataList.pub_Id;
-        console.log(id);
-        console.log(pubId);
-        wx.navigateTo({
-          url: '/pages/taskDetailsPage/taskDetailsPage?id='+id,
-        })
-      },
-      fail: (err) => {
-        wx.showToast({ title: '系统错误' })
-      },
+    let that = this;
+    let dataList = that.data.acceptedTaskList[index];
+    console.log(dataList.id);
+    id = dataList.id;
+    console.log(id);
+    wx.navigateTo({
+      url: '/pages/taskDetailsPage/taskDetailsPage?id=' + id
     })
   },
 

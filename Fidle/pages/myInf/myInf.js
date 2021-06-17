@@ -6,12 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    imgsrc:"",
-    username:"",
-    userid:"",
-    credit:"100",
-    goodcmt:0,
-    badcmt:0,
+    id:0,
+    dataList:[]
   },
 
   aboutus: function (options) {
@@ -36,18 +32,29 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(app.globalData.user.id);
-    console.log(app.globalData.user.username);
-    console.log(app.globalData.user.credit.creditScore);
-    console.log(app.globalData.user.credit.dislikeNum);
-    console.log(app.globalData.user.credit.likeNum);
-    this.setData({
-      imgsrc:app.globalData.user.portrait,
-      userid:app.globalData.user.id,
-      username:app.globalData.user.username,
-      credit:app.globalData.user.credit.creditScore,
-      goodcmt:app.globalData.user.credit.likeNum,
-      badcmt:app.globalData.user.credit.dislikeNum,
+    let that = this;
+    let id = app.globalData.user.id;
+    console.log(id);
+    wx.request({
+      url: 'https://fidle.shawnxixi.icu/homePage/getPublisherBusinessCard/'+ id,
+      method: 'GET',
+      dataType: 'json',
+      header: {
+        'content-type': 'application/json',
+        'Cookie': wx.getStorageSync('sessionid'),
+        'token': app.globalData.token
+      },
+      success: (res) => {
+        console.log(res.data);
+        console.log(res.data.data);
+        that.setData({
+          id:app.globalData.user.id,
+          dataList: res.data.data
+        })
+      },
+      fail: (err) => {
+        wx.showToast({ title: '系统错误' })
+      },
     })
   },
 
@@ -62,16 +69,28 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    console.log(app.globalData.user.id);
-    console.log(app.globalData.user.username);
-    console.log(app.globalData.user.credit.creditScore);
-    console.log(app.globalData.user.credit.dislikeNum);
-    console.log(app.globalData.user.credit.likeNum);
-    this.setData({//username，信用分，好评，差评可能会改变。需要重新获取
-      username:app.globalData.user.username,
-      credit:app.globalData.user.credit.creditScore,
-      goodcmt:app.globalData.user.credit.dislikeNum,
-      badcmt:app.globalData.user.credit.likeNum,
+    console.log("重新加载页面")
+    let that = this;
+    let id = app.globalData.user.id;
+    wx.request({
+      url: 'https://fidle.shawnxixi.icu/homePage/getPublisherBusinessCard/'+ id,
+      method: 'GET',
+      dataType: 'json',
+      header: {
+        'content-type': 'application/json',
+        'Cookie': wx.getStorageSync('sessionid'),
+        'token': app.globalData.token
+      },
+      success: (res) => {
+        console.log(res.data);
+        console.log(res.data.data);
+        that.setData({
+          dataList: res.data.data
+        })
+      },
+      fail: (err) => {
+        wx.showToast({ title: '系统错误' })
+      },
     })
   },
 

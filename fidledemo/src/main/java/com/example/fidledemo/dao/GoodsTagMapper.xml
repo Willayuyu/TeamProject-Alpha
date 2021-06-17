@@ -22,7 +22,7 @@
     </update>
 
     <delete id="deleteGoodsTagById" parameterType="Long">
-        DELETE FROM task_tag
+        DELETE FROM goods_tag
         WHERE goods_id = #{goodsId};
     </delete>
 </mapper>
