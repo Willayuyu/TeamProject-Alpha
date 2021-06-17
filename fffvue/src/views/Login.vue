@@ -73,7 +73,7 @@ export default {
         .then((res) => {
           console.log(res.data);
           if (res.data.code == 200) {
-            this.$router.push("/goods");
+            this.$router.push("/");
             sessionStorage.setItem("token", res.data.data.token);
 
             var admin = {

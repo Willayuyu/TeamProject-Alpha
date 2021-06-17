@@ -149,7 +149,11 @@ export default {
             categoryId: categoryId,
             keyWord: this.input,
             pageid: this.currentPage
-          }),
+          }),{
+            headers:{
+              'token': sessionStorage.getItem("token")
+            }
+          }
       ).then(res => {
         this.activityList = res.data.data;
         this.currentPage = res.data.data[0].pageInfo.currentPage;
@@ -164,7 +168,11 @@ export default {
 
     handleDelete(index,row) {
       let url = "/api/myActivity/deleteActivityById/" + row.id;
-      axios.get(url);
+      axios.get(url,{
+        headers:{
+          'token': sessionStorage.getItem("token")
+        }
+      });
       console.log("删除" + row.id);
     },//删除
 
@@ -174,7 +182,11 @@ export default {
     },//改变页面
   },
   beforeMount:function () {
-    axios.get("/api/activity/listActivityCategory").then(res => {
+    axios.get("/api/activity/listActivityCategory",{
+      headers:{
+        'token': sessionStorage.getItem("token")
+      }
+    }).then(res => {
       console.log(res);
       this.categoryList = res.data.data;
     })

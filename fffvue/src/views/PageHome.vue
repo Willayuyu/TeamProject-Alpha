@@ -323,31 +323,59 @@ export default {
      */
     init() {
       axios
-          .get('http://47.106.241.182:8082/admin/totalUsersNum')
+          .get('http://47.106.241.182:8082/admin/totalUsersNum',{
+            headers:{
+              'token': sessionStorage.getItem("token")
+            }
+          })
           .then(response => (this.usersNumber = response.data.data))
 
       axios
-          .get('http://47.106.241.182:8082/admin/totalGoodsNum')
+          .get('http://47.106.241.182:8082/admin/totalGoodsNum',{
+            headers:{
+              'token': sessionStorage.getItem("token")
+            }
+          })
           .then(response => (this.goodNumber = response.data.data))
 
       axios
-          .get('http://47.106.241.182:8082/admin/totalTasksNum')
+          .get('http://47.106.241.182:8082/admin/totalTasksNum',{
+            headers:{
+              'token': sessionStorage.getItem("token")
+            }
+          })
           .then(response => (this.taskNumber = response.data.data))
 
       axios
-          .get('http://47.106.241.182:8082/admin/totalActivitiesNum')
+          .get('http://47.106.241.182:8082/admin/totalActivitiesNum',{
+            headers:{
+              'token': sessionStorage.getItem("token")
+            }
+          })
           .then(response => (this.activityNumber = response.data.data))
 
       axios
-          .get('http://47.106.241.182:8082/admin/goodsReportNum')
+          .get('http://47.106.241.182:8082/admin/goodsReportNum',{
+            headers:{
+              'token': sessionStorage.getItem("token")
+            }
+          })
           .then(response => (this.goodReport = response.data.data))
 
       axios
-          .get('http://47.106.241.182:8082/admin/tasksReportNum')
+          .get('http://47.106.241.182:8082/admin/tasksReportNum',{
+            headers:{
+              'token': sessionStorage.getItem("token")
+            }
+          })
           .then(response => (this.taskReport = response.data.data))
 
       axios
-          .get('http://47.106.241.182:8082/admin/activitiesReportNum')
+          .get('http://47.106.241.182:8082/admin/activitiesReportNum',{
+            headers:{
+              'token': sessionStorage.getItem("token")
+            }
+          })
           .then(response => (this.activityReport = response.data.data))
 
     },
@@ -390,7 +418,11 @@ export default {
       axios.post('http://47.106.241.182:8082/admin/releaseNumTrend',
           qs.stringify({
           dayNum: value
-      }))
+      }),{
+            headers:{
+              'token': sessionStorage.getItem("token")
+            }
+          })
       .then(function (response) {
         let goodsReleaseList = response.data.data.goodsReleaseList;
         let tasksReleaseList = response.data.data.tasksReleaseList;

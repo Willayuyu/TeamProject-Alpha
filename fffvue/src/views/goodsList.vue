@@ -147,8 +147,13 @@ export default {
             categoryId: categoryId,
             keyWord: this.input,
             pageid: this.currentPage
-          }),
+          }),{
+          headers:{
+            'token': sessionStorage.getItem("token")
+          }
+          }
       ).then(res => {
+        console.log(res.data);
         this.goodsList = res.data.data;
         this.currentPage = res.data.data[0].pageInfo.currentPage;
         this.totalNum = res.data.data[0].pageInfo.totalNum;

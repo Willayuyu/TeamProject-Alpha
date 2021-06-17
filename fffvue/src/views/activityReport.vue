@@ -82,13 +82,21 @@ export default {
     ignoreReport(index,row) {
       console.log(row.id);
       let url = "/api/admin/ignoreActivityReport/" + row.id;
-      axios.get(url);
+      axios.get(url,{
+        headers:{
+          'token': sessionStorage.getItem("token")
+        }
+      });
     },//忽略举报
 
     throughReport(index,row) {
       console.log(row.id);
       let url = "/api/admin/handleActivityReport/" + row.id;
-      axios.get(url);
+      axios.get(url,{
+        headers:{
+          'token': sessionStorage.getItem("token")
+        }
+      });
     },//通过举报
 
     handleCurrentChange(val) {
@@ -98,8 +106,12 @@ export default {
 
     getReports() {
       let url = "/api/admin/activitiesReport/page/" + this.currentPage;
-      axios.get(url).then(res => {
-        this.activitiesReports = res.data.data.activitiesReports;
+      axios.get(url,{
+        headers:{
+          'token': sessionStorage.getItem("token")
+        }
+      }).then(res => {
+        this.activitiesReports = res.data.data.reports;
         this.currentPage = res.data.data.pageInfo.currentPage;
         this.totalNum = res.data.data.pageInfo.totalNum;
       })

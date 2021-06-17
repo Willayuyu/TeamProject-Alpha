@@ -113,7 +113,11 @@ import { Message } from 'element-ui';
     methods: {
       async getTaskInfo() {
         this.id = this.$route.params.id;
-        await axios.get('/api/task/getTaskDetailById/' + this.id)
+        await axios.get('/api/task/getTaskDetailById/' + this.id,{
+          headers:{
+            'token': sessionStorage.getItem("token")
+          }
+        })
         .then( response => {
           console.log(response.data.data);
           this.category = response.data.data.category;
@@ -137,7 +141,11 @@ import { Message } from 'element-ui';
 
       async getPublisherInfo() {
         await this.getTaskInfo();
-        axios.get('/api/personalPage/getHomePageById/' + this.pubId)
+        axios.get('/api/personalPage/getHomePageById/' + this.pubId,{
+          headers:{
+            'token': sessionStorage.getItem("token")
+          }
+        })
         .then( response => {
           console.log(response);
           this.username = response.data.data.username;
@@ -152,7 +160,11 @@ import { Message } from 'element-ui';
       },
 
       deleteInfo(){
-        axios.get('/api/myTask/deleteTaskById/' + this.id)
+        axios.get('/api/myTask/deleteTaskById/' + this.id,{
+          headers:{
+            'token': sessionStorage.getItem("token")
+          }
+        })
         .then( response => {
           console.log(response);
           this.$message({
