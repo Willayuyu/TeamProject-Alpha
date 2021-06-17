@@ -52,13 +52,7 @@ public class GoodsSortController
 
       int days=Integer.parseInt(request.getParameter("days"));
       Long categoryId=Long.parseLong(request.getParameter("categoryId"));
-      int condition=0;
-      String c=request.getParameter("condition");
-      if(!"".equals(c))
-      {
-        condition=Integer.parseInt(c);
-      }
-
+      int condition=Integer.parseInt(request.getParameter("condition"));
       String keyWord=request.getParameter("keyWord");
       int pageid=Integer.parseInt(request.getParameter("pageid"));
 
@@ -92,9 +86,9 @@ public class GoodsSortController
 
       List<GoodsItemVO> goodsItemVOS = goodsSortService.listGoodsInfoBySearchOrderByPriceASC(goodsInfoDO, tagOfGoodsDO);
       //判断是否被该用户收藏
-      UserBO user = (UserBO) request.getSession().getAttribute("user");
-      Long userId = user.getId();
-
+            /*UserBO user = (UserBO) request.getSession().getAttribute("user");
+            Long userId = user.getId();*/
+      Long userId = Long.valueOf(1);
       GoodsEnshrineDO goodsEnshrineDO = new GoodsEnshrineDO();
       goodsEnshrineDO.setUserId(userId);
       for (GoodsItemVO goodsItemVO:goodsItemVOS) {
@@ -169,9 +163,9 @@ public class GoodsSortController
 
       List<GoodsItemVO> goodsItemVOS = goodsSortService.listGoodsInfoBySearchOrderByPriceDesc(goodsInfoDO, tagOfGoodsDO);
       //判断是否被该用户收藏
-      UserBO user = (UserBO) request.getSession().getAttribute("user");
-      Long userId = user.getId();
-      //Long userId = Long.valueOf(1);
+            /*UserBO user = (UserBO) request.getSession().getAttribute("user");
+            Long userId = user.getId();*/
+      Long userId = Long.valueOf(1);
       GoodsEnshrineDO goodsEnshrineDO = new GoodsEnshrineDO();
       goodsEnshrineDO.setUserId(userId);
       for (GoodsItemVO goodsItemVO:goodsItemVOS) {
@@ -246,9 +240,9 @@ public class GoodsSortController
 
       List<GoodsItemVO> goodsItemVOS = goodsSortService.listGoodsInfoBySearchOrderByConditionASC(goodsInfoDO, tagOfGoodsDO);
       //判断是否被该用户收藏
-      UserBO user = (UserBO) request.getSession().getAttribute("user");
-      Long userId = user.getId();
-      //Long userId = Long.valueOf(1);
+            /*UserBO user = (UserBO) request.getSession().getAttribute("user");
+            Long userId = user.getId();*/
+      Long userId = Long.valueOf(1);
       GoodsEnshrineDO goodsEnshrineDO = new GoodsEnshrineDO();
       goodsEnshrineDO.setUserId(userId);
       for (GoodsItemVO goodsItemVO:goodsItemVOS) {
@@ -323,9 +317,9 @@ public class GoodsSortController
 
       List<GoodsItemVO> goodsItemVOS = goodsSortService.listGoodsInfoBySearchOrderByConditionDesc(goodsInfoDO, tagOfGoodsDO);
       //判断是否被该用户收藏
-      UserBO user = (UserBO) request.getSession().getAttribute("user");
-      Long userId = user.getId();
-      //Long userId = Long.valueOf(1);
+            /*UserBO user = (UserBO) request.getSession().getAttribute("user");
+            Long userId = user.getId();*/
+      Long userId = Long.valueOf(1);
       GoodsEnshrineDO goodsEnshrineDO = new GoodsEnshrineDO();
       goodsEnshrineDO.setUserId(userId);
       for (GoodsItemVO goodsItemVO:goodsItemVOS) {

@@ -40,16 +40,17 @@ public class TaskSortController
   @UserLoginToken
   @PostMapping("/task/sortTask/rewardDesc")
   public String sortTaskRD(HttpServletRequest request){
-    try{
+    try {
       TaskInformationDO taskInformationDO = new TaskInformationDO();
       TagOfTaskDO tagOfTaskDO = new TagOfTaskDO();
-      int days=Integer.parseInt(request.getParameter("days"));
-      Long categoryId=Long.parseLong(request.getParameter("categoryId"));
-      String keyWord=request.getParameter("keyWord");
-      int pageid=Integer.parseInt(request.getParameter("pageid"));
+      int days = Integer.parseInt(request.getParameter("days"));
+      Long categoryId = Long.parseLong(request.getParameter("categoryId"));
+      String keyWord = request.getParameter("keyWord");
+      int pageid = Integer.parseInt(request.getParameter("pageid"));
+
       taskInformationDO.setDistinct(Boolean.TRUE);
 
-      if (categoryId!=0){
+      if (categoryId != 0) {
         taskInformationDO.setCategory(categoryId);
       }
 
@@ -61,34 +62,35 @@ public class TaskSortController
       tagOfTaskDO.setContent(keyWord);
       tagOfTaskDO.setContentLike(Boolean.TRUE);
 
-      if (days!=0){
-        taskInformationDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
+      if (days != 0) {
+        taskInformationDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(), -days));
         taskInformationDO.setCreateTimeEnd(new Date());
       }
 
       List<TaskItemVO> taskItemVOS = taskSortService.listTaskInfoBySearchOrderByRewardDesc(taskInformationDO, tagOfTaskDO);
-      UserBO user = (UserBO) request.getSession().getAttribute("user");
-      Long userId = user.getId();
+            /*UserBO user = (UserBO) request.getSession().getAttribute("user");
+            Long userId = user.getId();*/
+      Long userId = Long.valueOf(1);
       TaskEnshrineDO taskEnshrineDO = new TaskEnshrineDO();
       taskEnshrineDO.setUserId(userId);
-      for (TaskItemVO taskItemVO:taskItemVOS) {
+      for (TaskItemVO taskItemVO : taskItemVOS) {
         taskEnshrineDO.setTaskId(taskItemVO.getId());
-        if(taskEnshrineService.getTaskEnshrine(taskEnshrineDO)!=null){
+        if (taskEnshrineService.getTaskEnshrine(taskEnshrineDO) != null) {
           taskItemVO.setCollectState(TaskItemVO.COLLECT);
-        }else {
+        } else {
           taskItemVO.setCollectState(TaskItemVO.DISCOLLECT);
         }
       }
 
-      PageHelper<TaskItemVO> pageHelper = new PageHelper<>(taskItemVOS,size);
+      PageHelper<TaskItemVO> pageHelper = new PageHelper<>(taskItemVOS, size);
       List<TaskItemVO> itemVOList = pageHelper.getPageByNum(pageid);
 
-      for (TaskItemVO taskItemVO:itemVOList) {
-        taskItemVO.setPageInfo(new PageInfoVO(pageid,pageHelper.getTotalPage(),pageHelper.getTotalNum()));
+      for (TaskItemVO taskItemVO : itemVOList) {
+        taskItemVO.setPageInfo(new PageInfoVO(pageid, pageHelper.getTotalPage(), pageHelper.getTotalNum()));
       }
 
       return JSON.toJSONString(Result.successResult(itemVOList));
-    }catch (Exception e){
+    } catch (Exception e) {
       e.printStackTrace();
       return JSON.toJSONString(Result.failureResult(ResultCode.RESOURCE_EMPTY));
     }
@@ -102,16 +104,17 @@ public class TaskSortController
   @UserLoginToken
   @PostMapping("/task/sortTask/rewardAsc")
   public String sortRA(HttpServletRequest request){
-    try{
+    try {
       TaskInformationDO taskInformationDO = new TaskInformationDO();
       TagOfTaskDO tagOfTaskDO = new TagOfTaskDO();
-      int days=Integer.parseInt(request.getParameter("days"));
-      Long categoryId=Long.parseLong(request.getParameter("categoryId"));
-      String keyWord=request.getParameter("keyWord");
-      int pageid=Integer.parseInt(request.getParameter("pageid"));
+      int days = Integer.parseInt(request.getParameter("days"));
+      Long categoryId = Long.parseLong(request.getParameter("categoryId"));
+      String keyWord = request.getParameter("keyWord");
+      int pageid = Integer.parseInt(request.getParameter("pageid"));
+
       taskInformationDO.setDistinct(Boolean.TRUE);
 
-      if (categoryId!=0){
+      if (categoryId != 0) {
         taskInformationDO.setCategory(categoryId);
       }
 
@@ -123,34 +126,35 @@ public class TaskSortController
       tagOfTaskDO.setContent(keyWord);
       tagOfTaskDO.setContentLike(Boolean.TRUE);
 
-      if (days!=0){
-        taskInformationDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
+      if (days != 0) {
+        taskInformationDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(), -days));
         taskInformationDO.setCreateTimeEnd(new Date());
       }
 
       List<TaskItemVO> taskItemVOS = taskSortService.listTaskInfoBySearchOrderByRewardASC(taskInformationDO, tagOfTaskDO);
-      UserBO user = (UserBO) request.getSession().getAttribute("user");
-      Long userId = user.getId();
+            /*UserBO user = (UserBO) request.getSession().getAttribute("user");
+            Long userId = user.getId();*/
+      Long userId = Long.valueOf(1);
       TaskEnshrineDO taskEnshrineDO = new TaskEnshrineDO();
       taskEnshrineDO.setUserId(userId);
-      for (TaskItemVO taskItemVO:taskItemVOS) {
+      for (TaskItemVO taskItemVO : taskItemVOS) {
         taskEnshrineDO.setTaskId(taskItemVO.getId());
-        if(taskEnshrineService.getTaskEnshrine(taskEnshrineDO)!=null){
+        if (taskEnshrineService.getTaskEnshrine(taskEnshrineDO) != null) {
           taskItemVO.setCollectState(TaskItemVO.COLLECT);
-        }else {
+        } else {
           taskItemVO.setCollectState(TaskItemVO.DISCOLLECT);
         }
       }
 
-      PageHelper<TaskItemVO> pageHelper = new PageHelper<>(taskItemVOS,size);
+      PageHelper<TaskItemVO> pageHelper = new PageHelper<>(taskItemVOS, size);
       List<TaskItemVO> itemVOList = pageHelper.getPageByNum(pageid);
 
-      for (TaskItemVO taskItemVO:itemVOList) {
-        taskItemVO.setPageInfo(new PageInfoVO(pageid,pageHelper.getTotalPage(),pageHelper.getTotalNum()));
+      for (TaskItemVO taskItemVO : itemVOList) {
+        taskItemVO.setPageInfo(new PageInfoVO(pageid, pageHelper.getTotalPage(), pageHelper.getTotalNum()));
       }
 
       return JSON.toJSONString(Result.successResult(itemVOList));
-    }catch (Exception e){
+    } catch (Exception e) {
       e.printStackTrace();
       return JSON.toJSONString(Result.failureResult(ResultCode.RESOURCE_EMPTY));
     }
@@ -164,16 +168,17 @@ public class TaskSortController
   @UserLoginToken
   @PostMapping("/task/sortTask/dateDesc")
   public String sortTaskDD(HttpServletRequest request){
-    try{
+    try {
       TaskInformationDO taskInformationDO = new TaskInformationDO();
       TagOfTaskDO tagOfTaskDO = new TagOfTaskDO();
-      int days=Integer.parseInt(request.getParameter("days"));
-      Long categoryId=Long.parseLong(request.getParameter("categoryId"));
-      String keyWord=request.getParameter("keyWord");
-      int pageid=Integer.parseInt(request.getParameter("pageid"));
+      int days = Integer.parseInt(request.getParameter("days"));
+      Long categoryId = Long.parseLong(request.getParameter("categoryId"));
+      String keyWord = request.getParameter("keyWord");
+      int pageid = Integer.parseInt(request.getParameter("pageid"));
+
       taskInformationDO.setDistinct(Boolean.TRUE);
 
-      if (categoryId!=0){
+      if (categoryId != 0) {
         taskInformationDO.setCategory(categoryId);
       }
 
@@ -185,35 +190,35 @@ public class TaskSortController
       tagOfTaskDO.setContent(keyWord);
       tagOfTaskDO.setContentLike(Boolean.TRUE);
 
-      if (days!=0){
-        taskInformationDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
+      if (days != 0) {
+        taskInformationDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(), -days));
         taskInformationDO.setCreateTimeEnd(new Date());
       }
 
       List<TaskItemVO> taskItemVOS = taskSortService.listGoodsInfoBySearchOrderByDateDesc(taskInformationDO, tagOfTaskDO);
-      UserBO user = (UserBO) request.getSession().getAttribute("user");
-      Long userId = user.getId();
-
+            /*UserBO user = (UserBO) request.getSession().getAttribute("user");
+            Long userId = user.getId();*/
+      Long userId = Long.valueOf(1);
       TaskEnshrineDO taskEnshrineDO = new TaskEnshrineDO();
       taskEnshrineDO.setUserId(userId);
-      for (TaskItemVO taskItemVO:taskItemVOS) {
+      for (TaskItemVO taskItemVO : taskItemVOS) {
         taskEnshrineDO.setTaskId(taskItemVO.getId());
-        if(taskEnshrineService.getTaskEnshrine(taskEnshrineDO)!=null){
+        if (taskEnshrineService.getTaskEnshrine(taskEnshrineDO) != null) {
           taskItemVO.setCollectState(TaskItemVO.COLLECT);
-        }else {
+        } else {
           taskItemVO.setCollectState(TaskItemVO.DISCOLLECT);
         }
       }
 
-      PageHelper<TaskItemVO> pageHelper = new PageHelper<>(taskItemVOS,size);
+      PageHelper<TaskItemVO> pageHelper = new PageHelper<>(taskItemVOS, size);
       List<TaskItemVO> itemVOList = pageHelper.getPageByNum(pageid);
 
-      for (TaskItemVO taskItemVO:itemVOList) {
-        taskItemVO.setPageInfo(new PageInfoVO(pageid,pageHelper.getTotalPage(),pageHelper.getTotalNum()));
+      for (TaskItemVO taskItemVO : itemVOList) {
+        taskItemVO.setPageInfo(new PageInfoVO(pageid, pageHelper.getTotalPage(), pageHelper.getTotalNum()));
       }
 
       return JSON.toJSONString(Result.successResult(itemVOList));
-    }catch (Exception e){
+    } catch (Exception e) {
       e.printStackTrace();
       return JSON.toJSONString(Result.failureResult(ResultCode.RESOURCE_EMPTY));
     }
@@ -226,17 +231,18 @@ public class TaskSortController
    */
   @UserLoginToken
   @PostMapping("/task/sortTask/dateAsc")
-  public String sortDA(HttpServletRequest request){
-    try{
+  public String sortDA(HttpServletRequest request) {
+    try {
       TaskInformationDO taskInformationDO = new TaskInformationDO();
       TagOfTaskDO tagOfTaskDO = new TagOfTaskDO();
-      int days=Integer.parseInt(request.getParameter("days"));
-      Long categoryId=Long.parseLong(request.getParameter("categoryId"));
-      String keyWord=request.getParameter("keyWord");
-      int pageid=Integer.parseInt(request.getParameter("pageid"));
+      int days = Integer.parseInt(request.getParameter("days"));
+      Long categoryId = Long.parseLong(request.getParameter("categoryId"));
+      String keyWord = request.getParameter("keyWord");
+      int pageid = Integer.parseInt(request.getParameter("pageid"));
+
       taskInformationDO.setDistinct(Boolean.TRUE);
 
-      if (categoryId!=0){
+      if (categoryId != 0) {
         taskInformationDO.setCategory(categoryId);
       }
 
@@ -248,37 +254,37 @@ public class TaskSortController
       tagOfTaskDO.setContent(keyWord);
       tagOfTaskDO.setContentLike(Boolean.TRUE);
 
-      if (days!=0){
-        taskInformationDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
+      if (days != 0) {
+        taskInformationDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(), -days));
         taskInformationDO.setCreateTimeEnd(new Date());
       }
 
       List<TaskItemVO> taskItemVOS = taskSortService.listGoodsInfoBySearchOrderByDateASC(taskInformationDO, tagOfTaskDO);
-      UserBO user = (UserBO) request.getSession().getAttribute("user");
-      Long userId = user.getId();
+            /*UserBO user = (UserBO) request.getSession().getAttribute("user");
+            Long userId = user.getId();*/
+      Long userId = Long.valueOf(1);
       TaskEnshrineDO taskEnshrineDO = new TaskEnshrineDO();
       taskEnshrineDO.setUserId(userId);
-      for (TaskItemVO taskItemVO:taskItemVOS) {
+      for (TaskItemVO taskItemVO : taskItemVOS) {
         taskEnshrineDO.setTaskId(taskItemVO.getId());
-        if(taskEnshrineService.getTaskEnshrine(taskEnshrineDO)!=null){
+        if (taskEnshrineService.getTaskEnshrine(taskEnshrineDO) != null) {
           taskItemVO.setCollectState(TaskItemVO.COLLECT);
-        }else {
+        } else {
           taskItemVO.setCollectState(TaskItemVO.DISCOLLECT);
         }
       }
 
-      PageHelper<TaskItemVO> pageHelper = new PageHelper<>(taskItemVOS,size);
+      PageHelper<TaskItemVO> pageHelper = new PageHelper<>(taskItemVOS, size);
       List<TaskItemVO> itemVOList = pageHelper.getPageByNum(pageid);
 
-      for (TaskItemVO taskItemVO:itemVOList) {
-        taskItemVO.setPageInfo(new PageInfoVO(pageid,pageHelper.getTotalPage(),pageHelper.getTotalNum()));
+      for (TaskItemVO taskItemVO : itemVOList) {
+        taskItemVO.setPageInfo(new PageInfoVO(pageid, pageHelper.getTotalPage(), pageHelper.getTotalNum()));
       }
 
       return JSON.toJSONString(Result.successResult(itemVOList));
-    }catch (Exception e){
+    } catch (Exception e) {
       e.printStackTrace();
       return JSON.toJSONString(Result.failureResult(ResultCode.RESOURCE_EMPTY));
     }
   }
-
 }
