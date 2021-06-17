@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.example.fidledemo.BO.ReportMessageBO;
 import com.example.fidledemo.BO.Result;
 import com.example.fidledemo.BO.UserBO;
+import com.example.fidledemo.VO.PageInfoVO;
+import com.example.fidledemo.VO.ReportVO;
 import com.example.fidledemo.VO.TaskItemVO;
 import com.example.fidledemo.VO.UserVO;
 import com.example.fidledemo.homepage.utils.PageHelper;
@@ -35,7 +37,10 @@ public class ReportController {
         List<ReportMessageBO> reportMessageBOS = reportService.listGoodsReports();
         PageHelper<ReportMessageBO> pageHelper = new PageHelper<>(reportMessageBOS, size);
         List<ReportMessageBO> reportMessageBOSLimited = pageHelper.getPageByNum(pageid);
-        return JSON.toJSONString(Result.successResult(reportMessageBOSLimited));
+        ReportVO reportVO = new ReportVO();
+        reportVO.setReports(reportMessageBOSLimited);
+        reportVO.setPageInfo(new PageInfoVO(pageHelper.getCurrentPage(),pageHelper.getTotalPage(),pageHelper.getTotalNum()));
+        return JSON.toJSONString(Result.successResult(reportVO));
     }
 
     @GetMapping("/tasksReport/page/{pageid}")
@@ -43,7 +48,10 @@ public class ReportController {
         List<ReportMessageBO> reportMessageBOS = reportService.listTaskReports();
         PageHelper<ReportMessageBO> pageHelper = new PageHelper<>(reportMessageBOS, size);
         List<ReportMessageBO> reportMessageBOSLimited = pageHelper.getPageByNum(pageid);
-        return JSON.toJSONString(Result.successResult(reportMessageBOSLimited));
+        ReportVO reportVO = new ReportVO();
+        reportVO.setReports(reportMessageBOSLimited);
+        reportVO.setPageInfo(new PageInfoVO(pageHelper.getCurrentPage(),pageHelper.getTotalPage(),pageHelper.getTotalNum()));
+        return JSON.toJSONString(Result.successResult(reportVO));
     }
 
     @GetMapping("/activitiesReport/page/{pageid}")
@@ -51,7 +59,10 @@ public class ReportController {
         List<ReportMessageBO> reportMessageBOS = reportService.listActivityReports();
         PageHelper<ReportMessageBO> pageHelper = new PageHelper<>(reportMessageBOS, size);
         List<ReportMessageBO> reportMessageBOSLimited = pageHelper.getPageByNum(pageid);
-        return JSON.toJSONString(Result.successResult(reportMessageBOSLimited));
+        ReportVO reportVO = new ReportVO();
+        reportVO.setReports(reportMessageBOSLimited);
+        reportVO.setPageInfo(new PageInfoVO(pageHelper.getCurrentPage(),pageHelper.getTotalPage(),pageHelper.getTotalNum()));
+        return JSON.toJSONString(Result.successResult(reportVO));
     }
 
     @GetMapping("/handleGoodsReport/{reportid}")

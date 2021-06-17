@@ -42,6 +42,10 @@ public class AuthenticationInterceptor implements HandlerInterceptor
     String token = httpServletRequest.getHeader("token");
 
 
+    System.out.println("token:"+token);
+
+
+
     // 如果不是映射到方法直接通过
     if (!(object instanceof HandlerMethod))
     {
@@ -77,6 +81,10 @@ public class AuthenticationInterceptor implements HandlerInterceptor
         try
         {
           id = Long.parseLong(JWT.decode(token).getAudience().get(0));
+
+
+          System.out.println("id:"+id);
+
           if(id>=10000)
           {
             httpServletRequest.getSession().setAttribute("user",userDAO.getUserById(1L));
@@ -94,6 +102,10 @@ public class AuthenticationInterceptor implements HandlerInterceptor
             {
               throw new RuntimeException("401");
             }
+            if (admin == null)
+            {
+              throw new RuntimeException("用户不存在，请重新登录");
+            }
           }
           else
           {
@@ -108,6 +120,10 @@ public class AuthenticationInterceptor implements HandlerInterceptor
             {
               throw new RuntimeException("401");
             }
+            if (user == null)
+            {
+              throw new RuntimeException("用户不存在，请重新登录");
+            }
           }
         }
         catch (JWTDecodeException j)
@@ -115,10 +131,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor
           throw new RuntimeException("401");
         }
 
-        if (user == null)
-        {
-          throw new RuntimeException("用户不存在，请重新登录");
-        }
+
         return true;
       }
     }

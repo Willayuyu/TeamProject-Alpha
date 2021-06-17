@@ -63,7 +63,6 @@ public class ReportMessageBO extends BaseMessage
    * 类型
    */
   private Integer type;
-
   /**
    * 构造方法
    * @param title
