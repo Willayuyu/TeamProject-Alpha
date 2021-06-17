@@ -177,7 +177,7 @@
         <if test="info.createTimeBegin !=null and info.createTimeEnd !=null ">
             AND gi.gmt_create BETWEEN #{info.createTimeBegin} AND #{info.createTimeEnd}
         </if>
-        ORDER BY condition ASC
+        ORDER BY `condition` ASC
         <if test="info.limit !=null and info.limit !='' ">limit #{info.begin},#{info.size}</if>
     </select>
 
@@ -213,7 +213,7 @@
         <if test="info.createTimeBegin !=null and info.createTimeEnd !=null ">
             AND gi.gmt_create BETWEEN #{info.createTimeBegin} AND #{info.createTimeEnd}
         </if>
-        ORDER BY condition ASC
+        ORDER BY `condition` DESC
         <if test="info.limit !=null and info.limit !='' ">limit #{info.begin},#{info.size}</if>
     </select>
 
@@ -285,7 +285,7 @@
         <if test="info.createTimeBegin !=null and info.createTimeEnd !=null ">
             AND gi.gmt_create BETWEEN #{info.createTimeBegin} AND #{info.createTimeEnd}
         </if>
-        ORDER BY price ASC
+        ORDER BY price DESC
         <if test="info.limit !=null and info.limit !='' ">limit #{info.begin},#{info.size}</if>
     </select>
 

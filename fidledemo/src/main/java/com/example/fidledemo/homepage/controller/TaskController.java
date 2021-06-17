@@ -72,9 +72,9 @@ public class TaskController {
             }
 
             List<TaskItemVO> taskItemVOS = taskInfoService.listTaskInfoByDO(taskInformationDO, tagOfTaskDO);
-            /*UserBO user = (UserBO) request.getSession().getAttribute("user");
-            Long userId = user.getId();*/
-            Long userId = Long.valueOf(1);
+            UserBO user = (UserBO) request.getSession().getAttribute("user");
+            Long userId = user.getId();
+            //Long userId = Long.valueOf(1);
             TaskEnshrineDO taskEnshrineDO = new TaskEnshrineDO();
             taskEnshrineDO.setUserId(userId);
             for (TaskItemVO taskItemVO:taskItemVOS) {
@@ -136,9 +136,9 @@ public class TaskController {
             }
 
             List<TaskItemVO> taskItemVOS = taskInfoService.listTaskInfoBySearch(taskInformationDO, tagOfTaskDO);
-            /*UserBO user = (UserBO) request.getSession().getAttribute("user");
-            Long userId = user.getId();*/
-            Long userId = Long.valueOf(1);
+            UserBO user = (UserBO) request.getSession().getAttribute("user");
+            Long userId = user.getId();
+            //Long userId = Long.valueOf(1);
             TaskEnshrineDO taskEnshrineDO = new TaskEnshrineDO();
             taskEnshrineDO.setUserId(userId);
             for (TaskItemVO taskItemVO:taskItemVOS) {
@@ -190,9 +190,9 @@ public class TaskController {
     @GetMapping("/task/collectTask/{id}")
     public String collectTask(@PathVariable("id") Long id, HttpServletRequest request){
         try {
-            /*UserBO user = (UserBO) request.getSession().getAttribute("user");
-            Long userId = user.getId();*/
-            Long userId= Long.valueOf(2);
+            UserBO user = (UserBO) request.getSession().getAttribute("user");
+            Long userId = user.getId();
+            //Long userId= Long.valueOf(2);
             TaskEnshrineDO taskEnshrineDO = new TaskEnshrineDO();
             taskEnshrineDO.setUserId(userId);
             taskEnshrineDO.setTaskId(id);
@@ -214,9 +214,9 @@ public class TaskController {
     @GetMapping("/task/cancelCollectTask/{id}")
     public String cancelCollectTask(@PathVariable("id") Long id, HttpServletRequest request){
         try {
-            /*UserBO user = (UserBO) request.getSession().getAttribute("user");
-            Long userId = user.getId();*/
-            Long userId= Long.valueOf(2);
+            UserBO user = (UserBO) request.getSession().getAttribute("user");
+            Long userId = user.getId();
+            //Long userId= Long.valueOf(2);
             TaskEnshrineDO taskEnshrineDO = new TaskEnshrineDO();
             taskEnshrineDO.setUserId(userId);
             taskEnshrineDO.setTaskId(id);
@@ -240,9 +240,9 @@ public class TaskController {
         try {
             TaskVO taskVO = taskInfoService.getTaskInfoById(id);
             if (taskVO!=null){
-                /*UserBO user = (UserBO) request.getSession().getAttribute("user");
-                Long userId = user.getId();*/
-                Long userId= Long.valueOf(2);
+                UserBO user = (UserBO) request.getSession().getAttribute("user");
+                Long userId = user.getId();
+                //Long userId= Long.valueOf(2);
                 TaskEnshrineDO taskEnshrineDO = new TaskEnshrineDO();
                 taskEnshrineDO.setUserId(userId);
                 taskEnshrineDO.setTaskId(id);

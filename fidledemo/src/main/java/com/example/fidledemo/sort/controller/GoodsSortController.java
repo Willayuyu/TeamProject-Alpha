@@ -6,6 +6,7 @@ import com.example.fidledemo.DO.GoodsEnshrineDO;
 import com.example.fidledemo.DO.GoodsInfoDO;
 import com.example.fidledemo.DO.TagOfGoodsDO;
 import com.example.fidledemo.VO.GoodsItemVO;
+import com.example.fidledemo.VO.PageInfoVO;
 import com.example.fidledemo.homepage.service.GoodsEnshrineServiceImpl;
 import com.example.fidledemo.homepage.service.GoodsInfoServiceImpl;
 import com.example.fidledemo.homepage.utils.DateUtils;
@@ -48,12 +49,28 @@ public class GoodsSortController
     try{
       GoodsInfoDO goodsInfoDO = new GoodsInfoDO();
       TagOfGoodsDO tagOfGoodsDO = new TagOfGoodsDO();
+
       int days=Integer.parseInt(request.getParameter("days"));
       Long categoryId=Long.parseLong(request.getParameter("categoryId"));
-      int condition=Integer.parseInt(request.getParameter("condition"));
+      int condition=0;
+      String c=request.getParameter("condition");
+      if(!"".equals(c))
+      {
+        condition=Integer.parseInt(c);
+      }
+
+      String keyWord=request.getParameter("keyWord");
       int pageid=Integer.parseInt(request.getParameter("pageid"));
 
+            /*goodsInfoDO.setLimit(Boolean.TRUE);
+            goodsInfoDO.setBegin((pageid-1)*size);
+            goodsInfoDO.setSize(size);*/
+
       goodsInfoDO.setDistinct(Boolean.TRUE);
+      goodsInfoDO.setTitle(keyWord);
+      goodsInfoDO.setTitleLike(Boolean.TRUE);
+      goodsInfoDO.setDescription(keyWord);
+      goodsInfoDO.setDescriptionLike(Boolean.TRUE);
 
       if(categoryId!=0){
         goodsInfoDO.setCategory(categoryId);
@@ -62,16 +79,22 @@ public class GoodsSortController
       if(condition!=0){
         goodsInfoDO.setCondition(condition);
       }
+
       goodsInfoDO.setSold(GoodsInfoBO.SELLING);
+
       if(days!=0){
         goodsInfoDO.setCreateTimeEnd(new Date());
         goodsInfoDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
       }
-      List<GoodsItemVO> goodsItemVOS = goodsSortService.listGoodsInfoBySearchOrderByPriceASC(goodsInfoDO, tagOfGoodsDO);
 
+      tagOfGoodsDO.setContent(keyWord);
+      tagOfGoodsDO.setContentLike(Boolean.TRUE);
+
+      List<GoodsItemVO> goodsItemVOS = goodsSortService.listGoodsInfoBySearchOrderByPriceASC(goodsInfoDO, tagOfGoodsDO);
       //判断是否被该用户收藏
       UserBO user = (UserBO) request.getSession().getAttribute("user");
       Long userId = user.getId();
+
       GoodsEnshrineDO goodsEnshrineDO = new GoodsEnshrineDO();
       goodsEnshrineDO.setUserId(userId);
       for (GoodsItemVO goodsItemVO:goodsItemVOS) {
@@ -85,6 +108,10 @@ public class GoodsSortController
 
       PageHelper<GoodsItemVO> pageHelper = new PageHelper<>(goodsItemVOS,size);
       List<GoodsItemVO> itemVOList = pageHelper.getPageByNum(pageid);
+
+      for (GoodsItemVO goodsItemVO:itemVOList) {
+        goodsItemVO.setPageInfo(new PageInfoVO(pageid,pageHelper.getTotalPage(),pageHelper.getTotalNum()));
+      }
 
 
       return JSON.toJSONString(Result.successResult(itemVOList));
@@ -105,12 +132,22 @@ public class GoodsSortController
     try{
       GoodsInfoDO goodsInfoDO = new GoodsInfoDO();
       TagOfGoodsDO tagOfGoodsDO = new TagOfGoodsDO();
+
       int days=Integer.parseInt(request.getParameter("days"));
       Long categoryId=Long.parseLong(request.getParameter("categoryId"));
       int condition=Integer.parseInt(request.getParameter("condition"));
+      String keyWord=request.getParameter("keyWord");
       int pageid=Integer.parseInt(request.getParameter("pageid"));
 
+            /*goodsInfoDO.setLimit(Boolean.TRUE);
+            goodsInfoDO.setBegin((pageid-1)*size);
+            goodsInfoDO.setSize(size);*/
+
       goodsInfoDO.setDistinct(Boolean.TRUE);
+      goodsInfoDO.setTitle(keyWord);
+      goodsInfoDO.setTitleLike(Boolean.TRUE);
+      goodsInfoDO.setDescription(keyWord);
+      goodsInfoDO.setDescriptionLike(Boolean.TRUE);
 
       if(categoryId!=0){
         goodsInfoDO.setCategory(categoryId);
@@ -119,16 +156,22 @@ public class GoodsSortController
       if(condition!=0){
         goodsInfoDO.setCondition(condition);
       }
+
       goodsInfoDO.setSold(GoodsInfoBO.SELLING);
+
       if(days!=0){
         goodsInfoDO.setCreateTimeEnd(new Date());
         goodsInfoDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
       }
-      List<GoodsItemVO> goodsItemVOS = goodsSortService.listGoodsInfoBySearchOrderByPriceDesc(goodsInfoDO, tagOfGoodsDO);
 
+      tagOfGoodsDO.setContent(keyWord);
+      tagOfGoodsDO.setContentLike(Boolean.TRUE);
+
+      List<GoodsItemVO> goodsItemVOS = goodsSortService.listGoodsInfoBySearchOrderByPriceDesc(goodsInfoDO, tagOfGoodsDO);
       //判断是否被该用户收藏
       UserBO user = (UserBO) request.getSession().getAttribute("user");
       Long userId = user.getId();
+      //Long userId = Long.valueOf(1);
       GoodsEnshrineDO goodsEnshrineDO = new GoodsEnshrineDO();
       goodsEnshrineDO.setUserId(userId);
       for (GoodsItemVO goodsItemVO:goodsItemVOS) {
@@ -142,6 +185,10 @@ public class GoodsSortController
 
       PageHelper<GoodsItemVO> pageHelper = new PageHelper<>(goodsItemVOS,size);
       List<GoodsItemVO> itemVOList = pageHelper.getPageByNum(pageid);
+
+      for (GoodsItemVO goodsItemVO:itemVOList) {
+        goodsItemVO.setPageInfo(new PageInfoVO(pageid,pageHelper.getTotalPage(),pageHelper.getTotalNum()));
+      }
 
 
       return JSON.toJSONString(Result.successResult(itemVOList));
@@ -152,7 +199,7 @@ public class GoodsSortController
   }
 
   /**
-   * 根据价格新旧程度升序排序二手列表
+   * 根据新旧程度升序排序二手列表
    * @param request
    * @return
    */
@@ -162,12 +209,22 @@ public class GoodsSortController
     try{
       GoodsInfoDO goodsInfoDO = new GoodsInfoDO();
       TagOfGoodsDO tagOfGoodsDO = new TagOfGoodsDO();
+
       int days=Integer.parseInt(request.getParameter("days"));
       Long categoryId=Long.parseLong(request.getParameter("categoryId"));
       int condition=Integer.parseInt(request.getParameter("condition"));
+      String keyWord=request.getParameter("keyWord");
       int pageid=Integer.parseInt(request.getParameter("pageid"));
 
+            /*goodsInfoDO.setLimit(Boolean.TRUE);
+            goodsInfoDO.setBegin((pageid-1)*size);
+            goodsInfoDO.setSize(size);*/
+
       goodsInfoDO.setDistinct(Boolean.TRUE);
+      goodsInfoDO.setTitle(keyWord);
+      goodsInfoDO.setTitleLike(Boolean.TRUE);
+      goodsInfoDO.setDescription(keyWord);
+      goodsInfoDO.setDescriptionLike(Boolean.TRUE);
 
       if(categoryId!=0){
         goodsInfoDO.setCategory(categoryId);
@@ -176,16 +233,22 @@ public class GoodsSortController
       if(condition!=0){
         goodsInfoDO.setCondition(condition);
       }
+
       goodsInfoDO.setSold(GoodsInfoBO.SELLING);
+
       if(days!=0){
         goodsInfoDO.setCreateTimeEnd(new Date());
         goodsInfoDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
       }
-      List<GoodsItemVO> goodsItemVOS = goodsSortService.listGoodsInfoBySearchOrderByConditionASC(goodsInfoDO, tagOfGoodsDO);
 
+      tagOfGoodsDO.setContent(keyWord);
+      tagOfGoodsDO.setContentLike(Boolean.TRUE);
+
+      List<GoodsItemVO> goodsItemVOS = goodsSortService.listGoodsInfoBySearchOrderByConditionASC(goodsInfoDO, tagOfGoodsDO);
       //判断是否被该用户收藏
       UserBO user = (UserBO) request.getSession().getAttribute("user");
       Long userId = user.getId();
+      //Long userId = Long.valueOf(1);
       GoodsEnshrineDO goodsEnshrineDO = new GoodsEnshrineDO();
       goodsEnshrineDO.setUserId(userId);
       for (GoodsItemVO goodsItemVO:goodsItemVOS) {
@@ -199,6 +262,10 @@ public class GoodsSortController
 
       PageHelper<GoodsItemVO> pageHelper = new PageHelper<>(goodsItemVOS,size);
       List<GoodsItemVO> itemVOList = pageHelper.getPageByNum(pageid);
+
+      for (GoodsItemVO goodsItemVO:itemVOList) {
+        goodsItemVO.setPageInfo(new PageInfoVO(pageid,pageHelper.getTotalPage(),pageHelper.getTotalNum()));
+      }
 
 
       return JSON.toJSONString(Result.successResult(itemVOList));
@@ -219,12 +286,22 @@ public class GoodsSortController
     try{
       GoodsInfoDO goodsInfoDO = new GoodsInfoDO();
       TagOfGoodsDO tagOfGoodsDO = new TagOfGoodsDO();
+
       int days=Integer.parseInt(request.getParameter("days"));
       Long categoryId=Long.parseLong(request.getParameter("categoryId"));
       int condition=Integer.parseInt(request.getParameter("condition"));
+      String keyWord=request.getParameter("keyWord");
       int pageid=Integer.parseInt(request.getParameter("pageid"));
 
+            /*goodsInfoDO.setLimit(Boolean.TRUE);
+            goodsInfoDO.setBegin((pageid-1)*size);
+            goodsInfoDO.setSize(size);*/
+
       goodsInfoDO.setDistinct(Boolean.TRUE);
+      goodsInfoDO.setTitle(keyWord);
+      goodsInfoDO.setTitleLike(Boolean.TRUE);
+      goodsInfoDO.setDescription(keyWord);
+      goodsInfoDO.setDescriptionLike(Boolean.TRUE);
 
       if(categoryId!=0){
         goodsInfoDO.setCategory(categoryId);
@@ -233,16 +310,22 @@ public class GoodsSortController
       if(condition!=0){
         goodsInfoDO.setCondition(condition);
       }
+
       goodsInfoDO.setSold(GoodsInfoBO.SELLING);
+
       if(days!=0){
         goodsInfoDO.setCreateTimeEnd(new Date());
         goodsInfoDO.setCreateTimeBegin(DateUtils.addAndSubtractDaysByCalendar(new Date(),-days));
       }
-      List<GoodsItemVO> goodsItemVOS = goodsSortService.listGoodsInfoBySearchOrderByConditionDesc(goodsInfoDO, tagOfGoodsDO);
 
+      tagOfGoodsDO.setContent(keyWord);
+      tagOfGoodsDO.setContentLike(Boolean.TRUE);
+
+      List<GoodsItemVO> goodsItemVOS = goodsSortService.listGoodsInfoBySearchOrderByConditionDesc(goodsInfoDO, tagOfGoodsDO);
       //判断是否被该用户收藏
       UserBO user = (UserBO) request.getSession().getAttribute("user");
       Long userId = user.getId();
+      //Long userId = Long.valueOf(1);
       GoodsEnshrineDO goodsEnshrineDO = new GoodsEnshrineDO();
       goodsEnshrineDO.setUserId(userId);
       for (GoodsItemVO goodsItemVO:goodsItemVOS) {
@@ -256,6 +339,10 @@ public class GoodsSortController
 
       PageHelper<GoodsItemVO> pageHelper = new PageHelper<>(goodsItemVOS,size);
       List<GoodsItemVO> itemVOList = pageHelper.getPageByNum(pageid);
+
+      for (GoodsItemVO goodsItemVO:itemVOList) {
+        goodsItemVO.setPageInfo(new PageInfoVO(pageid,pageHelper.getTotalPage(),pageHelper.getTotalNum()));
+      }
 
 
       return JSON.toJSONString(Result.successResult(itemVOList));
