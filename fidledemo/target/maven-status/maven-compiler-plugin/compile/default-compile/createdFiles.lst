@@ -16,6 +16,7 @@ com\example\fidledemo\backLogin\realm\AdminShiroRealm.class
 com\example\fidledemo\homepage\utils\DateUtils.class
 com\example\fidledemo\homepage\service\ActivityEnshrineService.class
 com\example\fidledemo\homepage\service\GoodsCategoryService.class
+com\example\fidledemo\historypage\utils\SortVOList.class
 com\example\fidledemo\sort\service\TaskSortService.class
 com\example\fidledemo\historypage\service\MyTaskService.class
 com\example\fidledemo\VO\TaskCategoryVO.class
@@ -39,6 +40,7 @@ com\example\fidledemo\backHomepage\service\AdminServiceImpl.class
 com\example\fidledemo\DO\ActivityCategoryDO.class
 com\example\fidledemo\dao\GoodsCategoryDAO.class
 com\example\fidledemo\DO\RoleDO.class
+com\example\fidledemo\report\controller\ReportMessageController.class
 com\example\fidledemo\DO\TaskEvaluationDO.class
 com\example\fidledemo\homepage\utils\PageHelper.class
 com\example\fidledemo\BO\InformationList.class
@@ -81,6 +83,7 @@ com\example\fidledemo\DO\TaskTagDO.class
 com\example\fidledemo\BO\IndexList.class
 com\example\fidledemo\homepage\service\TaskEnshrineServiceImpl.class
 com\example\fidledemo\DO\TagOfTaskDO.class
+com\example\fidledemo\historypage\utils\ScoreUtil.class
 com\example\fidledemo\dao\ActivityEnshrineDAO.class
 com\example\fidledemo\dao\CreditDAO.class
 com\example\fidledemo\DO\GoodsEnshrineDO.class
@@ -97,6 +100,7 @@ com\example\fidledemo\homepage\service\ActivityInfoService.class
 com\example\fidledemo\homepage\service\CreditService.class
 com\example\fidledemo\DO\GoodsIndentDO.class
 com\example\fidledemo\backLogin\utils\UUIDUtil.class
+com\example\fidledemo\report\service\ReportMessageService.class
 com\example\fidledemo\dao\GoodsInfoDAO.class
 com\example\fidledemo\backHomepage\utils\PageHelper.class
 com\example\fidledemo\homepage\service\TaskInfoServiceImpl.class
@@ -150,9 +154,11 @@ com\example\fidledemo\BO\ReportMessage.class
 com\example\fidledemo\dao\TaskCategoryDAO.class
 com\example\fidledemo\historypage\service\MyActivityService.class
 com\example\fidledemo\config\AuthenticationInterceptor.class
+com\example\fidledemo\historypage\utils\CreditUtil.class
 com\example\fidledemo\login\util\TokenUtil.class
 com\example\fidledemo\login\service\LoginService.class
 com\example\fidledemo\dao\ActivityImageDAO.class
+com\example\fidledemo\report\service\ReportMessageServiceImpl.class
 com\example\fidledemo\BO\MessageList.class
 com\example\fidledemo\homepage\service\GoodsCategoryServiceImpl.class
 com\example\fidledemo\DO\SystemMessageDO.class
