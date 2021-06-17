@@ -6,7 +6,7 @@ Page({
    */
   data: {
       id:'',
-      dataList:[]
+      dataList:[{tel:0,qq:0}]
   },
 
   comments: function (options) {
@@ -101,5 +101,45 @@ Page({
    */
   onShareAppMessage: function () {
 
-  }
+  },
+
+  /**
+   * 点击用户电话复制
+   */
+  telPaste(){
+    var tel=this.data.dataList.tel;
+    wx.showToast({
+      title: '电话号码复制成功',
+    })
+    wx.setClipboardData({
+      data: tel,
+      success: function (res) {
+        wx.getClipboardData({    
+          success: function (res) {
+            console.log(res.data) // data
+          }
+        })
+      }
+    })
+  },
+
+  /**
+   * 点击用户qq号码复制
+   */
+  qqPaste(){
+    var qq=this.data.dataList.qq;
+    wx.showToast({
+      title: 'qq号码复制成功',
+    })
+    wx.setClipboardData({
+      data: qq,
+      success: function (res) {
+        wx.getClipboardData({    
+          success: function (res) {
+            console.log(res.data) // data
+          }
+        })
+      }
+    })
+  },
 })

@@ -8,13 +8,13 @@
       {{dataList.username}}
     </view>
   </view>
-  <view class="itembg">
-    <view class="itemname words">
+  <view class="itembg" bindtap='telPaste'>
+    <view class="itemname words"> 
       <text class="iconfont icon-phone left"></text>
       {{dataList.tel}}
     </view>
   </view>
-  <view class="itembg">
+  <view class="itembg" bindtap='qqPaste'>
     <view class="itemname words">
       <text class="iconfont icon-qq left"></text>
       {{dataList.qq}}
