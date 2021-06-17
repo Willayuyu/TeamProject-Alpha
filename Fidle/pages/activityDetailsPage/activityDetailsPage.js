@@ -19,7 +19,8 @@ Page({
     pubId: 0,
     id: 0,
     hiddenModal: true,
-    inputValue: null
+    inputValue: null,
+    tagflag: true,
   },
 
   /**
@@ -53,7 +54,12 @@ Page({
           })
           if(res.data.data.picturesLink[0] == null){
             that.setData({
-              swiperList:["../../images/defaultpic.png"]
+              swiperList:["../../images/defaultpic.jpg"]
+            })
+          }
+          if(res.data.data.tagList[0].content == ''){
+            that.setData({
+              tagflag: false
             })
           }
         }
@@ -77,10 +83,12 @@ Page({
   preview(event) {
     var swiperlist = this.data.swiperList;
     var index = event.currentTarget.dataset.index;
-    wx.previewImage({
-      current: swiperlist[index],
-      urls: swiperlist
-    })
+    if(swiperlist[0] != '../../images/defaultpic.jpg'){
+      wx.previewImage({
+        current: swiperlist[index],
+        urls: swiperlist
+      })
+    }
   },
 
   /**

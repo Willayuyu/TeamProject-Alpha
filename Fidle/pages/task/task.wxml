@@ -6,8 +6,8 @@
         <view class="modifyTag">
           <view>
             <image wx:if="{{item.taskState=='未接收'}}" class="state" mode="widthFix" src="../../icons/circle.png"></image>
-            <image wx:if="{{item.taskState=='进行中'}}"class="state" mode="widthFix" src="../../icons/circle (1).png"></image>
-            <image wx:if="{{item.taskState=='已完成'}}" class="state" mode="widthFix" src="../../icons/circle (2).png"></image>
+            <image wx:if="{{item.taskState=='进行中'}}"class="state" mode="widthFix" src="../../icons/circleone.png"></image>
+            <image wx:if="{{item.taskState=='已完成'}}" class="state" mode="widthFix" src="../../icons/circletwo.png"></image>
             <text class="stateText">{{item.taskState}}</text>
           </view>
           <image class="modify" mode="widthFix" wx:if="{{item.taskState=='未接收'}}" hover-stop-propagation='true' catchtap="gotoAlterTaskPage"
@@ -59,8 +59,8 @@
         <view class="modifyTag">
           <view>
             <image wx:if="{{item.taskState=='未接收'}}" class="state" mode="widthFix" src="../../icons/circle.png"></image>
-            <image wx:if="{{item.taskState=='进行中'}}"class="state" mode="widthFix" src="../../icons/circle (1).png"></image>
-            <image wx:if="{{item.taskState=='已完成'}}" class="state" mode="widthFix" src="../../icons/circle (2).png"></image>
+            <image wx:if="{{item.taskState=='进行中'}}"class="state" mode="widthFix" src="../../icons/circleone.png"></image>
+            <image wx:if="{{item.taskState=='已完成'}}" class="state" mode="widthFix" src="../../icons/circletwo.png"></image>
             <text class="stateText">{{item.taskState}}</text>
           </view>
 

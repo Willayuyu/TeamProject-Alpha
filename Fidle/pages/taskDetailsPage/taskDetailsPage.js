@@ -18,7 +18,8 @@ Page({
     pubId: 0,
     id: 0,
     hiddenModal: true,
-    inputValue: null
+    inputValue: null,
+    tagflag: true,
   },
 
   /**
@@ -49,6 +50,11 @@ Page({
             pubId: res.data.data.pubId,
             id: res.data.data.id,
           })
+          if(res.data.data.tagList[0].content == ''){
+            that.setData({
+              tagflag: false
+            })
+          }
         }
       },
       fail(err) {

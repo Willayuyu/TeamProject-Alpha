@@ -30,7 +30,7 @@
         <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
         <van-tag color="#FFDBA5" text-color="#323232">{{category}}</van-tag>
       </view>
-      <view class="tag">
+      <view class="tag" wx:if="{{tagflag}}">
         <text decode="true">标签:</text>
         <image class="tagsIcon" mode="widthFix" src="../../icons/label.png"></image>
         <van-tag wx:for="{{tagsList}}" wx:key="{{index}}" color="#D8E2DA" text-color="#323232">{{item.content}}</van-tag>
