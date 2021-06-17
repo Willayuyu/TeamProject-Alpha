@@ -1,6 +1,6 @@
 <van-tabs bind:click="tab_Click">
   <van-tab title="已发布" name="publish">
-    <van-card wx:for="{{publishedTaskList}}" wx:key="{{index}}"
+    <van-card wx:for="{{publishedTaskList}}" wx:key="index"
     class="card" bindtap="clickPublishTaskCard" data-index="{{index}}">
       <view slot="title" class="title">
         <view class="modifyTag">
@@ -54,7 +54,7 @@
 
   <van-tab title="已接受" name="recept">
     <van-card wx:for="{{acceptedTaskList}}" wx:key="{{index}}"
-    class="card" bindtap="clickPublishTaskCard" data-index="{{index}}">
+    class="card" bindtap="clickAcceptTaskCard" data-index="{{index}}">
       <view slot="title" class="title">
         <view class="modifyTag">
           <view>

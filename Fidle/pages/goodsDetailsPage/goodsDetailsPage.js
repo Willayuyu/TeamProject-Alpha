@@ -64,6 +64,11 @@ Page({
             pubId: res.data.data.pubId,
             id: res.data.data.id,
           });
+          if(res.data.data.picturesLink[0] == null){
+            that.setData({
+              swiperList:["../../images/defaultpic.png"]
+            })
+          }
           that.changeNum();
         }
       },
