@@ -35,6 +35,10 @@ Page({
       success: (res) => {
         console.log(res.data);
         console.log(res.data.data);
+        if(res.data.data.tel == null)
+          res.data.data.tel = "无";
+        if(res.data.data.qq == null)
+          res.data.data.qq = "无";
         that.setData({
           dataList: res.data.data
         })
