@@ -39,7 +39,7 @@ public class ReportController {
     }
 
     @GetMapping("/tasksReport/page/{pageid}")
-    public String tasksReport(@PathVariable("pageid") int pageid) {
+    public String tasksReport(@PathVariable("pageid") int pageid){
         List<ReportMessageBO> reportMessageBOS = reportService.listTaskReports();
         PageHelper<ReportMessageBO> pageHelper = new PageHelper<>(reportMessageBOS, size);
         List<ReportMessageBO> reportMessageBOSLimited = pageHelper.getPageByNum(pageid);
