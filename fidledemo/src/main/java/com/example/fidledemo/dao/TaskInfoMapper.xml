@@ -97,6 +97,7 @@
                 AND ti.gmt_create BETWEEN #{info.createTimeBegin} AND #{info.createTimeEnd}
             </if>
         </where>
+        ORDER BY ti_gmt_create DESC
         <if test="info.limit !=null and info.limit !='' ">limit #{info.begin},#{info.size}</if>
     </select>
 

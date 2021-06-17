@@ -109,6 +109,7 @@
             </if>
 
         </where>
+        ORDER BY a_gmt_create DESC
         <if test="info.limit !=null and info.limit !='' ">limit #{info.begin},#{info.size}</if>
     </select>
 
