@@ -97,6 +97,7 @@
                 AND ti.gmt_create BETWEEN #{info.createTimeBegin} AND #{info.createTimeEnd}
             </if>
         </where>
+        ORDER BY ti_gmt_create DESC
         <if test="info.limit !=null and info.limit !='' ">limit #{info.begin},#{info.size}</if>
     </select>
 
@@ -381,7 +382,9 @@
 
         OR description LIKE "%"#{info.description}"%")
 
-        AND task_state=#{info.taskState}
+        <if test="info.taskState != null and info.taskState != ''">
+            AND task_state=#{info.taskState}
+        </if>
 
         <if test="info.category != null and info.category != ''">
             AND category=#{info.category}

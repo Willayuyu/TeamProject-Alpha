@@ -104,6 +104,7 @@
                 AND gi.gmt_create BETWEEN #{info.createTimeBegin} AND #{info.createTimeEnd}
             </if>
         </where>
+        ORDER BY gi_gmt_create DESC
         <if test="info.limit !=null and info.limit !='' ">limit #{info.begin},#{info.size}</if>
     </select>
 
@@ -128,8 +129,10 @@
         (title LIKE "%"#{info.title}"%"
         OR content LIKE "%"#{tag.content}"%"
         OR description LIKE "%"#{info.description}"%")
-        AND is_sold=#{info.sold}
 
+        <if test="info.sold !=null and info.sold!= '' ">
+            AND is_sold=#{info.sold}
+        </if>
 
         <if test="info.category !=null and info.category!= '' ">
             AND category_id=#{info.category}

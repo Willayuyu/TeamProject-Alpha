@@ -382,7 +382,9 @@
 
         OR description LIKE "%"#{info.description}"%")
 
-        AND task_state=#{info.taskState}
+        <if test="info.taskState != null and info.taskState != ''">
+            AND task_state=#{info.taskState}
+        </if>
 
         <if test="info.category != null and info.category != ''">
             AND category=#{info.category}

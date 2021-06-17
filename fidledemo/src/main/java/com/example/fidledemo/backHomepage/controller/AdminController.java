@@ -424,7 +424,6 @@ public class AdminController {
                 taskInformationDO.setCategory(categoryId);
             }
 
-            taskInformationDO.setTaskState(TaskInfoBO.UNACCEPTED);
             taskInformationDO.setTitle(keyWord);
             taskInformationDO.setTitleLike(Boolean.TRUE);
             taskInformationDO.setDescription(keyWord);
