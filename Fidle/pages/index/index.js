@@ -20,7 +20,7 @@ Page({
     activityTime: "时间",//活动-时间筛选
     activitySort: "类别",//活动-类别筛选
     secTimeArray: [
-      "时间","近三天","近一天","近七天","近一个月","近三个月"
+      "时间","近三天","近七天","近一个月","近三个月"
     ],
     secSortMap: new Map(),//二手类别键值对
     secSortArray: [
@@ -30,14 +30,14 @@ Page({
       "新旧程度","全新","九成新","八成新","八成新以下"
     ],
     taskTimeArray: [
-      "时间","近三天","近一天","近七天","近一个月"
+      "时间","近三天","近七天","近一个月"
     ],
     taskSortMap: new Map(),//任务类别键值对
     taskSortArray: [
       
     ],//任务类别名称
     activityTimeArray: [
-      "时间","近七天","近一天","近三天","近一个月","近三个月"
+      "时间","近七天","近三天","近一个月","近三个月"
     ],
     activitySortMap: new Map(),//活动类别键值对
     activitySortArray: [
@@ -416,41 +416,6 @@ Page({
   },
 
   /**
-   * 上拉刷新
-   */
-  searchPre: function() {
-    let pageid;
-    switch(this.data.tabIndex) {
-      case 0:
-        pageid = this.data.goodsPage;
-        if(pageid > 1)
-          pageid--;
-        this.setData({
-          goodsPage: pageid
-        })
-        break;
-      case 1:
-        pageid = this.data.taskPage;
-        if(pageid > 1)
-          pageid--;
-        this.setData({
-          taskPage: pageid
-        })
-        break;
-      case 2:
-        pageid = this.data.activityPage;
-        if(pageid > 1)
-          pageid--;
-        this.setData({
-          activityPage: pageid
-        })
-        break;
-    }
-    this.searchOne();
-    console.log(pageid);
-  },
-
-  /**
    * 下拉刷新
    */
   searchNext: function() {
@@ -458,7 +423,7 @@ Page({
     switch(this.data.tabIndex) {
       case 0:
         pageid = this.data.goodsPage;
-        if(pageid < 10)
+        // if(pageid < 10)
           pageid++;
         this.setData({
           goodsPage: pageid
@@ -466,7 +431,7 @@ Page({
         break;
       case 1:
         pageid = this.data.taskPage;
-        if(pageid < 10)
+        // if(pageid < 10)
           pageid++;
         this.setData({
           taskPage: pageid
@@ -474,7 +439,7 @@ Page({
         break;
       case 2:
         pageid = this.data.activityPage;
-        if(pageid < 10)
+        // if(pageid < 10)
           pageid++;
         this.setData({
           activityPage: pageid
@@ -1030,524 +995,527 @@ Page({
     })
   },
 
-  /**
-   * 二手价格排序
-   */
-  rankAPSec: function(days, categoryId, condition, keyWord, pageid) {
-    let that=this;
-    for(let i = 1; i <= pageid; i++) {
-      wx.request({
-        url: 'https://fidle.shawnxixi.icu/goods/sortGoods/priceAsc',
-        header: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Cookie': wx.getStorageSync('sessionid'),
-          'token': app.globalData.token
-        },
-        data: {
-          days: days,
-          categoryId: categoryId,
-          condition: condition,
-          keyWord: keyWord,
-          pageid: pageid
-        },
-        method: "POST",
-        success(res){
-          console.log(res);
-          if(res.data.code == 200){
-            var list = res.data.data;//json中的data数组
-            console.log(list);
-            if(i != 1) {
-              list = that.data.goodsList.concat(list);
-            }
-            that.setData({
-              goodsList: list
-            })
-          }
-        }
-      })
-    }
-    console.log("二手价格升序");
-  },
+//   /**
+//    * 二手价格排序
+//    */
+//   rankAPSec: function(days, categoryId, condition, keyWord, pageid) {
+//     let that=this;
+//     for(let i = 1; i <= pageid; i++) {
+//       wx.request({
+//         url: 'https://fidle.shawnxixi.icu/goods/sortGoods/priceAsc',
+//         header: {
+//           'Content-Type': 'application/x-www-form-urlencoded',
+//           'Cookie': wx.getStorageSync('sessionid'),
+//           'token': app.globalData.token
+//         },
+//         data: {
+//           days: days,
+//           categoryId: categoryId,
+//           condition: condition,
+//           keyWord: keyWord,
+//           pageid: pageid
+//         },
+//         method: "POST",
+//         success(res){
+//           console.log(res);
+//           if(res.data.code == 200){
+//             var list = res.data.data;//json中的data数组
+//             console.log(list);
+//             console.log(days);
+//             console.log(condition);
+//             console.log(keyWord);
+//             console.log("当前请求页"+i);
+//             if(i != 1) {
+//               list = that.data.goodsList.concat(list);
+//             }
+//             that.setData({
+//               goodsList: list
+//             })
+//           }
+//         }
+//       })
+//     }
+//     console.log("二手价格升序");
+//   },
 
-  rankDPSec: function(days, categoryId, condition, keyWord, pageid) {
-    let that=this;
-    for(let i = 1; i <= pageid; i++) {
-      wx.request({
-        url: 'https://fidle.shawnxixi.icu/goods/sortGoods/priceDesc',
-        header: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Cookie': wx.getStorageSync('sessionid'),
-          'token': app.globalData.token
-        },
-        data: {
-          days: days,
-          categoryId: categoryId,
-          condition: condition,
-          keyWord: keyWord,
-          pageid: pageid
-        },
-        method: "POST",
-        success(res){
-          console.log(res);
-          if(res.data.code == 200){
-            var list = res.data.data;//json中的data数组
-            console.log(list);
-            if(i != 1) {
-              list = that.data.goodsList.concat(list);
-            }
-            that.setData({
-              goodsList: list
-            })
-          }
-        }
-      })
-    }
-    console.log("二手价格降序");
-  },
+//   rankDPSec: function(days, categoryId, condition, keyWord, pageid) {
+//     let that=this;
+//     for(let i = 1; i <= pageid; i++) {
+//       wx.request({
+//         url: 'https://fidle.shawnxixi.icu/goods/sortGoods/priceDesc',
+//         header: {
+//           'Content-Type': 'application/x-www-form-urlencoded',
+//           'Cookie': wx.getStorageSync('sessionid'),
+//           'token': app.globalData.token
+//         },
+//         data: {
+//           days: days,
+//           categoryId: categoryId,
+//           condition: condition,
+//           keyWord: keyWord,
+//           pageid: pageid
+//         },
+//         method: "POST",
+//         success(res){
+//           console.log(res);
+//           if(res.data.code == 200){
+//             var list = res.data.data;//json中的data数组
+//             console.log(list);
+//             if(i != 1) {
+//               list = that.data.goodsList.concat(list);
+//             }
+//             that.setData({
+//               goodsList: list
+//             })
+//           }
+//         }
+//       })
+//     }
+//     console.log("二手价格降序");
+//   },
 
-  rankPSec: function() {
-    var keyWord = this.data.searchInput;
-    var days = this.getDays(this.data.secTime);
-    console.log(days);
-    console.log(this.data.secSortArray);
-    var map = this.data.secSortMap;
-    var secSortId = 0;
-    var secSort = this.data.secSort;
-    for(let item of map.entries()) {
-      if(item[1] == secSort) {
-        secSortId = item[0];
-      }//从map中找到类别对应的数据库Id
-    }
-    console.log(secSortId);
-    console.log(this.data.secSort);
-    var condition = this.getDegree(this.data.secDegree);
-    console.log(condition);
-    if(this.data.secPr == 0) {
-      this.rankAPSec(days, secSortId, condition, keyWord, this.data.goodsPage);
-      this.setData({
-        secPr: 1
-      })
-    } else {
-      this.rankDPSec(days, secSortId, condition, keyWord, this.data.goodsPage);
-      this.setData({
-        secPr: 0
-      })
-    }
-  },
+//   rankPSec: function() {
+//     var keyWord = this.data.searchInput;
+//     var days = this.getDays(this.data.secTime);
+//     console.log(days);
+//     console.log(this.data.secSortArray);
+//     var map = this.data.secSortMap;
+//     var secSortId = 0;
+//     var secSort = this.data.secSort;
+//     for(let item of map.entries()) {
+//       if(item[1] == secSort) {
+//         secSortId = item[0];
+//       }//从map中找到类别对应的数据库Id
+//     }
+//     console.log(secSortId);
+//     console.log(this.data.secSort);
+//     var condition = this.getDegree(this.data.secDegree);
+//     console.log(condition);
+//     if(this.data.secPr == 0) {
+//       this.rankAPSec(days, secSortId, condition, keyWord, this.data.goodsPage);
+//       this.setData({
+//         secPr: 1
+//       })
+//     } else {
+//       this.rankDPSec(days, secSortId, condition, keyWord, this.data.goodsPage);
+//       this.setData({
+//         secPr: 0
+//       })
+//     }
+//   },
 
-  /**
-   * 二手新旧排序
-   */
-  rankADSec: function(days, categoryId, condition, keyWord, pageid) {
-    let that=this;
-    for(let i = 1; i <= pageid; i++) {
-      wx.request({
-        url: 'https://fidle.shawnxixi.icu/goods/sortGoods/conditionAsc',
-        header: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Cookie': wx.getStorageSync('sessionid'),
-          'token': app.globalData.token
-        },
-        data: {
-          days: days,
-          categoryId: categoryId,
-          condition: condition,
-          keyWord: keyWord,
-          pageid: pageid
-        },
-        method: "POST",
-        success(res){
-          console.log(res);
-          if(res.data.code == 200){
-            var list = res.data.data;//json中的data数组
-            console.log(list);
-            if(i != 1) {
-              list = that.data.goodsList.concat(list);
-            }
-            that.setData({
-              goodsList: list
-            })
-          }
-        }
-      })
-    }
-    console.log("二手新旧升序");
-  },
+//   /**
+//    * 二手新旧排序
+//    */
+//   rankADSec: function(days, categoryId, condition, keyWord, pageid) {
+//     let that=this;
+//     for(let i = 1; i <= pageid; i++) {
+//       wx.request({
+//         url: 'https://fidle.shawnxixi.icu/goods/sortGoods/conditionAsc',
+//         header: {
+//           'Content-Type': 'application/x-www-form-urlencoded',
+//           'Cookie': wx.getStorageSync('sessionid'),
+//           'token': app.globalData.token
+//         },
+//         data: {
+//           days: days,
+//           categoryId: categoryId,
+//           condition: condition,
+//           keyWord: keyWord,
+//           pageid: pageid
+//         },
+//         method: "POST",
+//         success(res){
+//           console.log(res);
+//           if(res.data.code == 200){
+//             var list = res.data.data;//json中的data数组
+//             console.log(list);
+//             if(i != 1) {
+//               list = that.data.goodsList.concat(list);
+//             }
+//             that.setData({
+//               goodsList: list
+//             })
+//           }
+//         }
+//       })
+//     }
+//     console.log("二手新旧升序");
+//   },
 
-  rankDDSec: function(days, categoryId, condition, keyWord, pageid) {
-    let that=this;
-    for(let i = 1; i <= pageid; i++) {
-      wx.request({
-        url: 'https://fidle.shawnxixi.icu/goods/sortGoods/conditionDesc',
-        header: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Cookie': wx.getStorageSync('sessionid'),
-          'token': app.globalData.token
-        },
-        data: {
-          days: days,
-          categoryId: categoryId,
-          condition: condition,
-          keyWord: keyWord,
-          pageid: pageid
-        },
-        method: "POST",
-        success(res){
-          console.log(res);
-          if(res.data.code == 200){
-            var list = res.data.data;//json中的data数组
-            console.log(list);
-            if(i != 1) {
-              list = that.data.goodsList.concat(list);
-            }
-            that.setData({
-              goodsList: list
-            })
-          }
-        }
-      })
-    }
-    console.log("二手新旧降序");
-  },
+//   rankDDSec: function(days, categoryId, condition, keyWord, pageid) {
+//     let that=this;
+//     for(let i = 1; i <= pageid; i++) {
+//       wx.request({
+//         url: 'https://fidle.shawnxixi.icu/goods/sortGoods/conditionDesc',
+//         header: {
+//           'Content-Type': 'application/x-www-form-urlencoded',
+//           'Cookie': wx.getStorageSync('sessionid'),
+//           'token': app.globalData.token
+//         },
+//         data: {
+//           days: days,
+//           categoryId: categoryId,
+//           condition: condition,
+//           keyWord: keyWord,
+//           pageid: pageid
+//         },
+//         method: "POST",
+//         success(res){
+//           console.log(res);
+//           if(res.data.code == 200){
+//             var list = res.data.data;//json中的data数组
+//             console.log(list);
+//             if(i != 1) {
+//               list = that.data.goodsList.concat(list);
+//             }
+//             that.setData({
+//               goodsList: list
+//             })
+//           }
+//         }
+//       })
+//     }
+//     console.log("二手新旧降序");
+//   },
 
-  rankDSec: function() {
-    var keyWord = this.data.searchInput;
-    var days = this.getDays(this.data.secTime);
-    console.log(days);
-    console.log(this.data.secSortArray);
-    var map = this.data.secSortMap;
-    var secSortId = 0;
-    var secSort = this.data.secSort;
-    for(let item of map.entries()) {
-      if(item[1] == secSort) {
-        secSortId = item[0];
-      }//从map中找到类别对应的数据库Id
-    }
-    console.log(secSortId);
-    console.log(this.data.secSort);
-    var condition = this.getDegree(this.data.secDegree);
-    console.log(condition);
-    if(this.data.secDe == 0) {
-      this.rankADSec(days, secSortId, condition, keyWord, this.data.goodsPage);
-      this.setData({
-        secDe: 1
-      })
-    } else {
-      this.rankDDSec(days, secSortId, condition, keyWord, this.data.goodsPage);
-      this.setData({
-        secDe: 0
-      })
-    }
-  },
+//   rankDSec: function() {
+//     var keyWord = this.data.searchInput;
+//     var days = this.getDays(this.data.secTime);
+//     console.log(days);
+//     console.log(this.data.secSortArray);
+//     var map = this.data.secSortMap;
+//     var secSortId = 0;
+//     var secSort = this.data.secSort;
+//     for(let item of map.entries()) {
+//       if(item[1] == secSort) {
+//         secSortId = item[0];
+//       }//从map中找到类别对应的数据库Id
+//     }
+//     console.log(secSortId);
+//     console.log(this.data.secSort);
+//     var condition = this.getDegree(this.data.secDegree);
+//     console.log(condition);
+//     if(this.data.secDe == 0) {
+//       this.rankADSec(days, secSortId, condition, keyWord, this.data.goodsPage);
+//       this.setData({
+//         secDe: 1
+//       })
+//     } else {
+//       this.rankDDSec(days, secSortId, condition, keyWord, this.data.goodsPage);
+//       this.setData({
+//         secDe: 0
+//       })
+//     }
+//   },
 
-  /**
-   * 任务酬劳排序
-   */
-  rankAPTask: function(days, categoryId, keyWord, pageid) {
-    let that=this;
-    for(let i = 1; i <= pageid; i++) {
-      wx.request({
-        url: 'https://fidle.shawnxixi.icu/task/sortTask/rewardAsc',
-        header: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Cookie': wx.getStorageSync('sessionid'),
-          'token': app.globalData.token
-        },
-        data: {
-          days: days,
-          categoryId: categoryId,
-          keyWord: keyWord,
-          pageid: i
-        },
-        method: "POST",
-        success(res){
-          console.log(res);
-          if(res.data.code == 200){
-            var list = res.data.data;//json中的data数组
-            console.log(list);
-            if(i != 1) {
-              list = that.data.taskList.concat(list);
-            }
-            that.setData({
-              taskList: list
-            })
-          }
-        }
-      })
-    }
-    console.log("任务酬劳升序");
-  },
+//   /**
+//    * 任务酬劳排序
+//    */
+//   rankAPTask: function(days, categoryId, keyWord, pageid) {
+//     let that=this;
+//     for(let i = 1; i <= pageid; i++) {
+//       wx.request({
+//         url: 'https://fidle.shawnxixi.icu/task/sortTask/rewardAsc',
+//         header: {
+//           'Content-Type': 'application/x-www-form-urlencoded',
+//           'Cookie': wx.getStorageSync('sessionid'),
+//           'token': app.globalData.token
+//         },
+//         data: {
+//           days: days,
+//           categoryId: categoryId,
+//           keyWord: keyWord,
+//           pageid: i
+//         },
+//         method: "POST",
+//         success(res){
+//           console.log(res);
+//           if(res.data.code == 200){
+//             var list = res.data.data;//json中的data数组
+//             console.log(list);
+//             if(i != 1) {
+//               list = that.data.taskList.concat(list);
+//             }
+//             that.setData({
+//               taskList: list
+//             })
+//           }
+//         }
+//       })
+//     }
+//     console.log("任务酬劳升序");
+//   },
 
-  rankDPTask: function(days, categoryId, keyWord, pageid) {
-    let that=this;
-    for(let i = 1; i <= pageid; i++) {
-      wx.request({
-        url: 'https://fidle.shawnxixi.icu/task/sortTask/rewardDesc',
-        header: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Cookie': wx.getStorageSync('sessionid'),
-          'token': app.globalData.token
-        },
-        data: {
-          days: days,
-          categoryId: categoryId,
-          keyWord: keyWord,
-          pageid: i
-        },
-        method: "POST",
-        success(res){
-          console.log(res);
-          if(res.data.code == 200){
-            var list = res.data.data;//json中的data数组
-            console.log(list);
-            if(i != 1) {
-              list = that.data.taskList.concat(list);
-            }
-            that.setData({
-              taskList: list
-            })
-          }
-        }
-      })
-    }
-    console.log("任务酬劳降序");
-  },
+//   rankDPTask: function(days, categoryId, keyWord, pageid) {
+//     let that=this;
+//     for(let i = 1; i <= pageid; i++) {
+//       wx.request({
+//         url: 'https://fidle.shawnxixi.icu/task/sortTask/rewardDesc',
+//         header: {
+//           'Content-Type': 'application/x-www-form-urlencoded',
+//           'Cookie': wx.getStorageSync('sessionid'),
+//           'token': app.globalData.token
+//         },
+//         data: {
+//           days: days,
+//           categoryId: categoryId,
+//           keyWord: keyWord,
+//           pageid: i
+//         },
+//         method: "POST",
+//         success(res){
+//           console.log(res);
+//           if(res.data.code == 200){
+//             var list = res.data.data;//json中的data数组
+//             console.log(list);
+//             if(i != 1) {
+//               list = that.data.taskList.concat(list);
+//             }
+//             that.setData({
+//               taskList: list
+//             })
+//           }
+//         }
+//       })
+//     }
+//     console.log("任务酬劳降序");
+//   },
 
-  rankPTask: function() {
-    var keyWord = this.data.searchInput;
-    console.log(this.data.taskSort);
-        var days = this.getDays((this.data.taskTime));
-        console.log(days);
-        console.log(this.data.taskSortArray);
-        var map = this.data.taskSortMap;
-        var taskSortId = 0;
-        var taskSort = this.data.taskSort;
-        for(let item of map.entries()) {
-          if(item[1] == taskSort) {
-            taskSortId = item[0];
-          }//从map中找到类别对应的数据库Id
-        }
-        console.log(taskSortId);
-        console.log(this.data.taskSort);
-    if(this.data.taskPr == 0) {
-      this.rankAPTask(days, taskSortId, keyWord, this.data.taskPage);
-      this.setData({
-        taskPr: 1
-      })
-    } else {
-      this.rankDPTask(days, taskSortId, keyWord, this.data.taskPage);
-      this.setData({
-        taskPr: 0
-      })
-    }
-  },
+//   rankPTask: function() {
+//     var keyWord = this.data.searchInput;
+//     console.log(this.data.taskSort);
+//         var days = this.getDays((this.data.taskTime));
+//         console.log(days);
+//         console.log(this.data.taskSortArray);
+//         var map = this.data.taskSortMap;
+//         var taskSortId = 0;
+//         var taskSort = this.data.taskSort;
+//         for(let item of map.entries()) {
+//           if(item[1] == taskSort) {
+//             taskSortId = item[0];
+//           }//从map中找到类别对应的数据库Id
+//         }
+//         console.log(taskSortId);
+//         console.log(this.data.taskSort);
+//     if(this.data.taskPr == 0) {
+//       this.rankAPTask(days, taskSortId, keyWord, this.data.taskPage);
+//       this.setData({
+//         taskPr: 1
+//       })
+//     } else {
+//       this.rankDPTask(days, taskSortId, keyWord, this.data.taskPage);
+//       this.setData({
+//         taskPr: 0
+//       })
+//     }
+//   },
 
-  /**
-   * 任务时间排序
-   */
-  rankADTask: function(days, categoryId, keyWord, pageid) {
-    let that=this;
-    for(let i = 1; i <= pageid; i++) {
-      wx.request({
-        url: 'https://fidle.shawnxixi.icu/task/sortTask/dateAsc',
-        header: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Cookie': wx.getStorageSync('sessionid'),
-          'token': app.globalData.token
-        },
-        data: {
-          days: days,
-          categoryId: categoryId,
-          keyWord: keyWord,
-          pageid: i
-        },
-        method: "POST",
-        success(res){
-          console.log(res);
-          if(res.data.code == 200){
-            var list = res.data.data;//json中的data数组
-            console.log(list);
-            if(i != 1) {
-              list = that.data.taskList.concat(list);
-            }
-            that.setData({
-              taskList: list
-            })
-          }
-        }
-      })
-    }
-    console.log("任务时间升序");
-  },
+//   /**
+//    * 任务时间排序
+//    */
+//   rankADTask: function(days, categoryId, keyWord, pageid) {
+//     let that=this;
+//     for(let i = 1; i <= pageid; i++) {
+//       wx.request({
+//         url: 'https://fidle.shawnxixi.icu/task/sortTask/dateAsc',
+//         header: {
+//           'Content-Type': 'application/x-www-form-urlencoded',
+//           'Cookie': wx.getStorageSync('sessionid'),
+//           'token': app.globalData.token
+//         },
+//         data: {
+//           days: days,
+//           categoryId: categoryId,
+//           keyWord: keyWord,
+//           pageid: i
+//         },
+//         method: "POST",
+//         success(res){
+//           console.log(res);
+//           if(res.data.code == 200){
+//             var list = res.data.data;//json中的data数组
+//             console.log(list);
+//             if(i != 1) {
+//               list = that.data.taskList.concat(list);
+//             }
+//             that.setData({
+//               taskList: list
+//             })
+//           }
+//         }
+//       })
+//     }
+//     console.log("任务时间升序");
+//   },
 
-  rankDDTask: function(days, categoryId, keyWord, pageid) {
-    let that=this;
-    for(let i = 1; i <= pageid; i++) {
-      wx.request({
-        url: 'https://fidle.shawnxixi.icu/task/sortTask/dateDesc',
-        header: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Cookie': wx.getStorageSync('sessionid'),
-          'token': app.globalData.token
-        },
-        data: {
-          days: days,
-          categoryId: categoryId,
-          keyWord: keyWord,
-          pageid: i
-        },
-        method: "POST",
-        success(res){
-          console.log(res);
-          if(res.data.code == 200){
-            var list = res.data.data;//json中的data数组
-            console.log(list);
-            if(i != 1) {
-              list = that.data.taskList.concat(list);
-            }
-            that.setData({
-              taskList: list
-            })
-          }
-        }
-      })
-    }
-    console.log("任务时间降序");
-  },
+//   rankDDTask: function(days, categoryId, keyWord, pageid) {
+//     let that=this;
+//     for(let i = 1; i <= pageid; i++) {
+//       wx.request({
+//         url: 'https://fidle.shawnxixi.icu/task/sortTask/dateDesc',
+//         header: {
+//           'Content-Type': 'application/x-www-form-urlencoded',
+//           'Cookie': wx.getStorageSync('sessionid'),
+//           'token': app.globalData.token
+//         },
+//         data: {
+//           days: days,
+//           categoryId: categoryId,
+//           keyWord: keyWord,
+//           pageid: i
+//         },
+//         method: "POST",
+//         success(res){
+//           console.log(res);
+//           if(res.data.code == 200){
+//             var list = res.data.data;//json中的data数组
+//             console.log(list);
+//             if(i != 1) {
+//               list = that.data.taskList.concat(list);
+//             }
+//             that.setData({
+//               taskList: list
+//             })
+//           }
+//         }
+//       })
+//     }
+//     console.log("任务时间降序");
+//   },
 
-  rankDTask: function() {
-    var keyWord = this.data.searchInput;
-    console.log(this.data.taskSort);
-        var days = this.getDays((this.data.taskTime));
-        console.log(days);
-        console.log(this.data.taskSortArray);
-        var map = this.data.taskSortMap;
-        var taskSortId = 0;
-        var taskSort = this.data.taskSort;
-        for(let item of map.entries()) {
-          if(item[1] == taskSort) {
-            taskSortId = item[0];
-          }//从map中找到类别对应的数据库Id
-        }
-        console.log(taskSortId);
-        console.log(this.data.taskSort);
-    if(this.data.taskTi == 0) {
-      this.rankADTask(days, taskSortId, keyWord, this.data.taskPage);
-      this.setData({
-        taskTi: 1
-      })
-    } else {
-      this.rankDDTask(days, taskSortId, keyWord, this.data.taskPage);
-      this.setData({
-        taskTi: 0
-      })
-    }
-  },
+//   rankDTask: function() {
+//     var keyWord = this.data.searchInput;
+//     console.log(this.data.taskSort);
+//         var days = this.getDays((this.data.taskTime));
+//         console.log(days);
+//         console.log(this.data.taskSortArray);
+//         var map = this.data.taskSortMap;
+//         var taskSortId = 0;
+//         var taskSort = this.data.taskSort;
+//         for(let item of map.entries()) {
+//           if(item[1] == taskSort) {
+//             taskSortId = item[0];
+//           }//从map中找到类别对应的数据库Id
+//         }
+//         console.log(taskSortId);
+//         console.log(this.data.taskSort);
+//     if(this.data.taskTi == 0) {
+//       this.rankADTask(days, taskSortId, keyWord, this.data.taskPage);
+//       this.setData({
+//         taskTi: 1
+//       })
+//     } else {
+//       this.rankDDTask(days, taskSortId, keyWord, this.data.taskPage);
+//       this.setData({
+//         taskTi: 0
+//       })
+//     }
+//   },
 
-  /**
-   * 活动时间排序
-   */
-  rankADActivity: function(days, categoryId, keyWord, pageid) {
-    let that=this;
-    for(let i = 1; i <= pageid; i++) {
-      wx.request({
-        url: 'https://fidle.shawnxixi.icu/activity/sortActivity/dateAsc',
-        header: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Cookie': wx.getStorageSync('sessionid'),
-          'token': app.globalData.token
-        },
-        data: {
-          days: days,
-          categoryId: categoryId,
-          keyWord: keyWord,
-          pageid: i
-        },
-        method: "POST",
-        success(res){
-          console.log(res);
-          if(res.data.code == 200){
-            var list = res.data.data;//json中的data数组
-            console.log(list);
-            if(i != 1) {
-              list = that.data.activityList.concat(list);
-            }
-            that.setData({
-              activityList: list
-            })
-          }
-        }
-      })
-    }
-    console.log("活动时间升序");
-  },
+//   /**
+//    * 活动时间排序
+//    */
+//   rankADActivity: function(days, categoryId, keyWord, pageid) {
+//     let that=this;
+//     for(let i = 1; i <= pageid; i++) {
+//       wx.request({
+//         url: 'https://fidle.shawnxixi.icu/activity/sortActivity/dateAsc',
+//         header: {
+//           'Content-Type': 'application/x-www-form-urlencoded',
+//           'Cookie': wx.getStorageSync('sessionid'),
+//           'token': app.globalData.token
+//         },
+//         data: {
+//           days: days,
+//           categoryId: categoryId,
+//           keyWord: keyWord,
+//           pageid: i
+//         },
+//         method: "POST",
+//         success(res){
+//           console.log(res);
+//           if(res.data.code == 200){
+//             var list = res.data.data;//json中的data数组
+//             console.log(list);
+//             if(i != 1) {
+//               list = that.data.activityList.concat(list);
+//             }
+//             that.setData({
+//               activityList: list
+//             })
+//           }
+//         }
+//       })
+//     }
+//     console.log("活动时间升序");
+//   },
 
-  rankDDActivity: function(days, categoryId, keyWord, pageid) {
-    let that=this;
-    for(let i = 1; i <= pageid; i++) {
-      wx.request({
-        url: 'https://fidle.shawnxixi.icu/activity/sortActivity/dateDesc',
-        header: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Cookie': wx.getStorageSync('sessionid'),
-          'token': app.globalData.token
-        },
-        data: {
-          days: days,
-          categoryId: categoryId,
-          keyWord: keyWord,
-          pageid: i
-        },
-        method: "POST",
-        success(res){
-          console.log(res);
-          if(res.data.code == 200){
-            var list = res.data.data;//json中的data数组
-            console.log(list);
-            if(i != 1) {
-              list = that.data.activityList.concat(list);
-            }
-            that.setData({
-              activityList: list
-            })
-          }
-        }
-      })
-    }
-    console.log("活动时间降序");
-  },
+//   rankDDActivity: function(days, categoryId, keyWord, pageid) {
+//     let that=this;
+//     for(let i = 1; i <= pageid; i++) {
+//       wx.request({
+//         url: 'https://fidle.shawnxixi.icu/activity/sortActivity/dateDesc',
+//         header: {
+//           'Content-Type': 'application/x-www-form-urlencoded',
+//           'Cookie': wx.getStorageSync('sessionid'),
+//           'token': app.globalData.token
+//         },
+//         data: {
+//           days: days,
+//           categoryId: categoryId,
+//           keyWord: keyWord,
+//           pageid: i
+//         },
+//         method: "POST",
+//         success(res){
+//           console.log(res);
+//           if(res.data.code == 200){
+//             var list = res.data.data;//json中的data数组
+//             console.log(list);
+//             if(i != 1) {
+//               list = that.data.activityList.concat(list);
+//             }
+//             that.setData({
+//               activityList: list
+//             })
+//           }
+//         }
+//       })
+//     }
+//     console.log("活动时间降序");
+//   },
 
-  rankDActivity: function() {
-    var keyWord = this.data.searchInput;
-    console.log(this.data.activityTime);
-        console.log(this.data.activitySort);
-        var days = this.getDays((this.data.activityTime));
-        console.log(days);
-        console.log(this.data.activitySortArray);
-        var map = this.data.activitySortMap;
-        var activitySortId = 0;
-        var activitySort = this.data.activitySort;
-        for(let item of map.entries()) {
-          if(item[1] == activitySort) {
-            activitySortId = item[0];
-          }//从map中找到类别对应的数据库Id
-        }
-        console.log(activitySortId);
-        console.log(this.data.activitySort);
-    console.log(this.acTi);
-    if(this.data.acTi == 0) {
-      this.rankADActivity(days, activitySortId, keyWord, this.data.activityPage);
-      this.setData({
-        acTi: 1
-      })
-    } else {
-      this.rankDDActivity(days, activitySortId, keyWord, this.data.activityPage);
-      this.setData({
-        acTi: 0
-      })
-    }
-  },
+//   rankDActivity: function() {
+//     var keyWord = this.data.searchInput;
+//     console.log(this.data.activityTime);
+//         console.log(this.data.activitySort);
+//         var days = this.getDays((this.data.activityTime));
+//         console.log(days);
+//         console.log(this.data.activitySortArray);
+//         var map = this.data.activitySortMap;
+//         var activitySortId = 0;
+//         var activitySort = this.data.activitySort;
+//         for(let item of map.entries()) {
+//           if(item[1] == activitySort) {
+//             activitySortId = item[0];
+//           }//从map中找到类别对应的数据库Id
+//         }
+//         console.log(activitySortId);
+//         console.log(this.data.activitySort);
+//     if(this.data.acTi == 0) {
+//       this.rankADActivity(days, activitySortId, keyWord, this.data.activityPage);
+//       this.setData({
+//         acTi: 1
+//       })
+//     } else {
+//       this.rankDDActivity(days, activitySortId, keyWord, this.data.activityPage);
+//       this.setData({
+//         acTi: 0
+//       })
+//     }
+//   },
 
-})
+ })
 
 
