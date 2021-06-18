@@ -52,7 +52,7 @@ Page({
             pubId: res.data.data.pubId,
             id:res.data.data.id,
           })
-          if(res.data.data.picturesLink[0] == null){
+          if(res.data.data.picturesLink[0] == null || res.data.data.picturesLink[0] == ''){
             that.setData({
               swiperList:["../../images/defaultpic.jpg"]
             })
