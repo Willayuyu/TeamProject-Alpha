@@ -32,7 +32,6 @@
                         </el-container>
                       </div>
                     </el-col>
-                  <router-link to="goodsList">
                     <el-col :span="6">
                       <div id="good" class="boxes good">
                         <el-container>
@@ -54,8 +53,6 @@
                         </el-container>
                       </div>
                     </el-col>
-                  </router-link>
-                  <router-link to="taskList">
                     <el-col :span="6">
                       <div id="task" class="boxes task">
                         <el-container>
@@ -77,8 +74,6 @@
                         </el-container>
                       </div>
                     </el-col>
-                  </router-link>
-                  <router-link to="activityList">
                     <el-col :span="6">
                       <div id="activity" class="boxes activity">
                         <el-container>
@@ -100,7 +95,6 @@
                         </el-container>
                       </div>
                     </el-col>
-                  </router-link>
                 </el-row>
               </el-main>
             </el-container>
