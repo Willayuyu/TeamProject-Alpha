@@ -1,17 +1,17 @@
 <template>
   <div id="app">
-    <div class="header" v-show="!(path === '/login')">
+    <div class="header" v-show="!(path === '/')">
       <Header></Header>
     </div>
     <div class="content flex">
-      <div class="sidebar" v-show="!((path === '/goodsDetail')||(path === '/taskDetail')||(path === '/activityDetail')||(path === '/login'))">
+      <div class="sidebar" v-show="!((path === '/goodsDetail')||(path === '/taskDetail')||(path === '/activityDetail')||(path === '/'))">
         <Sidebar></Sidebar>
       </div>
-      <div class="page" v-show="!(path ==='/login')">
+      <div class="page" v-show="!(path ==='/')">
         <!-- 使用路由视图组件，显示对应地址的页面 -->
         <router-view></router-view>
       </div>
-      <div class="login" v-show="(path ==='/login')">
+      <div class="login" v-show="(path ==='/')">
         <router-view></router-view>
       </div>
     </div>

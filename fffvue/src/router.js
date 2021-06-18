@@ -89,7 +89,7 @@ export default new Router({
       component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
     },
     {
-      path:'/',
+      path:'/home',
       component:PageHome
     },
     {
@@ -105,7 +105,7 @@ export default new Router({
       component:PageTask
     },
     {
-      path: '/login',
+      path: '/',
       name: 'login',
       component: Login
     },

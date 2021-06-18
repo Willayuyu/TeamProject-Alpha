@@ -11,7 +11,7 @@
     text-color="#fff"
     active-text-color="#7db5ee"
     >
-    <el-menu-item index="/">
+    <el-menu-item index="/home">
       <i class="iconfont icon-home icon"></i>
       <span slot="title">首页</span>
     </el-menu-item>
