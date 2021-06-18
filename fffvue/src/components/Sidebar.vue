@@ -3,7 +3,7 @@
   <!-- el-menu开启vue-router模式，菜单项的index属性作为路径path使用 -->
   <el-menu
     :router="true"
-    default-active="/goodsList"
+    default-active="/"
     class="el-menu-vertical-demo"
     @open="handleOpen"
     @close="handleClose"
