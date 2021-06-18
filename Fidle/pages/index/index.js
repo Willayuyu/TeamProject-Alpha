@@ -933,6 +933,11 @@ Page({
     this.getGoodsList(0,0,0,1);//初始二手列表
     this.getTaskList(0,0,1);//初始任务列表
     this.getActivityList(0,0,1);//初始活动列表
+    this.setData({
+      goodsPage: 1,
+      taskPage: 1,
+      activityPage: 1
+    })
   },
 
   /**
