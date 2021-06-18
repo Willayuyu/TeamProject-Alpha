@@ -167,7 +167,11 @@ export default {
 
     handleDelete(index,row) {
       let url = "/api/myGoods/withdrawGoodsById/" + row.id;
-      axios.get(url);
+      axios.get(url,{
+        headers:{
+          'token': sessionStorage.getItem("token")
+        }
+      });
       console.log("删除" + row.id);
     },//删除
 
@@ -177,7 +181,11 @@ export default {
     },//改变页面
   },
   beforeMount:function () {
-    axios.get("/api/goods/listGoodsCategory").then(res => {
+    axios.get("/api/goods/listGoodsCategory",{
+      headers:{
+        'token': sessionStorage.getItem("token")
+      }
+    }).then(res => {
       console.log(res);
       this.categoryList = res.data.data;
     })
