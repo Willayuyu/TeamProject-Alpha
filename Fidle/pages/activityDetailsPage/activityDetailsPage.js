@@ -29,7 +29,7 @@ Page({
   getActivityDetail:function(){
     let that=this;
     wx.request({
-      url: 'http://47.106.241.182:8082/activity/getActivityDetailById/' + that.data.id,
+      url: 'https://fidle.shawnxixi.icu/activity/getActivityDetailById/' + that.data.id,
       method: "GET",
       header:{
         'content-type': 'application/json',
